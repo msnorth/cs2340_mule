@@ -1,4 +1,4 @@
-<project name="StepehnsM4" basedir="." default="all">
+<project name="StepehnM4" basedir="." default="all">
 	<target name="init">
 		<property name="src.dir" 		value="M4/src/edu/gatech/oad/antlab"/>
 		<property name="build.dir" 		value="build"/>
