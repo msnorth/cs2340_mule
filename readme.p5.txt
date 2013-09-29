@@ -1,4 +1,4 @@
-Even in your hobbies, has there not always been some secret attraction 
+"Even in your hobbies, has there not always been some secret attraction 
 which the others are curiously ignorant of--something, not to be identified
 with, but always on the verge of breaking through, the smell of cut wood 
 in the workshop or the clap-clap of water against the boat's side? Are not
@@ -23,6 +23,6 @@ It is from this point of view that we can understand hell in its aspect of
 privation. All your life an unattainable ecstasy has hovered just beyond the 
 grasp of your consciousness. The day is coming when you will wake to find, 
 beyond all hope, that you have attained it, or else, that it was within your 
-reach and you have lost it forever.
+reach and you have lost it forever."
 
 --C.S. Lewis, The Problem of Pain (from the Chapter on "Heaven")
