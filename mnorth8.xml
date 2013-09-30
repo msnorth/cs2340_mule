@@ -1,0 +1,64 @@
+<project  name="MaddyXML"    basedir="."    default="all" >
+  <description> M4 Ant buildfile </description>
+   <target name="init" >
+        <property name="src.dir" value="M4/src/edu/gatech/oad/antlab" />
+		<property  name="build.dir" location="build" />
+		<property name="library.dir" value="M4/lib/resources.jar" />
+		<property  name="apidoc.dir" location="apidoc" />
+    </target>
+
+    <target name="prepare" depends="init" >
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${apidoc.dir}"/>
+    </target>
+
+    <target name="compile" depends="prepare" >
+        <javac destdir="${build.dir}">
+    	<src path="${src.dir}"/> 
+         	 <classpath>
+         	      <pathelement path="${library.dir}" />
+         	      </classpath>
+        </javac>
+    </target>
+
+    <target name="javadoc" depends="compile" >
+         <javadoc destdir="${apidoc.dir}" packagenames="edu.gatech.oad.antlab.person" sourcepath="${src.dir}" >
+             <fileset defaultexcludes="yes" dir="${src.dir}" >
+                 <include name="**/*.java" />
+            </fileset>
+           <classpath>
+                <pathelement path="${library.dir}" />
+            </classpath>
+            <doctitle>
+				<![CDATA[<h1>mnorth8</h1>]]>
+			</doctitle>
+        </javadoc>
+    </target>
+
+    <target name="jar" depends="javadoc" >
+        <jar destfile="AntLabRun.jar" >
+             <fileset dir="${build.dir}" />
+             <manifest>
+                 <attribute name="Main-Class" value="edu/gatech/oad/antlab/pkg1/AntLabMain" />
+                 <attribute name="Class-Path" value="${library.dir}" />
+             </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar" >
+         <java fork="true" jar="AntLabRun.jar" >
+             <classpath>
+                      <pathelement path="${library.dir}" />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="all" depends="clean" />
+
+    <target name="clean"  depends="run" >
+        <delete file="AntLabRun.jar" />
+        <delete dir="${build.dir}" />
+        <delete dir="${apidoc.dir}" />
+    </target>
+
+</project>
