@@ -13,6 +13,11 @@
  * Abstracted because of single instance
  */
 public abstract class Driver {
+	/**
+	 * @author #M5
+	 * Application entry point. From here, KeyboardAdapter should be initialized and
+	 * the entry menu should be brough up.
+	 */
 	public static void main(String[] args) {
 		
 	}
