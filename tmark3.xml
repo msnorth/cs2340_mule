@@ -52,10 +52,10 @@
     	</java>
     </target>
     
-    <target name="all" depends="clean">
+    <target name="all" depends="run">
     </target>
 
-    <target name="clean" depends="run">
+    <target name="clean" depends="init">
     	<delete file="AntLabRun.jar"/>
     	<delete dir="${build.dir}"/>
     	<delete dir="apidoc"/>
