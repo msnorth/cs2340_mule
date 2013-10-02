@@ -12,7 +12,7 @@
  * 			to pull up main menu) itself.
  */
 public class KeyboardAdapter implements Runnable{
-	private KeyboardReceiver currentFocused;
+	private InputReceiver currentFocused;
 	
 	/**
 	 * @author Stephen Conway #M5
