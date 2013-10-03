@@ -18,7 +18,7 @@ public class KeyboardAdapter implements Runnable{
 	 * @author Stephen Conway #M5
 	 * Primary constructor
 	 */
-	public KeyBoardAdapter() {
+	public KeyboardAdapter() {
 		currentFocused = null;
 	}
 	
@@ -39,7 +39,7 @@ public class KeyboardAdapter implements Runnable{
 	 * Method to set the current receiver of the keyboard input
 	 * @param newFocused New item to focus on, or null
 	 */
-	public void setReceiver(KeyboardReceiver newFocused) {
+	public void setReceiver(InputReceiver newFocused) {
 		if (currentFocused != null) {
 			currentFocused.loseFocus();
 		}

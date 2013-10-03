@@ -12,23 +12,19 @@
  * 			LandGranter, Sprite, etc.
  */
 public interface InputReceiver {
-	private boolean hasFocus;
+	public boolean hasFocus = false;
 	
 	/**
 	 * @author Stephen Conway #M5
 	 * Called by KeyboardAdapter or other input channels when focus comes onto object
 	 */
-	public void gainFocus() {
-		hasFocus = true;
-	}
+	public void gainFocus();
 	
 	/**
 	 * @author Stephen Conway #M5
 	 * Called by KeyboardAdapter or other input channels when focus moves away from object
 	 */
-	public void loseFocus() {
-		hasFocus = false;
-	}
+	public void loseFocus();
 	
 	/**
 	 * @author #M5
