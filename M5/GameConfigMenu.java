@@ -12,6 +12,24 @@
  * 			player colors. This information is passed back to Driver to start
  * 			a new Game.
  */
-public class GameConfigMenu implements KeyboardReceiver{
+public class GameConfigMenu implements InputReceiver{
+
+	@Override
+	public void gainFocus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loseFocus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void receiveInput(String input) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
