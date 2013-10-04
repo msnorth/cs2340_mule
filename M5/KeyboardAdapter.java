@@ -1,3 +1,6 @@
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /**
  * 
  * @author Stephen Conway
@@ -11,7 +14,7 @@
  * 			active KeyboardReceiver. Handles top level key inputs (like esc
  * 			to pull up main menu) itself.
  */
-public class KeyboardAdapter implements Runnable{
+public class KeyboardAdapter implements Runnable, KeyListener{
 	private InputReceiver currentFocused;
 	
 	/**
@@ -47,5 +50,23 @@ public class KeyboardAdapter implements Runnable{
 		if (currentFocused != null) {
 			currentFocused.gainFocus();
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
