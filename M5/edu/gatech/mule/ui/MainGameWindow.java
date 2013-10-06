@@ -1,8 +1,10 @@
 package edu.gatech.mule.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import edu.gatech.mule.utils.KeyboardAdapter;
 
@@ -11,7 +13,9 @@ import edu.gatech.mule.utils.KeyboardAdapter;
  * 
  * @author Stephen Conway
  * 
- *         Created for: M5 10/3/13 Last modified: M5 10/3/13 Stephen Conway
+ *         Created for: 	M5 10/3/13 
+ *         Modifications: 	M5 10/6/13 	Stephen Conway
+ *         						Removed Control from View class
  * 
  * 
  * 
@@ -21,50 +25,43 @@ import edu.gatech.mule.utils.KeyboardAdapter;
  */
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
-
-	// unique integer defining which phase the game is in (i.e. 0 = start menu,
-	// 1 = map, etc.)
-	private int gamePhase = 0;
+	
+	private JPanel currentPanel;
 
 	/**
 	 * Main constructor. Sets a KeyboardAdapter as the handler for keyboard
-	 * input
+	 * input. Handles all setup and visibility of the frame.
 	 * 
 	 * @param keyboardAdapter
 	 */
 	public MainGameWindow(KeyboardAdapter keyboardAdapter) {
+		currentPanel = null;
 		setTitle("M.U.L.E. FRAME");
-		this.setFocusable(true);
-		setPanel();
-		this.addKeyListener(keyboardAdapter);
+		setFocusable(true);
+		addKeyListener(keyboardAdapter);
+		setVisible(true);
+		Dimension defaultSize = new Dimension(650, 757);
+		setMinimumSize(defaultSize);
+		setMaximumSize(defaultSize);
+		setPreferredSize(defaultSize);
+		setResizable(false);
 	}
 
-	// sets the current panel depending on the game phase
-	private void setPanel() {
-		switch (gamePhase) {
-		// startup menu
-		case 0:
-			GameConfigMenuPanel1 panel = new GameConfigMenuPanel1();
-			getContentPane().add(panel, BorderLayout.CENTER);
-			break;
-
-		default:
-			// TODO what is default panel?
-			break;
-		}
+	/**
+	 * Set the current panel to display
+	 * @param currentPanel
+	 */
+	public void setPanel(JPanel currentPanel) {
+		this.removeAll();
+		this.currentPanel = currentPanel;
+		this.add(currentPanel);
 	}
-
-	// loads the new panel into the JFrame
-	public void load() {
-		setPanel();
+	
+	/**
+	 * Get a reference to the currently displayed panel
+	 * @return Current panel
+	 */
+	public JPanel getCurrentPanel() {
+		return currentPanel;
 	}
-
-	public int getGamePhase() {
-		return gamePhase;
-	}
-
-	public void setGamePhase(int gamePhase) {
-		this.gamePhase = gamePhase;
-	}
-
 }
