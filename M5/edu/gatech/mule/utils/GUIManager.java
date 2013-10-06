@@ -7,7 +7,7 @@ import javax.swing.JPanel;
  * @author Stephen Conway
  * 
  *         Created for: 	M5 10/6/13 
- *         Modifiecations:	M5 10/6/13		Stephen Conway
+ *         Modifications:	M5 10/6/13		Stephen Conway
  *         					Initial creation
  * 
  * 

@@ -39,7 +39,7 @@ public class PlayerConfigMenu extends JPanel {
 	
 	private GUIManager manager;
 	
-	public PlayerConfigMenu() {
+	public PlayerConfigMenu(GUIManager manager) {
 		this.manager = manager;
 		
 		SpringLayout layout = new SpringLayout();

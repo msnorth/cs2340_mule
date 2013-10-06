@@ -18,8 +18,10 @@ import edu.gatech.mule.utils.*;
  * @author Madeleine North
  * 
  *         Created for: 	M5 9/30/13 
- * 		   Modifications:	M5 10/6/2013 Shreyyas Vanarase 
+ * 		   Modifications:	M5 10/6/13	 Shreyyas Vanarase 
  * 										 Updating panel viewability and features
+ * 							M5 10/6/13	 Thomas Mark
+ * 										 Fixed parameter input
  * 
  * 
  *         Purpose: Second panel of game configuration menu. Allows user to
@@ -39,7 +41,7 @@ public class GameConfigMenu extends JPanel{
 		{
 			this.manager = manager;
 			
-			int numPairs = 10;
+			int numPairs = 2;
 
 			// Create and populate the panel
 			SpringLayout layout = new SpringLayout();

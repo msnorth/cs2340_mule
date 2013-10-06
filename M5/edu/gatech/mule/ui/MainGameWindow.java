@@ -1,6 +1,5 @@
 package edu.gatech.mule.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -15,7 +14,9 @@ import edu.gatech.mule.utils.KeyboardAdapter;
  * 
  *         Created for: 	M5 10/3/13 
  *         Modifications: 	M5 10/6/13 	Stephen Conway
- *         						Removed Control from View class
+ *         								Removed Control from View class
+ *         					M5 10/6/13	Thomas Mark
+ *         								Modified replacing JFrame panels
  * 
  * 
  * 
@@ -25,6 +26,7 @@ import edu.gatech.mule.utils.KeyboardAdapter;
  */
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private JPanel mainPanel;
 	
 	private JPanel currentPanel;
 
@@ -36,6 +38,8 @@ public class MainGameWindow extends JFrame {
 	 */
 	public MainGameWindow(KeyboardAdapter keyboardAdapter) {
 		currentPanel = null;
+		mainPanel = new JPanel();
+		this.add(mainPanel);
 		setTitle("M.U.L.E. FRAME");
 		setFocusable(true);
 		addKeyListener(keyboardAdapter);
@@ -52,9 +56,13 @@ public class MainGameWindow extends JFrame {
 	 * @param currentPanel
 	 */
 	public void setPanel(JPanel currentPanel) {
-		this.removeAll();
+		if (currentPanel != null) {
+			mainPanel.removeAll();
+			mainPanel.repaint();
+		}
 		this.currentPanel = currentPanel;
-		this.add(currentPanel);
+		mainPanel.add(currentPanel);
+		this.pack();
 	}
 	
 	/**

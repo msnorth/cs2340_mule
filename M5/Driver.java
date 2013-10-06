@@ -1,6 +1,6 @@
 import javax.swing.JPanel;
 
-import edu.gatech.mule.ui.MainGameWindow;
+import edu.gatech.mule.ui.*;
 import edu.gatech.mule.utils.*;
 
 /**
@@ -19,19 +19,21 @@ import edu.gatech.mule.utils.*;
  * 			like KeyboardAdapter.
  * Abstracted because of single instance
  */
-public abstract class Driver implements GUIManager{
-	private static JPanel currentPanel;
+public class Driver implements GUIManager{
+	private static Driver driver;
+	private static MainGameWindow frame;
+	
 	/**
 	 * @author Thomas Mark
 	 * Application entry point. From here, KeyboardAdapter should be initialized and
 	 * the entry menu should be brought up.
 	 */
 	public static void main(String[] args) {
+		driver = new Driver();
 		KeyboardAdapter input = new KeyboardAdapter();
-		MainGameWindow frame = new MainGameWindow(input);
+		frame = new MainGameWindow(input);
 		
-		PlayerConfigMenu playerConfig = new PlayerConfigMenu();
-		currentPanel = playerConfig;
+		PlayerConfigMenu playerConfig = new PlayerConfigMenu(driver);
 		frame.setPanel(playerConfig);
 	}
 	
@@ -43,13 +45,10 @@ public abstract class Driver implements GUIManager{
 	 */
 	@Override
 	public void notify(JPanel panel, String message) {
-		if (panel == currentPanel && message.equals("next")) {
-			GameConfigMenu gameConfig = new GameConfigMenu();
-			currentPanel = gameConfig;
+		if (panel instanceof PlayerConfigMenu && message.equals("next")) {
+			GameConfigMenu gameConfig = new GameConfigMenu(this);
 			frame.setPanel(gameConfig);
 			
-		} else if (panel == currentPanel && message.equals("next") {
-			System.out.println("Next milestone!");
-		}
+		} else if (panel instanceof GameConfigMenu && message.equals("next")) {}
 	}
 }
