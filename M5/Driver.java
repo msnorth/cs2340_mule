@@ -1,3 +1,4 @@
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.gatech.mule.ui.*;
@@ -35,6 +36,13 @@ public class Driver implements GUIManager{
 		
 		PlayerConfigMenu playerConfig = new PlayerConfigMenu(driver);
 		frame.setPanel(playerConfig);
+		/*
+		JFrame frame2 = new JFrame();
+		JPanel main = new JPanel();
+		frame2.add(main);
+		main.add(playerConfig);
+		frame2.setVisible(true);;
+		*/
 	}
 	
 	/**

@@ -39,16 +39,21 @@ public class MainGameWindow extends JFrame {
 	public MainGameWindow(KeyboardAdapter keyboardAdapter) {
 		currentPanel = null;
 		mainPanel = new JPanel();
-		this.add(mainPanel);
-		setTitle("M.U.L.E. FRAME");
+		
 		setFocusable(true);
-		addKeyListener(keyboardAdapter);
-		setVisible(true);
 		Dimension defaultSize = new Dimension(650, 757);
 		setMinimumSize(defaultSize);
 		setMaximumSize(defaultSize);
 		setPreferredSize(defaultSize);
 		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.add(mainPanel);
+		setTitle("M.U.L.E. FRAME");
+		addKeyListener(keyboardAdapter);
+		
+		setVisible(true);
+
 	}
 
 	/**
