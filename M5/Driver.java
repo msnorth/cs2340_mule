@@ -1,4 +1,3 @@
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.gatech.mule.ui.*;
@@ -14,11 +13,9 @@ import edu.gatech.mule.utils.*;
  * 
  * 
  * 
- * 
- * Purpose: Initial control class. Sets up application by creating game window and 
- * 			handling navigation through top level menus. Initializes background tasks
- * 			like KeyboardAdapter.
- * Abstracted because of single instance
+ * 		Purpose: Initial control class. Sets up application by creating game window and 
+ * 					handling navigation through top level menus. Initializes background tasks
+ * 					like KeyboardAdapter.
  */
 public class Driver implements GUIManager{
 	private static Driver driver;
@@ -36,13 +33,6 @@ public class Driver implements GUIManager{
 		
 		PlayerConfigMenu playerConfig = new PlayerConfigMenu(driver);
 		frame.setPanel(playerConfig);
-		/*
-		JFrame frame2 = new JFrame();
-		JPanel main = new JPanel();
-		frame2.add(main);
-		main.add(playerConfig);
-		frame2.setVisible(true);;
-		*/
 	}
 	
 	/**

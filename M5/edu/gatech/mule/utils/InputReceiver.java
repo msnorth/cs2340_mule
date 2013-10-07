@@ -3,14 +3,13 @@ package edu.gatech.mule.utils;
  * 
  * @author Stephen Conway
  * 
- * Created for:		M5		9/30/13
- * Last modified:	M5		10/2/13		Stephen Conway ()
+ * 			Created for:		M5 		9/30/13
+ * 			Modifications:	
  * 
  * 
- * 
- * Purpose: Interface implemented by anything that would use
- * 			keyboard/AI/network input. Notably planned for GUIs, Auction,
- * 			LandGranter, Sprite, etc.
+ * 			Purpose: Interface implemented by anything that would use
+ * 						keyboard/AI/network input. Notably planned for GUIs, Auction,
+ * 						LandGranter, Sprite, etc.
  */
 public interface InputReceiver {
 	public boolean hasFocus = false;

@@ -17,19 +17,20 @@ import edu.gatech.mule.utils.*;
  * ss
  * @author Madeleine North
  * 
- *         Created for: 	M5 9/30/13 
- * 		   Modifications:	M5 10/6/13	 Shreyyas Vanarase 
- * 										 Updating panel viewability and features
- * 							M5 10/6/13	 Thomas Mark
- * 										 Fixed parameter input
+ *         Created for: 	M5 		9/30/13 
+ * 		   Modifications:	M5 		10/6/13	Shreyyas Vanarase 
+ * 									Updating panel viewability and features
+ * 							M5 		10/6/13	Thomas Mark
+ * 									Fixed parameter input
  * 
  * 
  *         Purpose: Second panel of game configuration menu. Allows user to
- *         select game player names, player races, and player colors. This
- *         information is passed back to Driver to start a new Game.
+ *         			select game player names, player races, and player colors. This
+ *         			information is passed back to Driver to start a new Game.
  */
 
 public class GameConfigMenu extends JPanel{
+		private static final long serialVersionUID = 1L;
 
 		public static String[] races = { "Bonzoid", "Buzzite", "Flapper ", "Ugaite" };
 
@@ -37,6 +38,11 @@ public class GameConfigMenu extends JPanel{
 		
 		public GUIManager manager;
 		
+		/**
+		 * Main constructor
+		 * 
+		 * @param manager GUIManager to handle callback from "Next" button
+		 */
 		public GameConfigMenu(GUIManager manager) 
 		{
 			this.manager = manager;
@@ -61,7 +67,7 @@ public class GameConfigMenu extends JPanel{
 			for (int i = 0; i < numPairs; i++) {
 				JLabel raceLabel = new JLabel(" Race: ", JLabel.TRAILING);
 				this.add(raceLabel);
-				JComboBox raceList = new JComboBox(races);
+				JComboBox<String> raceList = new JComboBox<String>(races);
 				raceLabel.setLabelFor(raceList);
 				this.add(raceList);
 			}
@@ -69,12 +75,12 @@ public class GameConfigMenu extends JPanel{
 			for (int i = 0; i < numPairs; i++) {
 				JLabel colorLabel = new JLabel(" Color: ", JLabel.TRAILING);
 				this.add(colorLabel);
-				JComboBox colorsList = new JComboBox(races);
+				JComboBox<String> colorsList = new JComboBox<String>(races);
 				colorLabel.setLabelFor(colorsList);
 				this.add(colorsList);
 			}
 			
-			JButton next = new JButton("next");
+			JButton next = new JButton("Start");
 			next.addActionListener(new startListener());
 			this.add(next);
 					
@@ -83,11 +89,15 @@ public class GameConfigMenu extends JPanel{
 					6, 6, // initX, initY
 					6, 6); // xPad, yPad
 	}
-		private class startListener implements ActionListener
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				manager.notify(GameConfigMenu.this,"next");
-			}
+		
+	/**
+	 * Listener class for "Start" button. Passes message to GUIManager.
+	 *
+	 */
+	private class startListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			manager.notify(GameConfigMenu.this,"next");
 		}
+	}
 }

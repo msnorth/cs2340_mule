@@ -7,16 +7,17 @@ import java.awt.event.KeyListener;
  * 
  * @author Stephen Conway
  * 
- * Created for:		M5		9/30/13
- * Last modified:	M5		10/2/13			Stephen Conway
+ * 			Created for:		M5		9/30/13
+ * 			Modifications:		M5		10/7/13 Stephen Conway
+ * 										Removed Runnable interface
  * 
  * 
  * 
- * Purpose: Data input class. Takes in keyboard input and channels it to
- * 			active KeyboardReceiver. Handles top level key inputs (like esc
- * 			to pull up main menu) itself.
+ * 			Purpose: Data input class. Takes in keyboard input and channels it to
+ * 					active KeyboardReceiver. Handles top level key inputs (like esc
+ * 					to pull up main menu) itself.
  */
-public class KeyboardAdapter implements Runnable, KeyListener{
+public class KeyboardAdapter implements KeyListener{
 	private InputReceiver currentFocused;
 	
 	/**
@@ -25,18 +26,6 @@ public class KeyboardAdapter implements Runnable, KeyListener{
 	 */
 	public KeyboardAdapter() {
 		currentFocused = null;
-	}
-	
-	/**
-	 * @author #M5
-	 * Keyboard input should be interpretted parallel to the application.
-	 * This is used to initiate operation as a seperate thread.
-	 * The method should listen for keyboard events and when appropriate
-	 * pass them to the currentFocused object by a call to the receiveInput
-	 * method
-	 */
-	public void run() {
-		
 	}
 	
 	/**

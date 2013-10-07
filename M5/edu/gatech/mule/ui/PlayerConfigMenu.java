@@ -4,7 +4,6 @@ package edu.gatech.mule.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -17,14 +16,14 @@ import edu.gatech.mule.utils.*;
  * 
  * @author Stephen Conway
  * 
- *         Created for: 	M5 9/30/13 
- * 		   Modifications:	M5 10/6/2013 Shreyyas Vanarase 
- * 										 Updating panel viewability and features
+ *         Created for: 	M5 		9/30/13 
+ * 		   Modifications:	M5 		10/6/2013 Shreyyas Vanarase 
+ * 									Updating panel viewability and features
  * 
  * 
  *         Purpose: First panel of game configuration menu. Allows user to
- *         select game difficulty, map type, and number of players This
- *         information is passed back to GameConfigMenuPanel2
+ *         			select game difficulty, map type, and number of players This
+ *         			information is passed back to GameConfigMenuPanel2
  * 
  */
 public class PlayerConfigMenu extends JPanel {
@@ -39,6 +38,11 @@ public class PlayerConfigMenu extends JPanel {
 	
 	private GUIManager manager;
 	
+	/**
+	 * Main constructor
+	 * 
+	 * @param manager GUIManager to handle callback from "Next" button
+	 */
 	public PlayerConfigMenu(GUIManager manager) {
 		this.manager = manager;
 		
@@ -54,13 +58,13 @@ public class PlayerConfigMenu extends JPanel {
 
 		JLabel j = new JLabel("Game Level: ");
 		this.add(j);
-		JComboBox gameLevel = new JComboBox(diffLevels);
+		JComboBox<String> gameLevel = new JComboBox<String>(diffLevels);
 		j.setLabelFor(gameLevel);
 		this.add(gameLevel);
 
 		JLabel k = new JLabel("Map Type: ");
 		this.add(k);
-		JComboBox mapTypes = new JComboBox(maps);
+		JComboBox<String> mapTypes = new JComboBox<String>(maps);
 		k.setLabelFor(mapTypes);
 		this.add(mapTypes);
 
@@ -76,16 +80,13 @@ public class PlayerConfigMenu extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Listener class for "Next" button. Passes message to GUIManager.
+	 *
 	 */
-
-	private class nextListener implements ActionListener
-	{
+	private class nextListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent arg0) 
-		{
+		public void actionPerformed(ActionEvent arg0) {
 			manager.notify(PlayerConfigMenu.this,"next");
-		}
-		 
+		} 
 	}
 }

@@ -12,16 +12,18 @@ import edu.gatech.mule.utils.KeyboardAdapter;
  * 
  * @author Stephen Conway
  * 
- *         Created for: 	M5 10/3/13 
- *         Modifications: 	M5 10/6/13 	Stephen Conway
- *         								Removed Control from View class
- *         					M5 10/6/13	Thomas Mark
- *         								Modified replacing JFrame panels
+ *         Created for: 	M5 		10/3/13 
+ *         Modifications: 	M5 		10/6/13 Stephen Conway
+ *         							Removed Control from View class
+ *         					M5 		10/6/13	Thomas Mark
+ *         							Modified replacing JFrame panels
+ * 							M5 		10/7/13	Stephen Conway
+ * 									Added default close operation. Reordered calls in constructor.
  * 
  * 
  * 
  *         Purpose: Main JFrame for the game. Channels keyboard input to
- *         KeyboardAdapter.
+ *         					KeyboardAdapter.
  * 
  */
 public class MainGameWindow extends JFrame {
@@ -53,11 +55,11 @@ public class MainGameWindow extends JFrame {
 		addKeyListener(keyboardAdapter);
 		
 		setVisible(true);
-
 	}
 
 	/**
 	 * Set the current panel to display
+	 * 
 	 * @param currentPanel
 	 */
 	public void setPanel(JPanel currentPanel) {
@@ -72,6 +74,7 @@ public class MainGameWindow extends JFrame {
 	
 	/**
 	 * Get a reference to the currently displayed panel
+	 * 
 	 * @return Current panel
 	 */
 	public JPanel getCurrentPanel() {
