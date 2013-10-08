@@ -6,12 +6,12 @@ import java.awt.event.KeyListener;
 /**
  * 
  * @author Stephen Conway
- * 
+ * 			Function group:		Control
  * 			Created for:		M5		9/30/13
  * 			Modifications:		M5		10/7/13 Stephen Conway
  * 										Removed Runnable interface
- * 
- * 
+ * 								M6		10/8/13 Stephen
+ * 										Added some basic functionality to the KeyListener methods
  * 
  * 			Purpose: Data input class. Takes in keyboard input and channels it to
  * 					active KeyboardReceiver. Handles top level key inputs (like esc
@@ -34,19 +34,32 @@ public class KeyboardAdapter implements KeyListener{
 	 * @param newFocused New item to focus on, or null
 	 */
 	public void setReceiver(InputReceiver newFocused) {
+		/*
 		if (currentFocused != null) {
 			currentFocused.loseFocus();
 		}
+		*/
 		currentFocused = newFocused;
+		/*
 		if (currentFocused != null) {
 			currentFocused.gainFocus();
 		}
+		*/
 	}
 
+	/*
+	 * event order:
+	 * keyPressed
+	 * keyTyped
+	 * keyReleased
+	 * 
+	 * need to do some testing before fleshing this out
+	 */
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		String key = e.getKeyChar() + "";
+		currentFocused.receiveInput(key);
 	}
 
 	@Override

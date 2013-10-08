@@ -2,6 +2,7 @@ package edu.gatech.mule.utils;
 
 import javax.swing.JPanel;
 
+
 /**
  * 
  * @author Stephen Conway
@@ -9,12 +10,13 @@ import javax.swing.JPanel;
  *         Created for: 	M5 		10/6/13 
  *         Modifications:	M5 		10/6/13	Stephen Conway
  *         							Initial creation
+ *         					M6		10/8/13 Stephen
+ *         							Added Runnable, WaitedOn interfaces.
  * 
  * 
  * 
- *         Purpose: implemented by anything expecting feedback from GUI
+ *         Purpose: Im
  */
-public interface GUIManager{
+public interface GUIManager extends Runnable, WaitedOn{
 	public void notify(JPanel panel, String message);
-	
 }

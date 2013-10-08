@@ -4,8 +4,8 @@ package edu.gatech.mule.utils;
  * @author Stephen Conway
  * 
  * 			Created for:		M5 		9/30/13
- * 			Modifications:	
- * 
+ * 			Modifications:		M6 		10/8/13 Stephen
+ * 										Removed gainFocus and loseFocus methods. No real functionality for those as of yet.
  * 
  * 			Purpose: Interface implemented by anything that would use
  * 						keyboard/AI/network input. Notably planned for GUIs, Auction,
@@ -18,13 +18,13 @@ public interface InputReceiver {
 	 * @author Stephen Conway #M5
 	 * Called by KeyboardAdapter or other input channels when focus comes onto object
 	 */
-	public void gainFocus();
+	//public void gainFocus();
 	
 	/**
 	 * @author Stephen Conway #M5
 	 * Called by KeyboardAdapter or other input channels when focus moves away from object
 	 */
-	public void loseFocus();
+	//public void loseFocus();
 	
 	/**
 	 * @author #M5

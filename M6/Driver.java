@@ -9,16 +9,16 @@ import edu.gatech.mule.utils.*;
  * 		Function group:		Control
  * 		Created for:		M5		9/30/13
  * 		Modifications:		M5		10/6/13	Thomas Mark
- * 									Initial Driver fleshing from stub 							
+ * 									Initial Driver fleshing from stub 		
+ * 							M6		10/8/13 Stephen
+ * 									Removed mainMenu management functions. Added procedural call to handle this.					
  * 
  * 
  * 
- * 		Purpose: Initial control class. Sets up application by creating game window and 
- * 					handling navigation through top level menus. Initializes background tasks
- * 					like KeyboardAdapter.
+ * 		Purpose: Initial control class. Sets up application by creating game window Initializes background tasks
+ * 					like KeyboardAdapter and starts main menu sequence.
  */
-public class Driver implements GUIManager{
-	private static Driver driver;
+public abstract class Driver implements GUIManager{
 	private static MainGameWindow frame;
 	
 	/**
@@ -27,26 +27,10 @@ public class Driver implements GUIManager{
 	 * the entry menu should be brought up.
 	 */
 	public static void main(String[] args) {
-		driver = new Driver();
 		KeyboardAdapter input = new KeyboardAdapter();
 		frame = new MainGameWindow(input);
-		
-		PlayerConfigMenu playerConfig = new PlayerConfigMenu(driver);
-		frame.setPanel(playerConfig);
-	}
-	
-	/**
-	 * Driver configures new panels based on input from users.
-	 * 
-	 * @param panel
-	 * @param message
-	 */
-	@Override
-	public void notify(JPanel panel, String message) {
-		if (panel instanceof PlayerConfigMenu && message.equals("next")) {
-			GameConfigMenu gameConfig = new GameConfigMenu(this);
-			frame.setPanel(gameConfig);
-			
-		} else if (panel instanceof GameConfigMenu && message.equals("next")) {}
-	}
+		MainMenuManager mainMenu = new MainMenuManager(frame);
+		mainMenu.run();
+		Waiter.waitFor(mainMenu);
+	}		
 }

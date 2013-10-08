@@ -1,3 +1,5 @@
+package edu.gatech.mule.utils;
+
 
 /**
  * 
@@ -9,7 +11,9 @@
  * 
  * 
  * 
- * 		Purpose: Interface 
+ * 		Purpose: Interface implemented by classes that pause another thread.
+ * 				 The paused thread should use the static Waiter.waitFor(WaitedOn item)
+ * 				 to block until execution finishes.
  * 				 
  */
 public interface WaitedOn {
