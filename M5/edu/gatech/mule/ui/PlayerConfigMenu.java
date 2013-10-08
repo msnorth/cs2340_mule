@@ -35,8 +35,14 @@ public class PlayerConfigMenu extends JPanel {
 	public static String[] maps = { "Irata 1" };
 
 	public static Integer[] players = {2,3,4};
+
+	private static int playerCount;
 	
 	private GUIManager manager;
+	
+	private JComboBox<Integer> numPlayers;
+	private JComboBox<String> gameLevel;
+	private JComboBox<String> mapTypes ;
 	
 	/**
 	 * Main constructor
@@ -50,34 +56,41 @@ public class PlayerConfigMenu extends JPanel {
 		
 		this.setLayout(layout);
 
-		JLabel i = new JLabel("Number of Players: ");
-		this.add(i);
-		JComboBox<Integer> numPlayers = new JComboBox<Integer>(players);
-		i.setLabelFor(numPlayers);
+		JLabel playerCountLabel = new JLabel("Number of Players: ");
+		this.add(playerCountLabel);
+		 numPlayers = new JComboBox<Integer>(players);
+		playerCountLabel.setLabelFor(numPlayers);
 		this.add(numPlayers);
 
-		JLabel j = new JLabel("Game Level: ");
-		this.add(j);
-		JComboBox<String> gameLevel = new JComboBox<String>(diffLevels);
-		j.setLabelFor(gameLevel);
+		JLabel gameLevelLabel = new JLabel("Game Level: ");
+		this.add(gameLevelLabel);
+		gameLevel = new JComboBox<String>(diffLevels);
+		gameLevelLabel.setLabelFor(gameLevel);
 		this.add(gameLevel);
 
-		JLabel k = new JLabel("Map Type: ");
-		this.add(k);
-		JComboBox<String> mapTypes = new JComboBox<String>(maps);
-		k.setLabelFor(mapTypes);
+		JLabel mapTypeLabel = new JLabel("Map Type: ");
+		this.add(mapTypeLabel);
+		mapTypes = new JComboBox<String>(maps);
+		mapTypeLabel.setLabelFor(mapTypes);
 		this.add(mapTypes);
 
-		JButton next = new JButton("Next");
-		next.addActionListener(new nextListener());
-		this.add(next);
+		JButton nextButton = new JButton("Next");
+		nextButton.addActionListener(new nextListener());
+		this.add(nextButton);
+		
+		this.add(new JPanel());
 		
 		// Lay out the panel.
-		SpringUtilities.makeCompactGrid(this, 3, 2, // rows, cols
+		SpringUtilities.makeCompactGrid(this, 4, 2, // rows, cols
 				6, 6, // initX, initY
 				6, 6); // xPad, yPad
 
 	}
+	public static int getPlayerCount() {
+		// TODO Auto-generated method stub
+		return playerCount;
+	}
+	
 	
 	/**
 	 * Listener class for "Next" button. Passes message to GUIManager.
@@ -86,7 +99,10 @@ public class PlayerConfigMenu extends JPanel {
 	private class nextListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			playerCount = Integer.parseInt(numPlayers.getSelectedItem().toString());
 			manager.notify(PlayerConfigMenu.this,"next");
 		} 
 	}
+
+	
 }
