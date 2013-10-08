@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 
 /**
@@ -20,6 +21,7 @@ public class Player {
 	private Color color;
 	private ResourceAmount resources;
 	private int money;
+	private ArrayList<Tile> ownedTiles;
 	
 	/**
 	 * #M6
@@ -31,5 +33,15 @@ public class Player {
 	 */
 	public Player(String name, String race, Color color) {
 		
+	}
+	
+	/**
+	 * #M6
+	 * Method to calculate the player's current game score.
+	 * 
+	 * @return
+	 */
+	public int calculateScore() {
+		return 0;
 	}
 }

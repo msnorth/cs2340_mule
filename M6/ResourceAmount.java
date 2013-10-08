@@ -3,7 +3,7 @@
  * 
  * @author Stephen Conway
  * 		Function group:		Model
- * 		Created for:		M6		10/7/13
+ * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
  * 		Modifications:								
  * 

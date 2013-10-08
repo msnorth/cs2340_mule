@@ -14,6 +14,7 @@ import javax.swing.JPanel;
  * 
  *         Purpose: implemented by anything expecting feedback from GUI
  */
-public interface GUIManager {
+public interface GUIManager{
 	public void notify(JPanel panel, String message);
+	
 }
