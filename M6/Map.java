@@ -61,4 +61,10 @@ public class Map implements MapResponsibilities{
 		return null;
 	}
 
+	@Override
+	public void resetNextUnownedTile() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -17,6 +17,6 @@ import javax.swing.JPanel;
  * 
  *         Purpose: Im
  */
-public interface GUIManager extends Runnable, WaitedOn{
+public interface GUIManager extends WaitedOn{
 	public void notify(JPanel panel, String message);
 }

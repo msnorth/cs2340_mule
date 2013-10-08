@@ -24,8 +24,8 @@ public abstract class Waiter {
 	 * 
 	 * @param item
 	 */
-	public static void waitFor(WaitedOn item) {
-		waitFor(item, DEFAULT_POLL_RATE);
+	public static void waitOn(WaitedOn item) {
+		waitOn(item, DEFAULT_POLL_RATE);
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public abstract class Waiter {
 	 * 
 	 * @param item
 	 */
-	public static void waitFor(WaitedOn item, int pollRate) {
+	public static void waitOn(WaitedOn item, int pollRate) {
 		while (true) {
 			if (item.isFinished()) {
 				return;

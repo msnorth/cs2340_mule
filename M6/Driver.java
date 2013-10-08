@@ -31,6 +31,6 @@ public abstract class Driver implements GUIManager{
 		frame = new MainGameWindow(input);
 		MainMenuManager mainMenu = new MainMenuManager(frame);
 		mainMenu.run();
-		Waiter.waitFor(mainMenu);
+		Waiter.waitOn(mainMenu);
 	}		
 }

@@ -58,15 +58,25 @@ public interface MapResponsibilities {
 	/**
 	 * #M6
 	 * Method to get next Tile that has no owner in row major order
+	 * When this method is called after all unowned tiles have been iterrated, 
+	 * it should return null.
 	 * Used by LandGranter
 	 * 
 	 * @return
 	 */
 	public abstract Tile getNextUnownedTile();
 	
+	
+	/**
+	 * #M6 
+	 * Method to reset unowned tile iterator.
+	 * Used by LandGranter
+	 */
+	public abstract void resetNextUnownedTile();
+	
 	/**
 	 * #M6
-	 * Method to get a random Tile without an owner
+	 * Method to get a random Tile without an owner.
 	 * Used by LandAuction
 	 * 
 	 * @return

@@ -16,6 +16,6 @@ package edu.gatech.mule.utils;
  * 				 to block until execution finishes.
  * 				 
  */
-public interface WaitedOn {
+public interface WaitedOn extends Runnable{
 	public boolean isFinished();
 }
