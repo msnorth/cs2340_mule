@@ -2,7 +2,7 @@
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Model
+ * 		Function group:		Model: Data manager
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Maddy
  * 		Modifications:								

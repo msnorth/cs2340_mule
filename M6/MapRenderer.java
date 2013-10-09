@@ -6,7 +6,7 @@ import edu.gatech.mule.utils.GUIManager;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		View
+ * 		Function group:		View: Background
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Dan
  * 		Modifications:								
@@ -21,6 +21,7 @@ public class MapRenderer extends GUIComponent{
 	private MapSprite sprite;
 	
 	/**
+	 * #M6
 	 * Main constructor. Connects renderer with data (map) and with callback line (manager).
 	 * @param map
 	 */
@@ -40,6 +41,7 @@ public class MapRenderer extends GUIComponent{
 	}
 	
 	/**
+	 * #M6
 	 * Refresh method to be called on a Tile at a specific world coordinate.
 	 * Used with Sprite's position to prevent streaking without refreshing all of the tiles.
 	 * 
@@ -51,6 +53,7 @@ public class MapRenderer extends GUIComponent{
 	}
 	
 	/**
+	 * #M6
 	 * Refresh method to be called on a specific Tile number.
 	 * Used with LandGranter to update border colors.
 	 * 

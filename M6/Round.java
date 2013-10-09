@@ -4,7 +4,7 @@ import edu.gatech.mule.utils.WaitedOn;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Controller
+ * 		Function group:		Controller: Engine
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Tommy, Stephen
  * 		Modifications:								
@@ -18,6 +18,7 @@ public class Round implements WaitedOn{
 	private boolean finished;
 	
 	/**
+	 * #M6
 	 * Method to run a single round.
 	 * Performs the following actions:
 	 * 		Random events

@@ -9,7 +9,7 @@ import edu.gatech.mule.utils.GUIManager;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Controller
+ * 		Function group:		Controller: GUI
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
  * 		Modifications:		M6		10/8/13		Stephen
@@ -24,7 +24,9 @@ public class MainMenuManager implements GUIManager{
 	private MainGameWindow mainGameWindow;
 	
 	/**
+	 * #M6
 	 * Main constructor. 
+	 * 
 	 * @param mainGameWindow
 	 */
 	public MainMenuManager(MainGameWindow mainGameWindow) {
@@ -32,6 +34,7 @@ public class MainMenuManager implements GUIManager{
 	}
 	
 	/**
+	 * #M6
 	 * Method to start the main menu sequence
 	 */
 	public void run() {

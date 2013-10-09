@@ -1,7 +1,7 @@
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		View
+ * 		Function group:		View: Background
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Dan
  * 		Modifications:								

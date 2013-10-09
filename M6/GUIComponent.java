@@ -16,6 +16,7 @@ public abstract class GUIComponent extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * #M6
 	 * Method to update display based on most recent information in 
 	 * 	corresponding Model object. (TileRenderer using info from Tile)
 	 */

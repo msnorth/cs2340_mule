@@ -4,7 +4,7 @@ import edu.gatech.mule.utils.InputReceiver;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		View
+ * 		Function group:		View: Graphic
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Shreyyas, Stephen
  * 		Modifications:								

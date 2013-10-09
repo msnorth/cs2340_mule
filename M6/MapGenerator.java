@@ -2,7 +2,7 @@
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Factory
+ * 		Function group:		Model: Factory
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Maddy
  * 		Modifications:								

@@ -4,7 +4,7 @@ import edu.gatech.mule.utils.WaitedOn;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Controller
+ * 		Function group:		Controller: Sequencing
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
  * 		Modifications:								
@@ -19,6 +19,12 @@ public class MULETimer implements Runnable, WaitedOn {
 	private boolean timeout;
 	private long timeout_ms;
 
+	/**
+	 * #M6
+	 * Main constructor. Creates countdown timer with given time.
+	 * 
+	 * @param timeout_ms
+	 */
 	public MULETimer(long timeout_ms) {
 		this.timeout_ms = timeout_ms;
 		timeout = false;
@@ -39,10 +45,6 @@ public class MULETimer implements Runnable, WaitedOn {
 	
 	@Override
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
 		return timeout;
 	}
-
-
-	
 }

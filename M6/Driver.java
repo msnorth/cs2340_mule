@@ -6,7 +6,7 @@ import edu.gatech.mule.utils.*;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Control
+ * 		Function group:		Control: Engine
  * 		Created for:		M5		9/30/13
  * 		Modifications:		M5		10/6/13	Thomas Mark
  * 									Initial Driver fleshing from stub 		
@@ -22,7 +22,6 @@ public abstract class Driver implements GUIManager{
 	private static MainGameWindow frame;
 	
 	/**
-	 * @author Thomas Mark
 	 * Application entry point. From here, KeyboardAdapter should be initialized and
 	 * the entry menu should be brought up.
 	 */

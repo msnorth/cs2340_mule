@@ -5,7 +5,7 @@ import edu.gatech.mule.utils.WaitedOn;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Model
+ * 		Function group:		Controller: Sequencing
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Stephen
  * 		Modifications:								
@@ -20,6 +20,7 @@ public abstract class Waiter {
 	public static final int DEFAULT_POLL_RATE = 20; //Hz
 	
 	/**
+	 * #M6
 	 * Check if WaitedOn item has finished at the default rate.
 	 * 
 	 * @param item
@@ -29,6 +30,7 @@ public abstract class Waiter {
 	}
 	
 	/**
+	 * #M6
 	 * Check if WaitedOn item has finished at the specified rate.
 	 * 
 	 * @param item

@@ -4,7 +4,7 @@ import edu.gatech.mule.utils.GUIManager;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		View
+ * 		Function group:		View: Background
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Shreyyas, Stephen
  * 		Modifications:								
@@ -22,6 +22,7 @@ public class TownRenderer extends GUIComponent{
 	private TownSprite sprite;
 	
 	/**
+	 * #M6
 	 * Main constructor. Takes in a GUIManager for callback, takes in a side to determine TownSprite position
 	 * @param manager
 	 * @param side

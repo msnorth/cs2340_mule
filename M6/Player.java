@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Model
+ * 		Function group:		Model: Data holder
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Tommy
  * 		Modifications:								
@@ -38,7 +38,7 @@ public class Player {
 	/**
 	 * #M6
 	 * Method to calculate the player's current game score.
-	 * 
+	 * Used to determine player order by PlayerManager
 	 * @return
 	 */
 	public int calculateScore() {

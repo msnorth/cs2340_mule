@@ -7,7 +7,7 @@ import edu.gatech.mule.utils.GUIManager;
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Controller
+ * 		Function group:		Controller: GUI
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Dan
  * 		Modifications:								
@@ -20,7 +20,13 @@ public class MapManager implements GUIManager{
 	private MainGameWindow mainGameWindow;
 	private MULETimer timer;
 	
-	
+	/**
+	 * #M6
+	 * Main constructor. Handles GUI decisions for free range phase.
+	 * 
+	 * @param mainGameWindow
+	 * @param timeout_ms
+	 */
 	public MapManager(MainGameWindow mainGameWindow, long timeout_ms) {
 		this.mainGameWindow = mainGameWindow;
 		timer = new MULETimer(timeout_ms);

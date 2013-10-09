@@ -2,7 +2,7 @@
 /**
  * 
  * @author Stephen Conway
- * 		Function group:		Development
+ * 		Function group:		Development Contract
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		
  * 		Modifications:								
