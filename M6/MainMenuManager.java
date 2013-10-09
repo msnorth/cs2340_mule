@@ -42,7 +42,8 @@ public class MainMenuManager implements GUIManager{
 	@Override
 	public void notify(JPanel panel, String message) {
 		if (panel instanceof PlayerConfigMenu && message.equals("next")) {
-			GameConfigMenu gameConfig = new GameConfigMenu(this);
+			int numPlayers = ((PlayerConfigMenu)panel).getPlayerCount();
+			GameConfigMenu gameConfig = new GameConfigMenu(this, numPlayers);
 			mainGameWindow.setPanel(gameConfig);
 		} 
 		else if (panel instanceof GameConfigMenu && message.equals("next")) {
