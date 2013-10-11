@@ -7,7 +7,8 @@ package edu.gatech.cs2340.sequencing;
  * 		Function group:		Controller: Sequencing
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
- * 		Modifications:								
+ * 		Modifications:		M6		10/11/13
+ * 									Added method to end thread.	
  * 
  * 
  * 
@@ -32,7 +33,7 @@ public class MULETimer implements Runnable, WaitedOn {
 	
 	@Override
 	public void run() {
-		while (timeout_ms > 0) {
+		while (timeout_ms > 0 && !timeout) {
 			timeout_ms -= 1000/DEFAULT_FREQUENCY;
 			try {
 				Thread.sleep(1000/DEFAULT_FREQUENCY);
@@ -40,6 +41,13 @@ public class MULETimer implements Runnable, WaitedOn {
 				e.printStackTrace();
 			}
 		}
+		timeout = true;
+	}
+	
+	/**
+	 * Mehtod to terminate thread before Timer runs out.
+	 */
+	public void end() {
 		timeout = true;
 	}
 	
