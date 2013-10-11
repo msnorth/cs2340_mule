@@ -19,6 +19,8 @@ import java.awt.event.KeyListener;
  * 					to pull up main menu) itself.
  */
 public class KeyboardAdapter implements KeyListener{
+	public static final String CONFRIM_KEY = " ";
+	
 	private InputReceiver currentFocused;
 	
 	/**
@@ -60,7 +62,10 @@ public class KeyboardAdapter implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		String key = e.getKeyChar() + "";
-		currentFocused.receiveInput(key);
+		System.out.println(key);
+		if (currentFocused != null) {
+			currentFocused.receiveInput(key);
+		}
 	}
 
 	@Override

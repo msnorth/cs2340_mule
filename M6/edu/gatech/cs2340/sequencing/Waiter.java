@@ -8,8 +8,8 @@ package edu.gatech.cs2340.sequencing;
  * 		Function group:		Controller: Sequencing
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Stephen
- * 		Modifications:								
- * 
+ * 		Modifications:		M6		10/11/13 Stepehn		
+ * 									Added waitForAny to wait on multiple processes
  * 
  * 
  * 		Purpose: Wrapper class for static waitFor method.
@@ -26,19 +26,41 @@ public abstract class Waiter {
 	 * @param item
 	 */
 	public static void waitOn(WaitedOn item) {
-		waitOn(item, DEFAULT_POLL_RATE);
+		WaitedOn[] thread = new WaitedOn[1];
+		thread[0] = item;
+		waitForAny(thread, DEFAULT_POLL_RATE);
 	}
 	
 	/**
 	 * #M6
-	 * Check if WaitedOn item has finished at the specified rate.
+	 * Returns when any of the WaitedOn objects complete. 
+	 * The int returned signals which WaitedOn finished first.
 	 * 
-	 * @param item
+	 * @param threads
+	 * @return
 	 */
-	public static void waitOn(WaitedOn item, int pollRate) {
-		while (true) {
-			if (item.isFinished()) {
-				return;
+	public static int waitForAny(WaitedOn[] threads) {
+		return waitForAny(threads,DEFAULT_POLL_RATE);
+	}
+	
+	
+	/**
+	 * #M6
+	 * Returns when any of the WaitedOn objects complete. 
+	 * The int returned signals which WaitedOn finished first.
+	 * Allows user to specify poll rate.
+	 * 
+	 * @param threads
+	 * @return
+	 */
+	public static int waitForAny(WaitedOn[] threads, int pollRate) {
+		int result = -1;
+		while (result == -1) {
+			for (int i=0; i<threads.length; i++) {
+				if (threads[i].isFinished()) {
+					result = i;
+					break;
+				}
 			}
 			try {
 				Thread.sleep(1000/pollRate);
@@ -46,5 +68,6 @@ public abstract class Waiter {
 				e.printStackTrace();
 			}
 		}
+		return result;
 	}
 }
