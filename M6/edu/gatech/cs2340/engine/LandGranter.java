@@ -87,7 +87,7 @@ public class LandGranter implements InputReceiver, WaitedOn
 					mapRenderer.refresh();							//Reflects changes on map
 					grantFinished = true;							//Ends land grant phase for that person
 				}
-				else if(value == 1 && (map.getNextUnownedTile() == null))
+				else if((map.getNextUnownedTile() == null) && value == 1)
 				{
 					Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets randomunowned tile
 					currentPlayer.addTile(randomUnownedTile);				//Assigns it to player

@@ -22,7 +22,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyboardAdapter implements KeyListener{
 	public static final String CONFRIM_KEY = " ";
-	public static KeyboardAdapter adapter  = new KeyboardAdapter();
+	public static KeyboardAdapter adapter = new KeyboardAdapter();
 	private InputReceiver currentFocused;
 	
 	/**

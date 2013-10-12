@@ -69,7 +69,7 @@ public class Player {
 	 * #M6
 	 * @author ShreyyasV
 	 * Method to get the current player score
-	 * @return
+	 * @return gameScore
 	 */
 	public int getGameScore()
 	{
