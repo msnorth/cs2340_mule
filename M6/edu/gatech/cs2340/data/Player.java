@@ -8,9 +8,11 @@ import java.util.ArrayList;
  * @author Stephen Conway
  * 		Function group:		Model: Data holder
  * 		Created for:		M6		10/7/13
- * 		Assigned to:		Tommy
+ * 		Assigned to:		Thomas Mark
  * 		Modifications:		M6		10/12/13 Shreyyas Vanarase
- * 									Added the addTile method and a score getter method								
+ * 									Added the addTile method and a score getter method
+ * 							M6		10/14/2013 Thomas Mark
+ * 									Added method to determine players color	.							
  * 
  * 
  * 
@@ -23,7 +25,7 @@ public class Player {
 	private Color color;
 	private ResourceAmount resources;
 	private int money;
-	private static int gameScore;
+	private int gameScore;
 	private ArrayList<Tile> ownedTiles;
 	
 	
@@ -59,20 +61,26 @@ public class Player {
 	 * Method to add the tile to player's ownedTile list
 	 * @param tile
 	 */
-	public void addTile(Tile tile)
-	{
+	public void addTile(Tile tile) {
 		if(tile != null) {
 			ownedTiles.add(tile);
 		}
 	}
 	/**
 	 * #M6
-	 * @author ShreyyasV
 	 * Method to get the current player score
 	 * @return gameScore
 	 */
-	public int getGameScore()
-	{
+	public int getGameScore() {
 		return gameScore;
+	}
+	
+	/**
+	 * #M6
+	 * Method to obtain players color for tile coloring purposes
+	 * @return color
+	 */
+	public Color getPlayerColor() {
+		return color;
 	}
 }

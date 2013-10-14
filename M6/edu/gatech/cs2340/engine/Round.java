@@ -37,7 +37,15 @@ public class Round implements WaitedOn{
 	 */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		// random events
+		// ordering of players
+		// land distribution phase
+			// LandGranter implementation
+			// LandAuction implementation
+		// Player turns
+		// Production
+		// Auction
+		// Score screen
 	}
 	
 	@Override
