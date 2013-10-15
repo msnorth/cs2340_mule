@@ -35,18 +35,18 @@ public class MainMenuManager implements GUIManager{
 	 * Method to start the main menu sequence
 	 */
 	public void run() {
-		mainGameWindow.setPanel(new PlayerConfigMenu(this));
+		mainGameWindow.setPanel(new GameConfigMenu(this));
 	}
 	
 	
 	@Override
 	public void notify(JPanel panel, String message) {
-		if (panel instanceof PlayerConfigMenu && message.equals("next")) {
-			int numPlayers = ((PlayerConfigMenu)panel).getPlayerCount();
-			GameConfigMenu gameConfig = new GameConfigMenu(this, numPlayers);
+		if (panel instanceof GameConfigMenu && message.equals("next")) {
+			int numPlayers = ((GameConfigMenu)panel).getPlayerCount();
+			PlayerConfigMenu gameConfig = new PlayerConfigMenu(this, numPlayers);
 			mainGameWindow.setPanel(gameConfig);
 		} 
-		else if (panel instanceof GameConfigMenu && message.equals("next")) {
+		else if (panel instanceof PlayerConfigMenu && message.equals("next")) {
 			
 			menuSequenceFinished = true;
 		}
