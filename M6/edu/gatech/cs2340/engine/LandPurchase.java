@@ -31,6 +31,7 @@ public class LandPurchase implements InputReceiver, WaitedOn
 	private Map map;
 	private MapRenderer mapRenderer;
 	private boolean purchaseFinished;
+	
 	/**
 	 * #M6
 	 * Main constructor. Takes in references to current purchaser and to the MapRenderer to refresh the screen.
@@ -48,10 +49,8 @@ public class LandPurchase implements InputReceiver, WaitedOn
 	
 	/**
 	 * #M6
-	 * Cycles through unowned map tiles, waiting for the user to press the select key.
-	 * Once the key is pressed, the Tile is assigned to the Player, and the grant is finished.
-	 * If the cycle reaches the end of the map before the user selects a Tile, a random Tile
-	 * should be assigned to the Player.
+	 * Gets a random tile and waits for a key to be pressed. If player buys a property (tile), the 
+	 * current money amount of the player is deducted. The tile is then assigned to the person.
 	 */
 	@Override
 	public void run() {
@@ -79,8 +78,6 @@ public class LandPurchase implements InputReceiver, WaitedOn
 		
 		tile.setActive(false);
 		purchaseFinished = true;							//Ends land grant phase for that person
-
-		
 	}
 	
 	/**
