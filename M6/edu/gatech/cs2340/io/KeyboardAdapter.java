@@ -15,6 +15,8 @@ import java.awt.event.KeyListener;
  * 										Added some basic functionality to the KeyListener methods
  * 								M6		10/12/13 Shreyyas Vanarase
  * 										Added the getInstance method to set 1 KeyboardAdapter for all classes
+ * 								M6		10/15/13 Thomas Mark
+ * 										Added movement keys "wasd"
  * 
  * 			Purpose: Data input class. Takes in keyboard input and channels it to
  * 					 active KeyboardReceiver. Handles top level key inputs (like esc
@@ -22,6 +24,11 @@ import java.awt.event.KeyListener;
  */
 public class KeyboardAdapter implements KeyListener{
 	public static final String CONFRIM_KEY = " ";
+	public static final String UP = "w";
+	public static final String LEFT = "a";
+	public static final String DOWN = "s";
+	public static final String RIGHT = "d";
+	
 	public static KeyboardAdapter adapter = new KeyboardAdapter();
 	private InputReceiver currentFocused;
 	

@@ -21,6 +21,8 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  *         							Modified replacing JFrame panels
  * 							M5 		10/7/13	Stephen Conway
  * 									Added default close operation. Reordered calls in constructor.
+ * 							M6		10/15/13 Thomas Mark
+ * 									Made dimensions constant and set at beginning of class.
  * 
  * 
  * 
@@ -31,6 +33,8 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
+	public static final int DIM_X = 650;
+	public static final int DIM_Y = 757;
 	
 	private JPanel currentPanel;
 
@@ -45,7 +49,7 @@ public class MainGameWindow extends JFrame {
 		mainPanel = new JPanel();
 		
 		setFocusable(true);
-		Dimension defaultSize = new Dimension(650, 757);
+		Dimension defaultSize = new Dimension(DIM_X, DIM_Y);
 		setMinimumSize(defaultSize);
 		setMaximumSize(defaultSize);
 		setPreferredSize(defaultSize);
