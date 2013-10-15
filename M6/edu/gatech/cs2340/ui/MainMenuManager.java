@@ -1,6 +1,11 @@
 package edu.gatech.cs2340.ui;
 import javax.swing.JPanel;
 
+import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.data.PlayerManager;
+import edu.gatech.cs2340.sequencing.WaitedOn;
+import edu.gatech.cs2340.sequencing.Waiter;
+
 
 
 /**
@@ -16,9 +21,10 @@ import javax.swing.JPanel;
  * 
  * 		Purpose: Common parent class for any GUI components			 
  */
-public class MainMenuManager implements GUIManager{
-	private boolean menuSequenceFinished;
+public class MainMenuManager implements WaitedOn{
+	private boolean finished;
 	private MainGameWindow mainGameWindow;
+	PlayerManager playerManager;
 	
 	/**
 	 * #M6
@@ -27,6 +33,7 @@ public class MainMenuManager implements GUIManager{
 	 * @param mainGameWindow
 	 */
 	public MainMenuManager(MainGameWindow mainGameWindow) {
+		finished = false;
 		this.mainGameWindow = mainGameWindow;
 	}
 	
@@ -35,26 +42,26 @@ public class MainMenuManager implements GUIManager{
 	 * Method to start the main menu sequence
 	 */
 	public void run() {
-		mainGameWindow.setPanel(new GameConfigMenu(this));
-	}
-	
-	
-	@Override
-	public void notify(JPanel panel, String message) {
-		if (panel instanceof GameConfigMenu && message.equals("next")) {
-			int numPlayers = ((GameConfigMenu)panel).getPlayerCount();
-			PlayerConfigMenu gameConfig = new PlayerConfigMenu(this, numPlayers);
-			mainGameWindow.setPanel(gameConfig);
-		} 
-		else if (panel instanceof PlayerConfigMenu && message.equals("next")) {
-			
-			menuSequenceFinished = true;
-		}
+		GameConfigMenu gameConfig = new GameConfigMenu();
+		mainGameWindow.setPanel(gameConfig);
+		Waiter.waitOn(gameConfig);
+		String difficulty = gameConfig.getGameDifficulty();
+		int numPlayers = gameConfig.getPlayerCount();
+		PlayerConfigMenu playerConfig = new PlayerConfigMenu(numPlayers);
+		mainGameWindow.setPanel(playerConfig);
+		playerConfig.run();
+		Waiter.waitOn(playerConfig);
+		Player[] players = playerConfig.getPlayers();
+		playerManager = new PlayerManager(players, difficulty);
+		finished = true;
 	}
 
-	@Override
-	public boolean isFinished() {
-		return menuSequenceFinished;
+	public PlayerManager getPlayers() {
+		return playerManager;
 	}
 	
+	@Override
+	public boolean isFinished() {
+		return finished;
+	}	
 }
