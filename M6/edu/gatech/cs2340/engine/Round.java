@@ -19,7 +19,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
 public class Round implements WaitedOn{
 	private int roundNumber;
 	private boolean finished;
-	
+
 	/**
 	 * #M6
 	 * Method to run a single round.

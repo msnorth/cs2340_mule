@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
  * 		Modifications:		M6		10/8/13		Stephen
- * 									Moved all management of the main manus to this calss from Driver			
+ * 									Moved all management of the main menus to this class from Driver			
  * 
  * 
  * 
@@ -47,6 +47,7 @@ public class MainMenuManager implements GUIManager{
 			mainGameWindow.setPanel(gameConfig);
 		} 
 		else if (panel instanceof GameConfigMenu && message.equals("next")) {
+			
 			menuSequenceFinished = true;
 		}
 	}

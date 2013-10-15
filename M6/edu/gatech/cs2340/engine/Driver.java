@@ -2,6 +2,7 @@ package edu.gatech.cs2340.engine;
 
 import javax.swing.JPanel;
 
+import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.ui.GUIManager;
@@ -25,6 +26,8 @@ import edu.gatech.cs2340.ui.MainMenuManager;
  */
 public abstract class Driver implements GUIManager{
 	private static MainGameWindow frame;
+	private static Game game;
+	private static Player[] players;
 	
 	/**
 	 * Application entry point. From here, KeyboardAdapter should be initialized and
@@ -36,5 +39,12 @@ public abstract class Driver implements GUIManager{
 		MainMenuManager mainMenu = new MainMenuManager(frame);
 		mainMenu.run();
 		Waiter.waitOn(mainMenu);
+		
+		
+		// need to figure out best way to get players to game
+		
+		game = new Game(players);
+		game.run();
+		
 	}		
 }

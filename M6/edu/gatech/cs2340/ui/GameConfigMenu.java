@@ -13,7 +13,6 @@ import javax.swing.SpringLayout;
 
 
 /**
- * ss
  * 
  * @author Madeleine North
  * 
