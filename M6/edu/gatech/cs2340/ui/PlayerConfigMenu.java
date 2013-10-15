@@ -35,6 +35,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 
 	public static String[] races = { "Bonzoid", "Buzzite", "Flapper ", "Ugaite" };
 
+	public static String[] colorStrings = {"Blue","Gold","Green","Red"};
 	public static Color[] colors = {new Color(0,0,255), new Color(0,255,255), new Color(0,255,0), new Color(255,0,0)};
 
 	private boolean finished;
@@ -42,7 +43,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	
 	private JTextField[] nameFields;
 	private JComboBox<String>[] raceLists;
-	private JComboBox<Color>[] colorsLists;
+	private JComboBox<String>[] colorsLists;
 
 	/**
 	 * Main constructor
@@ -82,7 +83,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 			JLabel colorLabel = new JLabel(" Color: ", JLabel.TRAILING);
 			this.add(colorLabel);
 			
-			JComboBox<Color> colorsList = new JComboBox<Color>(colors);
+			JComboBox<String> colorsList = new JComboBox<String>(colorStrings);
 			colorLabel.setLabelFor(colorsList);
 			this.add(colorsList);
 			colorsLists[i] = colorsList;
@@ -120,7 +121,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 			for (int i=0; i<numPairs; i++) {
 				String name = nameFields[i].getText();
 				String race = raceLists[i].getSelectedItem().toString();
-				Color color = (Color)(colorsLists[i].getSelectedItem());
+				Color color = colors[colorsLists[i].getSelectedIndex()];
 				players[i] = new Player(name, race, color);
 			}
 			finished = true;
