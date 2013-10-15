@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.ui;
 
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,106 +9,100 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 
 /**
  * 
- * @author Madeleine North
+ * @author Stephen Conway
  * 
- *         Created for: M5 9/30/13 Modifications: M5 10/6/13 Shreyyas Vanarase
- *         Updating panel viewability and features M5 10/6/13 Thomas Mark Fixed
- *         parameter input
+ *         Created for: 	M5 		9/30/13 
+ * 		   Modifications:	M5 		10/6/2013 Shreyyas Vanarase 
+ * 									Updating panel viewability and features
+ * 							M6		10/8/13 Stephen Conway
+ * 									Made playerCount an instance rather than static and added a getter.
  * 
+ *         Purpose: First panel of game configuration menu. Allows user to
+ *         			select game difficulty, map type, and number of players This
+ *         			information is passed back to GameConfigMenuPanel2
  * 
- *         Purpose: Second panel of game configuration menu. Allows user to
- *         select game player names, player races, and player colors. This
- *         information is passed back to Driver to start a new Game.
  */
-
 public class GameConfigMenu extends JPanel {
+
 	private static final long serialVersionUID = 1L;
 
-	public static String[] races = { "Bonzoid", "Buzzite", "Flapper ", "Ugaite" };
+	public static String[] diffLevels = { "Beginner", "Intermediate", "Advanced" };
 
-	public static String[] colors = { "Blue", "Gold", "Green", "Red" };
+	public static String[] maps = { "Irata 1" };
 
-	public GUIManager manager;
+	public static Integer[] players = {2,3,4};
 
+	private int playerCount;
+	
+	private GUIManager manager;
+	
+	private JComboBox<Integer> numPlayers;
+	private JComboBox<String> gameLevel;
+	private JComboBox<String> mapTypes ;
+	
 	/**
 	 * Main constructor
 	 * 
-	 * @param manager
-	 *            GUIManager to handle callback from "Next" button
+	 * @param manager GUIManager to handle callback from "Next" button
 	 */
-	public GameConfigMenu(GUIManager manager, int numPairs) {
+	public GameConfigMenu(GUIManager manager) {
 		this.manager = manager;
-
-
-		// Create and populate the panel
+		
 		SpringLayout layout = new SpringLayout();
-
+		
 		this.setLayout(layout);
 
-		// make a label and text field for each player so that they can input
-		// their names
-		for (int i = 0; i < numPairs; i++) {
-			JLabel nameLabel = new JLabel("Player "+ i + " Name: ", JLabel.TRAILING);
-			this.add(nameLabel);
-			JTextField nameField = new JTextField(10);
-			nameLabel.setLabelFor(nameField);
-			this.add(nameField);
+		JLabel playerCountLabel = new JLabel("Number of Players: ");
+		this.add(playerCountLabel);
+		 numPlayers = new JComboBox<Integer>(players);
+		playerCountLabel.setLabelFor(numPlayers);
+		this.add(numPlayers);
 
-			JLabel raceLabel = new JLabel(" Race: ", JLabel.TRAILING);
-			this.add(raceLabel);
-			JComboBox<String> raceList = new JComboBox<String>(races);
-			raceLabel.setLabelFor(raceList);
-			this.add(raceList);
+		JLabel gameLevelLabel = new JLabel("Game Level: ");
+		this.add(gameLevelLabel);
+		gameLevel = new JComboBox<String>(diffLevels);
+		gameLevelLabel.setLabelFor(gameLevel);
+		this.add(gameLevel);
 
-			JLabel colorLabel = new JLabel(" Color: ", JLabel.TRAILING);
-			this.add(colorLabel);
-			
-			JComboBox<String> colorsList = new JComboBox<String>(colors);
-			colorLabel.setLabelFor(colorsList);
-			this.add(colorsList);
-		}
+		JLabel mapTypeLabel = new JLabel("Map Type: ");
+		this.add(mapTypeLabel);
+		mapTypes = new JComboBox<String>(maps);
+		mapTypeLabel.setLabelFor(mapTypes);
+		this.add(mapTypes);
 
-
-		
+		JButton nextButton = new JButton("Next");
+		nextButton.addActionListener(new nextListener());
+		this.add(nextButton);
 		
 		this.add(new JPanel());
-		this.add(new JPanel());
-		JButton startButton = new JButton("Start");
-		startButton.addActionListener(new startListener());
-		this.add(startButton);
-		this.add(new JPanel());
-		this.add(new JPanel());
-		this.add(new JPanel());
-
-
-
 		
 		// Lay out the panel.
-		SpringUtilities.makeCompactGrid(this,
-                numPairs +1 , 6, //rows, cols
-                5, 5, //initialX, initialY
-                5, 5);//xPad, yPad
-
-		
-		
+		SpringUtilities.makeCompactGrid(this, 4, 2, // rows, cols
+				6, 6, // initX, initY
+				6, 6); // xPad, yPad
 
 	}
-
+	public int getPlayerCount() {
+		return playerCount;
+	}
+	
+	
 	/**
-	 * Listener class for "Start" button. Passes message to GUIManager.
-	 * 
+	 * Listener class for "Next" button. Passes message to GUIManager.
+	 *
 	 */
-	private class startListener implements ActionListener {
+	private class nextListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			manager.notify(GameConfigMenu.this, "next");
-		}
+			playerCount = Integer.parseInt(numPlayers.getSelectedItem().toString()); //Are you serious right now?
+			manager.notify(GameConfigMenu.this,"next");
+		} 
 	}
 
+	
 }
