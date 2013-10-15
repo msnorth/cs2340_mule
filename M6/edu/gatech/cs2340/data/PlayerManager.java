@@ -26,7 +26,7 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 	 * 
 	 * @param players
 	 */
-	public PlayerManager(Player[] players) {
+	public PlayerManager(Player[] players, String difficulty) {
 		this.players = players;
 		calculatePlayerOrder();
 		nextPlayer = 0;

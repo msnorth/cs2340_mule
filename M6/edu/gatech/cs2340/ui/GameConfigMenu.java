@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import edu.gatech.cs2340.sequencing.WaitedOn;
+
 
 /**
  * 
@@ -27,7 +29,7 @@ import javax.swing.SpringLayout;
  *         			information is passed back to GameConfigMenuPanel2
  * 
  */
-public class GameConfigMenu extends JPanel {
+public class GameConfigMenu extends JPanel implements WaitedOn {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +40,7 @@ public class GameConfigMenu extends JPanel {
 	public static Integer[] players = {2,3,4};
 
 	private int playerCount;
+	private boolean finished;
 	
 	private GUIManager manager;
 	
@@ -50,7 +53,7 @@ public class GameConfigMenu extends JPanel {
 	 * 
 	 * @param manager GUIManager to handle callback from "Next" button
 	 */
-	public GameConfigMenu(GUIManager manager) {
+	public GameConfigMenu() {
 		this.manager = manager;
 		
 		SpringLayout layout = new SpringLayout();
@@ -91,6 +94,10 @@ public class GameConfigMenu extends JPanel {
 		return playerCount;
 	}
 	
+	public String getGameDifficulty() {
+		return gameLevel.getSelectedItem().toString();
+	}
+	
 	
 	/**
 	 * Listener class for "Next" button. Passes message to GUIManager.
@@ -100,8 +107,19 @@ public class GameConfigMenu extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			playerCount = Integer.parseInt(numPlayers.getSelectedItem().toString()); //Are you serious right now?
-			manager.notify(GameConfigMenu.this,"next");
+			finished = true;
 		} 
+	}
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public boolean isFinished() {
+		return finished;
 	}
 
 	
