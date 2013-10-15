@@ -5,6 +5,7 @@ import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Tile;
 
 public class MountainTile extends Tile{
+	public static String name = "Mountain";
 	public MountainTile(String id, Player owner, TileRenderer renderer) {
 		this.setRenderer(renderer);
 		this.setOwner(owner);
