@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.ui;
-import java.awt.GridLayout;
+import java.awt.GridLayout; 
+
+import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
 
@@ -10,15 +12,15 @@ import edu.gatech.cs2340.data.Map;
  * 		Function group:		View: Background
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Dan
- * 		Modifications:								
+ * 		Modifications:		M6		10/15/2013 Thomas Mark
+ * 									Removed GUIManager references.								
  * 
  * 
  * 
  * 		Purpose: Provide a graphical representation of the Map
  */
-public class MapRenderer extends GUIComponent{
+public class MapRenderer extends JPanel{
 	private Map map;
-	private GUIManager manager;
 	private MapSprite sprite;
 	
 	/**
@@ -26,8 +28,7 @@ public class MapRenderer extends GUIComponent{
 	 * Main constructor. Connects renderer with data (map) and with callback line (manager).
 	 * @param map
 	 */
-	public MapRenderer(GUIManager manager, Map map) {
-		this.manager = manager;
+	public MapRenderer(Map map) {
 		this.map = map;
 		sprite = new MapSprite(0,0,this);
 		
@@ -35,7 +36,6 @@ public class MapRenderer extends GUIComponent{
 	}
 	
 	
-	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
 		
