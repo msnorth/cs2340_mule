@@ -7,6 +7,7 @@ import edu.gatech.cs2340.data.Tile;
 public class PeakTile extends Tile {
 	public static String name = "Peak";
 	public PeakTile(String id, Player owner, TileRenderer renderer) {
+		super(name);
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);

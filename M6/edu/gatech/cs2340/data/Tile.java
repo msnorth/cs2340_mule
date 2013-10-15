@@ -18,6 +18,11 @@ public abstract class Tile {
 	private Player owner;
 	private String id;
 	private boolean isActive;
+	private String name;
+
+	public Tile(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * #FUTURE Method to get the production of a Tile. Based upon Tile type,
@@ -76,5 +81,9 @@ public abstract class Tile {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
