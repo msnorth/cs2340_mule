@@ -103,8 +103,12 @@ public class Map implements MapResponsibilities {
 			if (t != null && t.getOwner() == null) {
 				return t;
 			}
-			currX++;
-			currY++;
+			if (currY < tiles[0].length) {
+				currY++;
+			} else {
+				currX++;
+				currY = 0;
+			}
 		} while (t != null);
 		logger.log(null, "All tiles are owned");
 		return null;
@@ -124,8 +128,12 @@ public class Map implements MapResponsibilities {
 			if (t != null && t.getOwner() == null) {
 				unownedTiles.add(t);
 			}
-			currX++;
-			currY++;
+			if (currY < tiles[0].length) {
+				currY++;
+			} else {
+				currX++;
+				currY = 0;
+			}
 		} while (t != null);
 
 		if (!unownedTiles.isEmpty()) {
