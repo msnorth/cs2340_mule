@@ -7,6 +7,7 @@ import edu.gatech.cs2340.data.Tile;
 public class PlainsTile extends Tile {
 	public static String name = "Plains";
 	public PlainsTile(String id, Player owner, TileRenderer renderer) {
+		super(name);
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);

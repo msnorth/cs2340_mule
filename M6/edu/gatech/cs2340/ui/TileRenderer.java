@@ -61,7 +61,7 @@ public class TileRenderer extends GUIComponent {
 			color = p.getPlayerColor();
 			border = BorderFactory.createLineBorder(color, thickness);
 		}
-		this.add(new JLabel("TILE"));
+		this.add(new JLabel(tile.getName()));
 
 		this.setBorder(border);
 	}

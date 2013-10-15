@@ -66,8 +66,7 @@ public abstract class MapGenerator {
 							new TileRenderer());
 					break;
 				case 5:
-					tile = new TownTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = null;
 					break;
 				default:
 					tile = new PlainsTile(UUID.randomUUID().toString(), null,
