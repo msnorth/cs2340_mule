@@ -17,8 +17,7 @@ public abstract class Tile {
 	private TileRenderer renderer;
 	private Player owner;
 	private String id;
-
-	
+	private boolean isActive;
 
 	/**
 	 * #FUTURE Method to get the production of a Tile. Based upon Tile type,
@@ -69,5 +68,13 @@ public abstract class Tile {
 	public boolean compareTo(Tile t) {
 		return (id.equals(t.getId()));
 	}
-}
 
+	//get whether or not is active
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+}

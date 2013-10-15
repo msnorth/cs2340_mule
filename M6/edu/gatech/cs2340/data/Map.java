@@ -45,8 +45,12 @@ public class Map implements MapResponsibilities {
 	// TODO deal with last tile
 	@Override
 	public Tile getNextTile() {
-		currX++;
-		currY++;
+		if (currY < tiles[0].length) {
+			currY++;
+		} else {
+			currX++;
+			currY = 0;
+		}
 		return getTileAt(currX, currY);
 
 	}
