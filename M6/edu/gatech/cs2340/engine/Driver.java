@@ -45,6 +45,7 @@ public abstract class Driver {
 		// need to figure out best way to get players to game
 		
 		game = new Game(pManager, false, 8);
-		game.run();		
+		game.run();
+		Waiter.waitOn(game, 10);
 	}		
 }

@@ -18,17 +18,28 @@ package edu.gatech.cs2340.sequencing;
  */
 public abstract class Waiter {
 	public static final int DEFAULT_POLL_RATE = 20; //Hz
+	public int customPullRate;
+	
+	/**
+	 * #M6
+	 * Check if WaitedOn item has finished at the set rate.
+	 * 
+	 * @param item, customPollRate
+	 */	
+	public static void waitOn(WaitedOn item, int customPollRate) {
+		WaitedOn[] thread = new WaitedOn[1];
+		thread[0] = item;
+		waitForAny(thread, customPollRate);
+	}
 	
 	/**
 	 * #M6
 	 * Check if WaitedOn item has finished at the default rate.
 	 * 
 	 * @param item
-	 */
+	 */	
 	public static void waitOn(WaitedOn item) {
-		WaitedOn[] thread = new WaitedOn[1];
-		thread[0] = item;
-		waitForAny(thread, DEFAULT_POLL_RATE);
+		waitOn(item, DEFAULT_POLL_RATE);
 	}
 	
 	/**
