@@ -8,10 +8,15 @@ import edu.gatech.cs2340.io.InputReceiver;
  * @author Stephen Conway
  * 		Function group:		View: Graphic
  * 		Created for:		M6		10/8/13
+<<<<<<< HEAD
  * 		Assigned to:		Shreyyas, Stephen
  * 		Modifications:		M6		10/15/13 Thomas Mark
  * 									Initial fleshing.
  * 											
+=======
+ * 		Assigned to:		Maddy
+ * 		Modifications:								
+>>>>>>> refs/remotes/origin/master
  * 
  * 
  * 
