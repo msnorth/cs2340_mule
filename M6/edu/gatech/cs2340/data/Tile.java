@@ -12,17 +12,13 @@ import edu.gatech.cs2340.ui.TileRenderer;
  *         Purpose: Parent class for all Tile objects that make up a grid on the
  *         game's map.
  */
-public  class Tile {
+public abstract class Tile {
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
 	private TileRenderer renderer;
 	private Player owner;
 	private String id;
 
-	public Tile(String id, Player owner, TileRenderer renderer) {
-		this.renderer = renderer;
-		this.owner = owner;
-		this.id = id;
-	}
+	
 
 	/**
 	 * #FUTURE Method to get the production of a Tile. Based upon Tile type,
@@ -30,9 +26,7 @@ public  class Tile {
 	 * 
 	 * @return
 	 */
-	public ResourceAmount calculateProduction() {
-		return null;
-	}
+	public abstract ResourceAmount calculateProduction();
 
 	/**
 	 * #M6 Method to set owner of tile. Should handle "null" as returning Tile
@@ -44,6 +38,14 @@ public  class Tile {
 	public void setOwner(Player newOwner) {
 		this.owner = newOwner;
 		// TODO update tileRenderer
+	}
+
+	public TileRenderer getRenderer() {
+		return renderer;
+	}
+
+	public void setRenderer(TileRenderer renderer) {
+		this.renderer = renderer;
 	}
 
 	/**
@@ -68,3 +70,4 @@ public  class Tile {
 		return (id.equals(t.getId()));
 	}
 }
+
