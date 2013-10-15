@@ -12,7 +12,9 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 
  * @author Thomas Mark
  * 		Function group:		Control: Engine
- * 		Created for:		M6		10/14/2013
+ * 		Created for:		M6		10/14/13
+ * 		Modifications:		M6		10/15/13 Thomas Mark
+ * 									Fleshed out implementation.
  * 
  * 		Purpose: Controls game processes. Initializes rounds. Determines end of game.
  *

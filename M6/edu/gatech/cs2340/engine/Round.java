@@ -58,15 +58,13 @@ public class Round implements WaitedOn{
 		// TODO: random events
 		
 		// Land Grant/Auction phases
-		for (int i=0; i < roundNumber; i++) {
-			if (i == 0 || i == 1) {
+			if (roundNumber < 3) {
 				for (int j=0; j < numPlayers; j++) {
 					granter = new LandGranter(playerManager.getNextPlayer(), map, mapRenderer);
 					granter.run();
 					Waiter.waitOn(granter);
 				}
 			}
-		}
 		
 		// Production
 		// Auction

@@ -18,7 +18,9 @@ import edu.gatech.cs2340.ui.MainMenuManager;
  * 		Modifications:		M5		10/6/13	Thomas Mark
  * 									Initial Driver fleshing from stub 		
  * 							M6		10/8/13 Stephen
- * 									Removed mainMenu management functions. Added procedural call to handle this.					
+ * 									Removed mainMenu management functions. Added procedural call to handle this.	
+ * 							M6		10/15/13 Thomas Mark
+ * 									Modified so that game class is instantiated properly.				
  * 
  * 
  * 
