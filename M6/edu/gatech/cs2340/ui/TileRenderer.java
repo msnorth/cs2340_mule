@@ -1,4 +1,6 @@
 package edu.gatech.cs2340.ui;
+import java.awt.Graphics;
+
 import edu.gatech.cs2340.data.Tile;
 
 /**
@@ -44,6 +46,12 @@ public class TileRenderer extends GUIComponent{
 	}
 	
 	public void refresh() {
+		repaint();
+	}
+	
+	public void repaint(Graphics g){
+		// paint with ImageIcon
+		// load the imageIcons and make them static final somewhere in an initialize() method
 		
 	}
 	

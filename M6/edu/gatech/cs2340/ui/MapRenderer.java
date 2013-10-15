@@ -38,7 +38,7 @@ public class MapRenderer extends GUIComponent{
 	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
-		
+		// iterate through each tile with Map.getNextTile()
 	}
 	
 	/**
