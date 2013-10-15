@@ -5,7 +5,7 @@ import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.sequencing.WaitedOn;
-import edu.gatech.cs2340.ui.MainMenuManager;
+import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.ui.MapRenderer;
 
 /**
@@ -23,7 +23,7 @@ public class Game implements WaitedOn {
 	private static int numberRounds;
 	private static Map map;
 	private static MapRenderer renderer;
-	private LandGranter granter;
+	private Round round;
 	
 	public Game(PlayerManager pManager, boolean randMap, int numRounds) {
 		playerManager = pManager;
@@ -40,12 +40,10 @@ public class Game implements WaitedOn {
 	}
 	
 	public void run() {
-		int numPlayers = playerManager.getTotalPlayers();
-		
 		for (int i=0; i < numberRounds; i++) {
-			if (i == 0) {
-				granter = new LandGranter(playerManager.getNextPlayer(), map, renderer);
-			}
+			round = new Round(playerManager, map, renderer, numberRounds);
+			round.run();
+			Waiter.waitOn(round);
 		}
 	}
 

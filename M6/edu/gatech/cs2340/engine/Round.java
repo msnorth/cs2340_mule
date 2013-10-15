@@ -1,6 +1,10 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.Map;
+import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.sequencing.WaitedOn;
+import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MapRenderer;
 
 
 
@@ -10,15 +14,27 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  * 		Function group:		Controller: Engine
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Tommy, Stephen
- * 		Modifications:								
+ * 		Modifications:		M6		10/15/13 Thomas Mark
+ * 									Fleshed out round methods.						
  * 
  * 
  * 
  * 		Purpose: Execute a single round of the game
  */
 public class Round implements WaitedOn{
-	private int roundNumber;
+	private static int roundNumber;
 	private boolean finished;
+	private static PlayerManager playerManager;
+	private static Map map;
+	private static MapRenderer mapRenderer;
+	
+	public Round(PlayerManager pManager, Map usedMap, MapRenderer mRenderer, int roundNum) {
+		this.finished = false;
+		roundNumber = roundNum;
+		playerManager = pManager;
+		map = usedMap;
+		mapRenderer = mRenderer;
+	}
 
 	/**
 	 * #M6
@@ -37,12 +53,21 @@ public class Round implements WaitedOn{
 	 */
 	@Override
 	public void run() {
-		// random events
-		// ordering of players
-		// land distribution phase
-			// LandGranter implementation
-			// LandAuction implementation
-		// Player turns
+		LandGranter granter;
+		int numPlayers = playerManager.getTotalPlayers();
+		// TODO: random events
+		
+		// Land Grant/Auction phases
+		for (int i=0; i < roundNumber; i++) {
+			if (i == 0 || i == 1) {
+				for (int j=0; j < numPlayers; j++) {
+					granter = new LandGranter(playerManager.getNextPlayer(), map, mapRenderer);
+					granter.run();
+					Waiter.waitOn(granter);
+				}
+			}
+		}
+		
 		// Production
 		// Auction
 		// Score screen
