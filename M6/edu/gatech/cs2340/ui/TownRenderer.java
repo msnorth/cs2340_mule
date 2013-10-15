@@ -1,9 +1,12 @@
 package edu.gatech.cs2340.ui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
@@ -42,15 +45,22 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private void drawTown() {
 		GridLayout grid = new GridLayout();
+		this.setLayout(grid);
 		grid.setColumns(3);
 		grid.setRows(3);
-		this.setLayout(grid);
+		
 		this.add(this.drawLandOffice());
 		this.add(this.drawPathPanel());
 		this.add(this.drawLO());
+		
+		this.add(this.drawPathPanel());
+		this.add(this.drawPathPanel());
+		this.add(this.drawPathPanel());
+		
 		this.add(this.drawMule());
 		this.add(this.drawPathPanel());
 		this.add(this.drawPub());
+		
 		grid.layoutContainer(this);
 	}
 
@@ -69,6 +79,8 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	private JPanel drawLandOffice() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("Land Office"));
+		Border line = BorderFactory.createLineBorder(Color.black);
+		panel.setBorder(line);
 		return panel;
 
 	}
@@ -76,6 +88,8 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	private JPanel drawPub() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("Pub"));
+		Border line = BorderFactory.createLineBorder(Color.black);
+		panel.setBorder(line);
 		return panel;
 
 	}
@@ -83,6 +97,8 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	private JPanel drawMule() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("M.U.L.E."));
+		Border line = BorderFactory.createLineBorder(Color.black);
+		panel.setBorder(line);
 		return panel;
 
 	}
@@ -90,11 +106,14 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	private JPanel drawLO() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("Menu"));
+		Border line = BorderFactory.createLineBorder(Color.black);
+		panel.setBorder(line);
 		return panel;
 	}
 
 	private JPanel drawPathPanel() {
 		JPanel panel = new JPanel();
+		panel.add(new JLabel(""));
 		return panel;
 	}
 
