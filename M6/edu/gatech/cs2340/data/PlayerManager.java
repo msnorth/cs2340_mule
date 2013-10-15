@@ -55,6 +55,7 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 		}
 		
 	}
+	
 	/**
 	 * #M6
 	 * Returns next player in order of score.
@@ -72,6 +73,16 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 		}
 
 		return next;
+	}
+	
+	/**
+	 * #M6
+	 * Returns number of player in game.
+	 * 
+	 * @return the number of players
+	 */
+	public int getTotalPlayers() {
+		return players.length;
 	}
 
 }
