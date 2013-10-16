@@ -66,7 +66,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 		// make a label and text field for each player so that they can input
 		// their names
 		for (int i = 0; i < numPairs; i++) {
-			JLabel nameLabel = new JLabel("Player "+ i + " Name: ", JLabel.TRAILING);
+			JLabel nameLabel = new JLabel("Player "+ (i+1) + " Name: ", JLabel.TRAILING);
 			this.add(nameLabel);
 			JTextField nameField = new JTextField(10);
 			nameLabel.setLabelFor(nameField);
