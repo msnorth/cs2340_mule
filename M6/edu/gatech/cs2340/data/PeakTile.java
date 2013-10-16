@@ -1,13 +1,10 @@
-package edu.gatech.cs2340.ui;
+package edu.gatech.cs2340.data;
 
-import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.ResourceAmount;
-import edu.gatech.cs2340.data.Tile;
+import edu.gatech.cs2340.ui.TileRenderer;
 
 public class PeakTile extends Tile {
-	public static String name = "Peak";
 	public PeakTile(String id, Player owner, TileRenderer renderer) {
-		super(name);
+		name = "Peak";
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);

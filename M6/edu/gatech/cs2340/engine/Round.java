@@ -1,10 +1,10 @@
 package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.Map;
+import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
-import edu.gatech.cs2340.ui.MapRenderer;
 
 
 
@@ -15,25 +15,24 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Tommy, Stephen
  * 		Modifications:		M6		10/15/13 Thomas Mark
- * 									Fleshed out round methods.						
- * 
+ * 									Fleshed out round methods.	
+ * 							M6		10/15/13 Stephen					
+ * 									Fixed some typos. Added LandPurchaser instances for later rounds.
  * 
  * 
  * 		Purpose: Execute a single round of the game
  */
 public class Round implements WaitedOn{
-	private static int roundNumber;
+	private int roundNumber;
 	private boolean finished;
-	private static PlayerManager playerManager;
-	private static Map map;
-	private static MapRenderer mapRenderer;
+	private PlayerManager playerManager;
+	private Map map;
 	
-	public Round(PlayerManager pManager, Map usedMap, MapRenderer mRenderer, int roundNum) {
-		this.finished = false;
+	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
 		roundNumber = roundNum;
 		playerManager = pManager;
 		map = usedMap;
-		mapRenderer = mRenderer;
+		finished = false;
 	}
 
 	/**
@@ -53,24 +52,44 @@ public class Round implements WaitedOn{
 	 */
 	@Override
 	public void run() {
-		LandGranter granter;
 		int numPlayers = playerManager.getTotalPlayers();
 		// TODO: random events
 		
-		// Land Grant/Auction phases
+		// Land Grant/Purchase phases
 			if (roundNumber < 3) {
-				for (int j=0; j < numPlayers; j++) {
-					granter = new LandGranter(playerManager.getNextPlayer(), map, mapRenderer);
+				for (int i=0; i < numPlayers; i++) {
+					Player currentPlayer = playerManager.getNextPlayer();
+					LandGranter granter = new LandGranter(currentPlayer, map);
 					granter.run();
 					Waiter.waitOn(granter);
 				}
 			}
-		
+			else {
+				for (int i=0; i < numPlayers; i++) {
+					Player currentPlayer = playerManager.getNextPlayer();
+					LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
+					purchaser.run();
+					Waiter.waitOn(purchaser);
+				}
+			}
+			
+		// Land Auction phase
+		// Turn
+			for (int i=0; i<numPlayers; i++) {
+				Player currentPlayer = playerManager.getNextPlayer();
+				Turn turn = new Turn(currentPlayer, map);
+				turn.run();
+				Waiter.waitOn(turn);
+			}
 		// Production
 		// Auction
 		// Score screen
 	}
 	
+	/**
+	 * Finished once all phases complete
+	 * Random events, land distribution, production, auctions, score screen
+	 */
 	@Override
 	public boolean isFinished() {
 		return finished;

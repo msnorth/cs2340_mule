@@ -1,13 +1,10 @@
-package edu.gatech.cs2340.ui;
+package edu.gatech.cs2340.data;
 
-import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.ResourceAmount;
-import edu.gatech.cs2340.data.Tile;
+import edu.gatech.cs2340.ui.TileRenderer;
 
 public class PlainsTile extends Tile {
-	public static String name = "Plains";
 	public PlainsTile(String id, Player owner, TileRenderer renderer) {
-		super(name);
+		name = "Plains";
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);

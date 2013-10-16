@@ -27,26 +27,22 @@ import edu.gatech.cs2340.ui.MainMenuManager;
  * 		Purpose: Initial control class. Sets up application by creating game window Initializes background tasks
  * 					like KeyboardAdapter and starts main menu sequence.
  */
-public abstract class Driver {
-	private static MainGameWindow frame;
-	private static Game game;
-	
+public abstract class Driver {	
 	/**
 	 * Application entry point. From here, KeyboardAdapter should be initialized and
 	 * the entry menu should be brought up.
 	 */
 	public static void main(String[] args) {
-		KeyboardAdapter input = new KeyboardAdapter();
-		frame = new MainGameWindow(input);
-		MainMenuManager mainMenu = new MainMenuManager(frame);
+		KeyboardAdapter.initialize();
+		MainGameWindow.initialize();
+		MainMenuManager mainMenu = new MainMenuManager();
 		mainMenu.run();
 		Waiter.waitOn(mainMenu);
 		
 		PlayerManager pManager = mainMenu.getPlayers();
 		
-		// need to figure out best way to get players to game
-		
-		game = new Game(pManager, false, 8);
+		//Game setup currently allows only default map and 8 turns
+		Game game = new Game(pManager, false, 8);
 		game.run();
 		Waiter.waitOn(game, 10);
 	}		

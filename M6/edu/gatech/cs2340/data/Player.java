@@ -98,4 +98,14 @@ public class Player {
 		}
 		return false;
 	}
+	
+	/**
+	 * #M6
+	 * Method to determine length of Player's turn. Based on food.
+	 * 
+	 * @return
+	 */
+	public long calculateTurnTime() {
+		return 50000;
+	}
 }

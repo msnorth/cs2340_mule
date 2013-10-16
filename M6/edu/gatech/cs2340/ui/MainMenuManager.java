@@ -23,7 +23,6 @@ import edu.gatech.cs2340.sequencing.Waiter;
  */
 public class MainMenuManager implements WaitedOn{
 	private boolean finished;
-	private MainGameWindow mainGameWindow;
 	PlayerManager playerManager;
 	
 	/**
@@ -32,9 +31,8 @@ public class MainMenuManager implements WaitedOn{
 	 * 
 	 * @param mainGameWindow
 	 */
-	public MainMenuManager(MainGameWindow mainGameWindow) {
+	public MainMenuManager() {
 		finished = false;
-		this.mainGameWindow = mainGameWindow;
 	}
 	
 	/**
@@ -42,13 +40,14 @@ public class MainMenuManager implements WaitedOn{
 	 * Method to start the main menu sequence
 	 */
 	public void run() {
+		MainGameWindow window = MainGameWindow.getInstance();
 		GameConfigMenu gameConfig = new GameConfigMenu();
-		mainGameWindow.setPanel(gameConfig);
+		window.setPanel(gameConfig);
 		Waiter.waitOn(gameConfig);
 		String difficulty = gameConfig.getGameDifficulty();
 		int numPlayers = gameConfig.getPlayerCount();
 		PlayerConfigMenu playerConfig = new PlayerConfigMenu(numPlayers);
-		mainGameWindow.setPanel(playerConfig);
+		window.setPanel(playerConfig);
 		playerConfig.run();
 		Waiter.waitOn(playerConfig);
 		Player[] players = playerConfig.getPlayers();

@@ -18,11 +18,7 @@ public abstract class Tile {
 	private Player owner;
 	private String id;
 	private boolean isActive;
-	private String name;
-
-	public Tile(String name) {
-		this.name = name;
-	}
+	protected String name;
 
 	/**
 	 * #FUTURE Method to get the production of a Tile. Based upon Tile type,

@@ -1,16 +1,14 @@
 package edu.gatech.cs2340.engine;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.data.Tile;
-import edu.gatech.cs2340.io.InputReceiver;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
-import edu.gatech.cs2340.ui.TileRenderer;
 
 
 /**
@@ -23,17 +21,17 @@ import edu.gatech.cs2340.ui.TileRenderer;
  * 									Added in functionality to grant land to players. 
  * 							M6		10/15/13 Shreyyas/Tommy
  * 									Removed PlayerManager references.
- * 
- * 
+ * 							M6		10/15/13 Stephen
+ * 									Replaced InputReceiver interface with KeyWaiter usage
  * 
  * 		Purpose: Grant unowned plots of land to players in the first few rounds of the game.
  */
-public class LandGranter implements InputReceiver, WaitedOn 
+public class LandGranter implements WaitedOn 
 {
+	private static final long WAIT_FOR_NEXT_TILE = 500;
+	
 	private Player currentPlayer;
-	private MapRenderer mapRenderer;
 	private boolean grantFinished;
-	private boolean hasSelected;
 	private Map map;
 	private KeyWaiter keyWaiter;
 	private MULETimer timer;
@@ -48,13 +46,11 @@ public class LandGranter implements InputReceiver, WaitedOn
 	 * @param player
 	 * @param mapRenderer
 	 */
-	public LandGranter(Player player, Map map, MapRenderer mapRenderer) 
+	public LandGranter(Player player, Map map) 
 	{
 		currentPlayer 	 = player;
-		this.mapRenderer = mapRenderer;
 		this.map 		 = map;
 		grantFinished 	 = false;
-		hasSelected      = false;
 		keyWaiter 		 = new KeyWaiter(KeyboardAdapter.CONFRIM_KEY);
 		adapter			 = KeyboardAdapter.getInstance();
 	}
@@ -69,13 +65,16 @@ public class LandGranter implements InputReceiver, WaitedOn
 	@Override
 	public void run() 
 	{
+		MapRenderer mapRenderer = new MapRenderer(map);
+		MainGameWindow.getInstance().setPanel(mapRenderer);
+		
 		while(!grantFinished)
 		{
 			Tile unownedTile = map.getNextUnownedTile();		 	//Obtains the nextUnownedTile. This is our currentTile now.
 			if((unownedTile != null))								//As long as that unowned tile isn't null
 			{
 				adapter.setReceiver(keyWaiter);						//Sets focus to the keyWaiter to listen to user response
-				timer = new MULETimer(3000);						//Length of time the granter will stay on one tile
+				timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
 				timer.run();										//Starts the timer
 				int value = Waiter.waitForAny(array);				//Waits for any thread to finish
 				
@@ -97,36 +96,12 @@ public class LandGranter implements InputReceiver, WaitedOn
 		}
 	}
 		
-	@Override
-	public void receiveInput(String input) {
-		//
-	}
-
+	/**
+	 * Finished when user selects a free Tile or when user selected no Tile
+	 * and instead a random one was assigned.
+	 */
 	@Override
 	public boolean isFinished() {
 		return grantFinished;
 	}
-	
-	
-	
-	/*****************************************************************************
-	 * New variables: hasSelected - LandGranter
-	 * 			      unownedTile - Tile
-	 * 				  tile		  - Tile
-	 * 					
-	 * 
-	 * Methods:		  map.getNextUnownedTile() - map object should give me the nextUnownedTile
-	 * 				  receiveInput("Enter")    - a boolean that says "yea, player pushed Enter"
-	 * 				  map.getCurrentTile()
-	 * 				  currentPlayer.addTile(tile)
-	 * 
-	 * Ideology: 	  While your current grant is not finished, get the nextUnownedTile
-	 * 				  and this will be your currentUnownedTile, since it's the one you're
-	 * 				  currently looking at. If that unownedTile is not null (meaning it 
-	 * 			      doesn't exist) and you receive "SpaceKey" as an input (which gets passed 
-	 * 				  eventually to Keyboard Adapter to do a VK_SpaceKey or something maybe) 
-	 * 				  then get that current tile (should be unowned), add that to currentPlayer's
-	 * 				  tileList, and the land granting phase should finish...FOR THAT PERSON.
-	 * 				  Do it again for next person.
-	 */
 }

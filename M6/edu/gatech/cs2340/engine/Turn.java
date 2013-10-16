@@ -1,7 +1,12 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
+import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MapManager;
+import edu.gatech.cs2340.ui.MapRenderer;
 
 
 /**
@@ -19,6 +24,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
 public class Turn implements WaitedOn {
 	private boolean finished;
 	private Player player;
+	private Map map;
 	
 	/**
 	 * #M6
@@ -26,8 +32,10 @@ public class Turn implements WaitedOn {
 	 * 
 	 * @param player
 	 */
-	public Turn(Player player) {
+	public Turn(Player player, Map map) {
 		this.player = player;
+		finished = false;
+		this.map = map;
 	}
 	
 	/**
@@ -38,7 +46,14 @@ public class Turn implements WaitedOn {
 	 */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		MULETimer timer = new MULETimer(player.calculateTurnTime());
+		MapManager mapManager = new MapManager(player);
+		WaitedOn[] waitees = {timer, mapManager};
+		int killa = Waiter.waitForAny(waitees);
+		if (killa == 1) { //turn ended by gambling
+			
+		}		
+		finished = true;
 	}
 
 	@Override

@@ -45,7 +45,18 @@ public class MULETimer implements Runnable, WaitedOn {
 	}
 	
 	/**
-	 * Mehtod to terminate thread before Timer runs out.
+	 * #M6
+	 * Method to get time left on the clock.
+	 * Used to determine gamlin' profits.
+	 * 
+	 * @return
+	 */
+	public long getTimeRemaining() {
+		return timeout_ms;
+	}
+	
+	/**
+	 * Method to terminate thread before Timer runs out.
 	 */
 	public void end() {
 		timeout = true;

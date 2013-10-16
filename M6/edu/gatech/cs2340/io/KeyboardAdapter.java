@@ -29,14 +29,25 @@ public class KeyboardAdapter implements KeyListener{
 	public static final String DOWN = "s";
 	public static final String RIGHT = "d";
 	
-	public static KeyboardAdapter adapter = new KeyboardAdapter();
+	private static KeyboardAdapter instance = null;
 	private InputReceiver currentFocused;
+	
+	public static KeyboardAdapter getInstance() {
+		return instance;
+	}
+	
+	public static void initialize() {
+		if (instance != null) {
+			throw new RuntimeException("KeyboardAdapter already created!");
+		}
+		instance = new KeyboardAdapter();
+	}
 	
 	/**
 	 * @author Stephen Conway #M5
 	 * Primary constructor
 	 */
-	public KeyboardAdapter() {
+	private KeyboardAdapter() {
 		currentFocused = null;
 	}
 	
@@ -58,15 +69,7 @@ public class KeyboardAdapter implements KeyListener{
 		}
 		*/
 	}
-	/**
-	 * @author ShreyyasV #M6
-	 * Method gets the general instance of KeyboardAdapter so 
-	 * multiple individual ones are not created among other classes
-	 * @return adapter : Returns the keyboard adapter
-	 */
-	public static KeyboardAdapter getInstance() {
-		return adapter;
-	}
+	
 	/*
 	 * event order:
 	 * keyPressed
