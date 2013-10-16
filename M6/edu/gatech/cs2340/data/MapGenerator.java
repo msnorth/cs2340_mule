@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.data;
 
+import java.awt.Color;
 import java.util.UUID;
 
 import edu.gatech.cs2340.ui.TileRenderer;
@@ -62,6 +63,7 @@ public abstract class MapGenerator {
 					break;
 				case 5:
 					tile = new TownTile(UUID.randomUUID().toString(), null, renderer);
+					tile.setOwner(new Player("Municipality","Human",new Color(255,255,255)));
 					break;
 				default:
 					tile = new PlainsTile(UUID.randomUUID().toString(), null,

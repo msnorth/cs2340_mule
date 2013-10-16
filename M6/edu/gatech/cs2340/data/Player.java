@@ -45,7 +45,6 @@ public class Player {
 		ownedTiles = new ArrayList<Tile>();
 	}
 	
-	
 	/**
 	 * #M6
 	 * Method to calculate the player's current game score.

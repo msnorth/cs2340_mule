@@ -32,12 +32,12 @@ public class MapRenderer extends JPanel{
 	public MapRenderer(Map map) {
 		this.map = map;
 		sprite = new MapSprite(0,0,this);
-		
-
 		refresh();
 	}
 	
-	
+	/**
+	 * 
+	 */
 	public void refresh() {
 		removeAll();
 		
@@ -51,7 +51,6 @@ public class MapRenderer extends JPanel{
 			tile = map.getNextTile();
 			
 		} while (tile != null);
-
 		
 		revalidate();
 	}

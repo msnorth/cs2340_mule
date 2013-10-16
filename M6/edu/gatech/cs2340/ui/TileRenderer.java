@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -27,6 +28,12 @@ public class TileRenderer extends GUIComponent {
 	public void setTile(Tile tile) {
 		this.tile = tile;
 		this.add(new JLabel(tile.getName()));
+		
+		
+		Dimension dim = new Dimension(MainGameWindow.DIM_X/9, MainGameWindow.DIM_X/9);
+		this.setMaximumSize(dim);
+		this.setPreferredSize(dim);
+		this.setMinimumSize(dim);
 	}
 
 

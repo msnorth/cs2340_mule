@@ -81,6 +81,7 @@ public class LandGranter implements WaitedOn
 				{
 					System.out.println("Space key detect!");
 					currentPlayer.addTile(unownedTile);				//Assigns tile to player
+					unownedTile.setOwner(currentPlayer);
 					timer.end();									//Kills timer
 					map.resetNextUnownedTile();
 					grantFinished = true;							//Ends land grant phase for that person
@@ -90,6 +91,7 @@ public class LandGranter implements WaitedOn
 			else {
 				Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
 				currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
+				randomUnownedTile.setOwner(currentPlayer);
 				map.resetNextUnownedTile();
 				grantFinished = true;
 			}
