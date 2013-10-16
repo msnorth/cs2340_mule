@@ -68,32 +68,33 @@ public class LandGranter implements WaitedOn
 		while(!grantFinished)
 		{
 			Tile unownedTile = map.getNextUnownedTile();		 	//Obtains the nextUnownedTile. This is our currentTile now.
-			if((unownedTile != null))								//As long as that unowned tile isn't null
+			if(unownedTile != null)								//As long as that unowned tile isn't null
 			{
+				unownedTile.setActive(true);
+				mapRenderer.refresh();
 				MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
 				timer.run();										//Starts the timer
 				WaitedOn[] waitees = {keyWaiter, timer};
-				System.out.println("Waitees done in land granter");
 				int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
 				
 				if(value == 0) 
 				{
+					System.out.println("Space key detect!");
 					currentPlayer.addTile(unownedTile);				//Assigns tile to player
 					timer.end();									//Kills timer
-					mapRenderer.refresh();							//Reflects changes on map
 					map.resetNextUnownedTile();
 					grantFinished = true;							//Ends land grant phase for that person
 				}
-				else if((map.getNextUnownedTile() == null) && value == 1)
-				{
-					Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
-					currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
-					mapRenderer.refresh();									//Reflects changes on map
-					map.resetNextUnownedTile();
-					grantFinished = true;
-				}
+				unownedTile.setActive(false);
+			}
+			else {
+				Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
+				currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
+				map.resetNextUnownedTile();
+				grantFinished = true;
 			}
 		}
+		mapRenderer.refresh();
 	}
 		
 	/**

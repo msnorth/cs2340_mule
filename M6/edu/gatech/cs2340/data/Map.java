@@ -110,7 +110,6 @@ public class Map implements MapResponsibilities {
 
 	@Override
 	public void resetNextUnownedTile() {
-		System.out.println("Random tile reset");
 		nextUnownedNdx = 0;
 	}
 

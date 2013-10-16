@@ -23,6 +23,11 @@ public class TileRenderer extends GUIComponent {
 
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
 	private Tile tile;
+	
+	public void setTile(Tile tile) {
+		this.tile = tile;
+		this.add(new JLabel(tile.getName()));
+	}
 
 
 	public void refresh() {
@@ -43,7 +48,7 @@ public class TileRenderer extends GUIComponent {
 		Border border = null;
 		if (tile.isActive() && p == null) {
 			// thick black border
-			thickness = 2;
+			thickness = 5;
 			color = Color.black;
 			border = BorderFactory.createLineBorder(color, thickness);
 		} else if (!tile.isActive() && p == null) {
@@ -61,7 +66,6 @@ public class TileRenderer extends GUIComponent {
 			color = p.getPlayerColor();
 			border = BorderFactory.createLineBorder(color, thickness);
 		}
-		this.add(new JLabel(tile.getName()));
 
 		this.setBorder(border);
 	}
