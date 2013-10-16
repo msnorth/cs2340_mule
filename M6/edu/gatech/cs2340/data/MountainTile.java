@@ -5,9 +5,9 @@ import edu.gatech.cs2340.ui.TileRenderer;
 public class MountainTile extends Tile{
 	public MountainTile(String id, Player owner, TileRenderer renderer) {
 		name = "Mountain";
-		this.setRenderer(renderer);
-		this.setOwner(owner);
-		this.setId(id);
+		this.renderer = renderer;
+		this.owner = owner;
+		this.id = id;
 	}
 
 	@Override

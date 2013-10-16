@@ -40,6 +40,7 @@ public class MapRenderer extends JPanel{
 	
 	public void refresh() {
 		removeAll();
+		
 		setLayout(new GridLayout(5,9));
 		Tile tile;
 		TileRenderer tileRenderer;

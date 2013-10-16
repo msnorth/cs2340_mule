@@ -5,9 +5,9 @@ import edu.gatech.cs2340.ui.TileRenderer;
 public class RiverTile extends Tile{
 	public RiverTile(String id, Player owner, TileRenderer renderer) {
 		name = "River";
-		this.setRenderer(renderer);
-		this.setOwner(owner);
-		this.setId(id);
+		this.renderer = renderer;
+		this.owner = owner;
+		this.id = id;
 	}
 
 	@Override

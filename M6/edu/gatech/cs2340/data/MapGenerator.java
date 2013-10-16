@@ -3,7 +3,6 @@ package edu.gatech.cs2340.data;
 import java.util.UUID;
 
 import edu.gatech.cs2340.ui.TileRenderer;
-import edu.gatech.cs2340.ui.TownTile;
 
 /**
  * 
@@ -61,7 +60,7 @@ public abstract class MapGenerator {
 							new TileRenderer());
 					break;
 				case 5:
-					tile = null;
+					tile = new TownTile(UUID.randomUUID().toString(), null, new TileRenderer());
 					break;
 				default:
 					tile = new PlainsTile(UUID.randomUUID().toString(), null,

@@ -91,6 +91,7 @@ public class Map implements MapResponsibilities {
 			nextUnownedNdx++;
 			result = getTileNumber(nextUnownedNdx);
 		}
+		nextUnownedNdx++;
 		return result;
 	}
 
@@ -109,6 +110,7 @@ public class Map implements MapResponsibilities {
 
 	@Override
 	public void resetNextUnownedTile() {
+		System.out.println("Random tile reset");
 		nextUnownedNdx = 0;
 	}
 

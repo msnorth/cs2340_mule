@@ -73,7 +73,7 @@ public class LandGranter implements WaitedOn
 				MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
 				timer.run();										//Starts the timer
 				WaitedOn[] waitees = {keyWaiter, timer};
-				
+				System.out.println("Waitees done in land granter");
 				int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
 				
 				if(value == 0) 

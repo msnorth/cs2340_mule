@@ -14,10 +14,10 @@ import edu.gatech.cs2340.ui.TileRenderer;
  */
 public abstract class Tile {
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
-	private TileRenderer renderer;
-	private Player owner;
-	private String id;
-	private boolean isActive;
+	protected TileRenderer renderer;
+	protected Player owner;
+	protected String id;
+	protected boolean isActive;
 	protected String name;
 
 	/**
@@ -39,14 +39,11 @@ public abstract class Tile {
 		this.owner = newOwner;
 		// TODO update tileRenderer
 	}
-
+	
 	public TileRenderer getRenderer() {
 		return renderer;
 	}
 
-	public void setRenderer(TileRenderer renderer) {
-		this.renderer = renderer;
-	}
 
 	/**
 	 * #M6 Method to get owner of tile. Should return null if tile is unowned

@@ -2,12 +2,9 @@ package edu.gatech.cs2340.data;
 
 import edu.gatech.cs2340.ui.TileRenderer;
 
-public class PlainsTile extends Tile {
-	public PlainsTile(String id, Player owner, TileRenderer renderer) {
-		name = "Plains";
+public class TownTile extends Tile{
+	public TownTile(String id, Player owner, TileRenderer renderer) {
 		this.renderer = renderer;
-		this.owner = owner;
-		this.id = id;
 	}
 
 	@Override
@@ -15,5 +12,7 @@ public class PlainsTile extends Tile {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
