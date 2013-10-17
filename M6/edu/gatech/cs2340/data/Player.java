@@ -10,10 +10,11 @@ import java.util.ArrayList;
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Thomas Mark
  * 		Modifications:		M6		10/12/13 Shreyyas Vanarase
- * 									Added the addTile method and a score getter method
+ * 									Added the addTile method and a score getter method.
  * 							M6		10/14/2013 Thomas Mark
- * 									Added method to determine players color	.							
- * 
+ * 									Added method to determine players color.
+ * 							M6		10/15/2013 Shreyyas Vanarase							
+ * 									Added method to deduct money from player after buying something
  * 
  * 
  * 		Purpose: Holds information for a player in the game.
@@ -82,5 +83,19 @@ public class Player {
 	 */
 	public Color getPlayerColor() {
 		return color;
+	}
+	
+	/**
+	 * #M6
+	 * Method to check if player is able to buy a good
+	 * @param price
+	 * @return true if player can buy good, else false
+	 */
+	public boolean deductMoney(int price) {
+		if(price < money) {
+			money -= price;
+			return true;
+		}
+		return false;
 	}
 }

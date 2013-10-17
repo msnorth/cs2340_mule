@@ -1,6 +1,12 @@
 package edu.gatech.cs2340.ui;
 import java.awt.Graphics;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.border.Border;
+
+import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Tile;
 
 /**
@@ -32,6 +38,9 @@ public class TileRenderer extends GUIComponent{
 	public boolean isActive() {
 		return active;
 	}
+	public void refresh() {
+		drawTile();
+	}
 	
 	/**
 	 * #M6
@@ -43,6 +52,43 @@ public class TileRenderer extends GUIComponent{
 	 */
 	public void setActive(boolean activity) {
 		
+	}
+	
+	/**
+	 * #M6 Method to draw tile. If an unowned tile is active,
+	 * its border should be black If an unowned tile is inactive, its border
+	 * should be "clear" If an owned tile is active, its border should be dashed
+	 * with the Player color If an owned tile is inactive, its border should be
+	 * solid with the Player color
+	 */
+	private void drawTile() {
+		Color color;
+		Player p = tile.getOwner();
+		int thickness = 1;
+		Border border = null;
+		if (tile.isActive() && p == null) {
+			// thick black border
+			thickness = 2;
+			color = Color.black;
+			border = BorderFactory.createLineBorder(color, thickness);
+		} else if (!tile.isActive() && p == null) {
+			// thin black border
+			// TODO just for now, remove when have icons
+			color = Color.black;
+			border = BorderFactory.createLineBorder(color, thickness);
+		} else if (tile.isActive() && p != null) {
+			// dashed border
+			color = p.getPlayerColor();
+			border = BorderFactory.createDashedBorder(color);
+		} else if (!tile.isActive() && p != null) {
+			// solid border
+			thickness = 2;
+			color = p.getPlayerColor();
+			border = BorderFactory.createLineBorder(color, thickness);
+		}
+		this.add(new JLabel(tile.getName()));
+
+		this.setBorder(border);
 	}
 	
 	public void refresh() {

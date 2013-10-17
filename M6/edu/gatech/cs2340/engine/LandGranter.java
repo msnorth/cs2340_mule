@@ -20,7 +20,9 @@ import edu.gatech.cs2340.ui.TileRenderer;
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Shreyyas
  * 		Modifications:		M6		10/11/13 Shreyyas
- * 									Added in funtionality to grant land to players. 
+ * 									Added in functionality to grant land to players. 
+ * 							M6		10/15/13 Shreyyas/Tommy
+ * 									Removed PlayerManager references.
  * 
  * 
  * 
@@ -37,7 +39,6 @@ public class LandGranter implements InputReceiver, WaitedOn
 	private MULETimer timer;
 	private KeyboardAdapter adapter;
 	private WaitedOn[] array = {keyWaiter, timer}; 
-	private PlayerManager playerManager;
 
 	
 	/**
@@ -56,7 +57,6 @@ public class LandGranter implements InputReceiver, WaitedOn
 		hasSelected      = false;
 		keyWaiter 		 = new KeyWaiter(KeyboardAdapter.CONFRIM_KEY);
 		adapter			 = KeyboardAdapter.getInstance();
-		playerManager    = new PlayerManager(null);
 	}
 	
 	/**
@@ -82,17 +82,15 @@ public class LandGranter implements InputReceiver, WaitedOn
 				if(value == 0) 
 				{
 					currentPlayer.addTile(unownedTile);				//Assigns tile to player
-					currentPlayer = playerManager.getNextPlayer(); 	//Get the next Player 
 					timer.end();									//Kills timer
 					mapRenderer.refresh();							//Reflects changes on map
 					grantFinished = true;							//Ends land grant phase for that person
 				}
 				else if((map.getNextUnownedTile() == null) && value == 1)
 				{
-					Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets randomunowned tile
+					Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
 					currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
-					currentPlayer = playerManager.getNextPlayer();			//Gets the next player
-					mapRenderer.refresh();//if the nextTile is null			//Reflects changes on map
+					mapRenderer.refresh();									//Reflects changes on map
 					grantFinished = true;
 				}
 			}
