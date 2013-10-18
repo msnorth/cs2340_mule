@@ -1,5 +1,9 @@
 package edu.gatech.cs2340.data;
 
+import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+
 import edu.gatech.cs2340.ui.TileRenderer;
 
 /**
@@ -19,6 +23,13 @@ public abstract class Tile {
 	private String id;
 	private boolean isActive;
 	private String name;
+	private static ImageIcon hill;
+	private static ImageIcon mountain;
+	private static ImageIcon peak;
+	private static ImageIcon plains;
+	private static ImageIcon river;
+	
+	// TODO private ImageIcon Town;
 
 	public Tile(String name) {
 		this.name = name;
@@ -85,5 +96,19 @@ public abstract class Tile {
 
 	public String getName() {
 		return name;
+	}
+	
+	public void Initialize(){
+		// for error logging
+		logger = Logger.getGlobal();
+		try {
+			hill = new ImageIcon(this.getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png")).getImage();
+			mountain = new ImageIcon(this.getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png")).getImage();
+			peak = new ImageIcon(this.getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png")).getImage();
+			river = new ImageIcon(this.getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png")).getImage();
+			plain = new ImageIcon(this.getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png")).getImage();
+		} catch (Exception e){
+			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
+		}
 	}
 }
