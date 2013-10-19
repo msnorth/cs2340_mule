@@ -15,7 +15,10 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 		Function group:		Controller: Engine
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Tommy, Stephen
- * 		Modifications:								
+ * 		Modifications:		M6 		10/16/13 Stephen Conway, Shreyyas Vanarase
+ * 									Added intitial functionality to run method	
+ * 							M7      10/19/13 Shreyyas Vanarase
+ * 									Added local roundNumber and changed muleTimer parameter to get the turntime based off a roundNumber			
  * 
  * 
  * 
@@ -46,7 +49,8 @@ public class Turn implements WaitedOn {
 	 */
 	@Override
 	public void run() {
-		MULETimer timer = new MULETimer(player.calculateTurnTime());
+		int roundNumber = Round.getRoundNumber();
+		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
 		MapManager mapManager = new MapManager(player);
 		WaitedOn[] waitees = {timer, mapManager};
 		int killa = Waiter.waitForAny(waitees);

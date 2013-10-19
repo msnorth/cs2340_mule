@@ -18,12 +18,13 @@ import edu.gatech.cs2340.sequencing.Waiter;
  * 									Fleshed out round methods.	
  * 							M6		10/15/13 Stephen					
  * 									Fixed some typos. Added LandPurchaser instances for later rounds.
- * 
+ * 							M7      10/19/13 Shreyyas Vanarase
+ * 									Changed roundNumber to static value and added a getter to get the roundNumber.
  * 
  * 		Purpose: Execute a single round of the game
  */
 public class Round implements WaitedOn{
-	private int roundNumber;
+	private static int roundNumber;
 	private boolean finished;
 	private PlayerManager playerManager;
 	private Map map;
@@ -34,7 +35,14 @@ public class Round implements WaitedOn{
 		map = usedMap;
 		finished = false;
 	}
-
+	/**
+	 * #M7
+	 * Method to get the round number
+	 * @return
+	 */
+	public static int getRoundNumber(){
+		return roundNumber;
+	}
 	/**
 	 * #M6
 	 * Method to run a single round.

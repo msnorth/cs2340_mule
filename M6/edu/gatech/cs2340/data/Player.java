@@ -2,6 +2,8 @@ package edu.gatech.cs2340.data;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
+
 
 /**
  * 
@@ -15,8 +17,9 @@ import java.util.ArrayList;
  * 									Added method to determine players color.
  * 							M6		10/15/2013 Shreyyas Vanarase							
  * 									Added method to deduct money from player after buying something
- * 
- * 
+ * 							M7      10/19/2013 Shreyyas Vanarase
+ * 									Added method to calculate the player's turn time
+ * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 
  */
@@ -28,7 +31,7 @@ public class Player {
 	private int money;
 	private int gameScore;
 	private ArrayList<Tile> ownedTiles;
-	
+	private double time;
 	
 	/**
 	 * #M6
@@ -99,12 +102,25 @@ public class Player {
 	}
 	
 	/**
-	 * #M6
-	 * Method to determine length of Player's turn. Based on food.
+	 * #M7
+	 * Method to determine length of Player's turn. Based on food and the roundNumber of the player.
 	 * 
-	 * @return
+	 * @return player's turn time
 	 */
-	public long calculateTurnTime() {
-		return 50000;
+	public long calculateTurnTime(int roundNumber) {
+		int foodAmount = resources.getAmount(ResourceType.FOOD);
+		if(roundNumber <= 4 && foodAmount >= 3) {
+			return 50000;
+		}
+		else if(roundNumber <= 8 && foodAmount >= 4) {
+			return 50000;
+		}
+		else if(roundNumber <= 12 && foodAmount >= 5) {
+			return 50000;
+		}
+		else if(foodAmount == 0) {
+			return 5000;
+		}
+		else return 30000;
 	}
 }
