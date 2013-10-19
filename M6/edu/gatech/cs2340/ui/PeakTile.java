@@ -11,6 +11,7 @@ public class PeakTile extends Tile {
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);
+		image = peakImage; // get static image from superclass
 	}
 
 	@Override

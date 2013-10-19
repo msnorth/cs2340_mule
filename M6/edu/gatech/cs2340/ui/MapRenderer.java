@@ -1,9 +1,11 @@
 package edu.gatech.cs2340.ui;
 import java.awt.GridLayout; 
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
+import edu.gatech.cs2340.data.Tile;
 
 
 /**
@@ -37,8 +39,9 @@ public class MapRenderer extends JPanel{
 	
 	
 	public void refresh() {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < map.getNumTiles(); i++){
+			refresh(i);
+		}
 	}
 	
 	/**
@@ -61,7 +64,12 @@ public class MapRenderer extends JPanel{
 	 * @param ndx
 	 */
 	public void refresh(int ndx) {
-		
+		Tile curTile = map.getTileNumber(ndx);
+		JLabel label = TileRenderer.getTileLabelImage(curTile);
+		this.remove(ndx);
+		this.add(label, ndx);
+		this.revalidate();
+		this.repaint();
 	}
 
 }

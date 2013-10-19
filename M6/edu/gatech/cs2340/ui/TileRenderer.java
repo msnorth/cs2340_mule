@@ -1,9 +1,12 @@
 package edu.gatech.cs2340.ui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import edu.gatech.cs2340.data.Player;
@@ -21,22 +24,20 @@ import edu.gatech.cs2340.data.Tile;
 public class TileRenderer extends GUIComponent {
 	private static final long serialVersionUID = 1L;
 
-	// Tile and TileRenderer are paired as Model and View of the Tile concept
-	private Tile tile;
+	// // Tile and TileRenderer are paired as Model and View of the Tile concept
+	// private Tile tile;
 
-
-	public void refresh() {
-		drawTile();
+	public void refresh(Tile tile) {
+		// drawTile(tile);
 	}
 
 	/**
-	 * #M6 Method to draw tile. If an unowned tile is active,
-	 * its border should be black If an unowned tile is inactive, its border
-	 * should be "clear" If an owned tile is active, its border should be dashed
-	 * with the Player color If an owned tile is inactive, its border should be
-	 * solid with the Player color
+	 * Factory create method for turning a Tile into a JLabel to be added to the GridLayout
+	 * @param tile Tile to be represented on the GridLayout
+	 * @return Label to add to GridLayout
 	 */
-	private void drawTile() {
+	public static JLabel getTileLabelImage(Tile tile){
+		JLabel label = new JLabel(tile.getImageIcon(), JLabel.CENTER);
 		Color color;
 		Player p = tile.getOwner();
 		int thickness = 1;
@@ -61,9 +62,52 @@ public class TileRenderer extends GUIComponent {
 			color = p.getPlayerColor();
 			border = BorderFactory.createLineBorder(color, thickness);
 		}
-		this.add(new JLabel(tile.getName()));
+		label.setBorder(border);
+		return label;
+	}
+	
+//	/**
+//	 * #M6 Method to draw tile. If an unowned tile is active,
+//	 * its border should be black If an unowned tile is inactive, its border
+//	 * should be "clear" If an owned tile is active, its border should be dashed
+//	 * with the Player color If an owned tile is inactive, its border should be
+//	 * solid with the Player color
+//	 */
+//	private void drawTile(Tile tile) {
+//		Color color;
+//		Player p = tile.getOwner();
+//		int thickness = 1;
+//		Border border = null;
+//		if (tile.isActive() && p == null) {
+//			// thick black border
+//			thickness = 2;
+//			color = Color.black;
+//			border = BorderFactory.createLineBorder(color, thickness);
+//		} else if (!tile.isActive() && p == null) {
+//			// thin black border
+//			// TODO just for now, remove when have icons
+//			color = Color.black;
+//			border = BorderFactory.createLineBorder(color, thickness);
+//		} else if (tile.isActive() && p != null) {
+//			// dashed border
+//			color = p.getPlayerColor();
+//			border = BorderFactory.createDashedBorder(color);
+//		} else if (!tile.isActive() && p != null) {
+//			// solid border
+//			thickness = 2;
+//			color = p.getPlayerColor();
+//			border = BorderFactory.createLineBorder(color, thickness);
+//		}
+//		this.add(new JLabel(tile.getName()));
+//
+//		this.setBorder(border);
+//	}
 
-		this.setBorder(border);
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		// This just fulfills the requirements of the abstract class GUIComponent
+		
 	}
 
 }

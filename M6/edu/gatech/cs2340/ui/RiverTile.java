@@ -11,6 +11,7 @@ public class RiverTile extends Tile{
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);
+		image = riverImage; // get static image from superclass
 	}
 
 	@Override

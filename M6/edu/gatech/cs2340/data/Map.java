@@ -178,4 +178,7 @@ public class Map implements MapResponsibilities {
 		t.setOwner(null);
 	}
 
+	public int getNumTiles(){
+		return tiles.length*tiles[0].length;
+	}
 }

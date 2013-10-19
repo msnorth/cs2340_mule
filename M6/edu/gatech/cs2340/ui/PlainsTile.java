@@ -11,6 +11,7 @@ public class PlainsTile extends Tile {
 		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);
+		image = plainImage; // get static image from superclass
 	}
 
 	@Override
@@ -18,5 +19,4 @@ public class PlainsTile extends Tile {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
