@@ -1,8 +1,11 @@
 package edu.gatech.cs2340.test;
 
 import java.awt.GridLayout;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
@@ -22,30 +25,23 @@ public class MapGUITester {
 		JFrame frame = new JFrame("MapRendererTest");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Make map
-		Map map = MapGenerator.generateStandardMap();
-		// Make map panel
-		MapRenderer mapRenderer = new MapRenderer(map);
-
 		// Temp
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(9, 5, 1, 1));
-		// panel
-		ImageIcon plainImage = new ImageIcon(MapGUITester.class.getResource(
-				"../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
-		JLabel label = new JLabel(plainImage);
-		for (int i = 0; i < 45; i++) {
-			//mapRenderer.add(label);
-			panel.add(label, JLabel.CENTER);
-		}
-		// mapRenderer.initialize();
+		GUIPanelTester panel = new GUIPanelTester();
 
+		// panel.add(label,JLabel.CENTER);
+//		// Make map
+//		Map map = MapGenerator.generateStandardMap();
+//		// Make map panel
+//		MapRenderer mapRenderer = new MapRenderer(map);
+//		mapRenderer.initialize();
+//		frame.getContentPane().add(mapRenderer);
+		
+		
 		// add it to frame
-		frame.getContentPane().add(mapRenderer);
+		frame.getContentPane().add(panel);
 		// compile the program and make it visible
 		frame.pack();
 		frame.setVisible(true);
-		// // TO_DO remove below
-		// mapRenderer.refresh();
 	}
+
 }
