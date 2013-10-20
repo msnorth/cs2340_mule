@@ -114,4 +114,7 @@ public class Map implements MapResponsibilities {
 	}
 
 
+	public int getNumTiles(){
+		return tiles.length*tiles[0].length;
+	}
 }

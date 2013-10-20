@@ -3,7 +3,13 @@ package edu.gatech.cs2340.data;
 import java.awt.Color;
 import java.util.UUID;
 
+import edu.gatech.cs2340.ui.HillTile;
+import edu.gatech.cs2340.ui.MountainTile;
+import edu.gatech.cs2340.ui.PeakTile;
+import edu.gatech.cs2340.ui.PlainsTile;
+import edu.gatech.cs2340.ui.RiverTile;
 import edu.gatech.cs2340.ui.TileRenderer;
+import edu.gatech.cs2340.ui.TownTile;
 
 /**
  * 

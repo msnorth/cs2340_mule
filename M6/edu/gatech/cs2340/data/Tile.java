@@ -1,5 +1,11 @@
 package edu.gatech.cs2340.data;
 
+import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+
 import edu.gatech.cs2340.ui.TileRenderer;
 
 /**
@@ -14,11 +20,25 @@ import edu.gatech.cs2340.ui.TileRenderer;
  */
 public abstract class Tile {
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
+
 	protected TileRenderer renderer;
 	protected Player owner;
 	protected String id;
-	protected boolean isActive;
+	private boolean isActive;
 	protected String name;
+	protected static ImageIcon hillImage;
+	protected static ImageIcon mountainImage;
+	protected static ImageIcon peakImage;
+	protected static ImageIcon plainImage;
+	protected static ImageIcon riverImage;
+	protected ImageIcon image; // image for the current instance of Tile
+	static Logger logger;
+	
+	// TODO private ImageIcon Town;
+
+	public Tile(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * #FUTURE Method to get the production of a Tile. Based upon Tile type,
@@ -74,9 +94,29 @@ public abstract class Tile {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+		// TODO find a way to set the activity of tiles
 	}
 
 	public String getName() {
 		return name;
 	}
+	
+	public static void initialize(){
+		// for error logging
+		logger = Logger.getGlobal();
+		try {
+			hillImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png");
+			mountainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png");
+			peakImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png");
+			riverImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png");
+			plainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png");
+		} catch (Exception e){
+			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
+		}
+	}
+	
+	public ImageIcon getImageIcon(){
+		return image;
+	}
+
 }
