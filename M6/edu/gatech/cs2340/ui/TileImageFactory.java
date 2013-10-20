@@ -21,15 +21,10 @@ import edu.gatech.cs2340.data.Tile;
  * 
  *         Purpose: GUI representation of Tile.
  */
-public class TileRenderer extends GUIComponent {
-	private static final long serialVersionUID = 1L;
+public class TileImageFactory {
 
 	// // Tile and TileRenderer are paired as Model and View of the Tile concept
 	// private Tile tile;
-
-	public void refresh(Tile tile) {
-		// drawTile(tile);
-	}
 
 	/**
 	 * Factory create method for turning a Tile into a JLabel to be added to the GridLayout
@@ -102,12 +97,5 @@ public class TileRenderer extends GUIComponent {
 //
 //		this.setBorder(border);
 //	}
-
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		// This just fulfills the requirements of the abstract class GUIComponent
-		
-	}
 
 }

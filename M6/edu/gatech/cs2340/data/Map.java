@@ -42,7 +42,6 @@ public class Map implements MapResponsibilities {
 	}
 
 	// increment the current tile coordinates and return the next tile
-	// TODO deal with last tile
 	@Override
 	public Tile getNextTile() {
 		if (currY < tiles[0].length) {
@@ -51,8 +50,13 @@ public class Map implements MapResponsibilities {
 			currX++;
 			currY = 0;
 		}
-		return getTileAt(currX, currY);
-
+		Tile tile = getTileAt(currX, currY);
+		// If we've reached the end of the tiles, reset for next time
+		if (currX == tiles.length && currY == tiles[0].length){
+			currX = 0;
+			currY = 0;
+		}
+		return tile;
 	}
 
 	// gets the tile at the given indices. logs error, catches exception, and
@@ -97,8 +101,10 @@ public class Map implements MapResponsibilities {
 		return getTileAt(row, col);
 	}
 
-	// gets the next unknown tile, setting pointers to point to it
-	// will return null if all tiles are owned
+	/**
+	 * @return Next unknown tile, setting pointers to point to it
+	 *  will return null if all tiles are owned
+	 */
 	@Override
 	public Tile getNextUnownedTile() {
 		Tile t = null;
@@ -118,9 +124,12 @@ public class Map implements MapResponsibilities {
 		return null;
 	}
 
-	// creates a list of unowned tiles and returns a random element from this
-	// list
-	// sets pointers to point to the random unowned tile
+	// 
+	/**
+	 * Creates a list of unowned tiles and returns a random element from this list.
+	 * Sets pointers to point to the random unowned tile
+	 * @return Random tile
+	 */
 	@Override
 	public Tile getRandomUnownedTile() {
 		Collection<Tile> unownedTiles = new HashSet<Tile>();
@@ -155,8 +164,11 @@ public class Map implements MapResponsibilities {
 		}
 	}
 
-	// helper method to get x y coordinates of tile
+	/**
+	 * Helper method to get x y coordinates of tile
 	// and set currX and currY
+	 * @param t Tile to which to point the currX and currY of Map
+	 */
 	private void setCurrentTile(Tile t) {
 		outerloop: for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
@@ -178,7 +190,22 @@ public class Map implements MapResponsibilities {
 		t.setOwner(null);
 	}
 
+	/**
+	 * Get the number of tiles in the map
+	 * @return Number of tiles in map
+	 */
 	public int getNumTiles(){
 		return tiles.length*tiles[0].length;
+	}
+	
+	/**
+	 * Set the current X and Y that the map is internally pointing to
+	 * TODO Is there a better way to do this to reduce coupling? Visitor class?
+	 * @param currX Next X coordinate of tile to retrieve
+	 * @param currY Next Y coordinate of tile to retrieve
+	 */
+	public void setCurrXY(int currX, int currY){
+		this.currX = currX;
+		this.currY = currY;
 	}
 }

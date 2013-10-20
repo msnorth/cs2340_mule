@@ -7,7 +7,7 @@ import edu.gatech.cs2340.ui.MountainTile;
 import edu.gatech.cs2340.ui.PeakTile;
 import edu.gatech.cs2340.ui.PlainsTile;
 import edu.gatech.cs2340.ui.RiverTile;
-import edu.gatech.cs2340.ui.TileRenderer;
+import edu.gatech.cs2340.ui.TileImageFactory;
 import edu.gatech.cs2340.ui.TownTile;
 
 /**
@@ -47,31 +47,25 @@ public abstract class MapGenerator {
 				type = standardMapConfig[i][j];
 				switch (type) {
 				case 0:
-					tile = new PlainsTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new PlainsTile(UUID.randomUUID().toString(), null);
 					break;
 				case 1:
-					tile = new RiverTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new RiverTile(UUID.randomUUID().toString(), null);
 					break;
 				case 2:
-					tile = new HillTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new HillTile(UUID.randomUUID().toString(), null);
 					break;
 				case 3:
-					tile = new MountainTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new MountainTile(UUID.randomUUID().toString(), null);
 					break;
 				case 4:
-					tile = new PeakTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new PeakTile(UUID.randomUUID().toString(), null);
 					break;
 				case 5:
-					tile = null;
+					tile = new TownTile(UUID.randomUUID().toString(), null);
 					break;
 				default:
-					tile = new PlainsTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new PlainsTile(UUID.randomUUID().toString(), null);
 					break;
 				}
 				tiles[i][j] = tile;

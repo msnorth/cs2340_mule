@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
-import edu.gatech.cs2340.ui.TileRenderer;
+import edu.gatech.cs2340.ui.TileImageFactory;
 
 /**
  * 
@@ -20,7 +20,6 @@ import edu.gatech.cs2340.ui.TileRenderer;
  */
 public abstract class Tile {
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
-	private TileRenderer renderer;
 	private Player owner;
 	private String id;
 	private boolean isActive;
@@ -30,10 +29,9 @@ public abstract class Tile {
 	protected static ImageIcon peakImage;
 	protected static ImageIcon plainImage;
 	protected static ImageIcon riverImage;
+	protected static ImageIcon townImage;
 	protected ImageIcon image; // image for the current instance of Tile
 	static Logger logger;
-	
-	// TODO private ImageIcon Town;
 
 	public Tile(String name) {
 		this.name = name;
@@ -57,14 +55,6 @@ public abstract class Tile {
 	public void setOwner(Player newOwner) {
 		this.owner = newOwner;
 		// TODO update tileRenderer
-	}
-
-	public TileRenderer getRenderer() {
-		return renderer;
-	}
-
-	public void setRenderer(TileRenderer renderer) {
-		this.renderer = renderer;
 	}
 
 	/**
@@ -112,6 +102,7 @@ public abstract class Tile {
 			peakImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png");
 			riverImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png");
 			plainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png");
+			townImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png");
 		} catch (Exception e){
 			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
 		}

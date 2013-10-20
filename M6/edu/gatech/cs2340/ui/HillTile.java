@@ -6,9 +6,8 @@ import edu.gatech.cs2340.data.Tile;
 
 public class HillTile extends Tile{
 	public static String name = "Hill";
-	public HillTile(String id, Player owner, TileRenderer renderer) {
+	public HillTile(String id, Player owner) {
 		super(name);
-		this.setRenderer(renderer);
 		this.setOwner(owner);
 		this.setId(id);
 		image = hillImage; // get static image from superclass
