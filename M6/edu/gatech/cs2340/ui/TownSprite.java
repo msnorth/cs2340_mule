@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.ui;
 
+import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.io.InputReceiver;
 
 
@@ -8,17 +9,11 @@ import edu.gatech.cs2340.io.InputReceiver;
  * @author Stephen Conway
  * 		Function group:		View: Graphic
  * 		Created for:		M6		10/8/13
-<<<<<<< HEAD
  * 		Assigned to:		Shreyyas, Stephen
  * 		Modifications:		M6		10/15/13 Thomas Mark
  * 									Initial fleshing.
- * 											
-=======
- * 		Assigned to:		Maddy
- * 		Modifications:								
->>>>>>> refs/remotes/origin/master
- * 
- * 
+ * 							M7		10/20/13 Thomas Mark
+ * 									Sprite needs to know what player it is attached to.
  * 
  * 		Purpose: Graphic that moves around on the town
  */
@@ -27,6 +22,7 @@ public class TownSprite implements InputReceiver{
 	private double y;
 	private static final  int DX = 5;
 	private static final  int DY = 5;
+	private Player player;
 	private TownRenderer townRenderer;
 	
 	/**
@@ -38,6 +34,7 @@ public class TownSprite implements InputReceiver{
 	 * @param townRenderer
 	 */
 	public TownSprite(double x, double y, TownRenderer townRenderer) {
+		// will need to take in player at some point for pub
 		this.x = x;
 		this.y = y;
 		this.townRenderer = townRenderer;
@@ -77,5 +74,15 @@ public class TownSprite implements InputReceiver{
 	 */	
 	public double getY() {
 		return this.y;
+	}
+	
+	/**
+	 * #M7
+	 * Getter method for a Sprite's player.
+	 * 
+	 * @return the Sprite's player
+	 */	
+	public Player getPlayer() {
+		return player;
 	}
 }
