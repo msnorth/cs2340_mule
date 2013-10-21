@@ -10,7 +10,7 @@ import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.ui.MapRenderer;
-import edu.gatech.cs2340.ui.TileRenderer;
+import edu.gatech.cs2340.ui.TileImageFactory;
 
 
 /**
