@@ -12,7 +12,7 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  * 
  * 
  * 
- * 		Purpose: Wait for a specified key to be pressed
+ * 		Purpose: Wait for a specified key to be pressed. Runs in GUI thread.
  */
 public class KeyWaiter implements InputReceiver, WaitedOn{
 	private boolean keyReceived;
@@ -21,9 +21,6 @@ public class KeyWaiter implements InputReceiver, WaitedOn{
 	public KeyWaiter(KeyboardAdapter.KEY_NAME targetKey) {
 		target = KeyboardAdapter.KEY_CONFIG[targetKey.ordinal()];
 	}
-	
-	@Override
-	public void run() {}
 
 	@Override
 	public boolean isFinished() {

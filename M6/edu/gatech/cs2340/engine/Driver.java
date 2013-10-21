@@ -36,14 +36,12 @@ public abstract class Driver {
 		KeyboardAdapter.initialize();
 		MainGameWindow.initialize();
 		MainMenuManager mainMenu = new MainMenuManager();
-		mainMenu.run();
-		Waiter.waitOn(mainMenu);
+		mainMenu.runSynchronous();
 		
 		PlayerManager pManager = mainMenu.getPlayers();
 		
 		//Game setup currently allows only default map and 8 turns
 		Game game = new Game(pManager, false, 8);
-		game.run();
-		Waiter.waitOn(game, 10);
+		game.runSynchronous();
 	}		
 }

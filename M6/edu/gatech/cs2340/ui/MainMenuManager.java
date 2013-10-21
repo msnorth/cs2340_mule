@@ -16,30 +16,20 @@ import edu.gatech.cs2340.sequencing.Waiter;
  * 		Assigned to:		Stephen
  * 		Modifications:		M6		10/8/13		Stephen
  * 									Moved all management of the main menus to this class from Driver			
- * 
+ * 							M7		10/21/13	Stephen
+ * 									Changed implementation to run in line (removed WaitedOn)
  * 
  * 
  * 		Purpose: Common parent class for any GUI components			 
  */
-public class MainMenuManager implements WaitedOn{
-	private boolean finished;
+public class MainMenuManager {
 	PlayerManager playerManager;
-	
-	/**
-	 * #M6
-	 * Main constructor. 
-	 * 
-	 * @param mainGameWindow
-	 */
-	public MainMenuManager() {
-		finished = false;
-	}
 	
 	/**
 	 * #M6
 	 * Method to start the main menu sequence
 	 */
-	public void run() {
+	public void runSynchronous() {
 		MainGameWindow window = MainGameWindow.getInstance();
 		GameConfigMenu gameConfig = new GameConfigMenu();
 		window.setPanel(gameConfig);
@@ -48,19 +38,12 @@ public class MainMenuManager implements WaitedOn{
 		int numPlayers = gameConfig.getPlayerCount();
 		PlayerConfigMenu playerConfig = new PlayerConfigMenu(numPlayers);
 		window.setPanel(playerConfig);
-		playerConfig.run();
 		Waiter.waitOn(playerConfig);
 		Player[] players = playerConfig.getPlayers();
 		playerManager = new PlayerManager(players, difficulty);
-		finished = true;
 	}
 
 	public PlayerManager getPlayers() {
 		return playerManager;
 	}
-	
-	@Override
-	public boolean isFinished() {
-		return finished;
-	}	
 }

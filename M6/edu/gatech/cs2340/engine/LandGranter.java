@@ -23,15 +23,16 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 									Removed PlayerManager references.
  * 							M6		10/15/13 Stephen
  * 									Replaced InputReceiver interface with KeyWaiter usage
+ *  * 						M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
  * 
  * 		Purpose: Grant unowned plots of land to players in the first few rounds of the game.
  */
-public class LandGranter implements WaitedOn 
+public class LandGranter  
 {
 	private static final long WAIT_FOR_NEXT_TILE = 500;
 	
 	private Player currentPlayer;
-	private boolean grantFinished;
 	private Map map;
 
 	
@@ -46,7 +47,6 @@ public class LandGranter implements WaitedOn
 	{
 		currentPlayer 	 = player;
 		this.map 		 = map;
-		grantFinished 	 = false;
 	}
 	
 	/**
@@ -56,14 +56,17 @@ public class LandGranter implements WaitedOn
 	 * If the cycle reaches the end of the map before the user selects a Tile, a random Tile
 	 * should be assigned to the Player.
 	 */
-	@Override
-	public void run() 
+	public void runSynchronous() 
 	{
+		System.out.println("Running LandGranter synchronously");
+		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
 		
 		KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 		KeyboardAdapter.getInstance().setReceiver(keyWaiter);
+		
+		boolean grantFinished = false;
 		
 		while(!grantFinished)
 		{
@@ -73,16 +76,15 @@ public class LandGranter implements WaitedOn
 				unownedTile.setActive(true);
 				mapRenderer.refresh();
 				MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
-				timer.run();										//Starts the timer
+				timer.start();										//Starts the timer
 				WaitedOn[] waitees = {keyWaiter, timer};
 				int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
 				
 				if(value == 0) 
 				{
-					System.out.println("Space key detect!");
 					currentPlayer.addTile(unownedTile);				//Assigns tile to player
 					unownedTile.setOwner(currentPlayer);
-					timer.end();									//Kills timer
+					timer.stop();									//Kills timer
 					map.resetNextUnownedTile();
 					grantFinished = true;							//Ends land grant phase for that person
 				}
@@ -97,14 +99,5 @@ public class LandGranter implements WaitedOn
 			}
 		}
 		mapRenderer.refresh();
-	}
-		
-	/**
-	 * Finished when user selects a free Tile or when user selected no Tile
-	 * and instead a random one was assigned.
-	 */
-	@Override
-	public boolean isFinished() {
-		return grantFinished;
 	}
 }

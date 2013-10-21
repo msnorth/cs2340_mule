@@ -17,14 +17,16 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 									Fleshed out implementation.
  * 							M6		10/15/13 Stephen Conway
  * 									Cleaned variables. Fixed Round loop
+ * 							M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
+ * 
  * 		Purpose: Controls game processes. Initializes rounds. Determines end of game.
  *
  */
-public class Game implements WaitedOn {
+public class Game {
 	private PlayerManager playerManager;
 	private int numberRounds;
 	private Map map;
-	private boolean finished;
 	
 	/**
 	 * #M6
@@ -37,7 +39,6 @@ public class Game implements WaitedOn {
 	public Game(PlayerManager pManager, boolean randomMap, int numRounds) {
 		playerManager = pManager;
 		numberRounds = numRounds;
-		finished = false;
 		
 		if (!randomMap) {
 			map = MapGenerator.generateStandardMap();
@@ -49,21 +50,10 @@ public class Game implements WaitedOn {
 	/**
 	 * Execute the number of Rounds required.
 	 */
-	public void run() {
+	public void runSynchronous() {
 		for (int i=1; i <= numberRounds; i++) {
 			Round round = new Round(playerManager, map, i);
-			round.run();
-			Waiter.waitOn(round);
+			round.runSynchronous();
 		}
-		finished = true;
-	}
-
-	/**
-	 * Finished when all rounds have been executed.
-	 */
-	@Override
-	public boolean isFinished() {
-		return finished;
-	}
-	
+	}	
 }

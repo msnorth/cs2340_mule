@@ -129,10 +129,6 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	}
 
 	@Override
-	public void run() {
-	}
-
-	@Override
 	public boolean isFinished() {
 		return finished;
 	}

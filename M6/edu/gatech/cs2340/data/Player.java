@@ -47,6 +47,7 @@ public class Player {
 		this.color = color;
 		this.money = 1000;	// default until we instantiate player with set amount of money
 		ownedTiles = new ArrayList<Tile>();
+		resources = new ResourceAmount();
 	}
 	
 	/**

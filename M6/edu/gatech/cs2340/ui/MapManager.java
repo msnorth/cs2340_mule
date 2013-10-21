@@ -13,12 +13,13 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Dan
  * 		Modifications:								
- * 
+ * 							M7		10/21/13 Stephen Conway
+ * 									Runs asynchronously.
  * 
  * 
  * 		Purpose: Manages free movement of player over the game world
  */
-public class MapManager implements WaitedOn{
+public class MapManager implements WaitedOn, Runnable{
 	private Player player;
 	private boolean finished;
 	
@@ -34,7 +35,11 @@ public class MapManager implements WaitedOn{
 		finished = false;
 	}
 	
-	@Override
+	public void runAsynchronous() {
+		Thread thread = new Thread(this);
+		thread.start();
+	}
+	
 	public void run() {
 		// TODO Auto-generated method stub
 		finished = true;

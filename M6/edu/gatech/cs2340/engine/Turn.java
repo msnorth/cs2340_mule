@@ -19,13 +19,13 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 									Added intitial functionality to run method	
  * 							M7      10/19/13 Shreyyas Vanarase
  * 									Added local roundNumber and changed muleTimer parameter to get the turntime based off a roundNumber			
- * 
+ * 							M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
  * 
  * 
  * 		Purpose: Execute a single player's turn
  */
-public class Turn implements WaitedOn {
-	private boolean finished;
+public class Turn {
 	private Player player;
 	private Map map;
 	
@@ -37,7 +37,6 @@ public class Turn implements WaitedOn {
 	 */
 	public Turn(Player player, Map map) {
 		this.player = player;
-		finished = false;
 		this.map = map;
 	}
 	
@@ -47,24 +46,17 @@ public class Turn implements WaitedOn {
 	 * 		free range phase
 	 * 		handle feedback of MULE purchase, MULE loading, MULE deploying, Pubbing
 	 */
-	@Override
-	public void run() {
+	public void runSynchronous() {
+		System.out.println("Running Turn synchronously.");
 		int roundNumber = Round.getRoundNumber();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
 		MapManager mapManager = new MapManager(player);
+		timer.start();
+		mapManager.runAsynchronous();
 		WaitedOn[] waitees = {timer, mapManager};
 		int killa = Waiter.waitForAny(waitees);
 		if (killa == 1) { //turn ended by gambling
-			
+			timer.stop();
 		}		
-		finished = true;
 	}
-
-	@Override
-	public boolean isFinished() {
-		return finished;
-	}
-	
-	
-
 }

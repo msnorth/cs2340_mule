@@ -20,12 +20,13 @@ import edu.gatech.cs2340.sequencing.Waiter;
  * 									Fixed some typos. Added LandPurchaser instances for later rounds.
  * 							M7      10/19/13 Shreyyas Vanarase
  * 									Changed roundNumber to static value and added a getter to get the roundNumber.
+ * 							M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
  * 
  * 		Purpose: Execute a single round of the game
  */
-public class Round implements WaitedOn{
+public class Round {
 	private static int roundNumber;
-	private boolean finished;
 	private PlayerManager playerManager;
 	private Map map;
 	
@@ -33,7 +34,6 @@ public class Round implements WaitedOn{
 		roundNumber = roundNum;
 		playerManager = pManager;
 		map = usedMap;
-		finished = false;
 	}
 	/**
 	 * #M7
@@ -58,8 +58,7 @@ public class Round implements WaitedOn{
 	 * 		Auction Phase
 	 * 		Score screen
 	 */
-	@Override
-	public void run() {
+	public void runSynchronous() {
 		int numPlayers = playerManager.getTotalPlayers();
 		// TODO: random events
 		
@@ -68,16 +67,14 @@ public class Round implements WaitedOn{
 				for (int i=0; i < numPlayers; i++) {
 					Player currentPlayer = playerManager.getNextPlayer();
 					LandGranter granter = new LandGranter(currentPlayer, map);
-					granter.run();
-					Waiter.waitOn(granter);
+					granter.runSynchronous();
 				}
 			}
 			else {
 				for (int i=0; i < numPlayers; i++) {
 					Player currentPlayer = playerManager.getNextPlayer();
 					LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
-					purchaser.run();
-					Waiter.waitOn(purchaser);
+					purchaser.runSynchronous();
 				}
 			}
 			
@@ -86,20 +83,10 @@ public class Round implements WaitedOn{
 			for (int i=0; i<numPlayers; i++) {
 				Player currentPlayer = playerManager.getNextPlayer();
 				Turn turn = new Turn(currentPlayer, map);
-				turn.run();
-				Waiter.waitOn(turn);
+				turn.runSynchronous();
 			}
 		// Production
 		// Auction
 		// Score screen
 	}
-	
-	/**
-	 * Finished once all phases complete
-	 * Random events, land distribution, production, auctions, score screen
-	 */
-	@Override
-	public boolean isFinished() {
-		return finished;
-	}	
 }

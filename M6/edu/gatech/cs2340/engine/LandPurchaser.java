@@ -20,16 +20,16 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 		Created for:		M6		10/15/13
  * 		Assigned to:		Shreyyas
  * 		Modifications:		
- * 
+ * 							M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
  * 
  * 
  * 		Purpose: Allows for the purchasing of property.
  */
-public class LandPurchaser implements WaitedOn 
+public class LandPurchaser 
 {
 	private Player currentPlayer;
 	private Map map;
-	private boolean purchaseFinished;
 	private int roundNumber;
 	
 	/**
@@ -43,7 +43,6 @@ public class LandPurchaser implements WaitedOn
 	{
 		currentPlayer 	 = player;
 		this.map 		 = map;
-		purchaseFinished = false;
 		this.roundNumber = roundNumber;
 	}
 	
@@ -52,13 +51,15 @@ public class LandPurchaser implements WaitedOn
 	 * Gets a random tile and waits for a key to be pressed. If player buys a property (tile), the 
 	 * current money amount of the player is deducted. The tile is then assigned to the person.
 	 */
-	@Override
-	public void run() {
+	public void runSynchronous() {
+		System.out.println("Running LandPurchaser synchronously");
+		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
 		
 		Tile tile = map.getRandomUnownedTile();
-		tile.setActive(true); 				
+		tile.setActive(true); 	
+		mapRenderer.refresh();
 		
 		int price               = calculatePrice();		
 		KeyboardAdapter adapter = KeyboardAdapter.getInstance();
@@ -67,18 +68,19 @@ public class LandPurchaser implements WaitedOn
 		WaitedOn[] waitingArray = {confirmKey, timer};
 		
 		adapter.setReceiver(confirmKey);
+		timer.start();
 		int killa = Waiter.waitForAny(waitingArray);
 		
+		
 		if(killa == 0) {
+			timer.stop();
 			if (currentPlayer.deductMoney(price)) {
 				currentPlayer.addTile(tile);			
-				timer.end();									//Kills timer
 				mapRenderer.refresh();							//Reflects changes on map
 			}
 		}
 		
 		tile.setActive(false);
-		purchaseFinished = true;							//Ends land purchase phase for that person
 	}
 	
 	/**
@@ -92,13 +94,5 @@ public class LandPurchaser implements WaitedOn
 		int randomValue = rand.nextInt(101);
 		
 		return (300 + roundNumber*randomValue);
-	}
-	
-	/**
-	 * Finished when user purchases Tile or when time runs out
-	 */
-	@Override
-	public boolean isFinished() {
-		return purchaseFinished;
 	}
 }

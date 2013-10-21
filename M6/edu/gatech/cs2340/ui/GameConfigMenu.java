@@ -111,12 +111,6 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 		} 
 	}
 
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
 	@Override
 	public boolean isFinished() {
 		return finished;

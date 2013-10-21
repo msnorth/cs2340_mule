@@ -9,8 +9,8 @@ package edu.gatech.cs2340.sequencing;
  * 		Assigned to:		Stephen
  * 		Modifications:		M6		10/11/13
  * 									Added method to end thread.	
- * 
- * 
+ * 							M7		10/21/13
+ * 									Changed to run asynchronously (and optionally synchronously)
  * 
  * 		Purpose: Blocks for a set amount of time.
  */
@@ -19,6 +19,7 @@ public class MULETimer implements Runnable, WaitedOn {
 	
 	private boolean timeout;
 	private long timeout_ms;
+	private Thread thread;
 
 	/**
 	 * #M6
@@ -31,6 +32,23 @@ public class MULETimer implements Runnable, WaitedOn {
 		timeout = false;
 	}
 	
+	/**
+	 * Method to start timer (asynchronously).
+	 */
+	public void start() {
+		System.out.printf("Timer for %d started asynchronously.\n", timeout_ms);
+		thread = new Thread(this);
+		thread.start();
+	}
+	
+	/**
+	 * Method to start timer (synchronously).
+	 */
+	public void runSynchronous() {
+		System.out.printf("Timer for %d started synchronously.\n", timeout_ms);
+		run();
+	}
+	
 	@Override
 	public void run() {
 		while (timeout_ms > 0 && !timeout) {
@@ -38,7 +56,7 @@ public class MULETimer implements Runnable, WaitedOn {
 			try {
 				Thread.sleep(1000/DEFAULT_FREQUENCY);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				timeout = true;
 			}
 		}
 		timeout = true;
@@ -58,8 +76,11 @@ public class MULETimer implements Runnable, WaitedOn {
 	/**
 	 * Method to terminate thread before Timer runs out.
 	 */
-	public void end() {
-		timeout = true;
+	public void stop() {
+		if (thread == null) {
+			throw new RuntimeException("Tried to stop threadless timer.");
+		}
+		thread.interrupt();
 	}
 	
 	@Override
