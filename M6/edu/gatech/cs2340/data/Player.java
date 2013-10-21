@@ -45,6 +45,7 @@ public class Player {
 		this.name  = name;
 		this.race  = race;
 		this.color = color;
+		this.money = 1000;	// default until we instantiate player with set amount of money
 		ownedTiles = new ArrayList<Tile>();
 	}
 	
@@ -103,6 +104,16 @@ public class Player {
 	
 	/**
 	 * #M7
+	 * Method for determining how much money a player owns.
+	 * 
+	 * @return money
+	 */
+	public int getMoney() {
+		return money;
+	}
+	
+	/**
+	 * #M7
 	 * Method to determine length of Player's turn. Based on food and the roundNumber of the player.
 	 * 
 	 * @return player's turn time
@@ -122,5 +133,12 @@ public class Player {
 			return 5000;
 		}
 		else return 30000;
+	}
+	/**
+	 * Sets the amount of player money
+	 * @param additionalMoney
+	 */
+	public void addMoney(int additionalMoney) {
+		money += additionalMoney;
 	}
 }
