@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.data;
 
+import java.awt.Color;
 import java.util.UUID;
 
 import edu.gatech.cs2340.ui.HillTile;
@@ -44,9 +45,11 @@ public abstract class MapGenerator {
 		for (int i = 0; i < standardMapConfig.length; i++) {
 			for (int j = 0; j < standardMapConfig[0].length; j++) {
 				Tile tile;
+				TileRenderer renderer = new TileRenderer();
 				type = standardMapConfig[i][j];
 				switch (type) {
 				case 0:
+<<<<<<< HEAD
 					tile = new PlainsTile(UUID.randomUUID().toString(), null);
 					break;
 				case 1:
@@ -63,11 +66,36 @@ public abstract class MapGenerator {
 					break;
 				case 5:
 					tile = new TownTile(UUID.randomUUID().toString(), null);
+=======
+					tile = new PlainsTile(UUID.randomUUID().toString(), null,
+							renderer);
+					break;
+				case 1:
+					tile = new RiverTile(UUID.randomUUID().toString(), null,
+							renderer);
+					break;
+				case 2:
+					tile = new HillTile(UUID.randomUUID().toString(), null,
+							renderer);
+					break;
+				case 3:
+					tile = new MountainTile(UUID.randomUUID().toString(), null,
+							renderer);
+					break;
+				case 4:
+					tile = new PeakTile(UUID.randomUUID().toString(), null,
+							renderer);
+					break;
+				case 5:
+					tile = new TownTile(UUID.randomUUID().toString(), null, renderer);
+					tile.setOwner(new Player("Municipality","Human",new Color(255,255,255)));
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 					break;
 				default:
 					tile = new PlainsTile(UUID.randomUUID().toString(), null);
 					break;
 				}
+				renderer.setTile(tile);
 				tiles[i][j] = tile;
 			}
 		}

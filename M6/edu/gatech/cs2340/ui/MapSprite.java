@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.ui;
 
+import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.io.InputReceiver;
 
 
@@ -9,7 +10,8 @@ import edu.gatech.cs2340.io.InputReceiver;
  * 		Function group:		View: Graphic
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Shreyyas, Stephen
- * 		Modifications:								
+ * 		Modifications:		M6 		10/20/13 Shreyyas, Tommy
+ * 									Added basic functionality for receiving input
  * 
  * 
  * 
@@ -17,7 +19,9 @@ import edu.gatech.cs2340.io.InputReceiver;
  */
 public class MapSprite implements InputReceiver{
 	private static final double UNITS_PER_TILE = 100.0;
-	
+	private static final  int DX =25;
+	private static final  int DY = 25;
+	private Player player;
 	private double x;
 	private double y;
 	private MapRenderer mapRenderer;
@@ -46,8 +50,47 @@ public class MapSprite implements InputReceiver{
 	
 	@Override
 	public void receiveInput(String input) {
-		// TODO Auto-generated method stub
-		
+		if (input.equals("UP")) {
+			y = y - DY;
+		} else if (input.equals("LEFT")) {
+			x = x - DX;
+		} else if (input.equals("DOWN")) {
+			y = y + DY;
+		} else if (input.equals("RIGHT")) {
+			x = x + DX;
+		}
+		mapRenderer.refresh();	
+	}
+	
+	/**
+	 * #M6
+	 * Getter method for a Sprite's X position.
+	 * 
+	 * @return the x position of the sprite.
+	 */	
+	
+	public double getX() {
+		return this.x;
+	}
+	
+	/**
+	 * #M6
+	 * Getter method for a Sprite's Y position.
+	 * 
+	 * @return the Y position of the sprite.
+	 */	
+	public double getY() {
+		return this.y;
+	}
+	
+	/**
+	 * #M6
+	 * Getter method for a Sprite's player.
+	 * 
+	 * @return the Sprite's player
+	 */	
+	public Player getPlayer() {
+		return player;
 	}
 
 }

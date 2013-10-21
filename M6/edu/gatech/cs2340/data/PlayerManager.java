@@ -65,10 +65,8 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 	@Override
 	public Player getNextPlayer() {
 		Player next = players[nextPlayer];
-		
-		if (players[nextPlayer+1] != null) {
-			nextPlayer++;
-		} else {
+		nextPlayer++;
+		if (nextPlayer >= players.length) {
 			nextPlayer = 0;
 		}
 

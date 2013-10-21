@@ -33,11 +33,11 @@ public class MapRenderer extends JPanel{
 	public MapRenderer(Map map) {
 		this.map = map;
 		sprite = new MapSprite(0,0,this);
-		
-		setLayout(new GridLayout(5,9));
+		refresh();
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Let the tiles populate for the first time
 	 */
 	public void initialize(){
@@ -57,6 +57,25 @@ public class MapRenderer extends JPanel{
 		}
 		this.revalidate();
 		this.repaint();
+=======
+	 * 
+	 */
+	public void refresh() {
+		removeAll();
+		
+		setLayout(new GridLayout(5,9));
+		TileRenderer tileRenderer;
+		Tile tile = map.getNextTile();
+		do {
+			tileRenderer = tile.getRenderer();
+			add(tileRenderer);
+			tileRenderer.refresh();
+			tile = map.getNextTile();
+			
+		} while (tile != null);
+		
+		revalidate();
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	}
 	
 	/**

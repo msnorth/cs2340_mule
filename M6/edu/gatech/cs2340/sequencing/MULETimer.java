@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.sequencing;
 
+import edu.gatech.cs2340.test.DebugPrinter;
+
 
 /**
  * 
@@ -9,8 +11,8 @@ package edu.gatech.cs2340.sequencing;
  * 		Assigned to:		Stephen
  * 		Modifications:		M6		10/11/13
  * 									Added method to end thread.	
- * 
- * 
+ * 							M7		10/21/13
+ * 									Changed to run asynchronously (and optionally synchronously)
  * 
  * 		Purpose: Blocks for a set amount of time.
  */
@@ -19,6 +21,7 @@ public class MULETimer implements Runnable, WaitedOn {
 	
 	private boolean timeout;
 	private long timeout_ms;
+	private Thread thread;
 
 	/**
 	 * #M6
@@ -31,6 +34,23 @@ public class MULETimer implements Runnable, WaitedOn {
 		timeout = false;
 	}
 	
+	/**
+	 * Method to start timer (asynchronously).
+	 */
+	public void start() {
+		DebugPrinter.println("Timer for " + timeout_ms + " started asynchronously.");
+		thread = new Thread(this);
+		thread.start();
+	}
+	
+	/**
+	 * Method to start timer (synchronously).
+	 */
+	public void runSynchronous() {
+		DebugPrinter.println("Timer for " + timeout_ms + " started synchronously.");
+		run();
+	}
+	
 	@Override
 	public void run() {
 		while (timeout_ms > 0 && !timeout) {
@@ -38,17 +58,33 @@ public class MULETimer implements Runnable, WaitedOn {
 			try {
 				Thread.sleep(1000/DEFAULT_FREQUENCY);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				timeout = true;
 			}
 		}
 		timeout = true;
 	}
 	
 	/**
-	 * Mehtod to terminate thread before Timer runs out.
+	 * #M6
+	 * Method to get time left on the clock.
+	 * Used to determine gamlin' profits.
+	 * 
+	 * @return
 	 */
-	public void end() {
-		timeout = true;
+	public long getTimeRemaining() {
+		return timeout_ms;
+	}
+	
+	/**
+	 * Method to terminate thread before Timer runs out.
+	 */
+	public void stop() {
+		if (thread == null) {
+			timeout = true;
+		}
+		else {
+			thread.interrupt();
+		}
 	}
 	
 	@Override

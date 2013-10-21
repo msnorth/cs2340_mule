@@ -6,7 +6,11 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+<<<<<<< HEAD
 import edu.gatech.cs2340.ui.TileImageFactory;
+=======
+import edu.gatech.cs2340.ui.TileRenderer;
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 
 /**
  * 
@@ -20,18 +24,34 @@ import edu.gatech.cs2340.ui.TileImageFactory;
  */
 public abstract class Tile {
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
+<<<<<<< HEAD
 	private Player owner;
 	private String id;
 	private boolean isActive;
 	private String name;
+=======
+
+	protected TileRenderer renderer;
+	protected Player owner;
+	protected String id;
+	private boolean isActive;
+	protected String name;
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	protected static ImageIcon hillImage;
 	protected static ImageIcon mountainImage;
 	protected static ImageIcon peakImage;
 	protected static ImageIcon plainImage;
 	protected static ImageIcon riverImage;
+<<<<<<< HEAD
 	protected static ImageIcon townImage;
 	protected ImageIcon image; // image for the current instance of Tile
 	static Logger logger;
+=======
+	protected ImageIcon image; // image for the current instance of Tile
+	static Logger logger;
+	
+	// TODO private ImageIcon Town;
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 
 	public Tile(String name) {
 		this.name = name;
@@ -56,6 +76,14 @@ public abstract class Tile {
 		this.owner = newOwner;
 		// TODO update tileRenderer
 	}
+<<<<<<< HEAD
+=======
+	
+	public TileRenderer getRenderer() {
+		return renderer;
+	}
+
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 
 	/**
 	 * #M6 Method to get owner of tile. Should return null if tile is unowned
@@ -102,7 +130,10 @@ public abstract class Tile {
 			peakImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png");
 			riverImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png");
 			plainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png");
+<<<<<<< HEAD
 			townImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png");
+=======
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 		} catch (Exception e){
 			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
 		}

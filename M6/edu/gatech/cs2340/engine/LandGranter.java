@@ -1,16 +1,19 @@
 package edu.gatech.cs2340.engine;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.data.Tile;
-import edu.gatech.cs2340.io.InputReceiver;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.test.DebugPrinter;
+import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
+<<<<<<< HEAD
 import edu.gatech.cs2340.ui.TileImageFactory;
+=======
+>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 
 
 /**
@@ -23,22 +26,19 @@ import edu.gatech.cs2340.ui.TileImageFactory;
  * 									Added in functionality to grant land to players. 
  * 							M6		10/15/13 Shreyyas/Tommy
  * 									Removed PlayerManager references.
- * 
- * 
+ * 							M6		10/15/13 Stephen
+ * 									Replaced InputReceiver interface with KeyWaiter usage
+ *  * 						M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
  * 
  * 		Purpose: Grant unowned plots of land to players in the first few rounds of the game.
  */
-public class LandGranter implements InputReceiver, WaitedOn 
+public class LandGranter  
 {
+	private static final long WAIT_FOR_NEXT_TILE = 500;
+	
 	private Player currentPlayer;
-	private MapRenderer mapRenderer;
-	private boolean grantFinished;
-	private boolean hasSelected;
 	private Map map;
-	private KeyWaiter keyWaiter;
-	private MULETimer timer;
-	private KeyboardAdapter adapter;
-	private WaitedOn[] array = {keyWaiter, timer}; 
 
 	
 	/**
@@ -48,15 +48,10 @@ public class LandGranter implements InputReceiver, WaitedOn
 	 * @param player
 	 * @param mapRenderer
 	 */
-	public LandGranter(Player player, Map map, MapRenderer mapRenderer) 
+	public LandGranter(Player player, Map map) 
 	{
 		currentPlayer 	 = player;
-		this.mapRenderer = mapRenderer;
 		this.map 		 = map;
-		grantFinished 	 = false;
-		hasSelected      = false;
-		keyWaiter 		 = new KeyWaiter(KeyboardAdapter.CONFRIM_KEY);
-		adapter			 = KeyboardAdapter.getInstance();
 	}
 	
 	/**
@@ -66,67 +61,48 @@ public class LandGranter implements InputReceiver, WaitedOn
 	 * If the cycle reaches the end of the map before the user selects a Tile, a random Tile
 	 * should be assigned to the Player.
 	 */
-	@Override
-	public void run() 
+	public void runSynchronous() 
 	{
+		DebugPrinter.println("Running LandGranter synchronously");
+		
+		MapRenderer mapRenderer = new MapRenderer(map);
+		MainGameWindow.getInstance().setPanel(mapRenderer);
+		
+		KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
+		KeyboardAdapter.getInstance().setReceiver(keyWaiter);
+		
+		boolean grantFinished = false;
+		
 		while(!grantFinished)
 		{
 			Tile unownedTile = map.getNextUnownedTile();		 	//Obtains the nextUnownedTile. This is our currentTile now.
-			if((unownedTile != null))								//As long as that unowned tile isn't null
+			if(unownedTile != null)								//As long as that unowned tile isn't null
 			{
-				adapter.setReceiver(keyWaiter);						//Sets focus to the keyWaiter to listen to user response
-				timer = new MULETimer(3000);						//Length of time the granter will stay on one tile
-				timer.run();										//Starts the timer
-				int value = Waiter.waitForAny(array);				//Waits for any thread to finish
+				unownedTile.setActive(true);
+				mapRenderer.refresh();
+				MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
+				timer.start();										//Starts the timer
+				WaitedOn[] waitees = {keyWaiter, timer};
+				int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
 				
 				if(value == 0) 
 				{
 					currentPlayer.addTile(unownedTile);				//Assigns tile to player
-					timer.end();									//Kills timer
-					mapRenderer.refresh();							//Reflects changes on map
+					unownedTile.setOwner(currentPlayer);
+					timer.stop();									//Kills timer
+					map.resetNextUnownedTile();
 					grantFinished = true;							//Ends land grant phase for that person
 				}
-				else if((map.getNextUnownedTile() == null) && value == 1)
-				{
-					Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
-					currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
-					mapRenderer.refresh();									//Reflects changes on map
-					grantFinished = true;
-				}
+				unownedTile.setActive(false);
+			}
+			else {
+				Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
+				currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
+				randomUnownedTile.setOwner(currentPlayer);
+				map.resetNextUnownedTile();
+				grantFinished = true;
 			}
 		}
+		mapRenderer.refresh();
 	}
-		
-	@Override
-	public void receiveInput(String input) {
-		//
-	}
-
-	@Override
-	public boolean isFinished() {
-		return grantFinished;
-	}
-	
-	
-	
-	/*****************************************************************************
-	 * New variables: hasSelected - LandGranter
-	 * 			      unownedTile - Tile
-	 * 				  tile		  - Tile
-	 * 					
-	 * 
-	 * Methods:		  map.getNextUnownedTile() - map object should give me the nextUnownedTile
-	 * 				  receiveInput("Enter")    - a boolean that says "yea, player pushed Enter"
-	 * 				  map.getCurrentTile()
-	 * 				  currentPlayer.addTile(tile)
-	 * 
-	 * Ideology: 	  While your current grant is not finished, get the nextUnownedTile
-	 * 				  and this will be your currentUnownedTile, since it's the one you're
-	 * 				  currently looking at. If that unownedTile is not null (meaning it 
-	 * 			      doesn't exist) and you receive "SpaceKey" as an input (which gets passed 
-	 * 				  eventually to Keyboard Adapter to do a VK_SpaceKey or something maybe) 
-	 * 				  then get that current tile (should be unowned), add that to currentPlayer's
-	 * 				  tileList, and the land granting phase should finish...FOR THAT PERSON.
-	 * 				  Do it again for next person.
-	 */
 }
