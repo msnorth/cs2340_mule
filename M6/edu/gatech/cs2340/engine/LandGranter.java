@@ -7,6 +7,7 @@ import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
 
@@ -58,7 +59,7 @@ public class LandGranter
 	 */
 	public void runSynchronous() 
 	{
-		System.out.println("Running LandGranter synchronously");
+		DebugPrinter.println("Running LandGranter synchronously");
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);

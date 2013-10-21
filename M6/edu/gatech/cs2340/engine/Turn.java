@@ -5,6 +5,7 @@ import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MapManager;
 import edu.gatech.cs2340.ui.MapRenderer;
 
@@ -47,7 +48,7 @@ public class Turn {
 	 * 		handle feedback of MULE purchase, MULE loading, MULE deploying, Pubbing
 	 */
 	public void runSynchronous() {
-		System.out.println("Running Turn synchronously.");
+		DebugPrinter.println("Running Turn synchronously.");
 		int roundNumber = Round.getRoundNumber();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
 		MapManager mapManager = new MapManager(player);

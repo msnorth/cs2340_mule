@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.sequencing;
 
+import edu.gatech.cs2340.test.DebugPrinter;
+
 
 /**
  * 
@@ -36,7 +38,7 @@ public class MULETimer implements Runnable, WaitedOn {
 	 * Method to start timer (asynchronously).
 	 */
 	public void start() {
-		System.out.printf("Timer for %d started asynchronously.\n", timeout_ms);
+		DebugPrinter.println("Timer for " + timeout_ms + " started asynchronously.");
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -45,7 +47,7 @@ public class MULETimer implements Runnable, WaitedOn {
 	 * Method to start timer (synchronously).
 	 */
 	public void runSynchronous() {
-		System.out.printf("Timer for %d started synchronously.\n", timeout_ms);
+		DebugPrinter.println("Timer for " + timeout_ms + " started synchronously.");
 		run();
 	}
 	
@@ -78,9 +80,11 @@ public class MULETimer implements Runnable, WaitedOn {
 	 */
 	public void stop() {
 		if (thread == null) {
-			throw new RuntimeException("Tried to stop threadless timer.");
+			timeout = true;
 		}
-		thread.interrupt();
+		else {
+			thread.interrupt();
+		}
 	}
 	
 	@Override

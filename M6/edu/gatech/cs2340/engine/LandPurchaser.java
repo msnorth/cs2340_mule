@@ -9,6 +9,7 @@ import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
 
@@ -52,7 +53,7 @@ public class LandPurchaser
 	 * current money amount of the player is deducted. The tile is then assigned to the person.
 	 */
 	public void runSynchronous() {
-		System.out.println("Running LandPurchaser synchronously");
+		DebugPrinter.println("Running LandPurchaser synchronously");
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
