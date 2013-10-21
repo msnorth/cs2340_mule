@@ -62,7 +62,7 @@ public class LandGranter implements WaitedOn
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
 		
-		KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.CONFRIM_KEY);
+		KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 		KeyboardAdapter.getInstance().setReceiver(keyWaiter);
 		
 		while(!grantFinished)

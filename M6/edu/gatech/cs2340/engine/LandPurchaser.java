@@ -62,7 +62,7 @@ public class LandPurchaser implements WaitedOn
 		
 		int price               = calculatePrice();		
 		KeyboardAdapter adapter = KeyboardAdapter.getInstance();
-		KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.CONFRIM_KEY);
+		KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 		MULETimer timer         = new MULETimer(3000);
 		WaitedOn[] waitingArray = {confirmKey, timer};
 		
