@@ -52,28 +52,12 @@ public class MapRenderer extends JPanel{
 	 * Refresh all tiles
 	 */
 	public void refresh() {
-<<<<<<< HEAD
-		removeAll();
-		
-		setLayout(new GridLayout(5,9));
-		TileRenderer tileRenderer;
-		Tile tile = map.getNextTile();
-		do {
-			tileRenderer = tile.getRenderer();
-			add(tileRenderer);
-			tileRenderer.refresh();
-			tile = map.getNextTile();
-			
-		} while (tile != null);
-		
-		revalidate();
-=======
 		for (int i = 0; i < map.getNumTiles(); i++){
 			refresh(i, true, false);
 		}
 		this.revalidate();
 		this.repaint();
-//=======
+	}
 //	 * 
 //	 */
 //	public void refresh() {
@@ -91,8 +75,7 @@ public class MapRenderer extends JPanel{
 //		} while (tile != null);
 //		
 //		revalidate();
->>>>>>> f19_M6_MapRenderer_Better
-	}
+//	}
 	
 	/**
 	 * #M6
