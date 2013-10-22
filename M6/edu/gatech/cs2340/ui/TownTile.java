@@ -17,8 +17,7 @@ public class TownTile extends Tile {
 	}
 	@Override
 	public ResourceAmount calculateProduction() {
-		// This doesn't apply
-		return null;
+		return new ResourceAmount();
 	}
 
 }

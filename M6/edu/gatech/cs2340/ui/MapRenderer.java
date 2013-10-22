@@ -1,8 +1,13 @@
 package edu.gatech.cs2340.ui;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout; 
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import com.sun.media.sound.Toolkit;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Tile;
@@ -24,6 +29,7 @@ import edu.gatech.cs2340.data.Tile;
 public class MapRenderer extends JPanel{
 	private Map map;
 	private MapSprite sprite;
+	private Timer timer;
 	
 	/**
 	 * #M6
@@ -33,8 +39,13 @@ public class MapRenderer extends JPanel{
 	public MapRenderer(Map map) {
 		setLayout(new GridLayout(5,9));
 		this.map = map;
-		sprite = new MapSprite(0,0,this);
+		sprite = null;
 		initialize();
+	}
+	
+	public MapRenderer(Map map, MapSprite sprite) {
+		this(map);
+		this.sprite = sprite;
 	}
 	
 	/**
@@ -114,4 +125,14 @@ public class MapRenderer extends JPanel{
 		}
 	}
 
+	public void paint(Graphics g) {
+        super.paint(g);
+        if (sprite != null) {
+	        Graphics2D g2d = (Graphics2D)g;
+	        sprite.update();
+	        g2d.drawImage(sprite.getImage(), sprite.getScreenX(), sprite.getScreenY(), this);
+        }
+        g.dispose();
+        
+    }
 }

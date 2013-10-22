@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.Gambler;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
@@ -51,13 +52,16 @@ public class Turn {
 		DebugPrinter.println("Running Turn synchronously.");
 		int roundNumber = Round.getRoundNumber();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
-		MapManager mapManager = new MapManager(player);
+		MapManager mapManager = new MapManager(player, map);
 		timer.start();
 		mapManager.runAsynchronous();
 		WaitedOn[] waitees = {timer, mapManager};
 		int killa = Waiter.waitForAny(waitees);
 		if (killa == 1) { //turn ended by gambling
 			timer.stop();
+			Gambler gambler = new Gambler();
+			gambler.setPlayer(player);
+			gambler.gamble(timer.getTimeRemaining());
 		}		
 	}
 }
