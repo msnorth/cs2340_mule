@@ -31,9 +31,10 @@ public class MapRenderer extends JPanel{
 	 * @param map
 	 */
 	public MapRenderer(Map map) {
+		setLayout(new GridLayout(5,9));
 		this.map = map;
 		sprite = new MapSprite(0,0,this);
-		refresh();
+		initialize();
 	}
 	
 	/**

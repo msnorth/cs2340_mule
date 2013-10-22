@@ -16,7 +16,7 @@ public class GUIPanelTester extends JPanel {
 
 	GUIPanelTester() {
 		this.setLayout(new GridLayout(4, 4, 3, 3));
-		ImageIcon plainImage = new ImageIcon(this.getClass().getResource("plain.png"));
+		ImageIcon plainImage = new ImageIcon(getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
 //		plainImage = new ImageIcon(
 //				this.getClass()
 //						.getResource(

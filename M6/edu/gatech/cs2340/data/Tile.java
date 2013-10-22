@@ -102,12 +102,12 @@ public abstract class Tile {
 		// for error logging
 		logger = Logger.getGlobal();
 		try {
-			hillImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png");
-			mountainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png");
-			peakImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png");
-			riverImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png");
-			plainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png");
-			townImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png");
+			hillImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png"));
+			mountainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png"));
+			peakImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png"));
+			riverImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png"));
+			plainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
+			townImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png"));
 		} catch (Exception e){
 			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
 		}
