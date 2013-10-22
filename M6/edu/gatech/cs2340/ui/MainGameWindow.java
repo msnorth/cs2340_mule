@@ -33,8 +33,8 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
-	public static final int DIM_X = 650;
-	public static final int DIM_Y = 800;
+	public static final int DIM_X = 72*9 + 40;
+	public static final int DIM_Y = 600;
 	
 	private JPanel currentPanel;
 
