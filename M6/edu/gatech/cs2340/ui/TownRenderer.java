@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
 /**
@@ -24,6 +26,11 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static ImageIcon pathImage;
+	private static ImageIcon landOfficeImage;
+//	private static ImageIcon landOfficeImage;
+//	private static ImageIcon landOfficeImage;
+//	private static ImageIcon landOfficeImage;
 
 	public static enum Side {
 		NORTH, EAST, SOUTH, WEST
@@ -42,7 +49,14 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 		this.sprite = new TownSprite(0, 0, this);
 		this.drawTown();
 	}
-
+	
+	public void initialize(){
+		pathImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
+		landOfficeImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
+		//path = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
+		//path = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
+	}
+	
 	private void drawTown() {
 		GridLayout grid = new GridLayout();
 		this.setLayout(grid);
@@ -99,7 +113,7 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private JPanel drawLO() {
 		JPanel panel = new JPanel();
-		panel.add(new JLabel("Menu"));
+		panel.add(new JLabel("Load Out"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
 		return panel;
@@ -107,7 +121,7 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private JPanel drawPathPanel() {
 		JPanel panel = new JPanel();
-		panel.add(new JLabel(""));
+		// panel.add(new JLabel(""));
 		return panel;
 	}
 
