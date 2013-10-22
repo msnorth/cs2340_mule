@@ -84,6 +84,10 @@ public class Map implements MapResponsibilities {
 		return getTileAt(row, col);
 	}
 
+	/**
+	 * @return Next unknown tile, setting pointers to point to it
+	 *  will return null if all tiles are owned
+	 */
 	@Override
 	public Tile getNextUnownedTile() {
 		Tile result = getTileNumber(nextUnownedNdx);
@@ -95,6 +99,11 @@ public class Map implements MapResponsibilities {
 		return result;
 	}
 
+	/**
+	 * Creates a list of unowned tiles and returns a random element from this list.
+	 * Sets pointers to point to the random unowned tile
+	 * @return Random tile
+	 */
 	@Override
 	public Tile getRandomUnownedTile() {
 		int rows = tiles.length;
@@ -108,13 +117,47 @@ public class Map implements MapResponsibilities {
 		return result;
 	}
 
+//	/**
+//	 * Helper method to get x y coordinates of tile
+//	// and set currX and currY
+//	 * @param t Tile to which to point the currX and currY of Map
+//	 */
+//	private void setCurrentTile(Tile t) {
+//		outerloop: for (int i = 0; i < tiles.length; i++) {
+//			for (int j = 0; j < tiles[0].length; j++) {
+//				if (tiles[i][j].compareTo(t)) {
+//					currX = i;
+//					currY = j;
+//					break outerloop;
+//				}
+//			}
+//		}
+//	}
+
+	// resets ownership of next tile
+	// sets current tile pointers to next tile
+
 	@Override
 	public void resetNextUnownedTile() {
 		nextUnownedNdx = 0;
 	}
 
-
+	/**
+	 * Get the number of tiles in the map
+	 * @return Number of tiles in map
+	 */
 	public int getNumTiles(){
 		return tiles.length*tiles[0].length;
 	}
+	
+//	/**
+//	 * Set the current X and Y that the map is internally pointing to
+//	 * TODO Is there a better way to do this to reduce coupling? Visitor class?
+//	 * @param currX Next X coordinate of tile to retrieve
+//	 * @param currY Next Y coordinate of tile to retrieve
+//	 */
+//	public void setCurrXY(int currX, int currY){
+//		this.currX = currX;
+//		this.currY = currY;
+//	}
 }

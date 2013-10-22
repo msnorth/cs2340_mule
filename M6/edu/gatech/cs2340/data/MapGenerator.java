@@ -8,7 +8,7 @@ import edu.gatech.cs2340.ui.MountainTile;
 import edu.gatech.cs2340.ui.PeakTile;
 import edu.gatech.cs2340.ui.PlainsTile;
 import edu.gatech.cs2340.ui.RiverTile;
-import edu.gatech.cs2340.ui.TileRenderer;
+import edu.gatech.cs2340.ui.TileImageFactory;
 import edu.gatech.cs2340.ui.TownTile;
 
 /**
@@ -40,43 +40,35 @@ public abstract class MapGenerator {
 	 */
 	public static Map generateStandardMap() {
 		Tile[][] tiles = new Tile[standardMapConfig.length][standardMapConfig[0].length];
+		Tile.initialize();
 		int type;
 		for (int i = 0; i < standardMapConfig.length; i++) {
 			for (int j = 0; j < standardMapConfig[0].length; j++) {
 				Tile tile;
-				TileRenderer renderer = new TileRenderer();
 				type = standardMapConfig[i][j];
 				switch (type) {
 				case 0:
-					tile = new PlainsTile(UUID.randomUUID().toString(), null,
-							renderer);
+					tile = new PlainsTile(UUID.randomUUID().toString(), null);
 					break;
 				case 1:
-					tile = new RiverTile(UUID.randomUUID().toString(), null,
-							renderer);
+					tile = new RiverTile(UUID.randomUUID().toString(), null);
 					break;
 				case 2:
-					tile = new HillTile(UUID.randomUUID().toString(), null,
-							renderer);
+					tile = new HillTile(UUID.randomUUID().toString(), null);
 					break;
 				case 3:
-					tile = new MountainTile(UUID.randomUUID().toString(), null,
-							renderer);
+					tile = new MountainTile(UUID.randomUUID().toString(), null);
 					break;
 				case 4:
-					tile = new PeakTile(UUID.randomUUID().toString(), null,
-							renderer);
+					tile = new PeakTile(UUID.randomUUID().toString(), null);
 					break;
 				case 5:
-					tile = new TownTile(UUID.randomUUID().toString(), null, renderer);
-					tile.setOwner(new Player("Municipality","Human",new Color(255,255,255)));
+					tile = new TownTile(UUID.randomUUID().toString(), null);
 					break;
 				default:
-					tile = new PlainsTile(UUID.randomUUID().toString(), null,
-							new TileRenderer());
+					tile = new PlainsTile(UUID.randomUUID().toString(), null);
 					break;
 				}
-				renderer.setTile(tile);
 				tiles[i][j] = tile;
 			}
 		}

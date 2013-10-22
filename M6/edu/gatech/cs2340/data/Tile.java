@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
-import edu.gatech.cs2340.ui.TileRenderer;
+import edu.gatech.cs2340.ui.TileImageFactory;
 
 /**
  * 
@@ -20,24 +20,26 @@ import edu.gatech.cs2340.ui.TileRenderer;
  */
 public abstract class Tile {
 	// Tile and TileRenderer are paired as Model and View of the Tile concept
-
-	protected TileRenderer renderer;
-	protected Player owner;
-	protected String id;
+	private Player owner;
+	private String id;
 	private boolean isActive;
-	protected String name;
+	private String name;
 	protected static ImageIcon hillImage;
 	protected static ImageIcon mountainImage;
 	protected static ImageIcon peakImage;
 	protected static ImageIcon plainImage;
 	protected static ImageIcon riverImage;
+	protected static ImageIcon townImage;
 	protected ImageIcon image; // image for the current instance of Tile
 	static Logger logger;
-	
-	// TODO private ImageIcon Town;
 
+	/**
+	 * Create a tile of type name
+	 * @param name
+	 */
 	public Tile(String name) {
 		this.name = name;
+		// TODO throw error if not of correct type?
 	}
 
 	/**
@@ -59,11 +61,6 @@ public abstract class Tile {
 		this.owner = newOwner;
 		// TODO update tileRenderer
 	}
-	
-	public TileRenderer getRenderer() {
-		return renderer;
-	}
-
 
 	/**
 	 * #M6 Method to get owner of tile. Should return null if tile is unowned
@@ -105,11 +102,12 @@ public abstract class Tile {
 		// for error logging
 		logger = Logger.getGlobal();
 		try {
-			hillImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png");
-			mountainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png");
-			peakImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png");
-			riverImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png");
-			plainImage = new ImageIcon("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png");
+			hillImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png"));
+			mountainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png"));
+			peakImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png"));
+			riverImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png"));
+			plainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
+			townImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png"));
 		} catch (Exception e){
 			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
 		}

@@ -4,20 +4,18 @@ import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Tile;
 
-public class TownTile extends Tile{
-	public TownTile(String id, Player owner, TileRenderer renderer) {
-		super("Town");
-		this.id = id;
-		this.owner = owner;
-		this.renderer = renderer;
+public class TownTile extends Tile {
+	public static String name = "Town";
+	public TownTile(String id, Player owner) {
+		super(name);
+		this.setOwner(null);
+		this.setId(id);
+		image = townImage; // get static image from superclass
 	}
-
 	@Override
 	public ResourceAmount calculateProduction() {
-		// TODO Auto-generated method stub
+		// This doesn't apply
 		return null;
 	}
-
-
 
 }

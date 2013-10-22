@@ -5,11 +5,12 @@ import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Tile;
 
 public class RiverTile extends Tile{
-	public RiverTile(String id, Player owner, TileRenderer renderer) {
-		super("River");
-		this.renderer = renderer;
-		this.owner = owner;
-		this.id = id;
+	public static String name = "River";
+	public RiverTile(String id, Player owner) {
+		super(name);
+		this.setOwner(owner);
+		this.setId(id);
+		image = riverImage; // get static image from superclass
 	}
 
 	@Override

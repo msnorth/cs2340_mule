@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.ui;
 import java.awt.GridLayout; 
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
@@ -30,15 +31,28 @@ public class MapRenderer extends JPanel{
 	 * @param map
 	 */
 	public MapRenderer(Map map) {
+		setLayout(new GridLayout(5,9));
 		this.map = map;
 		sprite = new MapSprite(0,0,this);
-		refresh();
+		initialize();
 	}
 	
 	/**
-	 * 
+	 * Let the tiles populate for the first time
+	 */
+	public void initialize(){
+		for (int i = 0; i < map.getNumTiles(); i++){
+			refresh(i, true, true);
+		}
+		this.revalidate();
+		this.repaint();
+	}
+	
+	/**
+	 * Refresh all tiles
 	 */
 	public void refresh() {
+<<<<<<< HEAD
 		removeAll();
 		
 		setLayout(new GridLayout(5,9));
@@ -53,6 +67,31 @@ public class MapRenderer extends JPanel{
 		} while (tile != null);
 		
 		revalidate();
+=======
+		for (int i = 0; i < map.getNumTiles(); i++){
+			refresh(i, true, false);
+		}
+		this.revalidate();
+		this.repaint();
+//=======
+//	 * 
+//	 */
+//	public void refresh() {
+//		removeAll();
+//		
+//		setLayout(new GridLayout(5,9));
+//		TileRenderer tileRenderer;
+//		Tile tile = map.getNextTile();
+//		do {
+//			tileRenderer = tile.getRenderer();
+//			add(tileRenderer);
+//			tileRenderer.refresh();
+//			tile = map.getNextTile();
+//			
+//		} while (tile != null);
+//		
+//		revalidate();
+>>>>>>> f19_M6_MapRenderer_Better
 	}
 	
 	/**
@@ -64,7 +103,8 @@ public class MapRenderer extends JPanel{
 	 * @param y
 	 */
 	public void refresh(double x, double y) {
-		
+		int ndx = (int)(x*y + x); // TODO should this be "+y"?
+		refresh(ndx, false, false);
 	}
 	
 	/**
@@ -72,10 +112,23 @@ public class MapRenderer extends JPanel{
 	 * Refresh method to be called on a specific Tile number.
 	 * Used with LandGranter to update border colors.
 	 * 
-	 * @param ndx
+	 * @param ndx Index at which to put refresh tile left to right, then down
+	 * @param waitToPaint Whether the method should hold off on painting after
+	 * a single refresh
+	 * @param firstTime If this is the first time, don't remove the former tile 
 	 */
-	public void refresh(int ndx) {
-		
+	public void refresh(int ndx, boolean waitToPaint, boolean firstTime) {
+		Tile curTile = map.getTileNumber(ndx);
+		JLabel label = TileImageFactory.getTileLabelImage(curTile);
+		// There's nothing to remove if this is the first time
+		if (!firstTime){
+			this.remove(ndx);
+		}
+		this.add(label, ndx);
+		if (!waitToPaint){ // Paint if we're not doing a sleu in a row
+			this.revalidate();
+			this.repaint();
+		}
 	}
 
 }

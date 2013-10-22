@@ -13,7 +13,6 @@ import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
 
-
 /**
  * 
  * @author Shreyyas Vanarase

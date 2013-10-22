@@ -5,11 +5,12 @@ import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Tile;
 
 public class PeakTile extends Tile {
-	public PeakTile(String id, Player owner, TileRenderer renderer) {
-		super("Peak");
-		this.renderer = renderer;
-		this.owner = owner;
-		this.id = id;
+	public static String name = "Peak";
+	public PeakTile(String id, Player owner) {
+		super(name);
+		this.setOwner(owner);
+		this.setId(id);
+		image = peakImage; // get static image from superclass
 	}
 
 	@Override
