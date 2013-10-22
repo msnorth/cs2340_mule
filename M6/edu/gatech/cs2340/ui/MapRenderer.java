@@ -66,6 +66,11 @@ public class MapRenderer extends JPanel{
 		for (int i = 0; i < map.getNumTiles(); i++){
 			refresh(i, true, false);
 		}
+		if (sprite != null) {
+			sprite.update();
+			int x = sprite.getScreenX();
+			int y = sprite.getScreenY();
+		}
 		this.revalidate();
 		this.repaint();
 	}
@@ -129,7 +134,6 @@ public class MapRenderer extends JPanel{
         super.paint(g);
         if (sprite != null) {
 	        Graphics2D g2d = (Graphics2D)g;
-	        sprite.update();
 	        g2d.drawImage(sprite.getImage(), sprite.getScreenX(), sprite.getScreenY(), this);
         }
         g.dispose();

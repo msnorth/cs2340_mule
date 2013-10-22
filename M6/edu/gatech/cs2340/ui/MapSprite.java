@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.io.InputReceiver;
 import edu.gatech.cs2340.io.KeyboardAdapter;
+import edu.gatech.cs2340.sequencing.WaitedOn;
 
 
 /**
@@ -25,7 +26,7 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  * 
  * 		Purpose: Graphic that moves around on top of the map
  */
-public class  MapSprite {
+public class  MapSprite implements WaitedOn{
 	
 	private final int SPEED = 5;
 	
@@ -33,6 +34,7 @@ public class  MapSprite {
 	private int y;
 	private Player player;
 	private Image image;
+	private boolean finished;
 	
 	public MapSprite(Player player) {
 		x = MainGameWindow.DIM_X/2;
@@ -65,6 +67,10 @@ public class  MapSprite {
 		Dimension dim = MainGameWindow.getInstance().getPreferredSize();
 		x = bindValue(x, 0, dim.width);
 		y = bindValue(y, 0, dim.height * 2/3);
+		
+		if (x <= 75*6 && x >= 75*5 && y >= 75*3 && y <= 75*4) {
+			finished = true;
+		}
 	}
 	
 	private int bindValue(int val, int low, int high) {
@@ -87,5 +93,10 @@ public class  MapSprite {
 	
 	public int getScreenY() {
 		return y;
+	}
+
+	@Override
+	public boolean isFinished() {
+		return finished;
 	}
 }
