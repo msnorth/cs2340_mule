@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
+import edu.gatech.cs2340.data.Tile;
 
 
 /**
@@ -31,14 +32,27 @@ public class MapRenderer extends JPanel{
 	public MapRenderer(Map map) {
 		this.map = map;
 		sprite = new MapSprite(0,0,this);
-		
-		setLayout(new GridLayout(5,9));
+		refresh();
 	}
 	
-	
+	/**
+	 * 
+	 */
 	public void refresh() {
-		// TODO Auto-generated method stub
-		// iterate through each tile with Map.getNextTile()
+		removeAll();
+		
+		setLayout(new GridLayout(5,9));
+		TileRenderer tileRenderer;
+		Tile tile = map.getNextTile();
+		do {
+			tileRenderer = tile.getRenderer();
+			add(tileRenderer);
+			tileRenderer.refresh();
+			tile = map.getNextTile();
+			
+		} while (tile != null);
+		
+		revalidate();
 	}
 	
 	/**

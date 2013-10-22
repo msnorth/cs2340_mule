@@ -8,7 +8,8 @@ package edu.gatech.cs2340.sequencing;
  * 		Function group:		Control
  * 		Created for:		M6		10/7/13
  * 		Assigned to:		Stephen
- * 		Modifications:								
+ * 		Modifications:		M7		10/21/13	Stephen
+ * 									Removed extension of Runnable
  * 
  * 
  * 
@@ -17,6 +18,6 @@ package edu.gatech.cs2340.sequencing;
  * 				 to block until execution finishes.
  * 				 
  */
-public interface WaitedOn extends Runnable{
+public interface WaitedOn {
 	public boolean isFinished();
 }

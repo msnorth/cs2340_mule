@@ -15,21 +15,29 @@ import edu.gatech.cs2340.ui.MapRenderer;
  * 		Created for:		M6		10/14/13
  * 		Modifications:		M6		10/15/13 Thomas Mark
  * 									Fleshed out implementation.
+ * 							M6		10/15/13 Stephen Conway
+ * 									Cleaned variables. Fixed Round loop
+ * 							M7		10/21/13 Stephen Conway
+ * 									Removed WaitedOn interface. Runs synchronously.
  * 
  * 		Purpose: Controls game processes. Initializes rounds. Determines end of game.
  *
  */
-public class Game implements WaitedOn {
-	private static PlayerManager playerManager;
-	private static boolean randomMap;
-	private static int numberRounds;
-	private static Map map;
-	private static MapRenderer renderer;
-	private Round round;
+public class Game {
+	private PlayerManager playerManager;
+	private int numberRounds;
+	private Map map;
 	
-	public Game(PlayerManager pManager, boolean randMap, int numRounds) {
+	/**
+	 * #M6
+	 * Constructor to create new game from config menus.
+	 * 
+	 * @param pManager Player collection from PlayerConfigMenu
+	 * @param randomMap Map generation option
+	 * @param numRounds Length of game
+	 */
+	public Game(PlayerManager pManager, boolean randomMap, int numRounds) {
 		playerManager = pManager;
-		randomMap = randMap;
 		numberRounds = numRounds;
 		
 		if (!randomMap) {
@@ -37,22 +45,15 @@ public class Game implements WaitedOn {
 		} else {
 			map = MapGenerator.generateRandomMap();
 		}
-		
-		renderer = new MapRenderer(map);
 	}
 	
-	public void run() {
-		for (int i=0; i < numberRounds; i++) {
-			round = new Round(playerManager, map, renderer, numberRounds);
-			round.run();
-			Waiter.waitOn(round);
+	/**
+	 * Execute the number of Rounds required.
+	 */
+	public void runSynchronous() {
+		for (int i=1; i <= numberRounds; i++) {
+			Round round = new Round(playerManager, map, i);
+			round.runSynchronous();
 		}
-	}
-
-	@Override
-	public boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+	}	
 }

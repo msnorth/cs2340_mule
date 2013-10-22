@@ -70,12 +70,6 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private JPanel drawLandOffice() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("Land Office"));

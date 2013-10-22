@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.ui;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -38,6 +39,19 @@ public class TileRenderer extends GUIComponent{
 	public boolean isActive() {
 		return active;
 	}
+	
+	public void setTile(Tile tile) {
+		this.tile = tile;
+		this.add(new JLabel(tile.getName()));
+		
+		
+		Dimension dim = new Dimension(MainGameWindow.DIM_X/9, MainGameWindow.DIM_X/9);
+		this.setMaximumSize(dim);
+		this.setPreferredSize(dim);
+		this.setMinimumSize(dim);
+	}
+
+
 	public void refresh() {
 		drawTile();
 	}
@@ -68,7 +82,7 @@ public class TileRenderer extends GUIComponent{
 		Border border = null;
 		if (tile.isActive() && p == null) {
 			// thick black border
-			thickness = 2;
+			thickness = 5;
 			color = Color.black;
 			border = BorderFactory.createLineBorder(color, thickness);
 		} else if (!tile.isActive() && p == null) {
@@ -86,20 +100,8 @@ public class TileRenderer extends GUIComponent{
 			color = p.getPlayerColor();
 			border = BorderFactory.createLineBorder(color, thickness);
 		}
-		this.add(new JLabel(tile.getName()));
 
 		this.setBorder(border);
 	}
-	
-	public void refresh() {
-		repaint();
-	}
-	
-	public void repaint(Graphics g){
-		// paint with ImageIcon
-		// load the imageIcons and make them static final somewhere in an initialize() method
 		
-	}
-	
-	
 }

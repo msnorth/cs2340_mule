@@ -23,8 +23,8 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  * 									Added default close operation. Reordered calls in constructor.
  * 							M6		10/15/13 Thomas Mark
  * 									Made dimensions constant and set at beginning of class.
- * 
- * 
+ * 							M6		10/15/13 Stephen Conway
+ * 									Added static getInstance method to prevent having to pass instance 5 layers deep.
  * 
  *         Purpose: Main JFrame for the game. Channels keyboard input to
  *         					KeyboardAdapter.
@@ -34,17 +34,40 @@ public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
 	public static final int DIM_X = 650;
-	public static final int DIM_Y = 757;
+	public static final int DIM_Y = 800;
 	
 	private JPanel currentPanel;
 
+	private static MainGameWindow instance = null;
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static MainGameWindow getInstance() {
+		return instance;
+	}
+	
+	
+	public static void initialize() {
+		if (instance != null) {
+			throw new RuntimeException("MainGameWindow already created!");
+		}
+		KeyboardAdapter kba = KeyboardAdapter.getInstance();
+		if (kba == null) {
+			throw new RuntimeException("KeyboardAdapter has not been initialized!");
+		}
+		instance = new MainGameWindow(kba);
+	}
+	
 	/**
 	 * Main constructor. Sets a KeyboardAdapter as the handler for keyboard
 	 * input. Handles all setup and visibility of the frame.
 	 * 
 	 * @param keyboardAdapter
 	 */
-	public MainGameWindow(KeyboardAdapter keyboardAdapter) {
+	private MainGameWindow(KeyboardAdapter keyboardAdapter) {
+		instance = this;
 		currentPanel = null;
 		mainPanel = new JPanel();
 		
@@ -61,6 +84,7 @@ public class MainGameWindow extends JFrame {
 		addKeyListener(keyboardAdapter);
 		
 		setVisible(true);
+		
 	}
 
 	/**

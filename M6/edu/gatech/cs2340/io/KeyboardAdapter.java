@@ -2,6 +2,7 @@ package edu.gatech.cs2340.io;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 
 
 /**
@@ -23,21 +24,75 @@ import java.awt.event.KeyListener;
  * 					 to pull up main menu) itself.
  */
 public class KeyboardAdapter implements KeyListener{
-	public static final String CONFRIM_KEY = " ";
-	public static final String UP = "w";
-	public static final String LEFT = "a";
-	public static final String DOWN = "s";
-	public static final String RIGHT = "d";
 	
-	public static KeyboardAdapter adapter = new KeyboardAdapter();
-	private InputReceiver currentFocused;
+	private static KeyboardAdapter instance = null;
+	
+	//Enum of key meanings
+	public enum KEY_NAME {
+		CONFIRM,
+		UP,
+		LEFT,
+		DOWN,
+		RIGHT
+	}	
+	
+	//Key config
+	public static final String[] KEY_CONFIG = {
+		" ", //confirm
+		"w", //up
+		"a", //left
+		"s", //down
+		"d"  //right
+	};
+		
+	
+	private InputReceiver currentFocused; //receiver of typed string input
+	private int keyStatus; //int mapping of currently down keys
+	
+	
+	/**
+	 * Method called to initialize the KeyboardAdapter 
+	 */
+	public static void initialize() {
+		if (instance != null) {
+			throw new RuntimeException("KeyboardAdapter already created!");
+		}
+		instance = new KeyboardAdapter();	
+	}
+	
+	/**
+	 * Method to get singleton instance of the KeyboardAdapter
+	 * 
+	 * @return
+	 */
+	public static KeyboardAdapter getInstance() {
+		return instance;
+	}
+	
+	/**
+	 * Method to translate String to KEY_NAME
+	 * 
+	 * @param keyVal
+	 * @return
+	 */
+	public static KEY_NAME getKey(String keyVal) {
+		KEY_NAME result = null;
+		KEY_NAME[] vals = KEY_NAME.values();
+		for (int i=0; i<KEY_CONFIG.length; i++) {
+			if (KEY_CONFIG[i].equals(keyVal)) {
+				result = vals[i];
+			}
+		}
+		return result;
+	}
 	
 	/**
 	 * @author Stephen Conway #M5
 	 * Primary constructor
 	 */
-	public KeyboardAdapter() {
+	private KeyboardAdapter() {
 		currentFocused = null;
+		keyStatus = 0;
 	}
 	
 	/**
@@ -46,27 +101,19 @@ public class KeyboardAdapter implements KeyListener{
 	 * @param newFocused New item to focus on, or null
 	 */
 	public void setReceiver(InputReceiver newFocused) {
-		/*
-		if (currentFocused != null) {
-			currentFocused.loseFocus();
-		}
-		*/
 		currentFocused = newFocused;
-		/*
-		if (currentFocused != null) {
-			currentFocused.gainFocus();
-		}
-		*/
 	}
+	
 	/**
-	 * @author ShreyyasV #M6
-	 * Method gets the general instance of KeyboardAdapter so 
-	 * multiple individual ones are not created among other classes
-	 * @return adapter : Returns the keyboard adapter
+	 * Method to determine if a given key is down
+	 * 
+	 * @param key
+	 * @return
 	 */
-	public static KeyboardAdapter getInstance() {
-		return adapter;
+	public boolean isPressed(KEY_NAME key) {
+		return (((1<<key.ordinal()) & keyStatus) != 0);
 	}
+	
 	/*
 	 * event order:
 	 * keyPressed
@@ -79,7 +126,6 @@ public class KeyboardAdapter implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		String key = e.getKeyChar() + "";
-		System.out.println(key);
 		if (currentFocused != null) {
 			currentFocused.receiveInput(key);
 		}
@@ -87,13 +133,19 @@ public class KeyboardAdapter implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		KEY_NAME key = getKey(e.getKeyChar() + "");
+		if (key != null) {
+			keyStatus |= 1<<key.ordinal();
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		KEY_NAME key = getKey(e.getKeyChar() + "");
+		if (key != null) {
+			keyStatus &= ~(1<<key.ordinal());
+		}
 	}
+	
+	
 }

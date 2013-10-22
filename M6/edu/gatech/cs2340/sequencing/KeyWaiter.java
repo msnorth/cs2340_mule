@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.sequencing;
 
 import edu.gatech.cs2340.io.InputReceiver;
+import edu.gatech.cs2340.io.KeyboardAdapter;
 
 /**
  * 
@@ -11,18 +12,15 @@ import edu.gatech.cs2340.io.InputReceiver;
  * 
  * 
  * 
- * 		Purpose: Wait for a specified key to be pressed
+ * 		Purpose: Wait for a specified key to be pressed. Runs in GUI thread.
  */
 public class KeyWaiter implements InputReceiver, WaitedOn{
 	private boolean keyReceived;
 	private String target;
 	
-	public KeyWaiter(String targetKey) {
-		target = targetKey;
+	public KeyWaiter(KeyboardAdapter.KEY_NAME targetKey) {
+		target = KeyboardAdapter.KEY_CONFIG[targetKey.ordinal()];
 	}
-	
-	@Override
-	public void run() {}
 
 	@Override
 	public boolean isFinished() {
