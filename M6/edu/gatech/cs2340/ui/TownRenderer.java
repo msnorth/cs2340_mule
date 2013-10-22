@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
 /**
@@ -24,6 +26,11 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static ImageIcon pathImage;
+	private static ImageIcon landOfficeImage;
+	private static ImageIcon loadOutImage;
+	private static ImageIcon pubImage;
+	private static ImageIcon muleImage;
 
 	public static enum Side {
 		NORTH, EAST, SOUTH, WEST
@@ -42,7 +49,15 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 		this.sprite = new TownSprite(0, 0, this);
 		this.drawTown();
 	}
-
+	
+	public void initialize(){
+		pathImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
+		landOfficeImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/landoffice.png"));
+		loadOutImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/loadout.png"));
+		pubImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/pub.png"));
+		muleImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/mulestore.png"));
+	}
+	
 	private void drawTown() {
 		GridLayout grid = new GridLayout();
 		this.setLayout(grid);
@@ -51,7 +66,7 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 		
 		this.add(this.drawLandOffice());
 		this.add(this.drawPathPanel());
-		this.add(this.drawLO());
+		this.add(this.drawLoadOut());
 		
 		this.add(this.drawPathPanel());
 		this.add(this.drawPathPanel());
@@ -72,6 +87,7 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private JPanel drawLandOffice() {
 		JPanel panel = new JPanel();
+		panel.add(new JLabel(landOfficeImage));
 		panel.add(new JLabel("Land Office"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
@@ -81,6 +97,7 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private JPanel drawPub() {
 		JPanel panel = new JPanel();
+		panel.add(new JLabel(pubImage));
 		panel.add(new JLabel("Pub"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
@@ -90,6 +107,7 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private JPanel drawMule() {
 		JPanel panel = new JPanel();
+		panel.add(new JLabel(muleImage));
 		panel.add(new JLabel("M.U.L.E."));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
@@ -97,9 +115,10 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	}
 
-	private JPanel drawLO() {
+	private JPanel drawLoadOut() {
 		JPanel panel = new JPanel();
-		panel.add(new JLabel("Menu"));
+		panel.add(new JLabel(loadOutImage));
+		panel.add(new JLabel("Load Out"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
 		return panel;
@@ -107,7 +126,8 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 
 	private JPanel drawPathPanel() {
 		JPanel panel = new JPanel();
-		panel.add(new JLabel(""));
+		panel.add(new JLabel(pathImage));
+		// panel.add(new JLabel(""));
 		return panel;
 	}
 

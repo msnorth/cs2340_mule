@@ -26,7 +26,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  * 
  * 		Purpose: Graphic that moves around on top of the map
  */
-public class  MapSprite implements WaitedOn{
+public class  MapSprite {
 	
 	private final int SPEED = 5;
 	
@@ -34,7 +34,7 @@ public class  MapSprite implements WaitedOn{
 	private int y;
 	private Player player;
 	private Image image;
-	private boolean finished;
+	private boolean enteredTown;
 	
 	public MapSprite(Player player) {
 		x = MainGameWindow.DIM_X/2;
@@ -69,7 +69,7 @@ public class  MapSprite implements WaitedOn{
 		y = bindValue(y, 0, dim.height * 2/3);
 		
 		if (x <= 75*6 && x >= 75*5 && y >= 75*3 && y <= 75*4) {
-			finished = true;
+			enteredTown = true;
 		}
 	}
 	
@@ -95,8 +95,7 @@ public class  MapSprite implements WaitedOn{
 		return y;
 	}
 
-	@Override
-	public boolean isFinished() {
-		return finished;
+	public boolean hasEnteredTown() {
+		return enteredTown;
 	}
 }

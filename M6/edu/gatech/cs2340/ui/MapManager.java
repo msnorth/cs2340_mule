@@ -44,10 +44,13 @@ public class MapManager implements WaitedOn, Runnable{
 	}
 	
 	public void run() {
-		MapSprite sprite = new MapSprite(player);
-		MapRenderer mapRenderer = new MapRenderer(map, sprite);
+		MapSprite mapSprite = new MapSprite(player);
+		MapRenderer mapRenderer = new MapRenderer(map, mapSprite);
+
+		TownRenderer townRenderer = new TownRenderer(null);
+		
 		MainGameWindow.getInstance().setPanel(mapRenderer);
-		while (true) {
+		while (!mapSprite.hasEnteredTown()) {
 			try {
 				Thread.sleep(25);
 			} 
@@ -55,7 +58,7 @@ public class MapManager implements WaitedOn, Runnable{
 			mapRenderer.refresh();
 		}
 		
-		//finished = true;
+		finished = true;
 	}
 
 	@Override
