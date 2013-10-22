@@ -16,12 +16,12 @@ import edu.gatech.cs2340.ui.TownSprite;
  * 		Purpose: To allow player to gamble in pub.
  * 				 
  */
-public class Pub {
+public class Gambler {
 	private Player player;
 	private Random random;
 
 	// needs to be instantiated in townRenderer
-	public Pub() { 
+	public Gambler() { 
 		random = new Random();
 	}
 	
@@ -46,9 +46,9 @@ public class Pub {
 	/**
 	 * Gambles based on the amount of money the player has
 	 */
-	public void gamble() {
+	public void gamble(long time) {
 		int round      = Round.getRoundNumber();
-		long time	   = player.calculateTurnTime(round);
+		//long time	   = player.calculateTurnTime(round);
 		
 		int winnings   = 0;
 		int roundBonus = 200;

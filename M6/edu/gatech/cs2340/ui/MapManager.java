@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.ui;
 import javax.swing.JPanel;
 
+import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
@@ -22,6 +23,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
 public class MapManager implements WaitedOn, Runnable{
 	private Player player;
 	private boolean finished;
+	private Map map;
 	
 	/**
 	 * #M6
@@ -30,8 +32,9 @@ public class MapManager implements WaitedOn, Runnable{
 	 * @param mainGameWindow
 	 * @param timeout_ms
 	 */
-	public MapManager(Player player) {
+	public MapManager(Player player, Map map) {
 		this.player = player;
+		this.map = map;
 		finished = false;
 	}
 	
@@ -41,8 +44,18 @@ public class MapManager implements WaitedOn, Runnable{
 	}
 	
 	public void run() {
-		// TODO Auto-generated method stub
-		finished = true;
+		MapSprite sprite = new MapSprite(player);
+		MapRenderer mapRenderer = new MapRenderer(map, sprite);
+		MainGameWindow.getInstance().setPanel(mapRenderer);
+		while (true) {
+			try {
+				Thread.sleep(25);
+			} 
+			catch (InterruptedException e) {}
+			mapRenderer.refresh();
+		}
+		
+		//finished = true;
 	}
 
 	@Override
