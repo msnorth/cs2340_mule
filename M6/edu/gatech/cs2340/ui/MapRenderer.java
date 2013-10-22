@@ -74,7 +74,6 @@ public class MapRenderer extends JPanel{
 //		} while (tile != null);
 //		
 //		revalidate();
-//>>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	}
 	
 	/**
