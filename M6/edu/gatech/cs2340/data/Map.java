@@ -38,14 +38,10 @@ public class Map implements MapResponsibilities {
 		nextUnownedNdx = 0;
 	}
 
-<<<<<<< HEAD
-	// increment the current tile coordinates and return the next tile
-=======
 	/**
 	 * Get next tile in row major order. Null if end of tiles reached. 
 	 * Automatically resets.
 	 */
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	@Override
 	public Tile getNextTile() {
 		int rows = tiles.length;
@@ -55,20 +51,10 @@ public class Map implements MapResponsibilities {
 			result = getTileNumber(currNdx);
 			currNdx++;
 		}
-<<<<<<< HEAD
-		Tile tile = getTileAt(currX, currY);
-		// If we've reached the end of the tiles, reset for next time
-		if (currX == tiles.length && currY == tiles[0].length){
-			currX = 0;
-			currY = 0;
-		}
-		return tile;
-=======
 		else {
 			currNdx = 0;
 		}
 		return result;
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	}
 
 	/**
@@ -98,13 +84,10 @@ public class Map implements MapResponsibilities {
 		return getTileAt(row, col);
 	}
 
-<<<<<<< HEAD
 	/**
 	 * @return Next unknown tile, setting pointers to point to it
 	 *  will return null if all tiles are owned
 	 */
-=======
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	@Override
 	public Tile getNextUnownedTile() {
 		Tile result = getTileNumber(nextUnownedNdx);
@@ -116,15 +99,11 @@ public class Map implements MapResponsibilities {
 		return result;
 	}
 
-<<<<<<< HEAD
-	// 
 	/**
 	 * Creates a list of unowned tiles and returns a random element from this list.
 	 * Sets pointers to point to the random unowned tile
 	 * @return Random tile
 	 */
-=======
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 	@Override
 	public Tile getRandomUnownedTile() {
 		int rows = tiles.length;
@@ -138,35 +117,31 @@ public class Map implements MapResponsibilities {
 		return result;
 	}
 
-<<<<<<< HEAD
-	/**
-	 * Helper method to get x y coordinates of tile
-	// and set currX and currY
-	 * @param t Tile to which to point the currX and currY of Map
-	 */
-	private void setCurrentTile(Tile t) {
-		outerloop: for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j++) {
-				if (tiles[i][j].compareTo(t)) {
-					currX = i;
-					currY = j;
-					break outerloop;
-				}
-			}
-		}
-
-	}
+//	/**
+//	 * Helper method to get x y coordinates of tile
+//	// and set currX and currY
+//	 * @param t Tile to which to point the currX and currY of Map
+//	 */
+//	private void setCurrentTile(Tile t) {
+//		outerloop: for (int i = 0; i < tiles.length; i++) {
+//			for (int j = 0; j < tiles[0].length; j++) {
+//				if (tiles[i][j].compareTo(t)) {
+//					currX = i;
+//					currY = j;
+//					break outerloop;
+//				}
+//			}
+//		}
+//	}
 
 	// resets ownership of next tile
 	// sets current tile pointers to next tile
-=======
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
+
 	@Override
 	public void resetNextUnownedTile() {
 		nextUnownedNdx = 0;
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Get the number of tiles in the map
 	 * @return Number of tiles in map
@@ -175,20 +150,14 @@ public class Map implements MapResponsibilities {
 		return tiles.length*tiles[0].length;
 	}
 	
-	/**
-	 * Set the current X and Y that the map is internally pointing to
-	 * TODO Is there a better way to do this to reduce coupling? Visitor class?
-	 * @param currX Next X coordinate of tile to retrieve
-	 * @param currY Next Y coordinate of tile to retrieve
-	 */
-	public void setCurrXY(int currX, int currY){
-		this.currX = currX;
-		this.currY = currY;
-	}
-=======
-
-	public int getNumTiles(){
-		return tiles.length*tiles[0].length;
-	}
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
+//	/**
+//	 * Set the current X and Y that the map is internally pointing to
+//	 * TODO Is there a better way to do this to reduce coupling? Visitor class?
+//	 * @param currX Next X coordinate of tile to retrieve
+//	 * @param currY Next Y coordinate of tile to retrieve
+//	 */
+//	public void setCurrXY(int currX, int currY){
+//		this.currX = currX;
+//		this.currY = currY;
+//	}
 }

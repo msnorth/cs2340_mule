@@ -10,10 +10,6 @@ import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
-<<<<<<< HEAD
-import edu.gatech.cs2340.ui.TileImageFactory;
-=======
->>>>>>> 2393cea41c2d70311bb028f29056d3dcdb4e35db
 
 
 /**
