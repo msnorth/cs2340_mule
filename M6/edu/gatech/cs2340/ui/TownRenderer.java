@@ -66,10 +66,10 @@ public class TownRenderer extends GUIComponent {
 	
 	private void drawTown() {
 		removeAll();
-		GridLayout grid = new GridLayout();
+		GridLayout grid = new GridLayout(3,3,0,0);
 		this.setLayout(grid);
-		grid.setColumns(3);
-		grid.setRows(3);
+//		grid.setColumns(3);
+//		grid.setRows(3);
 		
 		this.add(this.drawLandOffice());
 		this.add(this.drawPathPanel());
