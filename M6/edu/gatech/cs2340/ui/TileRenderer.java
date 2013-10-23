@@ -54,6 +54,7 @@ public class TileRenderer extends GUIComponent{
 
 	public void refresh() {
 		drawTile();
+		tile.dirty = false;
 	}
 	
 	/**

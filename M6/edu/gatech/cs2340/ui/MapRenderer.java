@@ -74,37 +74,6 @@ public class MapRenderer extends JPanel{
 		this.revalidate();
 		this.repaint();
 	}
-//	 * 
-//	 */
-//	public void refresh() {
-//		removeAll();
-//		
-//		setLayout(new GridLayout(5,9));
-//		TileRenderer tileRenderer;
-//		Tile tile = map.getNextTile();
-//		do {
-//			tileRenderer = tile.getRenderer();
-//			add(tileRenderer);
-//			tileRenderer.refresh();
-//			tile = map.getNextTile();
-//			
-//		} while (tile != null);
-//		
-//		revalidate();
-//	}
-	
-	/**
-	 * #M6
-	 * Refresh method to be called on a Tile at a specific world coordinate.
-	 * Used with Sprite's position to prevent streaking without refreshing all of the tiles.
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public void refresh(double x, double y) {
-		int ndx = (int)(x*y + x); // TODO should this be "+y"?
-		refresh(ndx, false, false);
-	}
 	
 	/**
 	 * #M6
@@ -118,15 +87,17 @@ public class MapRenderer extends JPanel{
 	 */
 	public void refresh(int ndx, boolean waitToPaint, boolean firstTime) {
 		Tile curTile = map.getTileNumber(ndx);
-		JLabel label = TileImageFactory.getTileLabelImage(curTile);
-		// There's nothing to remove if this is the first time
-		if (!firstTime){
-			this.remove(ndx);
-		}
-		this.add(label, ndx);
-		if (!waitToPaint){ // Paint if we're not doing a sleu in a row
-			this.revalidate();
-			this.repaint();
+		if (curTile.dirty) { 
+			JLabel label = TileImageFactory.getTileLabelImage(curTile);
+			// There's nothing to remove if this is the first time
+			if (!firstTime){
+				this.remove(ndx);
+			}
+			this.add(label, ndx);
+			if (!waitToPaint){ // Paint if we're not doing a slew in a row
+				this.revalidate();
+				this.repaint();
+			}
 		}
 	}
 

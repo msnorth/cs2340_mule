@@ -23,7 +23,7 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  * 
  * 		Purpose: Graphic that moves around on the town
  */
-public class TownSprite implements InputReceiver{
+public class TownSprite {
 	private final int SPEED = 5;
 	
 	private int x;
@@ -34,6 +34,7 @@ public class TownSprite implements InputReceiver{
 	private TownRenderer townRenderer;
 	private  Image image;
 	private boolean isInTown;
+	private boolean isInPub;
 	
 	//needs boolean for isInTown (true when in town)
 	//needs hasLeftTown
@@ -48,54 +49,13 @@ public class TownSprite implements InputReceiver{
 	 * @param y
 	 * @param townRenderer
 	 */
-	public TownSprite(double x, double y, TownRenderer townRenderer) {
-		// will need to take in player at some point for pub
-		this.x = (int) x;
-		this.y = (int) y;
-		this.townRenderer = townRenderer;
-		
-		isInTown = true;
-	}
-	
-
-	/**
-	 * NEW CONSTRUCTOR--TAKES PLAYER
-	 * #M6
-	 * Main constructor. Sets initialSprite position and provides a connection to TownRenderer for callback
-	 * 
-	 * @param x
-	 * @param y
-	 * @param townRenderer
-	 * @param player
-	 */
-	public TownSprite(TownRenderer townRenderer, Player player) {
+	public TownSprite(Player player) {
 		this.player = player;
-		x = MainGameWindow.DIM_X/2;
-		y = MainGameWindow.DIM_Y/4;
-		this.townRenderer = townRenderer;
+		resetPosition();
 		
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("human_blue.png"));
         image = ii.getImage();
-        
-        isInTown = true;
-		
-	}
-	
-	
-	
-	@Override
-	public void receiveInput(String input) {
-		if (input.equals("UP")) {
-			y = y - DY;
-		} else if (input.equals("LEFT")) {
-			x = x - DX;
-		} else if (input.equals("DOWN")) {
-			y = y + DY;
-		} else if (input.equals("RIGHT")) {
-			x = x + DX;
-		}
-		townRenderer.refresh();	
-	}
+	}	
 	
 	public void update() {
 		KeyboardAdapter kba = KeyboardAdapter.getInstance();
@@ -117,22 +77,11 @@ public class TownSprite implements InputReceiver{
 		x += dx;
 		y += dy;
 		Dimension dim = MainGameWindow.getInstance().getPreferredSize();
-		x = bindValue(x, 0, dim.width);
-		y = bindValue(y, 0, dim.height * 2/3);
 		
 		//when x or y < 0, or when x > width of main game window, or y> height of current panel
 		if ((x < 0 || y < 0) || x > dim.width || y > dim.height) {
 			isInTown = false;
 		}
-	}
-	private int bindValue(int val, int low, int high) {
-		if (val < low) {
-			val = low;
-		}
-		else if (val > high) {
-			val = high;
-		}
-		return val;
 	}
 	
 	/**
@@ -142,7 +91,7 @@ public class TownSprite implements InputReceiver{
 	 * @return the x position of the sprite.
 	 */	
 	
-	public double getX() {
+	public int getScreenX() {
 		return this.x;
 	}
 	
@@ -152,7 +101,7 @@ public class TownSprite implements InputReceiver{
 	 * 
 	 * @return the Y position of the sprite.
 	 */	
-	public double getY() {
+	public int getScreenY() {
 		return this.y;
 	}
 	
@@ -184,5 +133,18 @@ public class TownSprite implements InputReceiver{
 	 */	
 	public boolean hasLeftTown() {
 		return !isInTown;
+	}
+	
+	public boolean hasEnteredPub() {
+		return isInPub;
+	}
+	
+	public void resetPosition() {
+		//x = MainGameWindow.DIM_X/2;
+		//y = MainGameWindow.DIM_Y/4;
+		x = 100;
+		y = 100;
+		isInPub = false;
+		isInTown = true;
 	}
 }

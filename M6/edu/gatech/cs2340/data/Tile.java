@@ -23,6 +23,7 @@ public abstract class Tile {
 	private Player owner;
 	private String id;
 	private boolean isActive;
+	public boolean dirty;
 	private String name;
 	protected static ImageIcon hillImage;
 	protected static ImageIcon mountainImage;
@@ -39,6 +40,7 @@ public abstract class Tile {
 	 */
 	public Tile(String name) {
 		this.name = name;
+		dirty = true;
 		// TODO throw error if not of correct type?
 	}
 
@@ -59,6 +61,7 @@ public abstract class Tile {
 	 */
 	public void setOwner(Player newOwner) {
 		this.owner = newOwner;
+		dirty = true;
 		// TODO update tileRenderer
 	}
 
@@ -91,6 +94,7 @@ public abstract class Tile {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+		dirty = true;
 		// TODO find a way to set the activity of tiles
 	}
 

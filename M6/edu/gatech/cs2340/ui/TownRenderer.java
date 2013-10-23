@@ -1,6 +1,8 @@
 package edu.gatech.cs2340.ui;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -21,7 +23,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  * 
  *         Purpose: Graphic of the inside of the town.
  */
-public class TownRenderer extends GUIComponent implements WaitedOn {
+public class TownRenderer extends GUIComponent {
 	/**
 	 * 
 	 */
@@ -31,12 +33,24 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	private static ImageIcon loadOutImage;
 	private static ImageIcon pubImage;
 	private static ImageIcon muleImage;
+	private static boolean initialized = false;
 
 	public static enum Side {
 		NORTH, EAST, SOUTH, WEST
 	}
 
 	private TownSprite sprite;
+	
+	public static void initialize() {
+		if (!initialized) {
+			pathImage = new ImageIcon(TownRenderer.class.getResource("path.png"));
+			landOfficeImage = new ImageIcon(TownRenderer.class.getResource("landoffice.png"));
+			loadOutImage = new ImageIcon(TownRenderer.class.getResource("loadout.png"));
+			pubImage = new ImageIcon(TownRenderer.class.getResource("pub.png"));
+			muleImage = new ImageIcon(TownRenderer.class.getResource("mulestore.png"));
+			initialized = true;
+		}
+	}
 
 	/**
 	 * #M6 Main constructor. Takes in a GUIManager for callback, takes in a side
@@ -45,20 +59,13 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 	 * @param manager
 	 * @param side
 	 */
-	public TownRenderer(Side side) {
-		this.sprite = new TownSprite(0, 0, this);
+	public TownRenderer(TownSprite sprite) {
+		this.sprite = sprite;
 		this.drawTown();
 	}
 	
-	public void initialize(){
-		pathImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
-		landOfficeImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/landoffice.png"));
-		loadOutImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/loadout.png"));
-		pubImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/pub.png"));
-		muleImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/mulestore.png"));
-	}
-	
 	private void drawTown() {
+		removeAll();
 		GridLayout grid = new GridLayout();
 		this.setLayout(grid);
 		grid.setColumns(3);
@@ -76,13 +83,15 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 		this.add(this.drawPathPanel());
 		this.add(this.drawPub());
 		
+		revalidate();
 		grid.layoutContainer(this);
 	}
 
 	@Override
 	public void refresh() {
-		this.drawTown();
-
+		drawTown();
+		sprite.update();
+		repaint();
 	}
 
 	private JPanel drawLandOffice() {
@@ -130,11 +139,15 @@ public class TownRenderer extends GUIComponent implements WaitedOn {
 		// panel.add(new JLabel(""));
 		return panel;
 	}
-
-	@Override
-	public boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public void paint(Graphics g) {
+        super.paint(g);
+        //drawTown();
+        if (sprite != null) {
+	        Graphics2D g2d = (Graphics2D)g;
+	        g2d.drawImage(sprite.getImage(), sprite.getScreenX(), sprite.getScreenY(), this);
+        }
+        g.dispose();
 	}
 
 }

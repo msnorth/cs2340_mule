@@ -37,9 +37,8 @@ public class  MapSprite {
 	private boolean enteredTown;
 	
 	public MapSprite(Player player) {
-		x = MainGameWindow.DIM_X/2;
-		y = MainGameWindow.DIM_Y/4;
 		this.player = player;
+		resetPosition();
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("human_blue.png"));
 
         image = ii.getImage();
@@ -64,11 +63,11 @@ public class  MapSprite {
 		
 		x += dx;
 		y += dy;
-		Dimension dim = MainGameWindow.getInstance().getPreferredSize();
+		Dimension dim = MainGameWindow.getInstance().getMaximumSize();
 		x = bindValue(x, 0, dim.width);
 		y = bindValue(y, 0, dim.height * 2/3);
 		
-		if (x <= 75*6 && x >= 75*5 && y >= 75*3 && y <= 75*4) {
+		if (x <= 75*5 && x >= 75*4 && y >= 75*2 && y <= 75*3) {
 			enteredTown = true;
 		}
 	}
@@ -97,5 +96,11 @@ public class  MapSprite {
 
 	public boolean hasEnteredTown() {
 		return enteredTown;
+	}
+	
+	public void resetPosition() {
+		x = MainGameWindow.DIM_X/2;
+		y = MainGameWindow.DIM_Y/4 + 150;
+		enteredTown = false;
 	}
 }

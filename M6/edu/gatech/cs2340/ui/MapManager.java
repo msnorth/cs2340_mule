@@ -46,17 +46,33 @@ public class MapManager implements WaitedOn, Runnable{
 	public void run() {
 		MapSprite mapSprite = new MapSprite(player);
 		MapRenderer mapRenderer = new MapRenderer(map, mapSprite);
-
-		TownRenderer townRenderer = new TownRenderer(null);
 		
-		MainGameWindow.getInstance().setPanel(mapRenderer);
-		while (!mapSprite.hasEnteredTown()) {
-			try {
-				Thread.sleep(25);
-			} 
-			catch (InterruptedException e) {}
-			mapRenderer.refresh();
+		TownSprite townSprite = new TownSprite(player);
+		TownRenderer townRenderer = new TownRenderer(townSprite);
+		townRenderer.initialize();
+		
+		while (!townSprite.hasEnteredPub()) {
+			mapSprite.resetPosition();
+			MainGameWindow.getInstance().setPanel(mapRenderer);
+			while (!mapSprite.hasEnteredTown()) {
+				try {
+					Thread.sleep(25);
+				} 
+				catch (InterruptedException e) {}
+				mapRenderer.refresh();
+			}
+			
+			townSprite.resetPosition();
+			MainGameWindow.getInstance().setPanel(townRenderer);
+			while (!townSprite.hasLeftTown() && !townSprite.hasEnteredPub()) {
+				try {
+					Thread.sleep(25);
+				} 
+				catch (InterruptedException e) {}
+				townRenderer.refresh();
+			}
 		}
+		
 		
 		finished = true;
 	}
