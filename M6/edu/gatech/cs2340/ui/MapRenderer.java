@@ -100,6 +100,15 @@ public class MapRenderer extends JPanel{
 		}
 	}
 
+	
+	public void refreshSprite() {
+		if (sprite == null) {
+			throw new RuntimeException("Cannot refresh sprite on spriteless map renderer!");
+		}
+		sprite.update();
+		repaint();
+	}
+	
 	/**
 	 * #M6
 	 * Method that draws the Sprite if one is currently on the map.
