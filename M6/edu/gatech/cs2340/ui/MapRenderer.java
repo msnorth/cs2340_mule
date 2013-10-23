@@ -20,7 +20,6 @@ import edu.gatech.cs2340.data.Tile;
  * 									Removed GUIManager references.								
  * 
  * 
- * 
  * 		Purpose: Provide a graphical representation of the Map
  */
 public class MapRenderer extends JPanel{
@@ -31,7 +30,7 @@ public class MapRenderer extends JPanel{
 	
 	/**
 	 * #M6
-	 * Main constructor. Connects renderer with data (map) and with callback line (manager).
+	 * Constructor. Connects renderer with data.
 	 * @param map
 	 */
 	public MapRenderer(Map map) {
@@ -42,7 +41,8 @@ public class MapRenderer extends JPanel{
 	}
 	
 	/**
-	 * 
+	 * #M6
+	 * Constructor. Connects renderer with data and adds a sprite to render.
 	 * @param map
 	 * @param sprite
 	 */
@@ -59,7 +59,6 @@ public class MapRenderer extends JPanel{
 			refresh(i, true, true);
 		}
 		this.revalidate();
-		this.repaint();
 	}
 	
 	/**
@@ -73,13 +72,13 @@ public class MapRenderer extends JPanel{
 			sprite.update();
 		}
 		this.revalidate();
-		this.repaint();
 	}
 	
 	/**
 	 * #M6
 	 * Refresh method to be called on a specific Tile number.
 	 * Used with LandGranter to update border colors.
+	 * Only refreshes tiles that have had data changed.
 	 * 
 	 * @param ndx Index at which to put refresh tile left to right, then down
 	 * @param waitToPaint Whether the method should hold off on painting after
@@ -97,7 +96,6 @@ public class MapRenderer extends JPanel{
 			this.add(label, ndx);
 			if (!waitToPaint){ // Paint if we're not doing a slew in a row
 				this.revalidate();
-				this.repaint();
 			}
 		}
 	}
