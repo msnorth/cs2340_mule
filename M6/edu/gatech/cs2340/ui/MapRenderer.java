@@ -5,9 +5,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import com.sun.media.sound.Toolkit;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Tile;
@@ -27,9 +24,10 @@ import edu.gatech.cs2340.data.Tile;
  * 		Purpose: Provide a graphical representation of the Map
  */
 public class MapRenderer extends JPanel{
+	private static final long serialVersionUID = 1L;
 	private Map map;
 	private MapSprite sprite;
-	private Timer timer;
+
 	
 	/**
 	 * #M6
@@ -37,12 +35,17 @@ public class MapRenderer extends JPanel{
 	 * @param map
 	 */
 	public MapRenderer(Map map) {
-		setLayout(new GridLayout(5,9));
+		setLayout(new GridLayout(5,9,0,0));
 		this.map = map;
 		sprite = null;
 		initialize();
 	}
 	
+	/**
+	 * 
+	 * @param map
+	 * @param sprite
+	 */
 	public MapRenderer(Map map, MapSprite sprite) {
 		this(map);
 		this.sprite = sprite;
@@ -60,7 +63,7 @@ public class MapRenderer extends JPanel{
 	}
 	
 	/**
-	 * Refresh all tiles
+	 * Attempt to refresh all tiles and repaint afterwards.
 	 */
 	public void refresh() {
 		for (int i = 0; i < map.getNumTiles(); i++){
@@ -68,8 +71,6 @@ public class MapRenderer extends JPanel{
 		}
 		if (sprite != null) {
 			sprite.update();
-			int x = sprite.getScreenX();
-			int y = sprite.getScreenY();
 		}
 		this.revalidate();
 		this.repaint();
@@ -101,6 +102,10 @@ public class MapRenderer extends JPanel{
 		}
 	}
 
+	/**
+	 * #M6
+	 * Method that draws the Sprite if one is currently on the map.
+	 */
 	public void paint(Graphics g) {
         super.paint(g);
         if (sprite != null) {

@@ -1,8 +1,5 @@
-package edu.gatech.cs2340.ui;
+package edu.gatech.cs2340.data;
 
-import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.ResourceAmount;
-import edu.gatech.cs2340.data.Tile;
 
 public class HillTile extends Tile{
 	public static String name = "Hill";

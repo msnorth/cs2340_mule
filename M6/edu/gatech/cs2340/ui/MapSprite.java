@@ -28,10 +28,13 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  */
 public class  MapSprite {
 	
-	private final int SPEED = 5;
+	private final int SPEED = 50;
+	private final double WORLD_PIXEL_RATIO = 75.0/1000; //pixels / worldUnit (1000 world units = 1 Tile)
 	
 	private int x;
 	private int y;
+	private int h;
+	private int w;
 	private Player player;
 	private Image image;
 	private boolean enteredTown;
@@ -42,6 +45,9 @@ public class  MapSprite {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("human_blue.png"));
 
         image = ii.getImage();
+        int what = ii.getIconHeight();
+        h = (int)(ii.getIconHeight()/WORLD_PIXEL_RATIO);
+        w = (int)(ii.getIconWidth()/WORLD_PIXEL_RATIO);
 	}
 	
 	public void update() {
@@ -63,11 +69,11 @@ public class  MapSprite {
 		
 		x += dx;
 		y += dy;
-		Dimension dim = MainGameWindow.getInstance().getMaximumSize();
-		x = bindValue(x, 0, dim.width);
-		y = bindValue(y, 0, dim.height * 2/3);
+
+		x = bindValue(x, 0, 9000 - w);
+		y = bindValue(y, 0, 5000 - h);
 		
-		if (x <= 75*5 && x >= 75*4 && y >= 75*2 && y <= 75*3) {
+		if (x >= 4000 && x <= 5000 && y >= 2000 && y <= 3000) {
 			enteredTown = true;
 		}
 	}
@@ -87,11 +93,11 @@ public class  MapSprite {
 	}
 	
 	public int getScreenX() {
-		return x;
+		return (int)(x * WORLD_PIXEL_RATIO);
 	}
 	
 	public int getScreenY() {
-		return y;
+		return (int)(y * WORLD_PIXEL_RATIO);
 	}
 
 	public boolean hasEnteredTown() {
@@ -99,8 +105,8 @@ public class  MapSprite {
 	}
 	
 	public void resetPosition() {
-		x = MainGameWindow.DIM_X/2;
-		y = MainGameWindow.DIM_Y/4 + 150;
+		x = 4500;
+		y = 3500;
 		enteredTown = false;
 	}
 }

@@ -24,14 +24,14 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  * 		Purpose: Graphic that moves around on the town
  */
 public class TownSprite {
-	private final int SPEED = 5;
+	private final int SPEED = 10;
+	private final double WORLD_PIXEL_RATIO = 750.0/1000; //pixels / worldUnit (1000 per Tile)
 	
 	private int x;
 	private int y;
-	private static final  int DX = 5;
-	private static final  int DY = 5;
+	private int h;
+	private int w;
 	private Player player;
-	private TownRenderer townRenderer;
 	private  Image image;
 	private boolean isInTown;
 	private boolean isInPub;
@@ -76,10 +76,9 @@ public class TownSprite {
 		
 		x += dx;
 		y += dy;
-		Dimension dim = MainGameWindow.getInstance().getPreferredSize();
 		
 		//when x or y < 0, or when x > width of main game window, or y> height of current panel
-		if ((x < 0 || y < 0) || x > dim.width || y > dim.height) {
+		if ((x < 0 || y < 0) || x > 1000 || y > 600) {
 			isInTown = false;
 		}
 	}
@@ -92,7 +91,7 @@ public class TownSprite {
 	 */	
 	
 	public int getScreenX() {
-		return this.x;
+		return x;
 	}
 	
 	/**
@@ -102,7 +101,7 @@ public class TownSprite {
 	 * @return the Y position of the sprite.
 	 */	
 	public int getScreenY() {
-		return this.y;
+		return y;
 	}
 	
 	/**
@@ -128,7 +127,6 @@ public class TownSprite {
 	/**
 	 * #M7
 	 *
-	 * 
 	 * @return whether the sprite has left town
 	 */	
 	public boolean hasLeftTown() {
@@ -140,10 +138,8 @@ public class TownSprite {
 	}
 	
 	public void resetPosition() {
-		//x = MainGameWindow.DIM_X/2;
-		//y = MainGameWindow.DIM_Y/4;
-		x = 100;
-		y = 100;
+		x = 500;
+		y = 500;
 		isInPub = false;
 		isInTown = true;
 	}
