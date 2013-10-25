@@ -6,7 +6,8 @@ package edu.gatech.cs2340.data;
  * 		Function group:		Model: Data holder
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
- * 		Modifications:								
+ * 		Modifications:		M8		10/25/13	Thomas Mark
+ * 									Added ability to add and remove specific resource amounts.						
  * 
  * 
  * 
@@ -14,7 +15,7 @@ package edu.gatech.cs2340.data;
  */
 public class ResourceAmount {
 	public static enum ResourceType {
-		SMITH_ORE, FOOD, ENERGY, CRYSTITE
+		SMITHORE, FOOD, ENERGY, CRYSTITE, MULE
 	}
 	
 	private int[] amounts;
@@ -53,6 +54,16 @@ public class ResourceAmount {
 	}
 	
 	/**
+	 * #M8
+	 * Method to add a particular resource amount to this collection of resources.
+	 * 
+	 * @param resourceType, amount
+	 */
+	public void add(ResourceType resourceType, int amount) {
+		amounts[resourceType.ordinal()] += amount;
+	}
+	
+	/**
 	 * #M6
 	 * Method to remove the resources in the input ResourceAmount from this one.
 	 * 
@@ -63,6 +74,16 @@ public class ResourceAmount {
 		for (int i=0; i<types.length; i++) {
 			amounts[i] -= resourceAmount.getAmount(types[i]);
 		}
+	}
+	
+	/**
+	 * #M8
+	 * Method to remove a particular resource amount from this collection of resources.
+	 * 
+	 * @param resourceType, amount
+	 */
+	public void remove(ResourceType resourceType, int amount) {
+		amounts[resourceType.ordinal()] -= amount;
 	}
 	
 	/**

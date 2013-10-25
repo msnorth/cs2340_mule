@@ -19,18 +19,20 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Added method to deduct money from player after buying something
  * 							M7      10/19/2013 Shreyyas Vanarase
  * 									Added method to calculate the player's turn time
+ * 							M8		10/25/13 Thomas Mark
+ * 									Began fleshing out resource usage.
  * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 
  */
 public class Player {
-	private String name;
-	private String race;
-	private Color color;
-	private ResourceAmount resources;
+	private final String name;
+	private final String race;
+	private final Color color;
+	private final ResourceAmount resources;
 	private int money;
 	private int gameScore;
-	private ArrayList<Tile> ownedTiles;
+	private final ArrayList<Tile> ownedTiles;
 	private double time;
 	
 	/**
@@ -40,14 +42,16 @@ public class Player {
 	 * @param name
 	 * @param race
 	 * @param color
+	 * @param startingResources
 	 */
-	public Player(String name, String race, Color color) {
+	public Player(String name, String race, Color color, ResourceAmount startingResources) {
 		this.name  = name;
 		this.race  = race;
 		this.color = color;
 		this.money = 1000;	// default until we instantiate player with set amount of money
 		ownedTiles = new ArrayList<Tile>();
 		resources = new ResourceAmount();
+		resources.add(startingResources);
 	}
 	
 	/**
@@ -141,5 +145,26 @@ public class Player {
 	 */
 	public void addMoney(int additionalMoney) {
 		money += additionalMoney;
+	}
+	
+	/**
+	 * I haz mule?
+	 * @return
+	 */
+	public boolean hazMule() {
+		if (resources.getAmount(ResourceType.MULE) == 1) {
+			return false;
+		}
+		return true;
+	}
+
+	public int getResourceAmount(ResourceType resource) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void removeResourceAmount(ResourceType resource, int amount) {
+		// TODO Auto-generated method stub
+		
 	}
 }
