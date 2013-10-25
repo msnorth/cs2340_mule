@@ -70,6 +70,8 @@ public class TownRenderer extends GUIComponent {
 		this.setLayout(grid);
 		grid.setColumns(3);
 		grid.setRows(3);
+		grid.setHgap(0);
+		grid.setVgap(0);
 		
 		this.add(this.drawLandOffice());
 		this.add(this.drawPathPanel());
@@ -105,7 +107,7 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawLandOffice() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(landOfficeImage));
-		panel.add(new JLabel("Land Office"));
+		//panel.add(new JLabel("Land Office"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
 		return panel;
@@ -115,7 +117,7 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawPub() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(pubImage));
-		panel.add(new JLabel("Pub"));
+		//panel.add(new JLabel("Pub"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
 		return panel;
@@ -125,7 +127,7 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawMule() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(muleImage));
-		panel.add(new JLabel("M.U.L.E."));
+		//panel.add(new JLabel("M.U.L.E."));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
 		return panel;
@@ -135,7 +137,7 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawLoadOut() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(loadOutImage));
-		panel.add(new JLabel("Load Out"));
+		//panel.add(new JLabel("Load Out"));
 		Border line = BorderFactory.createLineBorder(Color.black);
 		panel.setBorder(line);
 		return panel;

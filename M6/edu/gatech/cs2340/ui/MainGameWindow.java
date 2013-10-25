@@ -92,7 +92,7 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @param currentPanel
 	 */
-	public void setPanel(JPanel currentPanel) {
+	public synchronized void setPanel(JPanel currentPanel) {
 		if (currentPanel != null) {
 			mainPanel.removeAll();
 			mainPanel.repaint();
