@@ -93,6 +93,14 @@ public class TownRenderer extends GUIComponent {
 		sprite.update();
 		repaint();
 	}
+	
+	public void refreshSprite() {
+		if (sprite == null) {
+			throw new RuntimeException("Cannot refresh sprite on spriteless town renderer!");
+		}
+		sprite.update();
+		repaint();
+	}
 
 	private JPanel drawLandOffice() {
 		JPanel panel = new JPanel();

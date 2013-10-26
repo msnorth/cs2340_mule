@@ -49,7 +49,8 @@ public class MapManager implements WaitedOn, Runnable{
 		
 		TownSprite townSprite = new TownSprite(player);
 		TownRenderer townRenderer = new TownRenderer(townSprite);
-		townRenderer.initialize();
+		TownRenderer.initialize();
+		townRenderer.refresh();
 		
 		while (!townSprite.hasEnteredPub()) {
 			mapSprite.resetPosition();
@@ -59,7 +60,7 @@ public class MapManager implements WaitedOn, Runnable{
 					Thread.sleep(25);
 				} 
 				catch (InterruptedException e) {}
-				mapRenderer.refresh();
+				mapRenderer.refreshSprite();
 			}
 			
 			townSprite.resetPosition();
@@ -69,7 +70,7 @@ public class MapManager implements WaitedOn, Runnable{
 					Thread.sleep(25);
 				} 
 				catch (InterruptedException e) {}
-				townRenderer.refresh();
+				townRenderer.refreshSprite();
 			}
 		}
 		
