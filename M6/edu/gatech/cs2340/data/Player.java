@@ -21,6 +21,8 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Added method to calculate the player's turn time
  * 							M8		10/25/13 Thomas Mark
  * 									Began fleshing out resource usage.
+ * 							M8		10/27/13 Thomas Mark
+ * 									Added initial beginner resources, mule holding
  * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 
@@ -29,7 +31,8 @@ public class Player {
 	private final String name;
 	private final String race;
 	private final Color color;
-	private final ResourceAmount resources;
+	private ResourceAmount resources;
+	private Mule mule;
 	private int money;
 	private int gameScore;
 	private final ArrayList<Tile> ownedTiles;
@@ -42,16 +45,25 @@ public class Player {
 	 * @param name
 	 * @param race
 	 * @param color
-	 * @param startingResources
 	 */
-	public Player(String name, String race, Color color, ResourceAmount startingResources) {
+	public Player(String name, String race, Color color) {
 		this.name  = name;
 		this.race  = race;
 		this.color = color;
-		this.money = 1000;	// default until we instantiate player with set amount of money
-		ownedTiles = new ArrayList<Tile>();
 		resources = new ResourceAmount();
-		resources.add(startingResources);
+		ownedTiles = new ArrayList<Tile>();
+		
+		if (race == "flapper") {
+			this.money = 1600;
+		} else if (race == "human") {
+			this.money = 600;
+		} else {
+			this.money = 1000;
+		}
+		
+		// placeholder for default, beginner resources until we implement more than one difficulty
+		resources.add(ResourceType.FOOD, 8);
+		resources.add(ResourceType.ENERGY, 4);
 	}
 	
 	/**
@@ -148,23 +160,65 @@ public class Player {
 	}
 	
 	/**
+	 * #M8
 	 * I haz mule?
 	 * @return
 	 */
 	public boolean hazMule() {
-		if (resources.getAmount(ResourceType.MULE) == 1) {
+		if (mule == null) {
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 * #M8
+	 * Getter method for a player's particular resource.
+	 * @return the resource amount
+	 */
 	public int getResourceAmount(ResourceType resource) {
-		// TODO Auto-generated method stub
-		return 0;
+		return resources.getAmount(resource);
+	}
+	
+	/**
+	 * #M8
+	 * Removal method for a player's particular resource.
+	 */
+	public void removeResources(ResourceType resource, int amount) {
+		resources.remove(resource, amount);
+	}
+	
+	/**
+	 * #M8
+	 * Adder method for a player's particular resource.
+	 */
+	public void addResources(ResourceType resource, int amount) {
+		resources.add(resource, amount);
+		
 	}
 
-	public void removeResourceAmount(ResourceType resource, int amount) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * #M8
+	 * Method allowing a player to obtain a specific type of mule.
+	 */
+	public void addMule(Mule mule) {
+		this.mule = mule;
+	}
+	
+	/**
+	 * #M8
+	 * Getter method for a player's mule.
+	 * @return mule
+	 */
+	public Mule getMule() {
+		return mule;
+	}
+	
+	/**
+	 * #M8
+	 * Method to remove the mule from the player.
+	 */
+	public void removeMule() {
+		mule = null;
 	}
 }

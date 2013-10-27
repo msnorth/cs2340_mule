@@ -3,11 +3,13 @@ package edu.gatech.cs2340.data;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 
 /**
- *@author Tommy
+ *@author Thomas Mark
  * 		Function group:		Model: Service provider
  * 		Created for:		M8		10/25/13
- * 		Assigned to:		Tommy
- * 		Modifications:		
+ * 		Assigned to:		Thomas Mark
+ * 		Modifications:		M8		10/27/13 Thomas Mark
+ * 									Added mule handling.
+ * 									
  * 							
  * 		Allows the player to:
  * 				- buy resources
@@ -15,25 +17,31 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 				- buy mule
  * 		Notes:
  * 			- Example of Singleton design pattern	
- * 			- "Store.getStore()" should be called when the game is created, then something like 
- * 				"<whatever you called store>.addStartingResources(startingResources);"
+ * 			- "... = Store.getStore()" should be called when the game is created, then something 
+ * 			  like "....addStartingResources(startingResources);"
  * 			- A player needs to be added to the store (symbolizes player entering store)
  * 			- Methods are from the store's perspective 
- * 			  (e.g. theStore.sellResources(...) : player buying resources)	 		 
+ * 			  (e.g. theStore.sellResources(...) : player buying resources)
+ * 			- Classes that use store should use the message method to pass info to the player	 		 
  */
 public class Store {
 	private static Store theStore;
 	private static ResourceAmount storeResources;
 	private static ResourceAmount storePrices;
+	private static ResourceAmount mulePrices;
 	
-	private static final int SMITHORE_PRICE = 50;
 	private static final int FOOD_PRICE = 30;
 	private static final int ENERGY_PRICE = 25;
+	private static final int SMITHORE_PRICE = 50;
 	private static final int CRYSITE_PRICE = 100;
-	private static final int BASE_MULE_PRICE = 100;
+	
+	private static final int FOOD_MULE = 130;
+	private static final int ENERGY_MULE = 150;
+	private static final int SMITHORE_MULE = 175;
+	private static final int CRYSTITE_MULE = 200;
 	
 	private Player player;
-	private String errorMessage;
+	private String message;
 	
 	/**
 	 * M8
@@ -42,11 +50,16 @@ public class Store {
 	protected Store() {
 		storeResources = new ResourceAmount();	
 		storePrices = new ResourceAmount();
-		storePrices.add(ResourceType.SMITHORE, SMITHORE_PRICE);
+		
 		storePrices.add(ResourceType.FOOD, FOOD_PRICE);
 		storePrices.add(ResourceType.ENERGY, ENERGY_PRICE);
+		storePrices.add(ResourceType.SMITHORE, SMITHORE_PRICE);
 		storePrices.add(ResourceType.CRYSTITE, CRYSITE_PRICE);
-		storePrices.add(ResourceType.MULE, BASE_MULE_PRICE);
+		
+		mulePrices.add(ResourceType.FOOD, FOOD_MULE);
+		mulePrices.add(ResourceType.FOOD, ENERGY_MULE);
+		mulePrices.add(ResourceType.FOOD, SMITHORE_MULE);
+		mulePrices.add(ResourceType.FOOD, CRYSTITE_MULE);	
 	}
 	
 	/**
@@ -67,10 +80,10 @@ public class Store {
 	 */
 	public boolean buyResources(ResourceType resource, int amount) {		
 		if (player.getResourceAmount(resource) < amount) {
-			errorMessage = "You cannot sell that much.";
+			message = "You cannot sell that much.";
 			return false;
 		}
-		player.removeResourceAmount(resource, amount);
+		player.removeResources(resource, amount);
 		storeResources.add(resource, amount);
 		player.addMoney(amount*storePrices.getAmount(resource));
 		return true;
@@ -86,20 +99,44 @@ public class Store {
 		int cost = amount*storePrices.getAmount(resource);
 		
 		if (storeAmount < amount) {
-			errorMessage = "The store only has " + storeAmount + " " 
+			message = "The store only has " + storeAmount + " " 
 							+ resource.toString().toLowerCase() + ".";
 			return false;
 		}
 		if (player.getMoney() < cost) {
-			errorMessage = "You do not have enough money!";
-			return false;
-		}
-		if (resource.name().equals("MULE") && player.hazMule()) {
-			errorMessage = "You already have a mule.";
+			message = "You do not have enough money!";
 			return false;
 		}
 		storeResources.remove(resource, amount);
+		player.addResources(resource, amount);
 		player.deductMoney(cost);
+		return true;
+	}
+	
+	/**
+	 * Store sells mule to the player.
+	 * @param type
+	 * @return
+	 */
+	public boolean sellMule(ResourceType type) {
+		int cost = mulePrices.getAmount(type);
+		String muleType = type.toString();
+		
+		if (player.hazMule()) {
+			message = "You already have a mule.";
+			return false;
+		}
+		if (storeResources.getAmount(ResourceType.MULE) == 0) {
+			message = "There are no mules available to purchase.";
+			return false;
+		}
+		if (player.getMoney() < cost) {
+			message = "You do not have enough money!";
+			return false;
+		}
+		storeResources.remove(ResourceType.MULE, 1);
+		player.deductMoney(cost);
+		player.addMule(new Mule(muleType));
 		return true;
 	}
 	
@@ -133,10 +170,10 @@ public class Store {
 	}
 	
 	/**
-	 * Getter method returns any error messages created pertaining to store operations.
-	 * @return errorMessage
+	 * Getter method returns any messages created pertaining to store operations.
+	 * @return message
 	 */
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getMessage() {
+		return message;
 	}
 }
