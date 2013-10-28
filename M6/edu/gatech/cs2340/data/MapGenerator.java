@@ -1,9 +1,7 @@
 package edu.gatech.cs2340.data;
 
-import java.awt.Color;
+import java.util.Random;
 import java.util.UUID;
-
-import edu.gatech.cs2340.ui.TileImageFactory;
 
 /**
  * 
@@ -77,8 +75,59 @@ public abstract class MapGenerator {
 	 * @return Map
 	 */
 	public static Map generateRandomMap() {
+		Tile[][] tiles = new Tile[standardMapConfig.length][standardMapConfig[0].length];
+		Tile.initialize();
+		Random rg = new Random();
+		int type;
+		boolean hasRiver = false;
+		for (int i = 0; i < standardMapConfig.length; i++) {
+			for (int j = 0; j < standardMapConfig[0].length; j++) {
+				Tile tile;
+				if (i == 2 && j == 4){
+					type = 5;
+				}else{
+					type = rg.nextInt(5);
+				}
+				if (type == 1 && hasRiver){
+					//default -- plains tile
+					type = 6;
+				}
+				switch (type) {
+				case 0:
+					tile = new PlainsTile(UUID.randomUUID().toString(), null);
+					break;
+				case 1:
+					tile = new RiverTile(UUID.randomUUID().toString(), null);
+					for(int k = 0; k < standardMapConfig.length; k++){
+						if (tiles[k][j] == null)
+							tiles[k][j] = new RiverTile(UUID.randomUUID().toString(), null);
+					}
+					hasRiver = true;
+					break;
+				case 2:
+					tile = new HillTile(UUID.randomUUID().toString(), null);
+					break;
+				case 3:
+					tile = new MountainTile(UUID.randomUUID().toString(), null);
+					break;
+				case 4:
+					tile = new PeakTile(UUID.randomUUID().toString(), null);
+					break;
+				case 5:
+					tile = new TownTile(UUID.randomUUID().toString(), null);
+					break;
+				default:
+					tile = new PlainsTile(UUID.randomUUID().toString(), null);
+					break;
+				}
+				if (tiles[i][j] == null)
+					tiles[i][j] = tile;
+			}
+		}
+		Map map = new Map(tiles);
 
-		return null;
+		return map;
+
 	}
 
 }

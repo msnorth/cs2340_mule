@@ -32,7 +32,7 @@ public class MapGUITester {
 //		 // add it to frame
 //				frame.getContentPane().add(panel);
 		// Make map
-		Map map = MapGenerator.generateStandardMap();
+		Map map = MapGenerator.generateRandomMap();
 		// Make map panel
 		MapRenderer mapRenderer = new MapRenderer(map);
 		mapRenderer.initialize();
