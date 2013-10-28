@@ -4,8 +4,8 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -16,6 +16,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.SpinnerNumberModel;
 
+import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 
@@ -32,15 +33,22 @@ public class StoreMenu {
 
 	private JPanel storePanel;
 	private int amount = 1;
+	private Player player;
+	private boolean disable;
 	
 	/**
 	 * #M8
 	 * Create the application.
 	 */
-	public StoreMenu() {
+	public StoreMenu(Player player) {
 		initialize();
 	}
 
+	private void disableMuleButtons(JButton button, boolean disable) {
+		if(player.hazMule()) {
+			button.setEnabled(disable);
+		}
+	}
 	/**
 	 * #M8
 	 * Initialize the contents of the panel and make the store menu.
@@ -50,6 +58,9 @@ public class StoreMenu {
 	 */
 	
 	private void initialize() {
+		this.player = player;
+		disable = false;
+		
 		//Defines the panel and sets its bounds
 		storePanel = new JPanel();
 		storePanel.setBackground(new Color(255, 255, 102));
@@ -204,15 +215,18 @@ public class StoreMenu {
 		
 		//Button to sell smithore mule to player 
 		JButton buyOreMule = new JButton("Ore Mule");
+		disableMuleButtons(buyOreMule, disable);
 		buyOreMule.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Store.getStore().sellMule(ResourceType.SMITHORE);
+				disable = true;
 			}
 		});
 		buyOreMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyOreMule.setBackground(new Color(244, 50, 0));
 		buyOreMule.setBounds(51, 425, 135, 23);
 		storePanel.add(buyOreMule);
+		
 		
 		//Button to sell food mule to player 
 		JButton buyFoodMule = new JButton("Food Mule");
