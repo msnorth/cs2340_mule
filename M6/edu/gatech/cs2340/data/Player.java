@@ -37,6 +37,7 @@ public class Player {
 	private Mule mule;
 	private int money;
 	private int gameScore;
+	private String difficulty;
 	private final ArrayList<Tile> ownedTiles;
 	private double time;
 	
@@ -48,24 +49,33 @@ public class Player {
 	 * @param race
 	 * @param color
 	 */
-	public Player(String name, String race, Color color) {
-		this.name  = name;
-		this.race  = race;
-		this.color = color;
-		resources = new ResourceAmount();
-		ownedTiles = new ArrayList<Tile>();
+	public Player(String pName, String pRace, Color pColor) {
+		name 	   = pName;
+		race 	   = pRace;
+		color 	   = pColor;
 		
-		if (race == "flapper") {
-			this.money = 1600;
-		} else if (race == "human") {
-			this.money = 600;
-		} else {
-			this.money = 1000;
+		difficulty = "Beginner";	//variable defined if it needs to be changed to allow for Standard/Tournament
+		ownedTiles = new ArrayList<Tile>();
+		resources  = new ResourceAmount();
+				
+		if(difficulty.equalsIgnoreCase("Beginner")) {
+			resources.add(ResourceAmount.ResourceType.FOOD, 8);
+			resources.add(ResourceAmount.ResourceType.ENERGY, 4);
+			resources.add(ResourceAmount.ResourceType.FOOD, 0);	
+		}
+		if(!difficulty.equalsIgnoreCase("Beginner")) {			
+			resources.add(ResourceAmount.ResourceType.FOOD, 4);
+			resources.add(ResourceAmount.ResourceType.ENERGY, 2);
+			resources.add(ResourceAmount.ResourceType.FOOD, 0);	
 		}
 		
-		// placeholder for default, beginner resources until we implement more than one difficulty
-		resources.add(ResourceType.FOOD, 8);
-		resources.add(ResourceType.ENERGY, 4);
+		if(race.equalsIgnoreCase("Human")) {
+			money = 600;
+		}
+		else if(race.equalsIgnoreCase("Flapper")) {
+			money = 1600;	
+		}
+		else money = 1000;
 	}
 	
 	/**
@@ -187,7 +197,9 @@ public class Player {
 	 * Removal method for a player's particular resource.
 	 */
 	public void removeResources(ResourceType resource, int amount) {
-		resources.remove(resource, amount);
+		if(getResourceAmount(resource) >= amount) {
+			resources.remove(resource, amount);
+		}
 	}
 	
 	/**
