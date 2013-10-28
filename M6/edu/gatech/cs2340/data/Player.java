@@ -23,6 +23,8 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Began fleshing out resource usage.
  * 							M8		10/27/13 Thomas Mark
  * 									Added initial beginner resources, mule holding
+ * 							M9      10/27/13 Shreyyas Vanarase
+ * 									Updated remove method and the beginning resources
  * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 

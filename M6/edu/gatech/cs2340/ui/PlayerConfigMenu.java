@@ -21,11 +21,15 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  * 
  * @author Madeleine North
  * 
- *         Created for: M5 9/30/13 Modifications: M5 10/6/13 Shreyyas Vanarase
- *         Updating panel viewability and features M5 10/6/13 Thomas Mark Fixed
- *         parameter input
- * 
- * 
+ * 		Function group:		Control: UI
+ * 		Created for:		M5		09/30/13
+ * 		Modifications:		M5      10/6/13 Shreyyas Vanarase
+ * 									Updating panel viewability and features 
+ * 							M5      10/6/13 Thomas Mark 
+ * 									Fixed parameter input
+ * 							M8      10/26/13 Shreyyas Vanarase
+ * 									Added Human race. 
+
  *         Purpose: Second panel of game configuration menu. Allows user to
  *         select game player names, player races, and player colors. This
  *         information is passed back to Driver to start a new Game.
@@ -34,7 +38,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
 public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	private static final long serialVersionUID = 1L;
 
-	public static String[] races = { "Bonzoid", "Buzzite", "Flapper ", "Ugaite" };
+	public static String[] races = { "Bonzoid", "Buzzite", "Flapper ", "Ugaite", "Human" };
 
 	public static String[] colorStrings = { "Blue", "Gold", "Green", "Red" };
 	private Map<Integer, String> takenColors = new HashMap<Integer, String>();
@@ -43,19 +47,19 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 
 	private boolean finished;
 	private Player[] players;
-
+	private GameConfigMenu menu;
+	
 	private JTextField[] nameFields;
 	private JComboBox<String>[] raceLists;
 	private JComboBox<String>[] colorsLists;
 
 	/**
 	 * Main constructor
-	 * 
 	 * @param manager
-	 *            GUIManager to handle callback from "Next" button
+	 *    
 	 */
 	public PlayerConfigMenu(int numPairs) {
-
+		menu 	 = new GameConfigMenu();
 		finished = false;
 
 		// Create and populate the panel
@@ -194,6 +198,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 				String race = raceLists[i].getSelectedItem().toString();
 				Color color = colors[Arrays.asList(colorStrings).indexOf(takenColors.get(i))];
 				players[i] = new Player(name, race, color);
+			//	players[i].setGameDifficulty(menu.getGameDifficulty());
 			}
 			finished = true;
 		}
