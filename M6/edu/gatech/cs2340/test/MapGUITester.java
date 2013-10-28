@@ -21,28 +21,28 @@ public class MapGUITester {
 	/**
 	 * Simple run method to test MapRenderer
 	 */
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("MapRendererTest");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("MapRendererTest");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//		// Temp
-//		GUIPanelTester panel = new GUIPanelTester();
+//        // Temp
+//        GUIPanelTester panel = new GUIPanelTester();
 //
-//		 panel.add(label,JLabel.CENTER);
-//		 // add it to frame
-//				frame.getContentPane().add(panel);
-		// Make map
-		Map map = MapGenerator.generateRandomMap();
-		// Make map panel
-		MapRenderer mapRenderer = new MapRenderer(map);
-		mapRenderer.initialize();
-		frame.getContentPane().add(mapRenderer);
-		
-		
-		
-		// compile the program and make it visible
-		frame.pack();
-		frame.setVisible(true);
-	}
+//         panel.add(label,JLabel.CENTER);
+//         // add it to frame
+//                        frame.getContentPane().add(panel);
+        // Make map
+        Map map = MapGenerator.generateRandomMap();
+        // Make map panel
+        MapRenderer mapRenderer = new MapRenderer(map);
+       // mapRenderer.initialize();
+        frame.getContentPane().add(mapRenderer);
+        
+        
+        
+        // compile the program and make it visible
+        frame.pack();
+        frame.setVisible(true);
+}
 
 }

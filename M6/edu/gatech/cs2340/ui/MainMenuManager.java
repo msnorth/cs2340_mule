@@ -24,7 +24,7 @@ import edu.gatech.cs2340.sequencing.Waiter;
  */
 public class MainMenuManager {
 	PlayerManager playerManager;
-	
+	String mapType;
 	/**
 	 * #M6
 	 * Method to start the main menu sequence
@@ -35,6 +35,7 @@ public class MainMenuManager {
 		window.setPanel(gameConfig);
 		Waiter.waitOn(gameConfig);
 		String difficulty = gameConfig.getGameDifficulty();
+		mapType = gameConfig.getMapType();
 		int numPlayers = gameConfig.getPlayerCount();
 		PlayerConfigMenu playerConfig = new PlayerConfigMenu(numPlayers);
 		window.setPanel(playerConfig);
@@ -45,5 +46,8 @@ public class MainMenuManager {
 
 	public PlayerManager getPlayers() {
 		return playerManager;
+	}
+	public String getMapType() {
+		return mapType;
 	}
 }

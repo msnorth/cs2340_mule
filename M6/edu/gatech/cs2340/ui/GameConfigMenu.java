@@ -35,7 +35,7 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 
 	public static String[] diffLevels = { "Beginner", "Intermediate", "Advanced" };
 
-	public static String[] maps = { "Irata 1" };
+	public static String[] maps = { "Irata 1", "Random Map" };
 
 	public static Integer[] players = {2,3,4};
 
@@ -98,6 +98,9 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 		return gameLevel.getSelectedItem().toString();
 	}
 	
+	public String getMapType() {
+		return mapTypes.getSelectedItem().toString();
+	}
 	
 	/**
 	 * Listener class for "Next" button. Passes message to GUIManager.
