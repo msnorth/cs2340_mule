@@ -38,7 +38,7 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
 public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	private static final long serialVersionUID = 1L;
 
-	public static String[] races = { "Bonzoid", "Buzzite", "Flapper ", "Ugaite", "Human" };
+	public static String[] races = { "Bonzoid", "Buzzite", "Flapper", "Ugaite", "Human" };
 
 	public static String[] colorStrings = { "Blue", "Gold", "Green", "Red" };
 	private Map<Integer, String> takenColors = new HashMap<Integer, String>();

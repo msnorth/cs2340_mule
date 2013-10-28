@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.test.DebugPrinter;
 
 /**
  * 
@@ -17,7 +18,7 @@ import edu.gatech.cs2340.data.Player;
  * 
  * 
  * 
- *         Purpose: Graphic of the inside of the town.
+ *         Purpose: Holds all sprite images. Gives them out based on Player object data.
  */
 public class SpriteLoader implements Runnable{
 	public static Color[] colors = { Color.BLUE, Color.YELLOW, Color.GREEN, Color.RED };
@@ -67,6 +68,9 @@ public class SpriteLoader implements Runnable{
 		
 		String race = player.getRace().toLowerCase();
 		Color color = player.getPlayerColor();
+		System.out.println(race);
+		System.out.println(color.toString());
+		System.out.println(images.get(race));
 		return images.get(race).get(color);
 	}
 	

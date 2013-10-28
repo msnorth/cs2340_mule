@@ -25,7 +25,7 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  */
 public class TownSprite {
 	private final int SPEED = 10;
-	private final double WORLD_PIXEL_RATIO = 750.0/1000; //pixels / worldUnit (1000 per Tile)
+	private final double WORLD_PIXEL_RATIO = 675.0/1000; //pixels / worldUnit (1000 per Tile)
 	public enum SPRITE_LOCATION {
 		TOWN, STORE, PUB, EXITED
 	}
@@ -55,7 +55,7 @@ public class TownSprite {
 		this.player = player;
 		resetPosition();
 		
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("human_blue.png"));
+		ImageIcon ii = SpriteLoader.getSprite(player);
         image = ii.getImage();
 	}	
 	
@@ -78,6 +78,10 @@ public class TownSprite {
 		
 		x += dx;
 		y += dy;
+		
+		if (x < 0 || y < 0 || x > 1000 || y > 600) {
+			location = SPRITE_LOCATION.EXITED;
+		}
 	}
 	
 	/**
@@ -88,7 +92,7 @@ public class TownSprite {
 	 */	
 	
 	public int getScreenX() {
-		return x;
+		return (int)(x * WORLD_PIXEL_RATIO);
 	}
 	
 	/**
@@ -98,7 +102,7 @@ public class TownSprite {
 	 * @return the Y position of the sprite.
 	 */	
 	public int getScreenY() {
-		return y;
+		return (int)(y * WORLD_PIXEL_RATIO) ;
 	}
 	
 	/**
