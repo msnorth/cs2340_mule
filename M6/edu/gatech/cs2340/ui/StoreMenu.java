@@ -313,38 +313,43 @@ public class StoreMenu {
 		storePanel.add(statisticsLabel);
 		
 		JLabel playerMoney = new JLabel("Player Money:");
-		playerMoney.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerMoney.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		playerMoney.setBounds(448, 223, 101, 14);
 		storePanel.add(playerMoney);
 		
 		JLabel playerResources = new JLabel("Your Current Resources: ");
-		playerResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerResources.setBounds(447, 276, 171, 14);
+		playerResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		playerResources.setBounds(447, 276, 193, 14);
 		storePanel.add(playerResources);
 		
 		JLabel storeResources = new JLabel("Store Resources: ");
-		storeResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		storeResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		storeResources.setBounds(447, 359, 171, 14);
 		storePanel.add(storeResources);
 		
-		JLabel energyPrice = new JLabel("ENERGYPRICE");
-		energyPrice.setBounds(37, 159, 46, 14);
+		JLabel energyPrice = new JLabel("$50");
+		energyPrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		energyPrice.setBounds(51, 159, 35, 14);
 		storePanel.add(energyPrice);
 		
-		JLabel smithorePrice = new JLabel("SMITHOREPRICE");
-		smithorePrice.setBounds(155, 159, 46, 14);
+		JLabel smithorePrice = new JLabel("$75");
+		smithorePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		smithorePrice.setBounds(175, 159, 24, 14);
 		storePanel.add(smithorePrice);
 		
-		JLabel foodPrice = new JLabel("FOODPRICE");
-		foodPrice.setBounds(300, 159, 46, 14);
+		JLabel foodPrice = new JLabel("$50");
+		foodPrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		foodPrice.setBounds(305, 159, 35, 14);
 		storePanel.add(foodPrice);
 		
-		JLabel crystitePrice = new JLabel("CRYSTITEPRICE");
-		crystitePrice.setBounds(417, 159, 46, 14);
+		JLabel crystitePrice = new JLabel("$200");
+		crystitePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		crystitePrice.setBounds(425, 159, 46, 14);
 		storePanel.add(crystitePrice);
 		
-		JLabel mulePrice = new JLabel("MULEPRICE");
-		mulePrice.setBounds(551, 159, 46, 14);
+		JLabel mulePrice = new JLabel("$100");
+		mulePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		mulePrice.setBounds(562, 159, 46, 14);
 		storePanel.add(mulePrice);
 	}
 }
