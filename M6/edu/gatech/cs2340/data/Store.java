@@ -9,6 +9,10 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 		Assigned to:		Thomas Mark
  * 		Modifications:		M8		10/27/13 Thomas Mark
  * 									Added mule handling.
+ * 							M8      10/28/13 Shreyyas Vanarase
+ * 									Selling mules of a specific type should also decrease
+ * 									the amount of that type from the store and add that 
+ * 									type to the player's resources. Added getResourceType Method
  * 									
  * 							
  * 		Allows the player to:
@@ -40,6 +44,11 @@ public class Store {
 	private static final int SMITHORE_MULE = 175;
 	private static final int CRYSTITE_MULE = 200;
 	
+	private int FOOD     = 1000;
+	private int ENERGY   = 1000;
+	private int SMITHORE = 1000;
+	private int CRYSTITE = 1000;
+	
 	private Player player;
 	private String message;
 	
@@ -50,6 +59,7 @@ public class Store {
 	protected Store() {
 		storeResources = new ResourceAmount();	
 		storePrices = new ResourceAmount();
+		mulePrices  = new ResourceAmount();
 		
 		storePrices.add(ResourceType.FOOD, FOOD_PRICE);
 		storePrices.add(ResourceType.ENERGY, ENERGY_PRICE);
@@ -69,6 +79,7 @@ public class Store {
 	public static Store getStore() {
 		if (theStore == null) {
 			theStore = new Store();
+		//	theStore.addStartingResources(storeResources);
 		}
 		return theStore;
 	}
@@ -108,8 +119,8 @@ public class Store {
 			return false;
 		}
 		storeResources.remove(resource, amount);
-		player.addResources(resource, amount);
 		player.deductMoney(cost);
+		player.addResources(resource, amount);
 		return true;
 	}
 	
@@ -135,8 +146,10 @@ public class Store {
 			return false;
 		}
 		storeResources.remove(ResourceType.MULE, 1);
+		storeResources.remove(type, 1);
 		player.deductMoney(cost);
 		player.addMule(new Mule(muleType));
+		player.addResources(type, 1);
 		return true;
 	}
 	
@@ -175,5 +188,14 @@ public class Store {
 	 */
 	public String getMessage() {
 		return message;
+	}
+
+	/**
+	 * Gets the amount of a resource that the store has
+	 * @param resource
+	 * @return int 
+	 */
+	public int getResourceAmount(ResourceType resource) {
+		return storeResources.getAmount(resource);
 	}
 }
