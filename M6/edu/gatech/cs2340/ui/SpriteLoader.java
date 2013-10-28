@@ -68,10 +68,15 @@ public class SpriteLoader implements Runnable{
 		
 		String race = player.getRace().toLowerCase();
 		Color color = player.getPlayerColor();
-		System.out.println(race);
-		System.out.println(color.toString());
-		System.out.println(images.get(race));
-		return images.get(race).get(color);
+		HashMap<Color, ImageIcon> colorMap = images.get(race);
+		if (colorMap == null) {
+			throw new RuntimeException("Cannot find race '" + race + "'");
+		}
+		ImageIcon image = colorMap.get(color);
+		if (image == null) {
+			throw new RuntimeException(String.format("Cannot find color '%s' in race '%s'",color, race));
+		}
+		return image;
 	}
 	
 	
