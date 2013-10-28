@@ -9,6 +9,7 @@ import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.ui.GUIManager;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MainMenuManager;
+import edu.gatech.cs2340.ui.SpriteLoader;
 
 /**
  * 
@@ -35,6 +36,7 @@ public abstract class Driver {
 	public static void main(String[] args) {
 		KeyboardAdapter.initialize();
 		MainGameWindow.initialize();
+		SpriteLoader.initialize();
 		MainMenuManager mainMenu = new MainMenuManager();
 		mainMenu.runSynchronous();
 		

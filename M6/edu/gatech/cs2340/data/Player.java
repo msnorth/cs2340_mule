@@ -118,6 +118,15 @@ public class Player {
 	}
 	
 	/**
+	 * Method to get player's race.
+	 * 
+	 * @return
+	 */
+	public String getRace() {
+		return race;
+	}
+	
+	/**
 	 * #M6
 	 * Method to check if player is able to buy a good
 	 * @param price

@@ -52,7 +52,7 @@ public class MapManager implements WaitedOn, Runnable{
 		TownRenderer.initialize();
 		townRenderer.refresh();
 		
-		while (!townSprite.hasEnteredPub()) {
+		while (townSprite.getLocation() != TownSprite.SPRITE_LOCATION.PUB) {
 			mapSprite.resetPosition();
 			MainGameWindow.getInstance().setPanel(mapRenderer);
 			while (!mapSprite.hasEnteredTown()) {
@@ -65,7 +65,8 @@ public class MapManager implements WaitedOn, Runnable{
 			
 			townSprite.resetPosition();
 			MainGameWindow.getInstance().setPanel(townRenderer);
-			while (!townSprite.hasLeftTown() && !townSprite.hasEnteredPub()) {
+			while (townSprite.getLocation() != TownSprite.SPRITE_LOCATION.PUB &&
+				   townSprite.getLocation() != TownSprite.SPRITE_LOCATION.EXITED) {
 				try {
 					Thread.sleep(25);
 				} 

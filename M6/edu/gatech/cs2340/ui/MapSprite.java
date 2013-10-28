@@ -45,7 +45,7 @@ public class  MapSprite {
 		this.player = player;
 		resetPosition();
 		
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("human_blue.png"));
+		ImageIcon ii = SpriteLoader.getSprite(player);
 
         image = ii.getImage();
         h = (int)(ii.getIconHeight()/WORLD_PIXEL_RATIO);

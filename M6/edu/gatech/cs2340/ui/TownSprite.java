@@ -26,6 +26,9 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
 public class TownSprite {
 	private final int SPEED = 10;
 	private final double WORLD_PIXEL_RATIO = 750.0/1000; //pixels / worldUnit (1000 per Tile)
+	public enum SPRITE_LOCATION {
+		TOWN, STORE, PUB, EXITED
+	}
 	
 	private int x;
 	private int y;
@@ -33,8 +36,7 @@ public class TownSprite {
 	private int w;
 	private Player player;
 	private  Image image;
-	private boolean isInTown;
-	private boolean isInPub;
+	private SPRITE_LOCATION location;
 	
 	//needs boolean for isInTown (true when in town)
 	//needs hasLeftTown
@@ -76,11 +78,6 @@ public class TownSprite {
 		
 		x += dx;
 		y += dy;
-		
-		//when x or y < 0, or when x > width of main game window, or y> height of current panel
-		if ((x < 0 || y < 0) || x > 1000 || y > 600) {
-			isInTown = false;
-		}
 	}
 	
 	/**
@@ -124,23 +121,13 @@ public class TownSprite {
 		return image;
 	}
 	
-	/**
-	 * #M7
-	 *
-	 * @return whether the sprite has left town
-	 */	
-	public boolean hasLeftTown() {
-		return !isInTown;
-	}
-	
-	public boolean hasEnteredPub() {
-		return isInPub;
+	public SPRITE_LOCATION getLocation() {
+		return location;
 	}
 	
 	public void resetPosition() {
 		x = 500;
 		y = 500;
-		isInPub = false;
-		isInTown = true;
+		location = SPRITE_LOCATION.TOWN;
 	}
 }
