@@ -40,7 +40,8 @@ public class StoreMenu {
 	 * #M8
 	 * Create the application.
 	 */
-	public StoreMenu(Player player) {
+	public StoreMenu() {
+		//needs to instantiate a player...
 		initialize();
 	}
 
@@ -58,7 +59,6 @@ public class StoreMenu {
 	 */
 	
 	private void initialize() {
-		this.player = player;
 		disable = false;
 		
 		//Defines the panel and sets its bounds
