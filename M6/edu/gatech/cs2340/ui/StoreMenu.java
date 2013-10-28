@@ -32,7 +32,6 @@ public class StoreMenu {
 
 	private JPanel storePanel;
 	private int amount = 1;
-	private JSpinner spinner; //value in spinner used throughout store menu to select how much we want to buy/sell
 	
 	/**
 	 * #M8
@@ -55,50 +54,28 @@ public class StoreMenu {
 		storePanel = new JPanel();
 		storePanel.setBackground(new Color(255, 255, 102));
 		storePanel.setBounds(100, 100, 650, 500);
-		
-		//Creates a JSpinner to allow the player to set the amount of the resource he wants.
-		spinner = new JSpinner();
-		spinner.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		spinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		spinner.setForeground(new Color(244, 50, 0));
-		spinner.setBackground(new Color(244, 50, 0));
-		spinner.setBounds(356, 450, 100, 23);
-		storePanel.add(spinner);
-		
-		amount = (int) spinner.getValue();
-		
+				
 		//Makes the Store Menu Label
 		JLabel title = new JLabel("Store Menu");
 		title.setBounds(227, 12, 189, 31);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 25));
+		title.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 21));
 		
 		//Makes a food label
 		JLabel foodLabel = new JLabel("Food");
-		foodLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		foodLabel.setBounds(315, 173, 46, 14);
-		
-		//A button to sell a base mule (player is buying a base mule)
-		JButton buyMule = new JButton("Mule");
-		buyMule.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			//	Store.getStore().sellMule(ResourceType.MULE); Do we need to implement a BASE MULE?
-			}
-		});
-		buyMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		buyMule.setBackground(new Color(244, 50, 0));
-		buyMule.setBounds(37, 301, 111, 23);
+		foodLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		foodLabel.setBounds(300, 144, 46, 14);
 		
 		//Button to sell energy to player (player is buying energy)
 		JButton buyEnergy = new JButton("Energy");
 		buyEnergy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Store.getStore().sellResources(ResourceType.ENERGY, (int)spinner.getValue());
+				Store.getStore().sellResources(ResourceType.ENERGY, amount);
 			}
 		});
 		buyEnergy.setBackground(new Color(244, 50, 0));
-		buyEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		buyEnergy.setBounds(37, 259, 111, 23);
+		buyEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		buyEnergy.setBounds(62, 223, 111, 23);
 		
 		//Button to sell smithore to player (player is buying smithore)
 		JButton buySmithore = new JButton("Smithore");
@@ -107,9 +84,9 @@ public class StoreMenu {
 				Store.getStore().sellResources(ResourceType.SMITHORE, amount);
 			}
 		});
-		buySmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		buySmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buySmithore.setBackground(new Color(244, 50, 0));
-		buySmithore.setBounds(188, 259, 111, 23);
+		buySmithore.setBounds(62, 257, 111, 23);
 		
 		//Button to sell food to player (player is buying food)
 		JButton buyFood = new JButton("Food");
@@ -119,8 +96,8 @@ public class StoreMenu {
 			}
 		});
 		buyFood.setBackground(new Color(244, 50, 0));
-		buyFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		buyFood.setBounds(345, 259, 111, 23);
+		buyFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		buyFood.setBounds(62, 291, 111, 23);
 		
 		//Button to sell crystite to player (player is buying crystite)
 		JButton buyCrystite = new JButton("Crystite");
@@ -129,9 +106,9 @@ public class StoreMenu {
 				Store.getStore().sellResources(ResourceType.CRYSTITE, amount);
 			}
 		});
-		buyCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		buyCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyCrystite.setBackground(new Color(244, 50, 0));
-		buyCrystite.setBounds(500, 259, 111, 23);
+		buyCrystite.setBounds(62, 325, 111, 23);
 		
 		//adds these components to the panel now
 		storePanel.setLayout(null);
@@ -139,36 +116,30 @@ public class StoreMenu {
 		storePanel.add(foodLabel);
 		storePanel.add(buyEnergy);
 		storePanel.add(buySmithore);
-		storePanel.add(buyMule);
 		storePanel.add(buyCrystite);
 		storePanel.add(buyFood);
-		
-		//Separates the buying title and the buying section
-		JSeparator buySeperator = new JSeparator();
-		buySeperator.setForeground(new Color(244, 50, 0));
-		buySeperator.setBounds(37, 240, 585, 8);
-		storePanel.add(buySeperator);
 		
 		//Makes a label for the Buying section
 		JLabel buyTitle = new JLabel("Buy from the Store!");
 		buyTitle.setForeground(new Color(0, 153, 51));
-		buyTitle.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 18));
-		buyTitle.setBounds(37, 215, 238, 23);
+		buyTitle.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
+		buyTitle.setBounds(37, 184, 179, 23);
 		storePanel.add(buyTitle);
 		
 		//Makes a label for the Selling section
 		JLabel sellTitle = new JLabel("Sell to the Store!");
 		sellTitle.setForeground(new Color(0, 153, 51));
 		sellTitle.setBackground(new Color(0, 153, 51));
-		sellTitle.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 18));
-		sellTitle.setBounds(37, 347, 205, 14);
+		sellTitle.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
+		sellTitle.setBounds(254, 188, 162, 14);
 		storePanel.add(sellTitle);
 		
 		//Separates the selling title and the selling section
-		JSeparator sellSeperator = new JSeparator();
-		sellSeperator.setForeground(new Color(244, 50, 0));
-		sellSeperator.setBounds(37, 372, 585, 8);
-		storePanel.add(sellSeperator);
+		JSeparator mainSeperator = new JSeparator();
+		mainSeperator.setBackground(new Color(204, 0, 0));
+		mainSeperator.setForeground(new Color(244, 50, 0));
+		mainSeperator.setBounds(37, 204, 581, 8);
+		storePanel.add(mainSeperator);
 		
 		//Button to buy energy from player (player is selling energy)
 		JButton sellEnergy = new JButton("Energy");
@@ -178,9 +149,9 @@ public class StoreMenu {
 				System.out.println(amount);
 			}
 		});
-		sellEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		sellEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellEnergy.setBackground(new Color(244, 50, 0));
-		sellEnergy.setBounds(37, 391, 111, 23);
+		sellEnergy.setBounds(277, 223, 111, 23);
 		storePanel.add(sellEnergy);
 		
 		//Button to buy smithore from player (player is selling smithore)
@@ -190,9 +161,9 @@ public class StoreMenu {
 				Store.getStore().buyResources(ResourceType.SMITHORE, amount);
 			}
 		});
-		sellSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		sellSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellSmithore.setBackground(new Color(244, 50, 0));
-		sellSmithore.setBounds(188, 391, 111, 23);
+		sellSmithore.setBounds(277, 257, 111, 23);
 		storePanel.add(sellSmithore);
 		
 		//Button to buy food from player (player is selling food)
@@ -202,9 +173,9 @@ public class StoreMenu {
 				Store.getStore().buyResources(ResourceType.FOOD, amount);
 			}
 		});
-		sellFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		sellFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellFood.setBackground(new Color(244, 50, 0));
-		sellFood.setBounds(345, 391, 111, 23);
+		sellFood.setBounds(277, 291, 111, 23);
 		storePanel.add(sellFood);
 		
 		//Button to buy energy from player (player is selling energy)
@@ -214,9 +185,9 @@ public class StoreMenu {
 				Store.getStore().buyResources(ResourceType.CRYSTITE, amount);
 			}
 		});
-		button.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		button.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		button.setBackground(new Color(244, 50, 0));
-		button.setBounds(500, 391, 111, 23);
+		button.setBounds(277, 325, 111, 23);
 		storePanel.add(button);
 		
 		//Button to sell energy mule to player 
@@ -226,9 +197,9 @@ public class StoreMenu {
 				Store.getStore().sellMule(ResourceType.ENERGY);
 			}
 		});
-		buyEnergyMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		buyEnergyMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyEnergyMule.setBackground(new Color(244, 50, 0));
-		buyEnergyMule.setBounds(178, 301, 135, 23);
+		buyEnergyMule.setBounds(51, 359, 135, 23);
 		storePanel.add(buyEnergyMule);
 		
 		//Button to sell smithore mule to player 
@@ -238,9 +209,9 @@ public class StoreMenu {
 				Store.getStore().sellMule(ResourceType.SMITHORE);
 			}
 		});
-		buyOreMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		buyOreMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyOreMule.setBackground(new Color(244, 50, 0));
-		buyOreMule.setBounds(487, 301, 135, 23);
+		buyOreMule.setBounds(51, 425, 135, 23);
 		storePanel.add(buyOreMule);
 		
 		//Button to sell food mule to player 
@@ -250,9 +221,9 @@ public class StoreMenu {
 				Store.getStore().sellMule(ResourceType.FOOD);
 			}
 		});
-		buyFoodMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
+		buyFoodMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyFoodMule.setBackground(new Color(244, 50, 0));
-		buyFoodMule.setBounds(339, 301, 126, 23);
+		buyFoodMule.setBounds(51, 391, 135, 23);
 		storePanel.add(buyFoodMule);
 		
 		//Exits the store
@@ -264,7 +235,7 @@ public class StoreMenu {
 		});
 		exitButton.setBackground(new Color(244, 50, 0));
 		exitButton.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		exitButton.setBounds(496, 449, 122, 23);
+		exitButton.setBounds(277, 466, 121, 23);
 		storePanel.add(exitButton);
 		
 		/*
@@ -272,59 +243,108 @@ public class StoreMenu {
 		 */
 		JLabel foodIcon = new JLabel("Food");
 		foodIcon.setIcon(new ImageIcon(StoreMenu.class.getResource("/edu/gatech/cs2340/ui/FOODFinal.png")));
-		foodIcon.setBounds(294, 101, 80, 60);
+		foodIcon.setBounds(279, 73, 80, 60);
 		storePanel.add(foodIcon);
 		
 		JLabel energyIcon = new JLabel("Energy");
 		energyIcon.setIcon(new ImageIcon(StoreMenu.class.getResource("/edu/gatech/cs2340/ui/EnergyFinal.png")));
-		energyIcon.setBounds(58, 100, 39, 62);
+		energyIcon.setBounds(43, 72, 39, 62);
 		storePanel.add(energyIcon);
 		
 		JLabel smithoreIcon = new JLabel("Smithore");
 		smithoreIcon.setIcon(new ImageIcon(StoreMenu.class.getResource("/edu/gatech/cs2340/ui/SmithoreFinal.png")));
-		smithoreIcon.setBounds(160, 97, 72, 71);
+		smithoreIcon.setBounds(145, 69, 72, 71);
 		storePanel.add(smithoreIcon);
 		
 		JLabel crystiteIcon = new JLabel("Crystite");
 		crystiteIcon.setIcon(new ImageIcon(StoreMenu.class.getResource("/edu/gatech/cs2340/ui/CrystiteFinal.png")));
-		crystiteIcon.setBounds(422, 96, 72, 71);
+		crystiteIcon.setBounds(407, 68, 72, 71);
 		storePanel.add(crystiteIcon);
 		
 		JLabel muleIcon = new JLabel("Mule");
 		muleIcon.setIcon(new ImageIcon(StoreMenu.class.getResource("/edu/gatech/cs2340/ui/MuleFinal.png")));
-		muleIcon.setBounds(548, 101, 75, 60);
+		muleIcon.setBounds(533, 73, 75, 60);
 		storePanel.add(muleIcon);
 		
 		JLabel energyLabel = new JLabel("Energy");
-		energyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		energyLabel.setBounds(52, 172, 72, 14);
+		energyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		energyLabel.setBounds(37, 144, 72, 14);
 		storePanel.add(energyLabel);
 		
 		JLabel smithoreLabel = new JLabel("Smithore");
-		smithoreLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		smithoreLabel.setBounds(171, 172, 82, 14);
+		smithoreLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		smithoreLabel.setBounds(155, 145, 82, 14);
 		storePanel.add(smithoreLabel);
 		
 		JLabel crystiteLabel = new JLabel("Crystite");
-		crystiteLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		crystiteLabel.setBounds(422, 173, 87, 14);
+		crystiteLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		crystiteLabel.setBounds(417, 145, 87, 14);
 		storePanel.add(crystiteLabel);
 		
 		JLabel muleLabel = new JLabel("Mule");
-		muleLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		muleLabel.setBounds(566, 173, 56, 14);
+		muleLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
+		muleLabel.setBounds(562, 145, 56, 14);
 		storePanel.add(muleLabel);
 		
 		JLabel welcomeLabel = new JLabel("Welcome to Irata 1 Thrift Shop!! Best of the Resource Shops!");
 		welcomeLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		welcomeLabel.setBounds(84, 55, 509, 14);
+		welcomeLabel.setBounds(74, 43, 509, 14);
 		storePanel.add(welcomeLabel);
-
-		JLabel transactionLabel = new JLabel("Please Enter Amount You'd Like to Buy/Sell: ");
-		transactionLabel.setForeground(new Color(0, 0, 0));
-		transactionLabel.setBackground(new Color(0, 0, 0));
-		transactionLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		transactionLabel.setBounds(37, 454, 309, 14);
-		storePanel.add(transactionLabel);
+		
+		JSeparator buySellSeperator = new JSeparator();
+		buySellSeperator.setOrientation(SwingConstants.VERTICAL);
+		buySellSeperator.setForeground(new Color(204, 0, 0));
+		buySellSeperator.setBackground(new Color(204, 0, 0));
+		buySellSeperator.setBounds(227, 204, 2, 249);
+		storePanel.add(buySellSeperator);
+		
+		JSeparator sellStatsSeperator = new JSeparator();
+		sellStatsSeperator.setOrientation(SwingConstants.VERTICAL);
+		sellStatsSeperator.setForeground(new Color(204, 0, 0));
+		sellStatsSeperator.setBackground(new Color(204, 0, 0));
+		sellStatsSeperator.setBounds(435, 204, 2, 249);
+		storePanel.add(sellStatsSeperator);
+		
+		JLabel statisticsLabel = new JLabel("Statistics");
+		statisticsLabel.setForeground(new Color(0, 153, 51));
+		statisticsLabel.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
+		statisticsLabel.setBackground(new Color(0, 153, 51));
+		statisticsLabel.setBounds(482, 188, 90, 14);
+		storePanel.add(statisticsLabel);
+		
+		JLabel playerMoney = new JLabel("Player Money:");
+		playerMoney.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerMoney.setBounds(448, 223, 101, 14);
+		storePanel.add(playerMoney);
+		
+		JLabel playerResources = new JLabel("Your Current Resources: ");
+		playerResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerResources.setBounds(447, 276, 171, 14);
+		storePanel.add(playerResources);
+		
+		JLabel storeResources = new JLabel("Store Resources: ");
+		storeResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		storeResources.setBounds(447, 359, 171, 14);
+		storePanel.add(storeResources);
+		
+		JLabel energyPrice = new JLabel("ENERGYPRICE");
+		energyPrice.setBounds(37, 159, 46, 14);
+		storePanel.add(energyPrice);
+		
+		JLabel smithorePrice = new JLabel("SMITHOREPRICE");
+		smithorePrice.setBounds(155, 159, 46, 14);
+		storePanel.add(smithorePrice);
+		
+		JLabel foodPrice = new JLabel("FOODPRICE");
+		foodPrice.setBounds(300, 159, 46, 14);
+		storePanel.add(foodPrice);
+		
+		JLabel crystitePrice = new JLabel("CRYSTITEPRICE");
+		crystitePrice.setBounds(417, 159, 46, 14);
+		storePanel.add(crystitePrice);
+		
+		JLabel mulePrice = new JLabel("MULEPRICE");
+		mulePrice.setBounds(551, 159, 46, 14);
+		storePanel.add(mulePrice);
 	}
 }

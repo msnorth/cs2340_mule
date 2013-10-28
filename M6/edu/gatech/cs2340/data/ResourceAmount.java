@@ -7,9 +7,9 @@ package edu.gatech.cs2340.data;
  * 		Created for:		M6		10/8/13
  * 		Assigned to:		Stephen
  * 		Modifications:		M8		10/25/13	Thomas Mark
- * 									Added ability to add and remove specific resource amounts.						
- * 
- * 
+ * 									Added ability to add and remove specific resource amounts.	
+ * 							M8      10/28/13    Shreyyas Vanarase
+ * 									Added constructor to add initial amounts to the resources.					
  * 
  * 		Purpose: Encapsulate a count of the game's four resource types.	 
  */
@@ -28,6 +28,17 @@ public class ResourceAmount {
 		amounts = new int[ResourceType.values().length];
 	}
 	
+	/**
+	 * #M8
+	 * Constructor to add in resources based on a specific amount.
+	 */
+	public ResourceAmount(int smithoreAmount, int foodAmount, int energyAmount, int crystiteAmount) {
+		amounts = new int[ResourceType.values().length];
+		add(ResourceType.SMITHORE,smithoreAmount);
+		add(ResourceType.FOOD,foodAmount);
+		add(ResourceType.ENERGY,energyAmount);
+		add(ResourceType.CRYSTITE,crystiteAmount);
+	}
 	/**
 	 * #M6
 	 * Method to get the amount of a given resource present in 
