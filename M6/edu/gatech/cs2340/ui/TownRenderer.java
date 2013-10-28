@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,6 +34,7 @@ public class TownRenderer extends GUIComponent {
 	private static ImageIcon loadOutImage;
 	private static ImageIcon pubImage;
 	private static ImageIcon muleImage;
+	private static Image fullTownImage;
 	private static boolean initialized = false;
 
 	public static enum Side {
@@ -41,13 +43,15 @@ public class TownRenderer extends GUIComponent {
 
 	private TownSprite sprite;
 	
-	public static void initialize() {
+	public void initialize() {
 		if (!initialized) {
-			pathImage = new ImageIcon(TownRenderer.class.getResource("path.png"));
-			landOfficeImage = new ImageIcon(TownRenderer.class.getResource("landoffice.png"));
-			loadOutImage = new ImageIcon(TownRenderer.class.getResource("loadout.png"));
-			pubImage = new ImageIcon(TownRenderer.class.getResource("pub.png"));
-			muleImage = new ImageIcon(TownRenderer.class.getResource("mulestore.png"));
+			pathImage = new ImageIcon(TownRenderer.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/path.png"));
+			landOfficeImage = new ImageIcon(TownRenderer.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/landoffice.png"));
+			loadOutImage = new ImageIcon(TownRenderer.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/loadout.png"));
+			pubImage = new ImageIcon(TownRenderer.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/pub.png"));
+			muleImage = new ImageIcon(TownRenderer.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/mulestore.png"));
+			fullTownImage = new ImageIcon(TownRenderer.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.town/fulltown.png")).getImage();
+			//this.add(new JLabel(fullTownImage));
 			initialized = true;
 		}
 	}
@@ -62,14 +66,14 @@ public class TownRenderer extends GUIComponent {
 	public TownRenderer(TownSprite sprite) {
 		this.sprite = sprite;
 		this.drawTown();
+		 GridLayout grid = new GridLayout(3,3,1,1);
+		this.setLayout(grid /*new GridLayout(3,3,0,0)*/);
+		initialize();
 	}
 	
 	private void drawTown() {
+		///this.add(new JLabel(fullTownImage));
 		removeAll();
-		GridLayout grid = new GridLayout(3,3,0,0);
-		this.setLayout(grid);
-//		grid.setColumns(3);
-//		grid.setRows(3);
 		
 		this.add(this.drawLandOffice());
 		this.add(this.drawPathPanel());
@@ -84,12 +88,12 @@ public class TownRenderer extends GUIComponent {
 		this.add(this.drawPub());
 		
 		revalidate();
-		grid.layoutContainer(this);
+		//grid.layoutContainer(this);
 	}
 
 	@Override
 	public void refresh() {
-		drawTown();
+		//drawTown();
 		sprite.update();
 		repaint();
 	}
@@ -105,9 +109,9 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawLandOffice() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(landOfficeImage));
-		panel.add(new JLabel("Land Office"));
-		Border line = BorderFactory.createLineBorder(Color.black);
-		panel.setBorder(line);
+		//panel.add(new JLabel("Land Office"));
+//		Border line = BorderFactory.createLineBorder(Color.black);
+//		panel.setBorder(line);
 		return panel;
 
 	}
@@ -115,9 +119,9 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawPub() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(pubImage));
-		panel.add(new JLabel("Pub"));
-		Border line = BorderFactory.createLineBorder(Color.black);
-		panel.setBorder(line);
+		//panel.add(new JLabel("Pub"));
+//		Border line = BorderFactory.createLineBorder(Color.black);
+//		panel.setBorder(line);
 		return panel;
 
 	}
@@ -125,9 +129,9 @@ public class TownRenderer extends GUIComponent {
 	private JPanel drawMule() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(muleImage));
-		panel.add(new JLabel("M.U.L.E."));
-		Border line = BorderFactory.createLineBorder(Color.black);
-		panel.setBorder(line);
+		//panel.add(new JLabel("M.U.L.E."));
+//		Border line = BorderFactory.createLineBorder(Color.black);
+//		panel.setBorder(line);
 		return panel;
 
 	}
@@ -136,8 +140,8 @@ public class TownRenderer extends GUIComponent {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(loadOutImage));
 		panel.add(new JLabel("Load Out"));
-		Border line = BorderFactory.createLineBorder(Color.black);
-		panel.setBorder(line);
+//		Border line = BorderFactory.createLineBorder(Color.black);
+//		panel.setBorder(line);
 		return panel;
 	}
 
@@ -148,11 +152,14 @@ public class TownRenderer extends GUIComponent {
 		return panel;
 	}
 	
-	public void paint(Graphics g) {
-        super.paint(g);
+	public void paintComponent(Graphics g) {
+        //super.paint(g);
+        Graphics2D g2d = (Graphics2D)g;
+        //g2d.drawImage(fullTownImage, 0, 0, this);
+        revalidate();
+        repaint();
         //drawTown();
         if (sprite != null) {
-	        Graphics2D g2d = (Graphics2D)g;
 	        g2d.drawImage(sprite.getImage(), sprite.getScreenX(), sprite.getScreenY(), this);
         }
         g.dispose();

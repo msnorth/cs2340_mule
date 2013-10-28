@@ -49,7 +49,7 @@ public class MapManager implements WaitedOn, Runnable{
 		
 		TownSprite townSprite = new TownSprite(player);
 		TownRenderer townRenderer = new TownRenderer(townSprite);
-		TownRenderer.initialize();
+		//TownRenderer.initialize();
 		townRenderer.refresh();
 		
 		while (!townSprite.hasEnteredPub()) {
