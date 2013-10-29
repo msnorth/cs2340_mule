@@ -12,7 +12,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 							M8      10/28/13 Shreyyas Vanarase
  * 									Selling mules of a specific type should also decrease
  * 									the amount of that type from the store and add that 
- * 									type to the player's resources. Added getResourceType Method
+ * 									type to the player's resources. Added getResourceType Method.
  * 									
  * 							
  * 		Allows the player to:
@@ -37,7 +37,7 @@ public class Store {
 	private static final int FOOD_PRICE = 30;
 	private static final int ENERGY_PRICE = 25;
 	private static final int SMITHORE_PRICE = 50;
-	private static final int CRYSITE_PRICE = 100;
+	private static final int CRYSTITE_PRICE = 100;
 	
 	private static final int FOOD_MULE = 130;
 	private static final int ENERGY_MULE = 150;
@@ -57,19 +57,9 @@ public class Store {
 	 * Singleton constructor
 	 */
 	protected Store() {
-		storeResources = new ResourceAmount();	
-		storePrices = new ResourceAmount();
-		mulePrices  = new ResourceAmount();
-		
-		storePrices.add(ResourceType.FOOD, FOOD_PRICE);
-		storePrices.add(ResourceType.ENERGY, ENERGY_PRICE);
-		storePrices.add(ResourceType.SMITHORE, SMITHORE_PRICE);
-		storePrices.add(ResourceType.CRYSTITE, CRYSITE_PRICE);
-		
-		mulePrices.add(ResourceType.FOOD, FOOD_MULE);
-		mulePrices.add(ResourceType.FOOD, ENERGY_MULE);
-		mulePrices.add(ResourceType.FOOD, SMITHORE_MULE);
-		mulePrices.add(ResourceType.FOOD, CRYSTITE_MULE);	
+		storeResources = new ResourceAmount(SMITHORE, FOOD, ENERGY, CRYSTITE);	
+		storePrices = new ResourceAmount(SMITHORE_PRICE, FOOD_PRICE, ENERGY_PRICE, CRYSTITE_PRICE);
+		mulePrices  = new ResourceAmount(SMITHORE_MULE, FOOD_MULE, ENERGY_MULE, CRYSTITE_MULE);
 	}
 	
 	/**
@@ -197,5 +187,24 @@ public class Store {
 	 */
 	public int getResourceAmount(ResourceType resource) {
 		return storeResources.getAmount(resource);
+	}
+	
+	/**
+	 * Gets the store price of a resource 
+	 * @param resource
+	 * @return int 
+	 */
+	public int getResourcePrice(ResourceType resource) {
+		return storePrices.getAmount(resource);
+		
+	}
+	
+	/**
+	 * Gets the store price of a specific Mule type 
+	 * @param resource
+	 * @return int 
+	 */
+	public int getMulePrice(ResourceType resource) {
+		return mulePrices.getAmount(resource);
 	}
 }
