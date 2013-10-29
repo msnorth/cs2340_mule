@@ -34,10 +34,10 @@ public class ResourceAmount {
 	 */
 	public ResourceAmount(int smithoreAmount, int foodAmount, int energyAmount, int crystiteAmount) {
 		amounts = new int[ResourceType.values().length];
-		add(ResourceType.SMITHORE,smithoreAmount);
-		add(ResourceType.FOOD,foodAmount);
-		add(ResourceType.ENERGY,energyAmount);
-		add(ResourceType.CRYSTITE,crystiteAmount);
+		add(ResourceType.SMITHORE, smithoreAmount);
+		add(ResourceType.FOOD, foodAmount);
+		add(ResourceType.ENERGY, energyAmount);
+		add(ResourceType.CRYSTITE, crystiteAmount);
 	}
 	/**
 	 * #M6
