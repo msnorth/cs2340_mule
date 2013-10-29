@@ -33,6 +33,7 @@ public abstract class Tile {
 	protected static ImageIcon townImage;
 	protected ImageIcon image; // image for the current instance of Tile
 	static Logger logger;
+	private int price;
 
 	/**
 	 * Create a tile of type name
@@ -119,6 +120,29 @@ public abstract class Tile {
 	
 	public ImageIcon getImageIcon(){
 		return image;
+	}
+
+	/**
+	 * Set the price of the tile and draw a string with that price
+	 * @param price Price of the tile
+	 * @return Whether the setting was successful (because the tile is unowned)
+	 */
+	public boolean setPrice(int price) {
+		// If the tile is not 
+		if(owner == null){
+			this.price = price; 
+			dirty = true;
+			return true;
+		}
+		return false;	
+	}
+	
+	/**
+	 * Get the price of the tile
+	 * @return Price of the tile
+	 */
+	public int getPrice(){
+		return price;
 	}
 
 }

@@ -5,6 +5,7 @@ import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.test.DebugPrinter;
 
 
 
@@ -59,6 +60,7 @@ public class Round {
 	 * 		Score screen
 	 */
 	public void runSynchronous() {
+		DebugPrinter.println("Running round " + roundNumber +" synchronously");
 		int numPlayers = playerManager.getTotalPlayers();
 		// TODO: random events
 		

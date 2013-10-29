@@ -57,11 +57,17 @@ public class LandPurchaser
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
 		
+		// iterate through tiles
+		for (int i = 0; i< map.getNumTiles(); i++){
+			Tile tile = map.getTileNumber(i);
+			tile.setPrice(calculatePrice());
+		}
+		
+		
 		Tile tile = map.getRandomUnownedTile();
 		tile.setActive(true); 	
 		mapRenderer.refresh();
-		
-		int price               = calculatePrice();		
+		int price = tile.getPrice();
 		KeyboardAdapter adapter = KeyboardAdapter.getInstance();
 		KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 		MULETimer timer         = new MULETimer(3000);
