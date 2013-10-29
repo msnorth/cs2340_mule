@@ -3,8 +3,6 @@ package edu.gatech.cs2340.engine;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
-import edu.gatech.cs2340.sequencing.WaitedOn;
-import edu.gatech.cs2340.sequencing.Waiter;
 
 
 
@@ -22,13 +20,15 @@ import edu.gatech.cs2340.sequencing.Waiter;
  * 									Changed roundNumber to static value and added a getter to get the roundNumber.
  * 							M7		10/21/13 Stephen Conway
  * 									Removed WaitedOn interface. Runs synchronously.
+ * 							M7		10/29/13 Thomas Mark
+ * 									Round now calculates player order at the beginning of run.
  * 
  * 		Purpose: Execute a single round of the game
  */
 public class Round {
 	private static int roundNumber;
-	private PlayerManager playerManager;
-	private Map map;
+	private final PlayerManager playerManager;
+	private final Map map;
 	
 	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
 		roundNumber = roundNum;
@@ -60,6 +60,8 @@ public class Round {
 	 */
 	public void runSynchronous() {
 		int numPlayers = playerManager.getTotalPlayers();
+		
+		playerManager.calculatePlayerOrder();
 		// TODO: random events
 		
 		// Land Grant/Purchase phases
