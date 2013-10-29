@@ -11,6 +11,7 @@ import edu.gatech.cs2340.ui.ImageLoader;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MainMenuManager;
 import edu.gatech.cs2340.ui.SpriteImageLoader;
+import edu.gatech.cs2340.ui.StoreImageLoader;
 
 /**
  * 
@@ -37,7 +38,8 @@ public abstract class Driver {
 	public static void main(String[] args) {
 		KeyboardAdapter.initialize();
 		MainGameWindow.initialize();
-		ImageLoader[] imageLoaders = {new SpriteImageLoader(), };
+		ImageLoader.loadAllImages();
+		
 		MainMenuManager mainMenu = new MainMenuManager();
 		mainMenu.runSynchronous();
 		
