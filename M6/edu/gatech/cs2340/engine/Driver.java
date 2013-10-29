@@ -2,14 +2,16 @@ package edu.gatech.cs2340.engine;
 
 import javax.swing.JPanel;
 
+import edu.gatech.cs2340.data.ImageLoader;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
+import edu.gatech.cs2340.data.SpriteImageLoader;
+import edu.gatech.cs2340.data.StoreImageLoader;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.ui.GUIManager;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MainMenuManager;
-import edu.gatech.cs2340.ui.SpriteLoader;
 
 /**
  * 
@@ -36,7 +38,8 @@ public abstract class Driver {
 	public static void main(String[] args) {
 		KeyboardAdapter.initialize();
 		MainGameWindow.initialize();
-		SpriteLoader.initialize();
+		ImageLoader.loadAllImages();
+		
 		MainMenuManager mainMenu = new MainMenuManager();
 		mainMenu.runSynchronous();
 		

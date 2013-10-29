@@ -6,6 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.data.SpriteImageLoader;
 import edu.gatech.cs2340.io.InputReceiver;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 
@@ -55,7 +56,8 @@ public class TownSprite {
 		this.player = player;
 		resetPosition();
 		
-		ImageIcon ii = SpriteLoader.getSprite(player);
+		SpriteImageLoader loader = new SpriteImageLoader();
+		ImageIcon ii = loader.getImage(player);
         image = ii.getImage();
 	}	
 	
