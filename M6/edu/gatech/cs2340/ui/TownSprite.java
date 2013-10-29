@@ -55,7 +55,8 @@ public class TownSprite {
 		this.player = player;
 		resetPosition();
 		
-		ImageIcon ii = SpriteLoader.getSprite(player);
+		SpriteImageLoader loader = new SpriteImageLoader();
+		ImageIcon ii = loader.getImage(player);
         image = ii.getImage();
 	}	
 	

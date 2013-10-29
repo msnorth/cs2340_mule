@@ -1,15 +1,12 @@
 package edu.gatech.cs2340.ui;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.io.File;
-import java.net.URI;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
 import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.test.DebugPrinter;
 
 /**
  * 
@@ -20,36 +17,35 @@ import edu.gatech.cs2340.test.DebugPrinter;
  * 
  *         Purpose: Holds all sprite images. Gives them out based on Player object data.
  */
-public class SpriteLoader implements Runnable{
-	public static Color[] colors = { Color.BLUE, Color.YELLOW, Color.GREEN, Color.RED };
+public class SpriteImageLoader extends ImageLoader {
+	private static final Color[] colors = { Color.BLUE, Color.YELLOW, Color.GREEN, Color.RED };
+	private static final String[] races = {"bonzoid", "buzzite", "flapper", "human", "ugaite"};
+	private static final String[] color_png = {"_blue.png", "_gold.png", "_green.png", "_red.png"};
 	
 	private static HashMap<String, HashMap<Color, ImageIcon>> images;
-	private static boolean initialized;
+	private static boolean loaded;
 	
-	private SpriteLoader() {};
-	
-	public static void initialize() {
+	/**
+	 * Method to load sprite images from files. Runs loads asynchronously.
+	 */
+	public void loadImages() {
+		if (loaded) {
+			throw new RuntimeException("SpriteImageLoader already loaded images!");
+		}
 		images = new HashMap<String, HashMap<Color, ImageIcon>>();
-		SpriteLoader spriteLoader = new SpriteLoader();
-		Thread thread = new Thread(spriteLoader);
+		Thread thread = new Thread(this);
 		thread.start();
 	}
 
+	/**
+	 * Method to load sprite images asynchronously.
+	 */
 	@Override
-	public void run() {
-		String resources = "M6/edu.gatech.cs2340.res";
-		File file = new File(resources);
-		if (!file.exists() || !file.isDirectory()) {
-			throw new RuntimeException("Cannot locate " + file.getAbsolutePath() + ".");
-		}
-		
-		
-		String[] races = {"bonzoid", "buzzite", "flapper", "human", "ugaite"};
-		String[] color_png = {"_blue.png", "_gold.png", "_green.png", "_red.png"};
+	public void run() {		
 		for (String race : races) {
 			HashMap<Color, ImageIcon> raceImages = new HashMap<Color, ImageIcon>();
 			for (int i=0; i<4; i++) {
-				File imageFile = new File(String.format("%s/edu.gatech.cs2340.res.%s/%s%s",resources,race,race,color_png[i]));
+				File imageFile = new File(String.format("%s/edu.gatech.cs2340.res.%s/%s%s",resourcesPath,race,race,color_png[i]));
 				if (!imageFile.exists()) {
 					throw new RuntimeException("Cannot locate " + imageFile.getAbsolutePath() + ".");
 				}
@@ -58,12 +54,18 @@ public class SpriteLoader implements Runnable{
 			}
 			images.put(race, raceImages);
 		}
-		initialized = true;
+		loaded = true;
 	}
 	
-	public static ImageIcon getSprite(Player player) {
-		if (!initialized) {
-			throw new RuntimeException("Must initialize SpriteLoader first!");
+	/**
+	 * Method to get sprite image data based on the data in the input Player object.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public ImageIcon getImage(Player player) {
+		if (!loaded) {
+			throw new RuntimeException("Must initialize SpriteImageLoader first!");
 		}
 		
 		String race = player.getRace().toLowerCase();
