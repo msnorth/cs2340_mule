@@ -21,6 +21,7 @@ public class SuperTurnPanel extends JPanel{
 	public void setCurrentPanel(int ndx) {
 		if (ndx != currentPanel) {
 			removeAll();
+			System.out.println(panels[ndx]);
 			add(panels[ndx]);
 			revalidate();
 			currentPanel = ndx;

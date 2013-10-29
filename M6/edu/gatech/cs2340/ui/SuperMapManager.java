@@ -1,5 +1,8 @@
 package edu.gatech.cs2340.ui;
 
+import java.awt.Color;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
@@ -37,6 +40,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 		TownRenderer townRenderer = new TownRenderer();
 		
 		StoreMenu storeMenu = new StoreMenu(player);
+		
 		JPanel[] panels = {storeMenu, townRenderer, mapRenderer,};
 		panel = new SuperTurnPanel(panels, sprite);
 		
@@ -45,6 +49,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 		while (sprite.getLocation() != -1) {
 			panel.setCurrentPanel(sprite.getLocation());
 			if (sprite.getLocation() == 0) {
+				storeMenu.repaint();
 				Waiter.waitOn(storeMenu);
 				sprite.setPosition(4700, 2500);
 			}

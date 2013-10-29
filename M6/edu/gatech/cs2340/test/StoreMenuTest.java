@@ -70,7 +70,9 @@ public class StoreMenuTest {
 			e.printStackTrace();
 		}
 		menu = new StoreMenu(new Player("Bill", "Flapper", Color.BLUE));
-		frame.add(menu);
+		JPanel panel2= new JPanel();
+		panel2.add(menu);
+		frame.add(panel2);
 		frame.pack();
 		frame.setVisible(true);
 	}
