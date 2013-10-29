@@ -16,7 +16,6 @@ import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.data.StoreImageLoader;
 import edu.gatech.cs2340.sequencing.WaitedOn;
-import edu.gatech.cs2340.sequencing.Waiter;
 
 /**
  *@author Shreyyas Vanarase
