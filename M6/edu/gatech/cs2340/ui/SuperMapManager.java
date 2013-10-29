@@ -58,9 +58,6 @@ public class SuperMapManager implements WaitedOn, Runnable{
 				}
 			}
 		}
-		
-		
-		
 		finished = true;
 	}
 
