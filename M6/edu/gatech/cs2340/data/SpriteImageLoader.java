@@ -1,12 +1,10 @@
-package edu.gatech.cs2340.ui;
+package edu.gatech.cs2340.data;
 
 import java.awt.Color;
 import java.io.File;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
-
-import edu.gatech.cs2340.data.Player;
 
 /**
  * 
