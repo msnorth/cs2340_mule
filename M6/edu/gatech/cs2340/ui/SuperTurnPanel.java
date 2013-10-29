@@ -2,6 +2,7 @@ package edu.gatech.cs2340.ui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
@@ -29,6 +30,8 @@ public class SuperTurnPanel extends JPanel{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(sprite.getImage(), sprite.getScreenX(), sprite.getScreenY(), this);
+		Point loc = sprite.getScreenCoords();
+        g2d.drawImage(sprite.getImage(), loc.x, loc.y, this);
+        g.dispose();
 	}
 }
