@@ -15,6 +15,8 @@ import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.data.StoreImageLoader;
+import edu.gatech.cs2340.sequencing.WaitedOn;
+import edu.gatech.cs2340.sequencing.Waiter;
 
 /**
  *@author Shreyyas Vanarase
@@ -25,7 +27,7 @@ import edu.gatech.cs2340.data.StoreImageLoader;
  * 
  * 		Purpose: Generates the store menu for the player to interact with the store.
  */
-public class StoreMenu extends JPanel{
+public class StoreMenu extends JPanel implements WaitedOn{
 	private static final long serialVersionUID = 1L;
 	private int amount = 1;
 	private Player player;
@@ -43,7 +45,7 @@ public class StoreMenu extends JPanel{
 	private JButton buySmithoreMule;
 	private JButton buyFoodMule;
 	private JButton exitButton;
-	
+	private boolean exitKilla;
 	/**
 	 * #M8
 	 * Create the application.
@@ -260,18 +262,10 @@ public class StoreMenu extends JPanel{
 		playerMoney.setBounds(448, 223, 192, 14);
 		add(playerMoney);
 		
-		//Jlabel for playerMoney
-		
 		JLabel playerResources = new JLabel("Your Current Resources:");
 		playerResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		playerResources.setBounds(447, 260, 193, 14);
 		add(playerResources);
-		
-		/* +"Food Amount: " +player.getResourceAmount(ResourceType.FOOD) + " \n"
-											 +"Energy Amount: " +player.getResourceAmount(ResourceType.ENERGY) + "\n"
-											 +"Smithore Amount: " +player.getResourceAmount(ResourceType.SMITHORE) + " \n"
-											 +"Crystite Amount: " +player.getResourceAmount(ResourceType.CRYSTITE));
-		*/
 		
 		JLabel storeResources = new JLabel("Store Resources: ");
 		storeResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
@@ -325,57 +319,57 @@ public class StoreMenu extends JPanel{
 		mainSeperator.setBounds(37, 204, 581, 8);
 		add(mainSeperator);
 		
-		JLabel moneyLabel = new JLabel("n");
+		JLabel moneyLabel = new JLabel(player.getMoney()+"");
 		moneyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		moneyLabel.setBounds(447, 240, 46, 14);
 		add(moneyLabel);
 		
-		JLabel playerEnergy = new JLabel("Energy: ");
+		JLabel playerEnergy = new JLabel("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
 		playerEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		playerEnergy.setBounds(447, 285, 95, 14);
 		add(playerEnergy);
 		
-		JLabel lblFood = new JLabel("Food: ");
-		lblFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		lblFood.setBounds(447, 300, 46, 14);
-		add(lblFood);
+		JLabel playerFood = new JLabel("Food: "+player.getResourceAmount(ResourceType.FOOD));
+		playerFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerFood.setBounds(447, 300, 46, 14);
+		add(playerFood);
 		
-		JLabel lblSmithore = new JLabel("Smithore: ");
-		lblSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		lblSmithore.setBounds(447, 318, 95, 14);
-		add(lblSmithore);
+		JLabel playerSmithore = new JLabel("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
+		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerSmithore.setBounds(447, 318, 95, 14);
+		add(playerSmithore);
 		
-		JLabel lblCrystite = new JLabel("Crystite: ");
-		lblCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		lblCrystite.setBounds(447, 335, 95, 14);
-		add(lblCrystite);
+		JLabel playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
+		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerCrystite.setBounds(447, 335, 95, 14);
+		add(playerCrystite);
 		
-		JLabel lblMule = new JLabel("Mule:  ");
-		lblMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		lblMule.setBounds(447, 352, 95, 14);
-		add(lblMule);
+		JLabel playerMule = new JLabel("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
+		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerMule.setBounds(447, 352, 95, 14);
+		add(playerMule);
 		
-		JLabel storeEnergy = new JLabel("Energy: ");
+		JLabel storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
 		storeEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		storeEnergy.setBounds(447, 396, 95, 14);
 		add(storeEnergy);
 		
-		JLabel storeFood = new JLabel("Food: ");
+		JLabel storeFood = new JLabel("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));
 		storeFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeFood.setBounds(447, 411, 46, 14);
+		storeFood.setBounds(447, 411, 95, 14);
 		add(storeFood);
 		
-		JLabel storeSmithore = new JLabel("Smithore: ");
+		JLabel storeSmithore = new JLabel("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
 		storeSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeSmithore.setBounds(447, 429, 95, 14);
+		storeSmithore.setBounds(447, 429, 136, 14);
 		add(storeSmithore);
 		
-		JLabel storeCrystite = new JLabel("Crystite: ");
+		JLabel storeCrystite = new JLabel("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
 		storeCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		storeCrystite.setBounds(447, 446, 95, 14);
 		add(storeCrystite);
 		
-		JLabel storeMule = new JLabel("Mule:  ");
+		JLabel storeMule = new JLabel("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
 		storeMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		storeMule.setBounds(447, 463, 95, 14);
 		add(storeMule);
@@ -495,7 +489,11 @@ public class StoreMenu extends JPanel{
 	
 	private class ExitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
+			exitKilla = true;
 		}
+	}
+
+	public boolean isFinished() {
+		return exitKilla;
 	}	
 }
