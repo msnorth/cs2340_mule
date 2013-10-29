@@ -25,6 +25,8 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Added initial beginner resources, mule holding
  * 							M9      10/27/13 Shreyyas Vanarase
  * 									Updated remove method and the beginning resources
+ * 							M7		10/29/13 Thomas Mark
+ * 									Player now calculates their score.
  * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 
@@ -33,13 +35,14 @@ public class Player {
 	private final String name;
 	private final String race;
 	private final Color color;
-	private ResourceAmount resources;
+	private final ResourceAmount resources;
 	private Mule mule;
 	private int money;
 	private int gameScore;
-	private String difficulty;
+	private final String difficulty;
 	private final ArrayList<Tile> ownedTiles;
 	private double time;
+	private Store store;
 	
 	/**
 	 * #M6
@@ -85,7 +88,22 @@ public class Player {
 	 * @return
 	 */
 	public int calculateScore() {
+		store = Store.getStore();
 		gameScore = 0;
+		
+		ResourceType[] types = ResourceType.values();
+		for(int i=0; i<types.length; i++) {
+			// Add total resource value to score
+			gameScore += resources.getAmount(types[i])*store.getResourcePrice(types[i]);
+			
+			// Add money to total score
+			gameScore += this.money;
+			
+			// Add mule price to total score
+			if(this.hazMule()) {
+				gameScore += store.getMulePrice(mule.getType());
+			}
+		}
 		return gameScore;
 	}
 
@@ -105,6 +123,7 @@ public class Player {
 	 * @return gameScore
 	 */
 	public int getGameScore() {
+		calculateScore();
 		return gameScore;
 	}
 	
