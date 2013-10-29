@@ -81,7 +81,10 @@ public class TownSprite {
 		x += dx;
 		y += dy;
 		
-		if (x < 0 || y < 0 || x > 1000 || y > 600) {
+		int xc = x - w/2;
+		int yc = y + h/2;
+		
+		if (xc < 0 || yc < 0 || xc > 1000 || yc > 600) {
 			location = SPRITE_LOCATION.EXITED;
 		}
 	}

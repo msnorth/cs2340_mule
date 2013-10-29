@@ -64,6 +64,10 @@ public class TownRenderer extends GUIComponent {
 		this.drawTown();
 	}
 	
+	public TownRenderer() {
+		this.drawTown();
+	}
+	
 	private void drawTown() {
 		removeAll();
 		GridLayout grid = new GridLayout(3,3,0,0);
