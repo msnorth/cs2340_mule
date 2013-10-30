@@ -22,6 +22,8 @@ public class MULETimer implements Runnable, WaitedOn {
 	private boolean timeout;
 	private long timeout_ms;
 	private Thread thread;
+	
+	private long totalTime;
 
 	/**
 	 * #M6
@@ -31,6 +33,7 @@ public class MULETimer implements Runnable, WaitedOn {
 	 */
 	public MULETimer(long timeout_ms) {
 		this.timeout_ms = timeout_ms;
+		this.totalTime = timeout_ms;
 		timeout = false;
 	}
 	
@@ -91,4 +94,12 @@ public class MULETimer implements Runnable, WaitedOn {
 	public boolean isFinished() {
 		return timeout;
 	}
+
+	/**
+	 * @return the totalTime
+	 */
+	public long getTotalTime() {
+		return totalTime;
+	}
+
 }
