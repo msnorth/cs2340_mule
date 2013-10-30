@@ -56,15 +56,12 @@ public class LandPurchaser
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
+		//mapRenderer.setDisplayPrices(false); // this clears any previously displayed prices
 		mapRenderer.setDisplayPrices(true);
-		// iterate through tiles
-		for (int i = 0; i< map.getNumTiles(); i++){
-			Tile tile = map.getTileNumber(i);
-			tile.setPrice(calculatePrice());
-		}
 		
 		
 		Tile tile = map.getRandomUnownedTile();
+		tile.setPrice(calculatePrice());
 		tile.setActive(true); 	
 		mapRenderer.refresh();
 		int price = tile.getPrice();
@@ -77,7 +74,6 @@ public class LandPurchaser
 		timer.start();
 		int killa = Waiter.waitForAny(waitingArray);
 		
-		
 		if(killa == 0) {
 			timer.stop();
 			if (currentPlayer.deductMoney(price)) {
@@ -88,8 +84,8 @@ public class LandPurchaser
 		}
 		
 		tile.setActive(false);
-		mapRenderer.setDisplayPrices(false);
-		mapRenderer.refresh();
+		mapRenderer.setDisplayPrices(false); // all tile prices are set to zero here
+		// mapRenderer.refresh(); // already called in setDisplayPrices
 	}
 	
 	/**

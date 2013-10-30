@@ -12,7 +12,7 @@ package edu.gatech.cs2340.test;
  * 		Purpose: Print debug statements if debug is enabled, else don't
  */
 public abstract class DebugPrinter {
-	public static final boolean DEBUG_ENABLED = true;
+	public static final boolean DEBUG_ENABLED = false;
 	
 	public static void println(String message) {
 		if (DEBUG_ENABLED) {
