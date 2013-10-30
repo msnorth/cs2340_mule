@@ -55,7 +55,7 @@ public class LandPurchaser
 		DebugPrinter.println("Running LandPurchaser synchronously");
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
-		MainGameWindow.getInstance().setPanel(mapRenderer);
+		MainGameWindow.getInstance().setMainPanel(mapRenderer);
 		//mapRenderer.setDisplayPrices(false); // this clears any previously displayed prices
 		mapRenderer.setDisplayPrices(true);
 		

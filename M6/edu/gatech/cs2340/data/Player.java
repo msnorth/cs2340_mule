@@ -82,43 +82,9 @@ public class Player {
 		} else
 			money = 1000;
 
-		fetchPlayerImage();
 
 	}
-	
-	/**
-	 * #M6
-	 * Method to calculate the player's current game score.
-	 * Used to determine player order by PlayerManager
-	 * 
-	 * 
-	 * loads image resource
-	 *
-	 */
-	private void fetchPlayerImage() {
-		
-		String colorName = "red";
-		if (Color.GREEN.equals(color)) 
-		{
-		  colorName = "green";
-		} 
-		else if (Color.BLUE.equals(color)) 
-		{
-		  colorName = "blue";
-		}else if (Color.YELLOW.equals(color)){
-			colorName = "gold";
-		}
-		
 
-		String imgLocation = "../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res."
-				+ race.toLowerCase()
-				+ "/"
-				+ race.toLowerCase()
-				+ "_"
-				+ colorName.toLowerCase() + ".png";
-		image = new ImageIcon(Player.class.getResource(imgLocation));
-
-	}
 
 	/**
 	 * #M6 Method to calculate the player's current game score. Used to

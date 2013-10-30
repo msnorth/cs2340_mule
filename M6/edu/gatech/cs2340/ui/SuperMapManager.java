@@ -44,7 +44,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 		JPanel[] panels = {storeMenu, townRenderer, mapRenderer};
 		panel = new SuperTurnPanel(panels, sprite);
 		
-		MainGameWindow.getInstance().setPanel(panel);
+		MainGameWindow.getInstance().setMainPanel(panel);
 		
 		while (sprite.getLocation() != -1) {
 			panel.setCurrentPanel(sprite.getLocation());

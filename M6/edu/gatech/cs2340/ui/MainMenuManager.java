@@ -32,13 +32,13 @@ public class MainMenuManager {
 	public void runSynchronous() {
 		MainGameWindow window = MainGameWindow.getInstance();
 		GameConfigMenu gameConfig = new GameConfigMenu();
-		window.setPanel(gameConfig);
+		window.setMainPanel(gameConfig);
 		Waiter.waitOn(gameConfig);
 		String difficulty = gameConfig.getGameDifficulty();
 		mapType = gameConfig.getMapType();
 		int numPlayers = gameConfig.getPlayerCount();
 		PlayerConfigMenu playerConfig = new PlayerConfigMenu(numPlayers);
-		window.setPanel(playerConfig);
+		window.setMainPanel(playerConfig);
 		Waiter.waitOn(playerConfig);
 		Player[] players = playerConfig.getPlayers();
 		playerManager = new PlayerManager(players, difficulty);

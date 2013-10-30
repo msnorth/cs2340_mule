@@ -3,19 +3,19 @@
  */
 package edu.gatech.cs2340.ui;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
+import edu.gatech.cs2340.data.SpriteImageLoader;
 import edu.gatech.cs2340.sequencing.MULETimer;
 
 /**
@@ -29,68 +29,58 @@ public class StatusBar extends JPanel {
 
 	private Player[] players;
 	private MULETimer timer;
-	private int height;
-	private int width;
 	Player currentPlayer;
 
 	private JProgressBar progressBar;
+	private SpriteImageLoader spriteImgLoader;
 
 	/**
 	 * Main constructor
 	 */
-	public StatusBar(Player[] players, MULETimer timer, int width, int height) {
+	public StatusBar(Player[] players) {
 		this.players = players;
-		this.timer = timer;
-		this.width = width;
-		this.height = height;
+		spriteImgLoader = new SpriteImageLoader();
 		Initialize();
 
 	}
 
 	/*
 	 * Starts the turn for the current player, including starting the progress
-	 * bar and creating a colored border around the currently active player
+	 * bar and creating a colored border around the currently active player.
+	 * 
+	 * If there is a current turn, the current turn ends.
 	 * 
 	 * @param currentPlayer the currently active player
 	 */
-
 	public void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		refresh();
-		Thread thread = new Thread() {
-			public void run() {
-				while (!timer.isFinished()) {
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							progressBar.setValue((int) timer.getTimeRemaining());
-						}
-					});
-
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-					}
-				}
-			}
-		};
-
-		thread.start();
 	}
 
 	/*
-	 * Ends the turn. Stops the progress bar, removes colored border
+	 * Ends the turn and the whole turn cycle. Stops the progress bar, removes
+	 * colored border, removes the timer
 	 */
 	public void endTurn() {
 		this.currentPlayer = null;
+		this.timer = null;
+		refresh();
+	}
+	
+	/*
+	 * Sets a timer to associate with a progressBar
+	 * Refreshes to add progressBar to panel
+	 * 
+	 * @param timer 
+	 */
+	public void setTimer(MULETimer timer){
+		this.timer = timer;
 		refresh();
 	}
 
 	private void Initialize() {
-		
 
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
-		this.setPreferredSize(new Dimension(width, height));
 		GridLayout grid = new GridLayout(1, players.length, 1, 0);
 		this.setLayout(grid);
 
@@ -98,10 +88,15 @@ public class StatusBar extends JPanel {
 			JPanel playerPanel = drawPlayerPanel(player);
 			this.add(playerPanel);
 		}
-		// create the progress bar only if it is a turn
-		if (currentPlayer != null) {
-			JPanel progressPanel = drawProgressPanel();
-			this.add(progressPanel);
+
+		
+		//Create a progress bar only if there is a timer
+		if (timer == null) {
+			JPanel fillerPanel = new JPanel();
+			this.add(fillerPanel);
+		}else{
+			JPanel progressBar = new ProgressBar(timer);
+			this.add(progressBar);
 		}
 
 		grid.layoutContainer(this);
@@ -168,7 +163,9 @@ public class StatusBar extends JPanel {
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerMule);
 
-		JLabel playerIcon = new JLabel(player.getImageIcon());
+		
+		ImageIcon imageIcon = spriteImgLoader.getImage(player);
+		JLabel playerIcon = new JLabel(imageIcon);
 		playerPanel.add(playerIcon);
 		playerPanel.add(labelPanel);
 		grid.layoutContainer(playerPanel);
@@ -177,18 +174,6 @@ public class StatusBar extends JPanel {
 
 	}
 
-	/*
-	 *  
-	 */
-	private JPanel drawProgressPanel() {
-		JPanel progressPanel = new JPanel();
 
-		progressBar = new JProgressBar(JProgressBar.VERTICAL, 0,
-				(int) timer.getTotalTime());
-		progressPanel.add(progressBar);
-		progressPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-		return progressPanel;
-
-	}
 
 }

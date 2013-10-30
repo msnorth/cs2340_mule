@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.ui;
 
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -36,8 +37,13 @@ public class MainGameWindow extends JFrame {
 	public static final int DIM_X = 72*9 + 40;
 	public static final int DIM_Y = 600;
 	
+	public static final int LOWER_PANEL_HEIGHT = 200;
+	
 	private JPanel currentPanel;
-
+	//panel to hold status bar
+	private  JPanel lowerPanel;
+	private StatusBar statusBar;
+	
 	private static MainGameWindow instance = null;
 	
 	/**
@@ -69,7 +75,10 @@ public class MainGameWindow extends JFrame {
 	private MainGameWindow(KeyboardAdapter keyboardAdapter) {
 		instance = this;
 		currentPanel = null;
+		lowerPanel = null;
 		mainPanel = new JPanel();
+		lowerPanel = new JPanel();
+		this.setLayout(new BorderLayout());
 		
 		setFocusable(true);
 		Dimension defaultSize = new Dimension(DIM_X, DIM_Y);
@@ -79,7 +88,14 @@ public class MainGameWindow extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.add(mainPanel);
+		Dimension lowerSize = new Dimension(DIM_X, LOWER_PANEL_HEIGHT);
+		lowerPanel.setPreferredSize(lowerSize);
+		lowerPanel.setMaximumSize(lowerSize);
+		lowerPanel.setMinimumSize(lowerSize);
+		lowerPanel.setLayout(new BorderLayout());
+		
+		this.add(mainPanel, BorderLayout.CENTER);
+		this.add(lowerPanel, BorderLayout.SOUTH);
 		setTitle("M.U.L.E. FRAME");
 		addKeyListener(keyboardAdapter);
 		
@@ -92,13 +108,32 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @param currentPanel
 	 */
-	public void setPanel(JPanel currentPanel) {
+	public void setMainPanel(JPanel currentPanel) {
 		if (currentPanel != null) {
 			mainPanel.removeAll();
 			mainPanel.repaint();
 		}
+
 		this.currentPanel = currentPanel;
 		mainPanel.add(currentPanel);
+		this.pack();
+	}
+	
+	/**
+	 * Set the current panel to display
+	 * 
+	 * Should be set before the main panel
+	 * 
+	 * @param lowerPanel
+	 */
+	public void setLowerPanel(StatusBar statusBar) {
+		this.statusBar = statusBar;
+		
+		if(statusBar != null){
+			lowerPanel.removeAll();
+			lowerPanel.repaint();
+		}
+		lowerPanel.add(statusBar, BorderLayout.CENTER);
 		this.pack();
 	}
 	
@@ -109,5 +144,14 @@ public class MainGameWindow extends JFrame {
 	 */
 	public JPanel getCurrentPanel() {
 		return currentPanel;
+	}
+	
+	/**
+	 * Get a reference to the currently displayed lower panel
+	 * 
+	 * @return status bar panel
+	 */
+	public StatusBar getLowerPanel() {
+		return statusBar;
 	}
 }

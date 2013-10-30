@@ -4,6 +4,8 @@ import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.test.DebugPrinter;
+import edu.gatech.cs2340.ui.MainGameWindow;
+import edu.gatech.cs2340.ui.StatusBar;
 
 /**
  * 
@@ -60,8 +62,9 @@ public class Round {
 	public void runSynchronous() {
 		DebugPrinter.println("Running round " + roundNumber +" synchronously");
 		int numPlayers = playerManager.getTotalPlayers();
-		
 		playerManager.calculatePlayerOrder();
+		StatusBar statBar = new StatusBar(playerManager.getPlayers());
+		MainGameWindow.getInstance().setLowerPanel(statBar);
 		// TODO: random events
 		
 		// Land Grant/Purchase phases

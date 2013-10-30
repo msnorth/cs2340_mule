@@ -54,7 +54,7 @@ public class MapManager implements WaitedOn, Runnable{
 		
 		while (townSprite.getLocation() != TownSprite.SPRITE_LOCATION.PUB) {
 			mapSprite.resetPosition();
-			MainGameWindow.getInstance().setPanel(mapRenderer);
+			MainGameWindow.getInstance().setMainPanel(mapRenderer);
 			while (!mapSprite.hasEnteredTown()) {
 				try {
 					Thread.sleep(25);
@@ -65,7 +65,7 @@ public class MapManager implements WaitedOn, Runnable{
 			
 			
 			townSprite.resetPosition();
-			MainGameWindow.getInstance().setPanel(townRenderer);
+			MainGameWindow.getInstance().setMainPanel(townRenderer);
 			while (townSprite.getLocation() != TownSprite.SPRITE_LOCATION.PUB &&
 				   townSprite.getLocation() != TownSprite.SPRITE_LOCATION.EXITED) {
 				try {

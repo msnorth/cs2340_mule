@@ -7,8 +7,8 @@ import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
-import edu.gatech.cs2340.ui.MapManager;
-import edu.gatech.cs2340.ui.MapRenderer;
+import edu.gatech.cs2340.ui.MainGameWindow;
+import edu.gatech.cs2340.ui.StatusBar;
 import edu.gatech.cs2340.ui.SuperMapManager;
 
 
@@ -54,8 +54,11 @@ public class Turn {
 		int roundNumber = Round.getRoundNumber();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
 		//MapManager mapManager = new MapManager(player, map);
+		StatusBar statBar = MainGameWindow.getInstance().getLowerPanel();
+		statBar.setTimer(timer);
 		SuperMapManager mapManager = new SuperMapManager(player, map);
 		timer.start();
+		statBar.startTurn(player);
 		mapManager.runAsynchronous();
 		WaitedOn[] waitees = {timer, mapManager};
 		int killa = Waiter.waitForAny(waitees);

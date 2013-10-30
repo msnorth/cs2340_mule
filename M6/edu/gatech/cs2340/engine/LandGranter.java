@@ -62,7 +62,7 @@ public class LandGranter
 		DebugPrinter.println("Running LandGranter synchronously");
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
-		MainGameWindow.getInstance().setPanel(mapRenderer);
+		MainGameWindow.getInstance().setMainPanel(mapRenderer);
 		
 		KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 		KeyboardAdapter.getInstance().setReceiver(keyWaiter);

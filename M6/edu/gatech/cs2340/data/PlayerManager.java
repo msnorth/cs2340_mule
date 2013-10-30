@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.data;
 
+import java.awt.LayoutManager;
+
 
 /**
  * 
@@ -81,6 +83,10 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 	 */
 	public int getTotalPlayers() {
 		return players.length;
+	}
+
+	public Player[] getPlayers() {
+		return players;
 	}
 
 }
