@@ -2,8 +2,9 @@ package edu.gatech.cs2340.data;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
+import javax.swing.ImageIcon;
 
+import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 
 /**
  * 
@@ -44,47 +45,85 @@ public class Player {
 	private double time;
 	private Store store;
 	
+	private ImageIcon image;
+
 	/**
-	 * #M6
-	 * Main constructor
+	 * #M6 Main constructor
 	 * 
 	 * @param name
 	 * @param race
 	 * @param color
 	 */
 	public Player(String pName, String pRace, Color pColor) {
-		name 	   = pName;
-		race 	   = pRace;
-		color 	   = pColor;
-		
-		difficulty = "Beginner";	//variable defined if it needs to be changed to allow for Standard/Tournament
+		name = pName;
+		race = pRace;
+		color = pColor;
+
+		difficulty = "Beginner"; // variable defined if it needs to be changed
+									// to allow for Standard/Tournament
 		ownedTiles = new ArrayList<Tile>();
-		resources  = new ResourceAmount();
-				
-		if(difficulty.equalsIgnoreCase("Beginner")) {
+		resources = new ResourceAmount();
+
+		if (difficulty.equalsIgnoreCase("Beginner")) {
 			resources.add(ResourceAmount.ResourceType.FOOD, 8);
 			resources.add(ResourceAmount.ResourceType.ENERGY, 4);
-			resources.add(ResourceAmount.ResourceType.FOOD, 0);	
+			resources.add(ResourceAmount.ResourceType.FOOD, 0);
 		}
-		if(!difficulty.equalsIgnoreCase("Beginner")) {			
+		if (!difficulty.equalsIgnoreCase("Beginner")) {
 			resources.add(ResourceAmount.ResourceType.FOOD, 4);
 			resources.add(ResourceAmount.ResourceType.ENERGY, 2);
-			resources.add(ResourceAmount.ResourceType.FOOD, 0);	
+			resources.add(ResourceAmount.ResourceType.FOOD, 0);
 		}
-		
-		if(race.equalsIgnoreCase("Human")) {
+
+		if (race.equalsIgnoreCase("Human")) {
 			money = 600;
-		}
-		else if(race.equalsIgnoreCase("Flapper")) {
-			money = 1600;	
-		}
-		else money = 1000;
+		} else if (race.equalsIgnoreCase("Flapper")) {
+			money = 1600;
+		} else
+			money = 1000;
+
+		fetchPlayerImage();
+
 	}
 	
 	/**
 	 * #M6
 	 * Method to calculate the player's current game score.
 	 * Used to determine player order by PlayerManager
+	 * 
+	 * 
+	 * loads image resource
+	 *
+	 */
+	private void fetchPlayerImage() {
+		
+		String colorName = "red";
+		if (Color.GREEN.equals(color)) 
+		{
+		  colorName = "green";
+		} 
+		else if (Color.BLUE.equals(color)) 
+		{
+		  colorName = "blue";
+		}else if (Color.YELLOW.equals(color)){
+			colorName = "gold";
+		}
+		
+
+		String imgLocation = "../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res."
+				+ race.toLowerCase()
+				+ "/"
+				+ race.toLowerCase()
+				+ "_"
+				+ colorName.toLowerCase() + ".png";
+		image = new ImageIcon(Player.class.getResource(imgLocation));
+
+	}
+
+	/**
+	 * #M6 Method to calculate the player's current game score. Used to
+	 * determine player order by PlayerManager
+	 * 
 	 * @return
 	 */
 	public int calculateScore() {
@@ -113,7 +152,7 @@ public class Player {
 	 * @param tile
 	 */
 	public void addTile(Tile tile) {
-		if(tile != null) {
+		if (tile != null) {
 			ownedTiles.add(tile);
 		}
 	}
@@ -135,7 +174,7 @@ public class Player {
 	public Color getPlayerColor() {
 		return color;
 	}
-	
+
 	/**
 	 * Method to get player's race.
 	 * 
@@ -144,7 +183,16 @@ public class Player {
 	public String getRace() {
 		return race;
 	}
-	
+
+	/*
+	 * #M8
+	 * 
+	 * Method to get the image associate with the player
+	 */
+	public ImageIcon getImageIcon() {
+		return image;
+	}
+
 	/**
 	 * #M6
 	 * Method to check if player is able to buy a good
