@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import edu.gatech.cs2340.ui.TileImageFactory;
+import edu.gatech.cs2340.ui.MapRenderer;
 
 /**
  * 
@@ -63,7 +64,6 @@ public abstract class Tile {
 	public void setOwner(Player newOwner) {
 		this.owner = newOwner;
 		dirty = true;
-		// TODO update tileRenderer
 	}
 
 	/**
@@ -96,7 +96,6 @@ public abstract class Tile {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 		dirty = true;
-		// TODO find a way to set the activity of tiles
 	}
 
 	public String getName() {

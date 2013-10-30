@@ -79,6 +79,7 @@ public class MapRenderer extends JPanel{
 	 * Attempt to refresh all tiles and repaint afterwards.
 	 */
 	public void refresh() {
+		map.getTileNumber(0).setActive(true); // TODO take this out
 		for (int i = 0; i < map.getNumTiles(); i++){
 			refresh(i, true, false);
 		}
@@ -103,21 +104,27 @@ public class MapRenderer extends JPanel{
 		Tile curTile = map.getTileNumber(ndx);
 		if (curTile.dirty) { 
 			JLabel label = TileImageFactory.getTileLabelImage(curTile);
+			JLabel tileLabel = tileLabels.get(ndx);
 			// There's nothing to remove if this is the first time--> update image
 			if (!firstTime){
-				//remove(ndx);
-				JLabel tileLabel = tileLabels.get(ndx);
 				tileLabel.setIcon(label.getIcon());
+				tileLabel.setBorder(tileLabel.getBorder());
 				// TODO Set borders?
 			} else { // add the label for the first time
 				add(label, ndx);
 				tileLabels.put(ndx, label); // store these so we can access the labels later
+				tileLabel = label;
 			}
-			if (map.getTileNumber(ndx).dirty){
+			if (curTile.dirty){
 				// repaint the tile and its price
+				//	tileLabel.invalidate();
+				tileLabel.repaint();
+				//repaint();
 			}
+			revalidate();
+			repaint();
 			if (!waitToPaint){ // Paint if we're not doing a slew in a row
-				revalidate();
+				repaint();
 			}
 		}
 	}
