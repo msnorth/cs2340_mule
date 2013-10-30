@@ -1,7 +1,7 @@
 package edu.gatech.cs2340.data;
 
 public abstract class ImageLoader implements Runnable {
-	protected static final String resourcesPath = "M6/edu.gatech.cs2340.res";
+	protected static final String resourcesPath = "edu.gatech.cs2340.res";
 	
 	/**
 	 * Method to load all resources
