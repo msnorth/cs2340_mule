@@ -50,6 +50,17 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	private JButton buyFoodMule;
 	private JButton exitButton;
 	private boolean exitKilla;
+	private JLabel moneyLabel;
+	private JLabel playerFood;
+	private JLabel playerEnergy;
+	private JLabel playerSmithore;
+	private JLabel playerCrystite;
+	private JLabel playerMule;
+	private JLabel storeEnergy;
+	private JLabel storeFood;
+	private JLabel storeSmithore;
+	private JLabel storeCrystite;
+	private JLabel storeMule;
 	/**
 	 * #M8
 	 * Create the application.
@@ -245,37 +256,37 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		mainSeperator.setBackground(new Color(204, 0, 0));
 		mainSeperator.setForeground(new Color(244, 50, 0));
 		
-		JLabel moneyLabel = new JLabel(player.getMoney()+"");
+		moneyLabel = new JLabel(player.getMoney()+"");
 		moneyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel playerEnergy = new JLabel("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
+		playerEnergy = new JLabel("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
 		playerEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel playerFood = new JLabel("Food: "+player.getResourceAmount(ResourceType.FOOD));
+		playerFood = new JLabel("Food: "+player.getResourceAmount(ResourceType.FOOD));
 		playerFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel playerSmithore = new JLabel("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
+		playerSmithore = new JLabel("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
 		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
+		playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel playerMule = new JLabel("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
+		playerMule = new JLabel("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
+		storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
 		storeEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel storeFood = new JLabel("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));
+		storeFood = new JLabel("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));
 		storeFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel storeSmithore = new JLabel("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
+		storeSmithore = new JLabel("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
 		storeSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel storeCrystite = new JLabel("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
+		storeCrystite = new JLabel("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
 		storeCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		JLabel storeMule = new JLabel("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
+		storeMule = new JLabel("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
 		storeMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -534,123 +545,125 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.ENERGY)) {
-				buyEnergy.setEnabled(enable);
+				buyEnergy.setEnabled(false);
 			}
 			else {
 				Store.getStore().sellResources(ResourceType.ENERGY, amount);
-				enable = true;
+				buyEnergy.setEnabled(true);
 			}
+			refreshMenu();
 		}
 	}
 	
 	private class BuySmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.SMITHORE)) {
-				buySmithore.setEnabled(enable);
-				System.out.println(enable);
+				buySmithore.setEnabled(false);
 				System.out.println(player.getMoney());
 			}
 			else {
 				Store.getStore().sellResources(ResourceType.SMITHORE, amount);
-				enable = true;
-				System.out.println(enable);
+				buySmithore.setEnabled(true);
 				System.out.println(player.getMoney());
 			}
+			refreshMenu();
 		}
 	}
 	
 	private class BuyCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.CRYSTITE)) {
-				buyCrystite.setEnabled(enable);
+				buyCrystite.setEnabled(false);
 			}
 			else {
 				Store.getStore().sellResources(ResourceType.CRYSTITE, amount);
-				enable = true;
+				buyCrystite.setEnabled(true);
 			}
+			refreshMenu();
 		}
 	}
 	
 	private class BuyFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.FOOD)) {
-				buyFood.setEnabled(enable);
+				buyFood.setEnabled(false);
 			}
 			else {
 				Store.getStore().sellResources(ResourceType.FOOD, amount);
-				enable = true;
+				buyFood.setEnabled(true);
 			}
+			refreshMenu();
 		}
 	}
 	
 	private class SellEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Store.getStore().buyResources(ResourceType.ENERGY, amount);
+			refreshMenu();
 		}
 	}
 	
 	private class SellSmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Store.getStore().buyResources(ResourceType.SMITHORE, amount);
+			refreshMenu();
 		}
 	}
 	
 	private class SellFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Store.getStore().buyResources(ResourceType.FOOD, amount);
+			refreshMenu();
 		}
 	}
 	
 	private class SellCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Store.getStore().buyResources(ResourceType.CRYSTITE, amount);
+			refreshMenu();
 		}
 	}
 	
 	private class BuyEnergyMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;;
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.ENERGY))) {
-				buyEnergyMule.setEnabled(enable);
+				buyEnergyMule.setEnabled(false);
 			}
 			else {
 				Store.getStore().sellMule(ResourceType.ENERGY);
-				enable = true;
+				buyEnergyMule.setEnabled(true);
 			}
+			refreshMenu();
 		}
 	}
 	
 	private class BuySmithoreMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.SMITHORE))) {
-				buySmithoreMule.setEnabled(enable);
+				buySmithoreMule.setEnabled(false);
 			}
 			else {
 				Store.getStore().sellMule(ResourceType.SMITHORE);
-				enable = true;
+				buySmithoreMule.setEnabled(true);
 			}
+			refreshMenu();
 		}
 	}
 	
 	private class BuyFoodMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			boolean enable = false;
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.FOOD))) {
-				buyFoodMule.setEnabled(enable);
+				buyFoodMule.setEnabled(false);
 			}
 			else {
 				Store.getStore().sellMule(ResourceType.FOOD);
-				enable = true;
+				buyFoodMule.setEnabled(true);
 			}
+			refreshMenu();
 		}
 	}
 	
@@ -663,4 +676,22 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	public boolean isFinished() {
 		return exitKilla;
 	}	
+	
+	public boolean reset() {
+		return (exitKilla = false);
+	}
+	
+	public void refreshMenu() {
+		moneyLabel.setText(player.getMoney()+"");
+		playerEnergy.setText("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
+		playerFood.setText("Food: "+player.getResourceAmount(ResourceType.FOOD));
+		playerSmithore.setText("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
+		playerCrystite.setText("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
+		playerMule.setText("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
+		storeEnergy.setText("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
+		storeFood.setText("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));		
+		storeSmithore.setText("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
+		storeCrystite.setText("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
+		storeMule.setText("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
+	}
 }

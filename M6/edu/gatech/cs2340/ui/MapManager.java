@@ -48,8 +48,8 @@ public class MapManager implements WaitedOn, Runnable{
 		MapRenderer mapRenderer = new MapRenderer(map, mapSprite);
 		
 		TownSprite townSprite = new TownSprite(player);
-		TownRenderer townRenderer = new TownRenderer(townSprite);
-		TownRenderer.initialize();
+		TownRendererUpdated townRenderer = new TownRendererUpdated(townSprite);
+		TownRendererUpdated.initialize();
 		townRenderer.refresh();
 		
 		while (townSprite.getLocation() != TownSprite.SPRITE_LOCATION.PUB) {
@@ -62,6 +62,7 @@ public class MapManager implements WaitedOn, Runnable{
 				catch (InterruptedException e) {}
 				mapRenderer.refreshSprite();
 			}
+			
 			
 			townSprite.resetPosition();
 			MainGameWindow.getInstance().setPanel(townRenderer);

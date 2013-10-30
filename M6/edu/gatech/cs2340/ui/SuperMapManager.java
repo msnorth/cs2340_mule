@@ -36,12 +36,12 @@ public class SuperMapManager implements WaitedOn, Runnable{
 		SuperSprite sprite = new SuperSprite(player);
 		sprite.setPosition(4500, 3500);
 		MapRenderer mapRenderer = new MapRenderer(map);
-		TownRenderer.initialize();
-		TownRenderer townRenderer = new TownRenderer();
+		TownRendererUpdated.initialize();
+		TownRendererUpdated townRenderer = new TownRendererUpdated();
 		
 		StoreMenu storeMenu = new StoreMenu(player);
 		
-		JPanel[] panels = {storeMenu, townRenderer, mapRenderer,};
+		JPanel[] panels = {storeMenu, townRenderer, mapRenderer};
 		panel = new SuperTurnPanel(panels, sprite);
 		
 		MainGameWindow.getInstance().setPanel(panel);
@@ -51,7 +51,11 @@ public class SuperMapManager implements WaitedOn, Runnable{
 			if (sprite.getLocation() == 0) {
 				storeMenu.repaint();
 				Waiter.waitOn(storeMenu);
+				storeMenu.reset();
+				panel.repaint();
 				sprite.setPosition(4700, 2500);
+				panel.setCurrentPanel(1);
+				sprite.update();
 			}
 			else {
 				sprite.update();
@@ -62,6 +66,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 					e.printStackTrace();
 				}
 			}
+			
 		}
 		finished = true;
 	}
@@ -70,7 +75,4 @@ public class SuperMapManager implements WaitedOn, Runnable{
 	public boolean isFinished() {
 		return finished;
 	}
-	
-	
-	
 }

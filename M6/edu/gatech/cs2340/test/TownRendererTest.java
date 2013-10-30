@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.gatech.cs2340.ui.TownRenderer;
+import edu.gatech.cs2340.ui.TownRendererUpdated;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class TownRendererTest {
 	@Before
 	public void setUp() throws Exception {
 		JFrame jf = new JFrame();
-		TownRenderer tr = new TownRenderer(null);
+		TownRendererUpdated tr = new TownRendererUpdated(null);
 		jf.add(tr);
 		jf.setVisible(true);
 	}
