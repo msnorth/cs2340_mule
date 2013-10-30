@@ -151,9 +151,9 @@ public class MapRenderer extends JPanel{
         super.paint(g);
         if (displayPrices){
         	for (int i = 0; i < map.getNumTiles(); i++){
-        		if (i != TOWN_INDEX){ // don't set the price of the town
-	            	Tile tile = map.getTileNumber(i);
-	            	int x = getXCoord(i);
+            	Tile tile = map.getTileNumber(i);
+            	if (tile.getPrice() != 0){ // only display a non-zero price
+            		int x = getXCoord(i);
 	            	int y = getYCoord(i);
 	            	// start drawing the string in the middle left of the tile
 	            	g.setColor(Color.RED);
@@ -189,7 +189,12 @@ public class MapRenderer extends JPanel{
 	}
 
 	public void setDisplayPrices(boolean displayPrices) {
-		this.displayPrices = displayPrices; 
-		
+		this.displayPrices = displayPrices;
+		if (!displayPrices){ // if we're clearing the display prices,
+			for (int i = 0; i < map.getNumTiles(); i++){
+				map.getTileNumber(i).setPrice(0); // clear all tile prices so they won't display again
+			}
+		}
+		refresh();
 	}
 }

@@ -65,7 +65,7 @@ public class Round {
 		// TODO: random events
 		
 		// Land Grant/Purchase phases
-			if (roundNumber < 3) {
+			if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
 				for (int i=0; i < numPlayers; i++) {
 					Player currentPlayer = playerManager.getNextPlayer();
 					LandGranter granter = new LandGranter(currentPlayer, map);
