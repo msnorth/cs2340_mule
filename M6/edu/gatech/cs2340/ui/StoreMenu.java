@@ -1,10 +1,14 @@
 package edu.gatech.cs2340.ui;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -17,6 +21,7 @@ import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.data.StoreImageLoader;
 import edu.gatech.cs2340.sequencing.WaitedOn;
+import javax.swing.GroupLayout.Alignment;
 
 /**
  *@author Shreyyas Vanarase
@@ -31,7 +36,6 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	private static final long serialVersionUID = 1L;
 	private int amount = 1;
 	private Player player;
-	private boolean enable;
 	private StoreImageLoader imageLoader;
 	private JButton buyEnergy;
 	private JButton buySmithore;
@@ -64,7 +68,6 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	 */
 	
 	private void initialize() {
-		enable = false;
 		Store.getStore().addPlayer(player);
 		
 		imageLoader = new StoreImageLoader();
@@ -72,312 +75,466 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		//Defines the panel and sets its bounds
 		setBackground(new Color(255, 255, 102));
 		setBounds(100, 100, 650, 500);
-	    setLayout(null);
 	    
 		//Makes the Store Menu Label
 		JLabel title = new JLabel("Store Menu");
-		title.setBounds(227, 12, 189, 31);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 21));
-		add(title);
 		
 		//Button to sell energy to player (player is buying energy)
 		buyEnergy = new JButton("Energy");
 		buyEnergy.addActionListener(new BuyEnergyListener());
 		buyEnergy.setBackground(new Color(244, 50, 0));
 		buyEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		buyEnergy.setBounds(62, 223, 111, 23);
-		add(buyEnergy);
 		
 		//Button to sell smithore to player (player is buying smithore)
 		buySmithore = new JButton("Smithore");
 		buySmithore.addActionListener(new BuySmithoreListener());
 		buySmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buySmithore.setBackground(new Color(244, 50, 0));
-		buySmithore.setBounds(62, 257, 111, 23);
-		add(buySmithore);
 		
 		//Button to sell food to player (player is buying food)
 		buyFood = new JButton("Food");
 		buyFood.addActionListener(new BuyFoodListener());
 		buyFood.setBackground(new Color(244, 50, 0));
 		buyFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		buyFood.setBounds(62, 291, 111, 23);
-		add(buyFood);
 		
 		//Button to sell crystite to player (player is buying crystite)
 		buyCrystite = new JButton("Crystite");
 		buyCrystite.addActionListener(new BuyCrystiteListener());
 		buyCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyCrystite.setBackground(new Color(244, 50, 0));
-		buyCrystite.setBounds(62, 325, 111, 23);
-		add(buyCrystite);
 
 		//Button to buy energy from player (player is selling energy)
 		sellEnergy = new JButton("Energy");
 		sellEnergy.addActionListener(new SellEnergyListener());
 		sellEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellEnergy.setBackground(new Color(244, 50, 0));
-		sellEnergy.setBounds(277, 223, 111, 23);
-		add(sellEnergy);
 		
 		//Button to buy smithore from player (player is selling smithore)
 		sellSmithore = new JButton("Smithore");
 		sellSmithore.addActionListener(new SellSmithoreListener());
 		sellSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellSmithore.setBackground(new Color(244, 50, 0));
-		sellSmithore.setBounds(277, 257, 111, 23);
-		add(sellSmithore);
 		
 		//Button to buy food from player (player is selling food)
 		sellFood = new JButton("Food");
 		sellFood.addActionListener(new SellFoodListener());
 		sellFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellFood.setBackground(new Color(244, 50, 0));
-		sellFood.setBounds(277, 291, 111, 23);
-		add(sellFood);
 		
 		//Button to buy crystite from player (player is selling crystite)
 		sellCrystite = new JButton("Crystite");
 		sellCrystite.addActionListener(new SellCrystiteListener());
 		sellCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		sellCrystite.setBackground(new Color(244, 50, 0));
-		sellCrystite.setBounds(277, 325, 111, 23);
-		add(sellCrystite);
 		
 		//Button to sell energy mule to player 
 		buyEnergyMule = new JButton("Energy Mule");
 		buyEnergyMule.addActionListener(new BuyEnergyMuleListener());
 		buyEnergyMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyEnergyMule.setBackground(new Color(244, 50, 0));
-		buyEnergyMule.setBounds(51, 359, 135, 23);
-		add(buyEnergyMule);
 		
 		//Button to sell smithore mule to player 
 		buySmithoreMule = new JButton("Ore Mule");
 		buySmithoreMule.addActionListener(new BuySmithoreMuleListener());
 		buySmithoreMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buySmithoreMule.setBackground(new Color(244, 50, 0));
-		buySmithoreMule.setBounds(51, 425, 135, 23);
-		add(buySmithoreMule);
 		
 		//Button to sell food mule to player 
 		buyFoodMule = new JButton("Food Mule");
 		buyFoodMule.addActionListener(new BuyFoodMuleListener());
 		buyFoodMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
 		buyFoodMule.setBackground(new Color(244, 50, 0));
-		buyFoodMule.setBounds(51, 391, 135, 23);
-		add(buyFoodMule);
 		
 		//Exits the store
 		exitButton = new JButton("Exit Store!");
 		exitButton.addActionListener(new ExitListener());
 		exitButton.setBackground(new Color(244, 50, 0));
 		exitButton.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		exitButton.setBounds(277, 466, 121, 23);
-		add(exitButton);
 		
 		/*
 		 * Makes labels for the resources and images
 		 */
 		JLabel foodIcon = new JLabel();
 		foodIcon.setIcon(imageLoader.getImage("food"));
-		foodIcon.setBounds(279, 73, 80, 60);
-		add(foodIcon);
 		
 		JLabel energyIcon = new JLabel();
 		energyIcon.setIcon(imageLoader.getImage("energy"));
-		energyIcon.setBounds(43, 72, 39, 62);
-		add(energyIcon);
 		
 		JLabel smithoreIcon = new JLabel();
 		smithoreIcon.setIcon(imageLoader.getImage("smithore"));
-		smithoreIcon.setBounds(145, 69, 72, 71);
-		add(smithoreIcon);
 		
 		JLabel crystiteIcon = new JLabel();
 		crystiteIcon.setIcon(imageLoader.getImage("crystite"));
-		crystiteIcon.setBounds(407, 68, 72, 71);
-		add(crystiteIcon);
 		
 		JLabel muleIcon = new JLabel();
 		muleIcon.setIcon(imageLoader.getImage("mule"));
-		muleIcon.setBounds(533, 73, 75, 60);
-		add(muleIcon);
 		
 		//Makes a food label
 		JLabel foodLabel = new JLabel("Food");
 		foodLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		foodLabel.setBounds(300, 144, 46, 14);
-		add(foodLabel);
 		
 		JLabel energyLabel = new JLabel("Energy");
 		energyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		energyLabel.setBounds(37, 144, 72, 14);
-		add(energyLabel);
 		
 		JLabel smithoreLabel = new JLabel("Smithore");
 		smithoreLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		smithoreLabel.setBounds(155, 145, 82, 14);
-		add(smithoreLabel);
 		
 		JLabel crystiteLabel = new JLabel("Crystite");
 		crystiteLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		crystiteLabel.setBounds(417, 145, 87, 14);
-		add(crystiteLabel);
 		
 		JLabel muleLabel = new JLabel("Mule");
 		muleLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		muleLabel.setBounds(562, 145, 56, 14);
-		add(muleLabel);
 		
 		JLabel welcomeLabel = new JLabel("Welcome to Irata 1 Thrift Shop!! Best of the Resource Shops!");
 		welcomeLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 14));
-		welcomeLabel.setBounds(74, 43, 509, 14);
-		add(welcomeLabel);
 		
 		JSeparator buySellSeperator = new JSeparator();
 		buySellSeperator.setOrientation(SwingConstants.VERTICAL);
 		buySellSeperator.setForeground(new Color(204, 0, 0));
 		buySellSeperator.setBackground(new Color(204, 0, 0));
-		buySellSeperator.setBounds(227, 204, 2, 249);
-		add(buySellSeperator);
 		
 		JSeparator sellStatsSeperator = new JSeparator();
 		sellStatsSeperator.setOrientation(SwingConstants.VERTICAL);
 		sellStatsSeperator.setForeground(new Color(204, 0, 0));
 		sellStatsSeperator.setBackground(new Color(204, 0, 0));
-		sellStatsSeperator.setBounds(435, 204, 2, 249);
-		add(sellStatsSeperator);
 		
 		JLabel statisticsLabel = new JLabel("Statistics");
 		statisticsLabel.setForeground(new Color(0, 153, 51));
 		statisticsLabel.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
 		statisticsLabel.setBackground(new Color(0, 153, 51));
-		statisticsLabel.setBounds(482, 188, 90, 14);
-		add(statisticsLabel);
 		
 		JLabel playerMoney = new JLabel("Player Money:");
 		playerMoney.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		playerMoney.setBounds(448, 223, 192, 14);
-		add(playerMoney);
 		
 		JLabel playerResources = new JLabel("Your Current Resources:");
 		playerResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		playerResources.setBounds(447, 260, 193, 14);
-		add(playerResources);
 		
 		JLabel storeResources = new JLabel("Store Resources: ");
 		storeResources.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 12));
-		storeResources.setBounds(447, 377, 171, 14);
-		add(storeResources);
 		
 		JLabel energyPrice = new JLabel("$25");
 		energyPrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		energyPrice.setBounds(51, 159, 35, 14);
-		add(energyPrice);
 		
 		JLabel smithorePrice = new JLabel("$50");
 		smithorePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		smithorePrice.setBounds(175, 159, 24, 14);
-		add(smithorePrice);
 		
 		JLabel foodPrice = new JLabel("$30");
 		foodPrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		foodPrice.setBounds(305, 159, 35, 14);
-		add(foodPrice);
 		
 		JLabel crystitePrice = new JLabel("$100");
 		crystitePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		crystitePrice.setBounds(425, 159, 46, 14);
-		add(crystitePrice);
 		
 		JLabel mulePrice = new JLabel("$100");
 		mulePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		mulePrice.setBounds(562, 159, 46, 14);
-		add(mulePrice);
 		
 		//Makes a label for the Buying section
 		JLabel buyTitle = new JLabel("Buy from the Store!");
 		buyTitle.setForeground(new Color(0, 153, 51));
 		buyTitle.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
-		buyTitle.setBounds(37, 184, 179, 23);
-		add(buyTitle);
 		
 		//Makes a label for the Selling section
 		JLabel sellTitle = new JLabel("Sell to the Store!");
 		sellTitle.setForeground(new Color(0, 153, 51));
 		sellTitle.setBackground(new Color(0, 153, 51));
 		sellTitle.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
-		sellTitle.setBounds(254, 188, 162, 14);
-		add(sellTitle);
 		
 		//Separates the selling title and the selling section
 		JSeparator mainSeperator = new JSeparator();
 		mainSeperator.setBackground(new Color(204, 0, 0));
 		mainSeperator.setForeground(new Color(244, 50, 0));
-		mainSeperator.setBounds(37, 204, 581, 8);
-		add(mainSeperator);
 		
 		JLabel moneyLabel = new JLabel(player.getMoney()+"");
 		moneyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		moneyLabel.setBounds(447, 240, 46, 14);
-		add(moneyLabel);
 		
 		JLabel playerEnergy = new JLabel("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
 		playerEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerEnergy.setBounds(447, 285, 95, 14);
-		add(playerEnergy);
 		
 		JLabel playerFood = new JLabel("Food: "+player.getResourceAmount(ResourceType.FOOD));
 		playerFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerFood.setBounds(447, 300, 46, 14);
-		add(playerFood);
 		
 		JLabel playerSmithore = new JLabel("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
 		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerSmithore.setBounds(447, 318, 95, 14);
-		add(playerSmithore);
 		
 		JLabel playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerCrystite.setBounds(447, 335, 95, 14);
-		add(playerCrystite);
 		
 		JLabel playerMule = new JLabel("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerMule.setBounds(447, 352, 95, 14);
-		add(playerMule);
 		
 		JLabel storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
 		storeEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeEnergy.setBounds(447, 396, 95, 14);
-		add(storeEnergy);
 		
 		JLabel storeFood = new JLabel("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));
 		storeFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeFood.setBounds(447, 411, 95, 14);
-		add(storeFood);
 		
 		JLabel storeSmithore = new JLabel("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
 		storeSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeSmithore.setBounds(447, 429, 136, 14);
-		add(storeSmithore);
 		
 		JLabel storeCrystite = new JLabel("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
 		storeCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeCrystite.setBounds(447, 446, 95, 14);
-		add(storeCrystite);
 		
 		JLabel storeMule = new JLabel("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
 		storeMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		storeMule.setBounds(447, 463, 95, 14);
-		add(storeMule);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(227)
+					.addComponent(title, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(74)
+					.addComponent(welcomeLabel, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(43)
+					.addComponent(energyIcon, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addGap(63)
+					.addComponent(smithoreIcon, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+					.addGap(62)
+					.addComponent(foodIcon, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+					.addGap(48)
+					.addComponent(crystiteIcon, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+					.addGap(54)
+					.addComponent(muleIcon, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(37)
+					.addComponent(energyLabel, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
+					.addComponent(smithoreLabel, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addGap(63)
+					.addComponent(foodLabel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+					.addGap(71)
+					.addComponent(crystiteLabel, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+					.addGap(58)
+					.addComponent(muleLabel, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(51)
+					.addComponent(energyPrice, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addGap(89)
+					.addComponent(smithorePrice)
+					.addGap(106)
+					.addComponent(foodPrice, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addGap(85)
+					.addComponent(crystitePrice, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+					.addGap(91)
+					.addComponent(mulePrice, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(37)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(14)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(buyEnergyMule, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+								.addComponent(buyFoodMule, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+								.addComponent(buySmithoreMule, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+							.addGap(68)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(sellTitle)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(23)
+									.addComponent(sellSmithore, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(23)
+									.addComponent(sellFood, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(23)
+									.addComponent(sellCrystite, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)))
+							.addGap(19)
+							.addComponent(sellStatsSeperator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(35)
+									.addComponent(statisticsLabel))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(1)
+									.addComponent(playerMoney, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
+								.addComponent(playerResources, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+								.addComponent(playerEnergy, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+								.addComponent(playerFood)
+								.addComponent(storeSmithore, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+								.addComponent(storeCrystite, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(25)
+							.addComponent(buyEnergy, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(190)
+							.addComponent(buySellSeperator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(playerSmithore, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+						.addComponent(buyTitle)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(25)
+							.addComponent(buyFood, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(240)
+							.addComponent(sellEnergy, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(25)
+							.addComponent(buySmithore, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(storeFood, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(25)
+							.addComponent(buyCrystite, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(playerMule, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(moneyLabel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(playerCrystite, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(storeResources, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE))
+						.addComponent(mainSeperator, GroupLayout.PREFERRED_SIZE, 581, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(storeEnergy, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(277)
+					.addComponent(exitButton)
+					.addGap(49)
+					.addComponent(storeMule, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(12)
+					.addComponent(title, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addComponent(welcomeLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(energyIcon, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(smithoreIcon, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(foodIcon, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+						.addComponent(crystiteIcon, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(muleIcon, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
+					.addGap(4)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(energyLabel)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(smithoreLabel))
+						.addComponent(foodLabel)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(crystiteLabel))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(muleLabel)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(energyPrice, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(smithorePrice, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(foodPrice, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(crystitePrice, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(mulePrice, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(175)
+							.addComponent(buyEnergyMule)
+							.addGap(9)
+							.addComponent(buyFoodMule)
+							.addGap(11)
+							.addComponent(buySmithoreMule))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(sellTitle, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addGap(55)
+							.addComponent(sellSmithore)
+							.addGap(11)
+							.addComponent(sellFood)
+							.addGap(11)
+							.addComponent(sellCrystite))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(20)
+							.addComponent(sellStatsSeperator, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(statisticsLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addGap(21)
+							.addComponent(playerMoney)
+							.addGap(23)
+							.addComponent(playerResources)
+							.addGap(11)
+							.addComponent(playerEnergy, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addGap(1)
+							.addComponent(playerFood, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addGap(115)
+							.addComponent(storeSmithore, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addGap(3)
+							.addComponent(storeCrystite, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(39)
+							.addComponent(buyEnergy))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(20)
+							.addComponent(buySellSeperator, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(134)
+							.addComponent(playerSmithore, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(buyTitle, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(107)
+							.addComponent(buyFood))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(39)
+							.addComponent(sellEnergy))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(73)
+							.addComponent(buySmithore))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(227)
+							.addComponent(storeFood, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(141)
+							.addComponent(buyCrystite))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(168)
+							.addComponent(playerMule, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(56)
+							.addComponent(moneyLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(151)
+							.addComponent(playerCrystite, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(193)
+							.addComponent(storeResources))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(20)
+							.addComponent(mainSeperator, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(212)
+							.addComponent(storeEnergy, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
+					.addGap(3)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+						.addComponent(storeMule, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
+		);
+		setLayout(groupLayout);
 		
 	}
 	
 	private class BuyEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.ENERGY)) {
 				buyEnergy.setEnabled(enable);
 			}
@@ -390,19 +547,24 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuySmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.SMITHORE)) {
 				buySmithore.setEnabled(enable);
 				System.out.println(enable);
+				System.out.println(player.getMoney());
 			}
 			else {
 				Store.getStore().sellResources(ResourceType.SMITHORE, amount);
 				enable = true;
+				System.out.println(enable);
+				System.out.println(player.getMoney());
 			}
 		}
 	}
 	
 	private class BuyCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.CRYSTITE)) {
 				buyCrystite.setEnabled(enable);
 			}
@@ -415,6 +577,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.FOOD)) {
 				buyFood.setEnabled(enable);
 			}
@@ -451,6 +614,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyEnergyMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;;
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.ENERGY))) {
 				buyEnergyMule.setEnabled(enable);
@@ -464,6 +628,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuySmithoreMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.SMITHORE))) {
 				buySmithoreMule.setEnabled(enable);
@@ -477,6 +642,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyFoodMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			boolean enable = false;
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.FOOD))) {
 				buyFoodMule.setEnabled(enable);

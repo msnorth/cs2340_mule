@@ -60,7 +60,6 @@ public class StoreMenuTest {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLUE);
 		ImageLoader.loadAllImages();
 		
 		try {
@@ -70,7 +69,8 @@ public class StoreMenuTest {
 			e.printStackTrace();
 		}
 		menu = new StoreMenu(new Player("Bill", "Flapper", Color.BLUE));
-		frame.add(menu);
+		panel.add(menu);
+		frame.add(panel);
 		frame.pack();
 		frame.setVisible(true);
 	}
