@@ -82,7 +82,7 @@ public class SuperSprite {
 		else if (x > 4650 && x < 5000 && y > 2650 && y < 3000) {
 			location = 0; // store
 		}
-		else if (x > 4000 && x < 5000 && y > 2000 && y < 3000) {
+		else if (x > 4150 && x < 5000 && y > 2000 && y < 3000) {
 			speed = 10;
 			location = 1; // town
 		}
