@@ -126,14 +126,9 @@ public abstract class Tile {
 	 * @param price Price of the tile
 	 * @return Whether the setting was successful (because the tile is unowned)
 	 */
-	public boolean setPrice(int price) {
-		// If the tile is not 
-		if(owner == null){
-			this.price = price; 
-			dirty = true;
-			return true;
-		}
-		return false;	
+	public void setPrice(int price) {
+		this.price = price; 
+		dirty = true;
 	}
 	
 	/**
