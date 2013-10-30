@@ -12,6 +12,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.data.StoreImageLoader;
@@ -271,22 +272,22 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		storeResources.setBounds(447, 377, 171, 14);
 		add(storeResources);
 		
-		JLabel energyPrice = new JLabel("$50");
+		JLabel energyPrice = new JLabel("$25");
 		energyPrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		energyPrice.setBounds(51, 159, 35, 14);
 		add(energyPrice);
 		
-		JLabel smithorePrice = new JLabel("$75");
+		JLabel smithorePrice = new JLabel("$50");
 		smithorePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		smithorePrice.setBounds(175, 159, 24, 14);
 		add(smithorePrice);
 		
-		JLabel foodPrice = new JLabel("$50");
+		JLabel foodPrice = new JLabel("$30");
 		foodPrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		foodPrice.setBounds(305, 159, 35, 14);
 		add(foodPrice);
 		
-		JLabel crystitePrice = new JLabel("$200");
+		JLabel crystitePrice = new JLabel("$100");
 		crystitePrice.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		crystitePrice.setBounds(425, 159, 46, 14);
 		add(crystitePrice);
@@ -391,6 +392,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		public void actionPerformed(ActionEvent e) {
 			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.SMITHORE)) {
 				buySmithore.setEnabled(enable);
+				System.out.println(enable);
 			}
 			else {
 				Store.getStore().sellResources(ResourceType.SMITHORE, amount);
