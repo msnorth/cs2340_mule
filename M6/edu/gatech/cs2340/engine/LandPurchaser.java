@@ -56,7 +56,7 @@ public class LandPurchaser
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
-		
+		mapRenderer.setDisplayPrices(true);
 		// iterate through tiles
 		for (int i = 0; i< map.getNumTiles(); i++){
 			Tile tile = map.getTileNumber(i);
@@ -81,12 +81,15 @@ public class LandPurchaser
 		if(killa == 0) {
 			timer.stop();
 			if (currentPlayer.deductMoney(price)) {
-				currentPlayer.addTile(tile);			
+				currentPlayer.addTile(tile);
+				tile.setOwner(currentPlayer);
 				mapRenderer.refresh();							//Reflects changes on map
 			}
 		}
 		
 		tile.setActive(false);
+		mapRenderer.setDisplayPrices(false);
+		mapRenderer.refresh();
 	}
 	
 	/**
@@ -98,7 +101,6 @@ public class LandPurchaser
 	public int calculatePrice() {
 		Random rand     = new Random();
 		int randomValue = rand.nextInt(101);
-		
-		return (300 + roundNumber*randomValue);
+		return (300 + (roundNumber+1)*randomValue);
 	}
 }

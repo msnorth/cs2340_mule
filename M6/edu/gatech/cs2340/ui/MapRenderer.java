@@ -34,6 +34,11 @@ public class MapRenderer extends JPanel{
 	private final int TILE_WIDTH = 75;
 	private final int TILE_HEIGHT = 75;
 	private boolean initialized = false;
+	private final int TOWN_INDEX = 22;
+	/**
+	 * Whether or not prices should be displayed
+	 */
+	private boolean displayPrices = false;
 
 	
 	/**
@@ -79,7 +84,6 @@ public class MapRenderer extends JPanel{
 	 * Attempt to refresh all tiles and repaint afterwards.
 	 */
 	public void refresh() {
-		map.getTileNumber(0).setActive(true); // TODO take this out
 		for (int i = 0; i < map.getNumTiles(); i++){
 			refresh(i, true, false);
 		}
@@ -102,13 +106,13 @@ public class MapRenderer extends JPanel{
 	 */
 	public void refresh(int ndx, boolean waitToPaint, boolean firstTime) {
 		Tile curTile = map.getTileNumber(ndx);
-		if (curTile.dirty) { 
+		// if (curTile.dirty) { 
 			JLabel label = TileImageFactory.getTileLabelImage(curTile);
 			JLabel tileLabel = tileLabels.get(ndx);
 			// There's nothing to remove if this is the first time--> update image
 			if (!firstTime){
 				tileLabel.setIcon(label.getIcon());
-				tileLabel.setBorder(tileLabel.getBorder());
+				tileLabel.setBorder(label.getBorder());
 				// TODO Set borders?
 			} else { // add the label for the first time
 				add(label, ndx);
@@ -120,13 +124,13 @@ public class MapRenderer extends JPanel{
 				//	tileLabel.invalidate();
 				tileLabel.repaint();
 				//repaint();
+				revalidate();
+				//repaint();
 			}
-			revalidate();
-			repaint();
 			if (!waitToPaint){ // Paint if we're not doing a slew in a row
 				repaint();
 			}
-		}
+		//}
 	}
 
 	
@@ -145,14 +149,18 @@ public class MapRenderer extends JPanel{
 	@Override
 	public void paint(Graphics g) {	// TODO change to paintComponent?
         super.paint(g);
-        for (int i = 0; i < map.getNumTiles(); i++){
-        	Tile tile = map.getTileNumber(i);
-        	int x = getXCoord(i);
-        	int y = getYCoord(i);
-        	// start drawing the string in the middle left of the tile
-        	g.setColor(Color.RED);
-        	g.setFont(new Font("Serif", Font.PLAIN, 30));
-        	g.drawString("$" + tile.getPrice(), x*TILE_WIDTH + (int) TILE_WIDTH/3, y*TILE_HEIGHT + (int) TILE_HEIGHT*2/3);
+        if (displayPrices){
+        	for (int i = 0; i < map.getNumTiles(); i++){
+        		if (i != TOWN_INDEX){ // don't set the price of the town
+	            	Tile tile = map.getTileNumber(i);
+	            	int x = getXCoord(i);
+	            	int y = getYCoord(i);
+	            	// start drawing the string in the middle left of the tile
+	            	g.setColor(Color.RED);
+	            	g.setFont(new Font("Serif", Font.PLAIN, 30));
+	            	g.drawString("$" + tile.getPrice(), x*TILE_WIDTH + (int) TILE_WIDTH/4, y*TILE_HEIGHT + (int) TILE_HEIGHT*2/3);
+        		}
+            }
         }
         if (sprite != null) {
 	        Graphics2D g2d = (Graphics2D)g;
@@ -178,5 +186,10 @@ public class MapRenderer extends JPanel{
 	 */
 	private int getYCoord(int index){
 		return (int) index / map.getNumCols();
+	}
+
+	public void setDisplayPrices(boolean displayPrices) {
+		this.displayPrices = displayPrices; 
+		
 	}
 }
