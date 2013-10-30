@@ -150,6 +150,22 @@ public class Map implements MapResponsibilities {
 		return tiles.length*tiles[0].length;
 	}
 	
+	/**
+	 * Get length in x direction
+	 * @return Number of columns
+	 */
+	public int getNumCols(){
+		return tiles[0].length;
+	}
+	
+	/**
+	 * Get length in y direction
+	 * @return Number of rows
+	 */
+	public int getNumRows(){
+		return tiles.length;
+	}
+	
 //	/**
 //	 * Set the current X and Y that the map is internally pointing to
 //	 * TODO Is there a better way to do this to reduce coupling? Visitor class?

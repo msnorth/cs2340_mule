@@ -13,6 +13,9 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Selling mules of a specific type should also decrease
  * 									the amount of that type from the store and add that 
  * 									type to the player's resources. Added getResourceType Method.
+ * 							M7		10/29/13 Thomas Mark
+ * 									Modified Mule parameter type to actual ResourceType as opposed 
+ * 									to String.
  * 									
  * 							
  * 		Allows the player to:
@@ -44,10 +47,10 @@ public class Store {
 	private static final int SMITHORE_MULE = 175;
 	private static final int CRYSTITE_MULE = 200;
 	
-	private int FOOD     = 1000;
-	private int ENERGY   = 1000;
-	private int SMITHORE = 1000;
-	private int CRYSTITE = 1000;
+	private final int FOOD     = 1000;
+	private final int ENERGY   = 1000;
+	private final int SMITHORE = 1000;
+	private final int CRYSTITE = 1000;
 	
 	private Player player;
 	private String message;
@@ -121,7 +124,6 @@ public class Store {
 	 */
 	public boolean sellMule(ResourceType type) {
 		int cost = mulePrices.getAmount(type);
-		String muleType = type.toString();
 		
 		if (player.hazMule()) {
 			message = "You already have a mule.";
@@ -138,7 +140,7 @@ public class Store {
 		storeResources.remove(ResourceType.MULE, 1);
 		storeResources.remove(type, 1);
 		player.deductMoney(cost);
-		player.addMule(new Mule(muleType));
+		player.addMule(new Mule(type));
 		player.addResources(type, 1);
 		return true;
 	}

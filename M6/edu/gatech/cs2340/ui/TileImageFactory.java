@@ -23,6 +23,7 @@ import edu.gatech.cs2340.data.Tile;
  */
 public class TileImageFactory {
 
+	static int numUses = 0;
 	// // Tile and TileRenderer are paired as Model and View of the Tile concept
 	// private Tile tile;
 
@@ -37,6 +38,10 @@ public class TileImageFactory {
 		Player p = tile.getOwner();
 		int thickness = 1;
 		Border border = null;
+		numUses++;
+		if (tile.dirty && numUses > 45){
+			thickness = 1;
+		}
 		if (tile.isActive() && p == null) {
 			// thick black border
 			thickness = 2;

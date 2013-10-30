@@ -26,7 +26,7 @@ public class GUIPanelTester extends JPanel {
 		
 		for (int i = 0; i < 16; i++) {
 			JLabel label = new JLabel(plainImage, JLabel.CENTER);
-			label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+//			label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 //			 ImageIcon plainImage = new ImageIcon(this.getClass().getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
 //			 JLabel label = new JLabel(plainImage);
 //			 panel.add(label, JLabel.CENTER);

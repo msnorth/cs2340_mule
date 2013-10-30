@@ -56,12 +56,18 @@ public class LandPurchaser
 		
 		MapRenderer mapRenderer = new MapRenderer(map);
 		MainGameWindow.getInstance().setPanel(mapRenderer);
+		mapRenderer.setDisplayPrices(true);
+		// iterate through tiles
+		for (int i = 0; i< map.getNumTiles(); i++){
+			Tile tile = map.getTileNumber(i);
+			tile.setPrice(calculatePrice());
+		}
+		
 		
 		Tile tile = map.getRandomUnownedTile();
 		tile.setActive(true); 	
 		mapRenderer.refresh();
-		
-		int price               = calculatePrice();		
+		int price = tile.getPrice();
 		KeyboardAdapter adapter = KeyboardAdapter.getInstance();
 		KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 		MULETimer timer         = new MULETimer(3000);
@@ -75,12 +81,15 @@ public class LandPurchaser
 		if(killa == 0) {
 			timer.stop();
 			if (currentPlayer.deductMoney(price)) {
-				currentPlayer.addTile(tile);			
+				currentPlayer.addTile(tile);
+				tile.setOwner(currentPlayer);
 				mapRenderer.refresh();							//Reflects changes on map
 			}
 		}
 		
 		tile.setActive(false);
+		mapRenderer.setDisplayPrices(false);
+		mapRenderer.refresh();
 	}
 	
 	/**
@@ -92,7 +101,6 @@ public class LandPurchaser
 	public int calculatePrice() {
 		Random rand     = new Random();
 		int randomValue = rand.nextInt(101);
-		
-		return (300 + roundNumber*randomValue);
+		return (300 + (roundNumber+1)*randomValue);
 	}
 }
