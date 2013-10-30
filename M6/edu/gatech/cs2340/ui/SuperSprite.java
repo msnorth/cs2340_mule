@@ -73,16 +73,22 @@ public class SuperSprite {
 	public int getLocation() {
 		return location;
 	}
-	
+	public int getXCoord() {
+		return x;
+	}
+	public int getYCoord() {
+		return y;
+	}
 	public Point getScreenCoords() {
 		Point result = new Point((int)((x-4000)*(375.0/1000.0)), (int)(((y-2000)*(375.0/1000.0))));
-		if (x > 4000 && x < 4350 && y > 2650 && y < 3000 ) {
+		if (x > 4200 && x < 4500 && y > 2650 && y < 3000 ) {
 			location = -1; // pub
+			System.out.println("x: " + getXCoord() + " , y: " +getYCoord());
 		}
-		else if (x > 4650 && x < 5000 && y > 2650 && y < 3000) {
+		else if (x > 4950 && x < 5220 && y > 2650 && y < 3000) {
 			location = 0; // store
 		}
-		else if (x > 4150 && x < 5000 && y > 2000 && y < 3000) {
+		else if (x > 4000 && x < 5220 && y > 2000 && y < 3000) {
 			speed = 10;
 			location = 1; // town
 		}

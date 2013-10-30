@@ -187,7 +187,7 @@ public class Player {
 			return 50000;
 		}
 		else if(foodAmount == 0) {
-			return 50000;
+			return 5000;
 		}
 		else return 30000;
 	}
@@ -205,10 +205,7 @@ public class Player {
 	 * @return
 	 */
 	public boolean hazMule() {
-		if (mule == null) {
-			return false;
-		}
-		return true;
+		return (mule != null);
 	}
 
 	/**

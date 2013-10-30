@@ -51,9 +51,11 @@ public class SuperMapManager implements WaitedOn, Runnable{
 			if (sprite.getLocation() == 0) {
 				storeMenu.repaint();
 				Waiter.waitOn(storeMenu);
-				sprite.update();
-				sprite.setPosition(4700, 2500);
+				storeMenu.reset();
 				panel.repaint();
+				sprite.setPosition(4700, 2500);
+				panel.setCurrentPanel(1);
+				sprite.update();
 			}
 			else {
 				sprite.update();
@@ -64,6 +66,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 					e.printStackTrace();
 				}
 			}
+			
 		}
 		finished = true;
 	}
@@ -72,7 +75,4 @@ public class SuperMapManager implements WaitedOn, Runnable{
 	public boolean isFinished() {
 		return finished;
 	}
-	
-	
-	
 }
