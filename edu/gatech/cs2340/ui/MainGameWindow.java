@@ -37,7 +37,7 @@ public class MainGameWindow extends JFrame {
 	public static final int DIM_X = 72*9 + 40;
 	public static final int DIM_Y = 600;
 	
-	public static final int LOWER_PANEL_HEIGHT = 200;
+	public static final int LOWER_PANEL_HEIGHT = 150;
 	
 	private JPanel currentPanel;
 	//panel to hold status bar
@@ -81,7 +81,7 @@ public class MainGameWindow extends JFrame {
 		this.setLayout(new BorderLayout());
 		
 		setFocusable(true);
-		Dimension defaultSize = new Dimension(DIM_X, DIM_Y);
+		Dimension defaultSize = new Dimension(DIM_X, DIM_Y + LOWER_PANEL_HEIGHT);
 		setMinimumSize(defaultSize);
 		setMaximumSize(defaultSize);
 		setPreferredSize(defaultSize);
@@ -90,8 +90,8 @@ public class MainGameWindow extends JFrame {
 		
 		Dimension lowerSize = new Dimension(DIM_X, LOWER_PANEL_HEIGHT);
 		lowerPanel.setPreferredSize(lowerSize);
-		lowerPanel.setMaximumSize(lowerSize);
 		lowerPanel.setMinimumSize(lowerSize);
+		lowerPanel.setMaximumSize(lowerSize);
 		lowerPanel.setLayout(new BorderLayout());
 		
 		this.add(mainPanel, BorderLayout.CENTER);
