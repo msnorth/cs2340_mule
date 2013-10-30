@@ -135,7 +135,7 @@ public class  MapSprite {
 	 * @return
 	 */
 	public int getScreenY() {
-		return (int)(y * WORLD_PIXEL_RATIO);
+		return (int)(y * WORLD_PIXEL_RATIO );
 	}
 
 	/**
