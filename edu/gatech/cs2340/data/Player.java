@@ -28,6 +28,8 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Updated remove method and the beginning resources
  * 							M7		10/29/13 Thomas Mark
  * 									Player now calculates their score.
+ * 							M9		11/3/13 Thomas Mark
+ * 									Added lowest score knowledge.
  * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 
@@ -40,6 +42,7 @@ public class Player {
 	private Mule mule;
 	private int money;
 	private int gameScore;
+	private boolean lowestScore;
 	private final String difficulty;
 	private final ArrayList<Tile> ownedTiles;
 	private double time;
@@ -58,6 +61,7 @@ public class Player {
 		name = pName;
 		race = pRace;
 		color = pColor;
+		this.lowestScore = false;
 
 		difficulty = "Beginner"; // variable defined if it needs to be changed
 									// to allow for Standard/Tournament
@@ -273,5 +277,25 @@ public class Player {
 	 */
 	public void removeMule() {
 		mule = null;
+	}
+	
+	/**
+	 * #M9
+	 * Method to determine if this player has the lowest score out of any player.
+	 * 
+	 * @return lowestScore
+	 */
+	public boolean hasLowestScore() {
+		return lowestScore;
+	}
+	
+	/**
+	 * #M9
+	 * Method to set player lowestScore boolean value.
+	 *  
+	 * @param lowScore
+	 */
+	public void setlowestScore(boolean lowScore) {
+		this.lowestScore = lowScore;
 	}
 }

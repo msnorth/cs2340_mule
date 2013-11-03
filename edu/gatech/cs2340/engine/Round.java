@@ -23,6 +23,8 @@ import edu.gatech.cs2340.ui.StatusBar;
  * 									Removed WaitedOn interface. Runs synchronously.
  * 							M7		10/29/13 Thomas Mark
  * 									Round now calculates player order at the beginning of run.
+ * 							M9		11/3/13 Thomas Mark
+ * 									Added random event backend implementation.
  * 
  * 		Purpose: Execute a single round of the game
  */
@@ -30,6 +32,7 @@ public class Round {
 	private static int roundNumber;
 	private final PlayerManager playerManager;
 	private final Map map;
+	private String message;
 	
 	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
 		roundNumber = roundNum;
@@ -63,14 +66,21 @@ public class Round {
 		DebugPrinter.println("Running round " + roundNumber +" synchronously");
 		int numPlayers = playerManager.getTotalPlayers();
 		playerManager.calculatePlayerOrder();
-		StatusBar statBar = new StatusBar(playerManager.getPlayers());
+		Player[] players = playerManager.getPlayers();
+				
+		StatusBar statBar = new StatusBar(players);
 		MainGameWindow.getInstance().setLowerPanel(statBar);
-		// TODO: random events
+		
+		// Random event simulator with returned message for the beginning of the round
+		for (int i=0; i<numPlayers; i++) {
+			this.message = playerManager.randomEventSimulator(players[i]);
+			//TODO: Implement message in GUI for random events
+		}
 		
 		// Land Grant/Purchase phases
 			if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
 				for (int i=0; i < numPlayers; i++) {
-					Player currentPlayer = playerManager.getNextPlayer();
+					Player currentPlayer = playerManager.getNextPlayer();					
 					LandGranter granter = new LandGranter(currentPlayer, map);
 					granter.runSynchronous();
 				}
