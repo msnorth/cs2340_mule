@@ -15,7 +15,7 @@ package edu.gatech.cs2340.data;
  */
 public class ResourceAmount {
 	public static enum ResourceType {
-		SMITHORE, FOOD, ENERGY, CRYSTITE, MULE
+		SMITHORE, FOOD, ENERGY, CRYSTITE
 	}
 	
 	private int[] amounts;

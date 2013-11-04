@@ -22,13 +22,15 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.data.StoreImageLoader;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *@author Shreyyas Vanarase
  * 		Function group:		Model:  UI
  * 		Created for:		M8		10/25/13
  * 		Assigned to:		Shreyyas Vanarase
- * 		Modifications:		
+ * 		Modifications:		M8      11/4/13
+ * 							Shreyyas Vanarase
  * 
  * 		Purpose: Generates the store menu for the player to interact with the store.
  */
@@ -271,7 +273,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		playerMule = new JLabel("Mule:  "+player.hazMule() +" , " +player.getMule());
+		playerMule = new JLabel("Mule: 0");
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
 		storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
@@ -286,7 +288,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		storeCrystite = new JLabel("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
 		storeCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		storeMule = new JLabel("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
+		storeMule = new JLabel("Mule:  "+Store.getStore().getMuleAmount());
 		storeMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -393,9 +395,6 @@ public class StoreMenu extends JPanel implements WaitedOn{
 							.addComponent(buyCrystite, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(410)
-							.addComponent(playerMule, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(410)
 							.addComponent(moneyLabel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(410)
@@ -406,7 +405,10 @@ public class StoreMenu extends JPanel implements WaitedOn{
 						.addComponent(mainSeperator, GroupLayout.PREFERRED_SIZE, 581, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(410)
-							.addComponent(storeEnergy, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))))
+							.addComponent(storeEnergy, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(410)
+							.addComponent(playerMule, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(277)
 					.addComponent(exitButton)
@@ -475,29 +477,11 @@ public class StoreMenu extends JPanel implements WaitedOn{
 							.addGap(20)
 							.addComponent(sellStatsSeperator, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addComponent(statisticsLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addGap(21)
-							.addComponent(playerMoney)
-							.addGap(23)
-							.addComponent(playerResources)
-							.addGap(11)
-							.addComponent(playerEnergy, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addGap(1)
-							.addComponent(playerFood, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addGap(115)
-							.addComponent(storeSmithore, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addGap(3)
-							.addComponent(storeCrystite, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(39)
 							.addComponent(buyEnergy))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(20)
 							.addComponent(buySellSeperator, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(134)
-							.addComponent(playerSmithore, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
 						.addComponent(buyTitle, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(107)
@@ -509,29 +493,51 @@ public class StoreMenu extends JPanel implements WaitedOn{
 							.addGap(73)
 							.addComponent(buySmithore))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(227)
-							.addComponent(storeFood, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(141)
 							.addComponent(buyCrystite))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(168)
-							.addComponent(playerMule, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(56)
-							.addComponent(moneyLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(151)
-							.addComponent(playerCrystite, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(193)
-							.addComponent(storeResources))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(20)
-							.addComponent(mainSeperator, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(212)
-							.addComponent(storeEnergy, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(4)
+									.addComponent(statisticsLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+									.addGap(21)
+									.addComponent(playerMoney)
+									.addGap(23)
+									.addComponent(playerResources)
+									.addGap(11)
+									.addComponent(playerEnergy, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+									.addGap(1)
+									.addComponent(playerFood, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(134)
+									.addComponent(playerSmithore, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(56)
+									.addComponent(moneyLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(151)
+									.addComponent(playerCrystite, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(20)
+									.addComponent(mainSeperator, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE)))
+							.addGap(3)
+							.addComponent(playerMule, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(63)
+									.addComponent(storeSmithore, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+									.addGap(3)
+									.addComponent(storeCrystite, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(45)
+									.addComponent(storeFood, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(11)
+									.addComponent(storeResources))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(30)
+									.addComponent(storeEnergy, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))))
 					.addGap(3)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -545,54 +551,29 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.ENERGY)) {
-				buyEnergy.setEnabled(false);
-			}
-			else {
-				Store.getStore().sellResources(ResourceType.ENERGY, amount);
-				buyEnergy.setEnabled(true);
-			}
+			Store.getStore().sellResources(ResourceType.ENERGY, amount);
 			refreshMenu();
 		}
 	}
 	
 	private class BuySmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.SMITHORE)) {
-				buySmithore.setEnabled(false);
-				System.out.println(player.getMoney());
-			}
-			else {
-				Store.getStore().sellResources(ResourceType.SMITHORE, amount);
-				buySmithore.setEnabled(true);
-				System.out.println(player.getMoney());
-			}
+			Store.getStore().sellResources(ResourceType.SMITHORE, amount);
 			refreshMenu();
 		}
 	}
 	
 	private class BuyCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.CRYSTITE)) {
-				buyCrystite.setEnabled(false);
-			}
-			else {
-				Store.getStore().sellResources(ResourceType.CRYSTITE, amount);
-				buyCrystite.setEnabled(true);
-			}
+			Store.getStore().sellResources(ResourceType.CRYSTITE, amount);
 			refreshMenu();
 		}
 	}
 	
 	private class BuyFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(player.getMoney() < Store.getStore().getResourcePrice(ResourceType.FOOD)) {
-				buyFood.setEnabled(false);
-			}
-			else {
-				Store.getStore().sellResources(ResourceType.FOOD, amount);
-				buyFood.setEnabled(true);
-			}
+			Store.getStore().sellResources(ResourceType.FOOD, amount);
+			buyFood.setEnabled(true);
 			refreshMenu();
 		}
 	}
@@ -627,46 +608,21 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyEnergyMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(player.hazMule() || (player.getMoney() < 
-					Store.getStore().getMulePrice(ResourceType.ENERGY))) {
-				buyEnergyMule.setEnabled(false);
-			}
-			else {
-				Store.getStore().sellMule(ResourceType.ENERGY);
-				buyEnergyMule.setEnabled(true);
-			}
+			Store.getStore().sellMule(ResourceType.ENERGY);
 			refreshMenu();
 		}
 	}
 	
 	private class BuySmithoreMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(player.hazMule() || (player.getMoney() < 
-					Store.getStore().getMulePrice(ResourceType.SMITHORE))) {
-				buySmithoreMule.setEnabled(false);
-			}
-			else {
-				Store.getStore().sellMule(ResourceType.SMITHORE);
-				buySmithoreMule.setEnabled(true);
-			}
+			Store.getStore().sellMule(ResourceType.SMITHORE);
 			refreshMenu();
 		}
 	}
 	
 	private class BuyFoodMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(player.hazMule());
-			if(player.hazMule() || (player.getMoney() < 
-					Store.getStore().getMulePrice(ResourceType.FOOD))) {
-				buyFoodMule.setEnabled(false);
-				System.out.println("You can't buy because u already have a mule.");
-			}
-			else {
-				Store.getStore().sellMule(ResourceType.FOOD);
-				buyFoodMule.setEnabled(true);
-				System.out.println("Player doesn't have a mule. But he just bought it.");
-				System.out.println(player.hazMule());
-			}
+			Store.getStore().sellMule(ResourceType.FOOD);
 			refreshMenu();
 		}
 	}
@@ -691,22 +647,48 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		playerFood.setText("Food: "+player.getResourceAmount(ResourceType.FOOD));
 		playerSmithore.setText("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
 		playerCrystite.setText("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
-		playerMule.setText("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
+		if(player.hazMule()) {
+			playerMule.setText("Mule: 1 , " +player.getMule().toString());
+		}
 		storeEnergy.setText("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
 		storeFood.setText("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));		
 		storeSmithore.setText("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
 		storeCrystite.setText("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
-		storeMule.setText("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
+		storeMule.setText("Mule:  "+Store.getStore().getMuleAmount());
+		
+		resourceButtonDisable(ResourceType.ENERGY, buyEnergy);
+		resourceButtonDisable(ResourceType.FOOD, buyFood);
+		resourceButtonDisable(ResourceType.SMITHORE, buySmithore);
+		resourceButtonDisable(ResourceType.CRYSTITE, buyCrystite);
+		
+		muleButtonDisable(ResourceType.ENERGY, buyEnergyMule);
+		muleButtonDisable(ResourceType.FOOD, buyFoodMule);
+		muleButtonDisable(ResourceType.SMITHORE, buySmithoreMule);
 	}
 	/**
 	 * Disables button if player doesn't have enough money for the transaction.
 	 * @param type
 	 * @param button
 	 */
-	public void buttonDisable(ResourceType type, JButton button)
+	public void resourceButtonDisable(ResourceType type, JButton button)
 	{
 		if(player.getMoney() < Store.getStore().getResourcePrice(type)) {
 			button.setEnabled(false);
 		}
+		else button.setEnabled(true);
+	}
+	/**
+	 * Disables button if the player has a mule or if the player doesn't have enough
+	 * money for the transaction.
+	 * @param type
+	 * @param button
+	 */
+	public void muleButtonDisable(ResourceType type, JButton button)
+	{
+		if(player.hazMule() || 
+				player.getMoney() < Store.getStore().getResourcePrice(type)) {
+			button.setEnabled(false);
+		}
+		else button.setEnabled(true);
 	}
 }

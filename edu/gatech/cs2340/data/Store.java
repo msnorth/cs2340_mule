@@ -47,11 +47,12 @@ public class Store {
 	private static final int SMITHORE_MULE = 150;
 	private static final int CRYSTITE_MULE = 200;
 	
-	private final int FOOD     = 1000;
-	private final int ENERGY   = 1000;
-	private final int SMITHORE = 1000;
-	private final int CRYSTITE = 1000;
-	private final int MULE	   = 1; //Sets mule amount to 1
+	private final int FOOD    	  = 150;
+	private final int ENERGY      = 150;
+	private final int SMITHORE    = 150;
+	private final int CRYSTITE    = 150;
+	
+	private static int numberOfMules = Store.getStore().createMules();
 	
 	private Player player;
 	private String message;
@@ -129,7 +130,7 @@ public class Store {
 			message = "You already have a mule.";
 			return false;
 		}
-		if (storeResources.getAmount(ResourceType.MULE) == 0) {
+		if (numberOfMules == 0) {
 			message = "There are no mules available to purchase.";
 			return false;
 		}
@@ -137,11 +138,10 @@ public class Store {
 			message = "You do not have enough money!";
 			return false;
 		}
-		storeResources.remove(ResourceType.MULE, 1);
-		//storeResources.remove(type, 1);
+		--numberOfMules;
 		player.deductMoney(cost);
 		player.addMule(new Mule(type));
-		//player.addResources(type, 1);
+		numberOfMules = createMules();
 		return true;
 	}
 	
@@ -154,16 +154,24 @@ public class Store {
 	}
 	
 	/**
+	 * Get the number of mules
+	 * @return
+	 */
+	public int getMuleAmount() {
+		return numberOfMules;
+	}
+	/**
 	 * Method used at end of round to create mules from stores supply of smithore.
 	 */
-	public void createMules() {
+	public int createMules() {
 		int smithoreAmount = storeResources.getAmount(ResourceType.SMITHORE);
 		
 		if (smithoreAmount > 1) {
 			int muleNumber = smithoreAmount/2;
 			storeResources.remove(ResourceType.SMITHORE, muleNumber*2);
-			storeResources.add(ResourceType.MULE, muleNumber);
+			numberOfMules = muleNumber;
 		}
+		return numberOfMules;
 	}
 	
 	/**

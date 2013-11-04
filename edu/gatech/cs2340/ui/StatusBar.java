@@ -157,9 +157,10 @@ public class StatusBar extends JPanel {
 				11));
 		labelPanel.add(playerCrystite);
 
-		JLabel playerMule = new JLabel("Mule:  "
-				+ player.getResourceAmount(ResourceType.MULE) + " , "
-				+ player.getMule());
+		JLabel playerMule = new JLabel("Mule: 0");
+		if(player.hazMule()) {
+			playerMule.setText("Mule: 1 , " +player.getMule().toString());
+		}
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerMule);
 

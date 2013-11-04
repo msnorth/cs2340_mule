@@ -32,9 +32,12 @@ public class Mule {
 	public ResourceType getType() {
 		return type;
 	}
-	
+	/**
+	 * #M8
+	 * toString method overridden to get the name of the type
+	 */
 	public String toString() {
-		return (type.name() + "");
-		
+		return (this.type.name() + "");
 	}
+	
 }
