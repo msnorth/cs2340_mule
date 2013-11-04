@@ -11,6 +11,7 @@ import edu.gatech.cs2340.data.SpriteImageLoader;
 import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.io.InputReceiver;
 import edu.gatech.cs2340.io.KeyboardAdapter;
+import edu.gatech.cs2340.test.DebugPrinter;
 
 public class SuperSprite {
 	private int x;
@@ -31,6 +32,8 @@ public class SuperSprite {
 		w = icon.getIconWidth();
 		h = icon.getIconHeight();
 		image = icon.getImage();
+		x = 4250;
+		y = 3500;
 		location = 2;
 	}
 	
@@ -59,16 +62,22 @@ public class SuperSprite {
 			if (tile.getOwner() == player && !tile.hasMule()) {
 				tile.setMule(player.getMule());
 				player.removeMule();
-				System.out.println("MULE placement success.");
+				DebugPrinter.println("MULE placement success.");
 			}
 			else {
-				System.out.println("MULE placement failed.");
+				DebugPrinter.println("MULE placement failed.");
 			}
 		}
 		
 		x += dx;
 		y += dy;
 		
+		correctSpritePosition();
+		location = calculateLocation();
+	}
+	
+	private void correctSpritePosition() {
+		//bind to map
 		if (x < 0) {
 			x = 0;
 		}
@@ -81,6 +90,33 @@ public class SuperSprite {
 		else if (y > 5000) {
 			y = 5000;
 		}
+		
+		//if entering town
+		if (location == 2 && calculateLocation() != 2) {
+			if (y > 2000 + speed || y < 3000 + speed) {
+				x = 4500;
+			}
+			else {
+				y = 2500;
+			}
+		}
+	}
+	
+	private int calculateLocation() {
+		int result;
+		if (x > 4000 && x < 4300 && y > 2700 && y < 3000 ) {
+			result = -1; // pub
+		}
+		else if (x > 4700 && x < 5000 && y > 2700 && y < 3000) {
+			result = 0; // store
+		}
+		else if (x > 4000 && x < 5000 && y > 2000 && y < 3000) {
+			result = 1; // town
+		}
+		else {
+			result = 2; // map
+		}
+		return result;
 	}
 	
 	public void setPosition(int x, int y) {
@@ -105,6 +141,16 @@ public class SuperSprite {
 	}
 	
 	public Point getScreenCoords() {
+		Point result;
+		if (location != 2) {
+			speed = 10;
+			result = new Point((int)((x-4000)*(375.0/1000.0)+75+w/2), (int)(((y-2000)*(375.0/1000.0)-h/2)));
+		}
+		else {
+			speed = 50;
+			result = new Point((int)(x*(75.0/1000.0)+w/2), (int)(y*(75.0/1000.0)-h/2));
+		}
+		/*
 		Point result = new Point((int)((x-4000)*(375.0/1000.0)), (int)(((y-2000)*(375.0/1000.0))));
 		if (x > 4200 && x < 4500 && y > 2650 && y < 3000 ) {
 			location = -1; // pub
@@ -123,6 +169,7 @@ public class SuperSprite {
 			speed = 50;
 			location = 2; // map
 		}
+		*/
 		return result;
 	}
 }

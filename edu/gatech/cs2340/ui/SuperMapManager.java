@@ -35,7 +35,6 @@ public class SuperMapManager implements WaitedOn, Runnable{
 		
 		
 		SuperSprite sprite = new SuperSprite(player, map);
-		sprite.setPosition(4500, 3500);
 		MapRenderer mapRenderer = new MapRenderer(map);
 		TownRendererUpdated.initialize();
 		TownRendererUpdated townRenderer = new TownRendererUpdated();
