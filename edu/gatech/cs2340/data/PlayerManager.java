@@ -27,7 +27,7 @@ import edu.gatech.cs2340.engine.Round;
 public class PlayerManager implements PlayerManagerResponsibilities{
 	private final Player[] players;
 	private int nextPlayer;
-	private Random rand;
+	private final Random rand = new Random();
 	private static final int[] RANDOMEVENTPRICEMODIFIER = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 
 	                                                       75, 100};
 	
