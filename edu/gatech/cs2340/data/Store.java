@@ -13,10 +13,13 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Selling mules of a specific type should also decrease
  * 									the amount of that type from the store and add that 
  * 									type to the player's resources. Added getResourceType Method.
- * 							M7		10/29/13 Thomas Mark
+ * 							M8		10/29/13 Thomas Mark
  * 									Modified Mule parameter type to actual ResourceType as opposed 
  * 									to String.
- * 									
+ * 							M8 		11/4/13  Shreyyas Vanarase
+ * 									Allowed proper selling of mules in the store. Removed mulePrices 
+ * 									since it was a ResourceAmount and Mules are not resources. Edited the getMulePrice
+ * 									method to get the mule price of a specific resource.	
  * 							
  * 		Allows the player to:
  * 				- buy resources
@@ -35,7 +38,6 @@ public class Store {
 	private static Store theStore;
 	private static ResourceAmount storeResources;
 	private static ResourceAmount storePrices;
-	private static ResourceAmount mulePrices;
 	
 	private static final int FOOD_PRICE = 30;
 	private static final int ENERGY_PRICE = 25;
@@ -64,7 +66,6 @@ public class Store {
 	protected Store() {
 		storeResources = new ResourceAmount(SMITHORE, FOOD, ENERGY, CRYSTITE);	
 		storePrices = new ResourceAmount(SMITHORE_PRICE, FOOD_PRICE, ENERGY_PRICE, CRYSTITE_PRICE);
-		mulePrices  = new ResourceAmount(SMITHORE_MULE, FOOD_MULE, ENERGY_MULE, CRYSTITE_MULE);
 	}
 	
 	/**
@@ -124,7 +125,15 @@ public class Store {
 	 * @return
 	 */
 	public boolean sellMule(ResourceType type) {
-		int cost = mulePrices.getAmount(type);
+		int cost = 0;
+		
+		if(type.name().equals("ENERGY")) {
+			cost = ENERGY_MULE;
+		}
+		else if(type.name().equals("FOOD")) {
+			cost = FOOD_MULE;
+		}
+		else cost = SMITHORE_MULE;
 		
 		if (player.hazMule()) {
 			message = "You already have a mule.";
@@ -215,6 +224,15 @@ public class Store {
 	 * @return int 
 	 */
 	public int getMulePrice(ResourceType resource) {
-		return mulePrices.getAmount(resource);
+		if(resource.name().equals("ENERGY")) {
+			return ENERGY_MULE;
+		}
+		else if(resource.name().equals("FOOD")) {
+			return FOOD_MULE;
+		}
+		else if(resource.name().equals("CRYSTITE")) {
+			return CRYSTITE_MULE;
+		}
+		else return SMITHORE_MULE;
 	}
 }

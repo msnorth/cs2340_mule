@@ -31,6 +31,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  * 		Assigned to:		Shreyyas Vanarase
  * 		Modifications:		M8      11/4/13
  * 							Shreyyas Vanarase
+ * 							Updated the menu for button disabling functionality and for proper mule selection. 
  * 
  * 		Purpose: Generates the store menu for the player to interact with the store.
  */
@@ -70,6 +71,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	public StoreMenu(Player player) {
 		this.player = player;
 		initialize();
+		refreshMenu();
 	}
 
 	/**
@@ -273,7 +275,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		playerMule = new JLabel("Mule: 0");
+		playerMule = new JLabel("Mule: "+player.hazMule());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
 		storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));

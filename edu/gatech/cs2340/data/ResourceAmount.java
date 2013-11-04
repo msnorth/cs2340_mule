@@ -9,7 +9,9 @@ package edu.gatech.cs2340.data;
  * 		Modifications:		M8		10/25/13	Thomas Mark
  * 									Added ability to add and remove specific resource amounts.	
  * 							M8      10/28/13    Shreyyas Vanarase
- * 									Added constructor to add initial amounts to the resources.					
+ * 									Added constructor to add initial amounts to the resources.	
+ * 							M8      11/4/13     Shreyyas Vanarase
+ * 									Removed MULE from the ResourceTypes. 				
  * 
  * 		Purpose: Encapsulate a count of the game's four resource types.	 
  */
