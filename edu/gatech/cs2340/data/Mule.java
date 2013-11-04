@@ -32,4 +32,9 @@ public class Mule {
 	public ResourceType getType() {
 		return type;
 	}
+	
+	public String toString() {
+		return (type.name() + "");
+		
+	}
 }

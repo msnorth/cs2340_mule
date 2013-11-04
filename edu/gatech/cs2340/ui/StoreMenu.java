@@ -271,7 +271,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		playerMule = new JLabel("Mule:  "+player.getResourceAmount(ResourceType.MULE) +" , " +player.getMule());
+		playerMule = new JLabel("Mule:  "+player.hazMule() +" , " +player.getMule());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
 		storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
@@ -655,13 +655,17 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private class BuyFoodMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			System.out.println(player.hazMule());
 			if(player.hazMule() || (player.getMoney() < 
 					Store.getStore().getMulePrice(ResourceType.FOOD))) {
 				buyFoodMule.setEnabled(false);
+				System.out.println("You can't buy because u already have a mule.");
 			}
 			else {
 				Store.getStore().sellMule(ResourceType.FOOD);
 				buyFoodMule.setEnabled(true);
+				System.out.println("Player doesn't have a mule. But he just bought it.");
+				System.out.println(player.hazMule());
 			}
 			refreshMenu();
 		}
@@ -693,5 +697,16 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		storeSmithore.setText("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));
 		storeCrystite.setText("Crystite: "+Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
 		storeMule.setText("Mule:  "+Store.getStore().getResourceAmount(ResourceType.MULE));
+	}
+	/**
+	 * Disables button if player doesn't have enough money for the transaction.
+	 * @param type
+	 * @param button
+	 */
+	public void buttonDisable(ResourceType type, JButton button)
+	{
+		if(player.getMoney() < Store.getStore().getResourcePrice(type)) {
+			button.setEnabled(false);
+		}
 	}
 }

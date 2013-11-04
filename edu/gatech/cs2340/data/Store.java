@@ -43,14 +43,15 @@ public class Store {
 	private static final int CRYSTITE_PRICE = 100;
 	
 	private static final int FOOD_MULE = 130;
-	private static final int ENERGY_MULE = 150;
-	private static final int SMITHORE_MULE = 175;
+	private static final int ENERGY_MULE = 125;
+	private static final int SMITHORE_MULE = 150;
 	private static final int CRYSTITE_MULE = 200;
 	
 	private final int FOOD     = 1000;
 	private final int ENERGY   = 1000;
 	private final int SMITHORE = 1000;
 	private final int CRYSTITE = 1000;
+	private final int MULE	   = 1;
 	
 	private Player player;
 	private String message;
@@ -72,7 +73,6 @@ public class Store {
 	public static Store getStore() {
 		if (theStore == null) {
 			theStore = new Store();
-		//	theStore.addStartingResources(storeResources);
 		}
 		return theStore;
 	}
@@ -138,10 +138,10 @@ public class Store {
 			return false;
 		}
 		storeResources.remove(ResourceType.MULE, 1);
-		storeResources.remove(type, 1);
+		//storeResources.remove(type, 1);
 		player.deductMoney(cost);
 		player.addMule(new Mule(type));
-		player.addResources(type, 1);
+		//player.addResources(type, 1);
 		return true;
 	}
 	
