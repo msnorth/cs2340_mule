@@ -29,8 +29,8 @@ import edu.gatech.cs2340.ui.SuperMapManager;
  * 		Purpose: Execute a single player's turn
  */
 public class Turn {
-	private Player player;
-	private Map map;
+	private final Player player;
+	private final Map map;
 	
 	/**
 	 * #M6
