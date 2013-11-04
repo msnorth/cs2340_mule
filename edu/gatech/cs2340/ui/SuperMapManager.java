@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 
@@ -33,8 +34,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 	public void run() {
 		
 		
-		SuperSprite sprite = new SuperSprite(player);
-		sprite.setPosition(4500, 3500);
+		SuperSprite sprite = new SuperSprite(player, map);
 		MapRenderer mapRenderer = new MapRenderer(map);
 		TownRendererUpdated.initialize();
 		TownRendererUpdated townRenderer = new TownRendererUpdated();

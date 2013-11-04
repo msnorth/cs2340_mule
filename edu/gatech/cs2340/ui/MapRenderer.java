@@ -119,7 +119,7 @@ public class MapRenderer extends JPanel{
 				tileLabels.put(ndx, label); // store these so we can access the labels later
 				tileLabel = label;
 			}
-			if (curTile.dirty){
+			if (curTile.isDirty()){
 				// repaint the tile and its price
 				//	tileLabel.invalidate();
 				tileLabel.repaint();

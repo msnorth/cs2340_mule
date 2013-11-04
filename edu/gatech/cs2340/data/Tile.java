@@ -20,21 +20,27 @@ import edu.gatech.cs2340.ui.MapRenderer;
  *         game's map.
  */
 public abstract class Tile {
-	// Tile and TileRenderer are paired as Model and View of the Tile concept
-	private Player owner;
-	private String id;
-	private boolean isActive;
-	public boolean dirty;
-	private String name;
+	//Static
+	public static Logger logger;
+	
 	protected static ImageIcon hillImage;
 	protected static ImageIcon mountainImage;
 	protected static ImageIcon peakImage;
 	protected static ImageIcon plainImage;
 	protected static ImageIcon riverImage;
 	protected static ImageIcon townImage;
-	protected ImageIcon image; // image for the current instance of Tile
-	static Logger logger;
+	
+	
+	//Instance
+	private Player owner;
+	private String id;
+	private boolean isActive;
+	private String name;
 	private int price;
+	private Mule mule;
+	
+	protected ImageIcon image; // image for the current instance of Tile
+	protected boolean dirty;
 
 	/**
 	 * Create a tile of type name
@@ -82,6 +88,10 @@ public abstract class Tile {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public boolean isDirty() {
+		return dirty;
+	}
 
 	// returns true if equal, false otherwise
 	public boolean compareTo(Tile t) {
@@ -100,6 +110,22 @@ public abstract class Tile {
 
 	public String getName() {
 		return name;
+	}
+	
+	public Mule getMule() {
+		return mule;
+	}
+	
+	public void setMule(Mule mule) {
+		if (mule != null) {
+			throw new RuntimeException("Cannot place mule where there already is one.");
+		}
+		this.mule = mule;
+		dirty = true;
+	}
+	
+	public boolean hasMule() {
+		return (mule != null);
 	}
 	
 	public static void initialize(){
