@@ -39,7 +39,7 @@ public class TileImageFactory {
 		int thickness = 1;
 		Border border = null;
 		numUses++;
-		if (tile.dirty && numUses > 45){
+		if (tile.isDirty() && numUses > 45){
 			thickness = 1;
 		}
 		if (tile.isActive() && p == null) {
