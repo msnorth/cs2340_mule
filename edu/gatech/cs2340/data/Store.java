@@ -51,7 +51,7 @@ public class Store {
 	private final int ENERGY   = 1000;
 	private final int SMITHORE = 1000;
 	private final int CRYSTITE = 1000;
-	private final int MULE	   = 1;
+	private final int MULE	   = 1; //Sets mule amount to 1
 	
 	private Player player;
 	private String message;
