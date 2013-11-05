@@ -56,12 +56,27 @@ public class SuperSprite {
 		
 		if (kba.isPressed(KeyboardAdapter.KEY_NAME.CONFIRM) && 
 				player.hazMule() && location == 2) { 
-			Tile tile = map.getTileAt(x/9000 - 1, y/5000 - 1);
-			System.out.println(tile);
-			//if the player tries to place the MULE on an empty tile they own, it succeeds
+			Tile tile = map.getTileAt(x/9000, y/5000);
+			//if the player tries to place the MULE on an empty tile they own, it succeeds			
+			if(tile == null) {
+				System.out.println("THIS TILE IS NULL"); 
+			}
+			else if (tile.getOwner()== null) {
+				System.out.println("THIS IS NO BUENO");
+			}
+			System.out.println(tile.getOwner().toString() +" should be : " +player);
+			System.out.println(tile.getOwner() == player);
+			System.out.println(!tile.hasMule() + " means that the Tile does not have a mule.");
 			if (tile.getOwner() == player && !tile.hasMule()) {
-				tile.setMule(player.getMule());
+				System.out.println("The player has a mule. This is the name of the player's mule. " +player.getMule().toString());
+				System.out.println("This is mule amount: " +player.getMuleAmount());
+				
+				tile.setMule(player.getMule()); 
+				System.out.println("Player should still have a mule atm: " + player.getMule().toString());
+				
 				player.removeMule();
+				System.out.println("Player should not have a mule atm: " +player.getMule().toString());
+				
 				DebugPrinter.println("MULE placement success.");
 			}
 			else {
