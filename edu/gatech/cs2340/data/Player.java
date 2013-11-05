@@ -26,10 +26,12 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Added initial beginner resources, mule holding
  * 							M9      10/27/13 Shreyyas Vanarase
  * 									Updated remove method and the beginning resources
- * 							M7		10/29/13 Thomas Mark
+ * 							M9		10/29/13 Thomas Mark
  * 									Player now calculates their score.
  * 							M9		11/3/13 Thomas Mark
  * 									Added lowest score knowledge.
+ * 							M9      11/4/13 Shreyyas Vanarase
+ * 									Added method to get the player's mule amount.
  * 							
  * 		Purpose: Holds information for a player in the game.
  * 				 
@@ -279,6 +281,17 @@ public class Player {
 		mule = null;
 	}
 	
+	/**
+	 * #M9
+	 * Method to get the player's mule amount.
+	 * @return player's mule amount
+	 */
+	public int getMuleAmount() {
+		if(hazMule()) {
+			return 1;
+		}
+		return 0;
+	}
 	/**
 	 * #M9
 	 * Method to determine if this player has the lowest score out of any player.

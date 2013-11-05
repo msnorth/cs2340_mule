@@ -275,7 +275,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		playerCrystite = new JLabel("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
-		playerMule = new JLabel("Mule: "+player.hazMule());
+		playerMule = new JLabel("Mule: "+player.getMuleAmount());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		
 		storeEnergy = new JLabel("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
@@ -634,15 +634,22 @@ public class StoreMenu extends JPanel implements WaitedOn{
 			exitKilla = true;
 		}
 	}
-
+	/**
+	 * Allows you to exit the store when the Exit Store button is pressed.
+	 */
 	public boolean isFinished() {
 		return exitKilla;
 	}	
-	
+	/**
+	 * Resets the exitKilla to allow you to reenter the storemenu.
+	 * @return
+	 */
 	public boolean reset() {
 		return (exitKilla = false);
 	}
-	
+	/**
+	 * Refreshes the store menu. 
+	 */
 	public void refreshMenu() {
 		moneyLabel.setText(player.getMoney()+"");
 		playerEnergy.setText("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
@@ -650,7 +657,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		playerSmithore.setText("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
 		playerCrystite.setText("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
 		if(player.hazMule()) {
-			playerMule.setText("Mule: 1 , " +player.getMule().toString());
+			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
 		}
 		storeEnergy.setText("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
 		storeFood.setText("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));		
