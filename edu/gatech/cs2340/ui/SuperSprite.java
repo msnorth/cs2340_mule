@@ -64,9 +64,10 @@ public class SuperSprite {
 			else if (tile.getOwner()== null) {
 				System.out.println("THIS IS NO BUENO");
 			}
-			System.out.println(tile.getOwner().toString() +" should be : " +player);
-			System.out.println(tile.getOwner() == player);
-			System.out.println(!tile.hasMule() + " means that the Tile does not have a mule.");
+			//System.out.println(tile.getOwner().toString() +" should be : " +player);
+			//System.out.println(tile.getOwner() == player); Checks if the tile owner is the player.
+			System.out.println("Tile has mule? : " + tile.hasMule());
+			System.out.println("True means that the Tile does have a mule. False means that the Tile does not have a mule.");
 			if (tile.getOwner() == player && !tile.hasMule()) {
 				System.out.println("The player has a mule. This is the name of the player's mule. " +player.getMule().toString());
 				System.out.println("This is mule amount: " +player.getMuleAmount());
@@ -75,8 +76,7 @@ public class SuperSprite {
 				System.out.println("Player should still have a mule atm: " + player.getMule().toString());
 				
 				player.removeMule();
-				System.out.println("Player should not have a mule atm: " +player.getMule().toString());
-				
+				System.out.println("Player should not have a mule atm: " + player.getMuleAmount());
 				DebugPrinter.println("MULE placement success.");
 			}
 			else {
