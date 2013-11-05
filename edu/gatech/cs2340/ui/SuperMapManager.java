@@ -50,6 +50,7 @@ public class SuperMapManager implements WaitedOn, Runnable{
 			panel.setCurrentPanel(sprite.getLocation());
 			if (sprite.getLocation() == 0) {
 				storeMenu.repaint();
+				storeMenu.refreshMenu();
 				Waiter.waitOn(storeMenu);
 				storeMenu.reset();
 				panel.repaint();

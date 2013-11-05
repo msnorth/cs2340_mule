@@ -279,6 +279,7 @@ public class Player {
 	 */
 	public void removeMule() {
 		mule = null;
+		
 	}
 	
 	/**
@@ -287,10 +288,11 @@ public class Player {
 	 * @return player's mule amount
 	 */
 	public int getMuleAmount() {
-		if(hazMule()) {
-			return 1;
+		int result = 0;
+		if (mule != null) {
+			result = 1;
 		}
-		return 0;
+		return result;
 	}
 	/**
 	 * #M9

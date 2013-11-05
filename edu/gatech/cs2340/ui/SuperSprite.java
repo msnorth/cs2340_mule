@@ -56,16 +56,16 @@ public class SuperSprite {
 		
 		if (kba.isPressed(KeyboardAdapter.KEY_NAME.CONFIRM) && 
 				player.hazMule() && location == 2) { 
-			Tile tile = map.getTileAt(x/9000 - 1, y/5000 - 1);
-			System.out.println(tile);
+			int r = y/1000; 
+			int c = x/1000;
+			Tile tile = map.getTileAt(r, c);
 			//if the player tries to place the MULE on an empty tile they own, it succeeds
 			if (tile.getOwner() == player && !tile.hasMule()) {
 				tile.setMule(player.getMule());
 				player.removeMule();
-				DebugPrinter.println("MULE placement success.");
 			}
 			else {
-				DebugPrinter.println("MULE placement failed.");
+				player.removeMule();
 			}
 		}
 		
