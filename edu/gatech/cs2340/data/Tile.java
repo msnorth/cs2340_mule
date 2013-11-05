@@ -117,7 +117,7 @@ public abstract class Tile {
 	}
 	
 	public void setMule(Mule mule) {
-		if (mule != null) {
+		if (this.mule != null) {
 			throw new RuntimeException("Cannot place mule where there already is one.");
 		}
 		this.mule = mule;
@@ -165,4 +165,7 @@ public abstract class Tile {
 		return price;
 	}
 
+	public String toString() {
+		return ("This is the color of the owner: " +owner.getPlayerColor());
+	}
 }
