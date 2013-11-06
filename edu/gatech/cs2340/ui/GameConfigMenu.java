@@ -42,8 +42,6 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 	private int playerCount;
 	private boolean finished;
 	
-	private GUIManager manager;
-	
 	private JComboBox<Integer> numPlayers;
 	private JComboBox<String> gameLevel;
 	private JComboBox<String> mapTypes ;
@@ -54,7 +52,6 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 	 * @param manager GUIManager to handle callback from "Next" button
 	 */
 	public GameConfigMenu() {
-		this.manager = manager;
 		
 		SpringLayout layout = new SpringLayout();
 		

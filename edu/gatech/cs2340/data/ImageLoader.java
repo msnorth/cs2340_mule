@@ -7,7 +7,7 @@ public abstract class ImageLoader implements Runnable {
 	 * Method to load all resources
 	 */
 	public static void loadAllImages() {
-		ImageLoader[] loaders = {new SpriteImageLoader(), new StoreImageLoader()};
+		ImageLoader[] loaders = {new SpriteImageLoader(), new StoreImageLoader(), new TownImageLoader()};
 		
 		for (ImageLoader loader : loaders) {
 			loader.loadImages();

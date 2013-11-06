@@ -3,6 +3,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.gatech.cs2340.data.TownImageLoader;
+
 
 /**
  * 
@@ -15,16 +17,14 @@ import javax.swing.JPanel;
  */
 public class TownRenderer extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private static ImageIcon singleImage;
 
 	/**
 	 * Creates a new panel with the town image on it.
 	 */
 	public TownRenderer() {
-		if (singleImage == null) {
-			singleImage = new ImageIcon(TownRenderer.class.getResource("TownRender.png"));
-		}
-		add(new JLabel(singleImage));
+		TownImageLoader loader = new TownImageLoader();
+		ImageIcon image = loader.getImage();
+		add(new JLabel(image));
 		revalidate();
 	}
 }
