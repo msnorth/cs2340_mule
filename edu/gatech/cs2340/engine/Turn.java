@@ -9,7 +9,7 @@ import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.StatusBar;
-import edu.gatech.cs2340.ui.SuperMapManager;
+import edu.gatech.cs2340.ui.MapManager;
 
 
 /**
@@ -56,7 +56,7 @@ public class Turn {
 		//MapManager mapManager = new MapManager(player, map);
 		StatusBar statBar = MainGameWindow.getInstance().getLowerPanel();
 		statBar.setTimer(timer);
-		SuperMapManager mapManager = new SuperMapManager(player, map);
+		MapManager mapManager = new MapManager(player, map);
 		timer.start();
 		statBar.startTurn(player);
 		mapManager.runAsynchronous();

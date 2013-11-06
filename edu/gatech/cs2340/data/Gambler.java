@@ -3,7 +3,6 @@ package edu.gatech.cs2340.data;
 import java.util.Random;
 
 import edu.gatech.cs2340.engine.Round;
-import edu.gatech.cs2340.ui.TownSprite;
 
 /**
  * 

@@ -13,7 +13,7 @@ import edu.gatech.cs2340.io.InputReceiver;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.test.DebugPrinter;
 
-public class SuperSprite {	
+public class Sprite {	
 	private int x;
 	private int y;
 	private int w;
@@ -24,7 +24,7 @@ public class SuperSprite {
 	private Player player;
 	private Map map;
 	
-	public SuperSprite(Player player, Map map) {
+	public Sprite(Player player, Map map) {
 		this.player = player;
 		this.map = map;
 		SpriteImageLoader loader = new SpriteImageLoader();
