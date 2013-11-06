@@ -39,6 +39,7 @@ public class MapRenderer extends JPanel{
 	 * Whether or not prices should be displayed
 	 */
 	private boolean displayPrices = false;
+	private boolean displayMule   = true;
 
 	
 	/**
@@ -161,6 +162,18 @@ public class MapRenderer extends JPanel{
 	            	g.drawString("$" + tile.getPrice(), x*TILE_WIDTH + (int) TILE_WIDTH/4, y*TILE_HEIGHT + (int) TILE_HEIGHT*2/3);
         		}
             }
+        }
+        if (displayMule) {
+        	for (int i = 0; i < map.getNumTiles(); i++){
+            	Tile tile = map.getTileNumber(i);
+            	if(tile.hasMule()) {
+            		int x = getXCoord(i);
+                	int y = getYCoord(i);
+	    			g.setColor(Color.BLACK);
+	    			g.draw3DRect(x+(TILE_WIDTH/2), y+(TILE_HEIGHT/3), (int) TILE_WIDTH/8, 
+    					TILE_HEIGHT/8, true);
+            	}
+        	}
         }
         if (sprite != null) {
 	        Graphics2D g2d = (Graphics2D)g;
