@@ -84,7 +84,6 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	
 	private void initialize() {
 		Store.getStore().addPlayer(player);
-		
 		imageLoader = new StoreImageLoader();
 		
 		//Defines the panel and sets its bounds
@@ -548,7 +547,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 						.addComponent(storeMule, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
 		);
 		setLayout(groupLayout);
-		
+		refreshMenu();
 	}
 	
 	private class BuyEnergyListener implements ActionListener {
@@ -575,7 +574,6 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	private class BuyFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Store.getStore().sellResources(ResourceType.FOOD, amount);
-			buyFood.setEnabled(true);
 			refreshMenu();
 		}
 	}
@@ -632,6 +630,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	private class ExitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			exitKilla = true;
+			refreshMenu();
 		}
 	}
 	/**
@@ -645,6 +644,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 	 * @return
 	 */
 	public boolean reset() {
+		refreshMenu();
 		return (exitKilla = false);
 	}
 	/**
@@ -659,6 +659,7 @@ public class StoreMenu extends JPanel implements WaitedOn{
 		if(player.hazMule()) {
 			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
 		}
+		else playerMule.setText("Mule: " +player.getMuleAmount());
 		storeEnergy.setText("Energy: " +Store.getStore().getResourceAmount(ResourceType.ENERGY));
 		storeFood.setText("Food: "+Store.getStore().getResourceAmount(ResourceType.FOOD));		
 		storeSmithore.setText("Smithore: "+Store.getStore().getResourceAmount(ResourceType.SMITHORE));

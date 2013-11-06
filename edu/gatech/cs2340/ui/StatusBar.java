@@ -26,13 +26,18 @@ import edu.gatech.cs2340.sequencing.MULETimer;
  * 
  */
 public class StatusBar extends JPanel {
-
+	private static final long serialVersionUID = 1L;
 	private Player[] players;
 	private MULETimer timer;
 	Player currentPlayer;
 
-	private JProgressBar progressBar;
 	private SpriteImageLoader spriteImgLoader;
+	private JLabel playerMule;
+	private JLabel playerCrystite;
+	private JLabel playerSmithore;
+	private JLabel playerFood;
+	private JLabel playerEnergy;
+	private JLabel moneyLabel;
 
 	/**
 	 * Main constructor
@@ -40,8 +45,7 @@ public class StatusBar extends JPanel {
 	public StatusBar(Player[] players) {
 		this.players = players;
 		spriteImgLoader = new SpriteImageLoader();
-		Initialize();
-
+		initialize();
 	}
 
 	/*
@@ -55,6 +59,7 @@ public class StatusBar extends JPanel {
 	public void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		refresh();
+		refreshMenu(currentPlayer);
 	}
 
 	/*
@@ -78,7 +83,7 @@ public class StatusBar extends JPanel {
 		refresh();
 	}
 
-	private void Initialize() {
+	private void initialize() {
 
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		GridLayout grid = new GridLayout(1, players.length, 1, 0);
@@ -88,19 +93,16 @@ public class StatusBar extends JPanel {
 			JPanel playerPanel = drawPlayerPanel(player);
 			this.add(playerPanel);
 		}
-
 		
 		//Create a progress bar only if there is a timer
 		if (timer == null) {
 			JPanel fillerPanel = new JPanel();
 			this.add(fillerPanel);
-		}else{
+		} else {
 			JPanel progressBar = new ProgressBar(timer);
 			this.add(progressBar);
 		}
-
 		grid.layoutContainer(this);
-
 	}
 
 	/*
@@ -108,7 +110,7 @@ public class StatusBar extends JPanel {
 	 */
 	private void refresh() {
 		this.removeAll();
-		Initialize();
+		initialize();
 	}
 
 	/*
@@ -119,7 +121,7 @@ public class StatusBar extends JPanel {
 		JPanel playerPanel = new JPanel();
 		GridLayout grid = new GridLayout(1, 2, 0, 0);
 		playerPanel.setLayout(grid);
-		if (player.equals(currentPlayer)) {
+		if (player == currentPlayer) {
 			playerPanel.setBorder(BorderFactory.createLineBorder(
 					player.getPlayerColor(), 2));
 		} else {
@@ -130,37 +132,31 @@ public class StatusBar extends JPanel {
 		GridLayout labelGrid = new GridLayout(6, 1, 0, 0);
 		labelPanel.setLayout(labelGrid);
 
-		JLabel moneyLabel = new JLabel("Money" + " " + player.getMoney() + "");
+		moneyLabel = new JLabel("Money" + " " + player.getMoney() + "");
 		moneyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(moneyLabel);
 
-		JLabel playerEnergy = new JLabel("Energy: "
-				+ player.getResourceAmount(ResourceType.ENERGY));
-		playerEnergy
-				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerEnergy = new JLabel("Energy: "+ player.getResourceAmount(ResourceType.ENERGY));
+		playerEnergy.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerEnergy);
 
-		JLabel playerFood = new JLabel("Food: "
-				+ player.getResourceAmount(ResourceType.FOOD));
+		playerFood = new JLabel("Food: "+ player.getResourceAmount(ResourceType.FOOD));
 		playerFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerFood);
 
-		JLabel playerSmithore = new JLabel("Smithore: "
-				+ player.getResourceAmount(ResourceType.SMITHORE));
-		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
-				11));
+		playerSmithore = new JLabel("Smithore: "+ player.getResourceAmount(ResourceType.SMITHORE));
+		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerSmithore);
 
-		JLabel playerCrystite = new JLabel("Crystite: "
-				+ player.getResourceAmount(ResourceType.CRYSTITE));
-		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
-				11));
+		playerCrystite = new JLabel("Crystite: "+ player.getResourceAmount(ResourceType.CRYSTITE));
+		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerCrystite);
 
-		JLabel playerMule = new JLabel("Mule: " +player.getMuleAmount());
+		playerMule = new JLabel("Mule: " +player.getMuleAmount());
 		if(player.hazMule()) {
 			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
 		}
+		else playerMule.setText("Mule: " +player.getMuleAmount());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerMule);
 
@@ -171,9 +167,17 @@ public class StatusBar extends JPanel {
 		grid.layoutContainer(playerPanel);
 
 		return playerPanel;
-
 	}
-
-
-
+	
+	public void refreshMenu(Player player) {
+		moneyLabel.setText(player.getMoney()+"");
+		playerEnergy.setText("Energy: " +player.getResourceAmount(ResourceType.ENERGY));
+		playerFood.setText("Food: "+player.getResourceAmount(ResourceType.FOOD));
+		playerSmithore.setText("Smithore: "+player.getResourceAmount(ResourceType.SMITHORE));
+		playerCrystite.setText("Crystite: "+player.getResourceAmount(ResourceType.CRYSTITE));
+		if(player.hazMule()) {
+			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
+		}
+		else playerMule.setText("Mule: " +player.getMuleAmount());
+	}
 }
