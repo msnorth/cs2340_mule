@@ -114,7 +114,7 @@ public class MapRenderer extends JPanel{
 			if (!firstTime){
 				tileLabel.setIcon(label.getIcon());
 				tileLabel.setBorder(label.getBorder());
-				// TODO Set borders?
+				// TODO Set borders? TODONE
 			} else { // add the label for the first time
 				add(label, ndx);
 				tileLabels.put(ndx, label); // store these so we can access the labels later
@@ -132,6 +132,25 @@ public class MapRenderer extends JPanel{
 				repaint();
 			}
 		//}
+	}
+	
+	public void refreshAll() {
+		boolean repaintNeeded = false;
+		for (int i=0; i<map.getNumTiles(); i++) {
+			Tile tile = map.getTileNumber(i);
+			if (tile.isDirty()) {
+				repaintNeeded = true;
+				JLabel holderLabel = TileImageFactory.getTileLabelImage(tile);
+				JLabel tileLabel = tileLabels.get(i);
+				tileLabel.setIcon(holderLabel.getIcon());
+				tileLabel.setBorder(holderLabel.getBorder());
+				tile.cleaned();
+			}
+		}
+		
+		if (repaintNeeded) {
+			revalidate();
+		}
 	}
 
 	
@@ -163,18 +182,7 @@ public class MapRenderer extends JPanel{
         		}
             }
         }
-        if (displayMule) {
-        	for (int i = 0; i < map.getNumTiles(); i++){
-            	Tile tile = map.getTileNumber(i);
-            	if(tile.hasMule()) {
-            		int x = getXCoord(i);
-                	int y = getYCoord(i);
-	    			g.setColor(Color.BLACK);
-	    			g.draw3DRect(x+(TILE_WIDTH/2), y+(TILE_HEIGHT/3), (int) TILE_WIDTH/8, 
-    					TILE_HEIGHT/8, true);
-            	}
-        	}
-        }
+ 
         if (sprite != null) {
 	        Graphics2D g2d = (Graphics2D)g;
 	        g2d.drawImage(sprite.getImage(), sprite.getScreenX(), sprite.getScreenY(), this);

@@ -92,6 +92,10 @@ public abstract class Tile {
 	public boolean isDirty() {
 		return dirty;
 	}
+	
+	public void cleaned() {
+		dirty = false;
+	}
 
 	// returns true if equal, false otherwise
 	public boolean compareTo(Tile t) {
