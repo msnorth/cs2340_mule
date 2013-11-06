@@ -60,6 +60,9 @@ public class SuperMapManager implements WaitedOn, Runnable{
 			}
 			else {
 				sprite.update();
+				if (sprite.getLocation() == 2) {
+					mapRenderer.refreshAll();
+				}
 				panel.repaint();
 				try {
 					Thread.sleep(25);
