@@ -63,7 +63,7 @@ public class LandPurchaser
 		Tile tile = map.getRandomUnownedTile();
 		tile.setPrice(calculatePrice());
 		tile.setActive(true); 	
-		mapRenderer.refresh();
+		mapRenderer.refreshAll();
 		int price = tile.getPrice();
 		KeyboardAdapter adapter = KeyboardAdapter.getInstance();
 		KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
@@ -79,7 +79,7 @@ public class LandPurchaser
 			if (currentPlayer.deductMoney(price)) {
 				currentPlayer.addTile(tile);
 				tile.setOwner(currentPlayer);
-				mapRenderer.refresh();							//Reflects changes on map
+				mapRenderer.refreshAll();							//Reflects changes on map
 			}
 		}
 		
