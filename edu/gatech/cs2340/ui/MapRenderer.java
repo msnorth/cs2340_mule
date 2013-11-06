@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout; 
-import java.util.HashMap;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +30,6 @@ public class MapRenderer extends JPanel{
 	
 	private Map map;
 	private JLabel[] tileLabels;
-	private boolean initialized = false;
 	private boolean displayPrices = false;
 
 	
