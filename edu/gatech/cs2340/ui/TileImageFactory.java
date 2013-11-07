@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Tile;
+import edu.gatech.cs2340.data.TileImageLoader;
 
 /**
  * 
@@ -33,12 +34,10 @@ public class TileImageFactory {
 	 * @return Label to add to GridLayout
 	 */
 	public static JLabel getTileLabelImage(Tile tile){
-		ImageIcon icon;
+		TileImageLoader loader = new TileImageLoader();
+		ImageIcon icon = loader.getImage(tile);
 		if (tile.hasMule()) {
-			icon = drawDeployedMule(tile);
-		}
-		else {
-			icon = tile.getImageIcon();
+			icon = drawDeployedMule(tile, icon);
 		}
 
 		JLabel label = new JLabel(icon, JLabel.CENTER);
@@ -46,10 +45,7 @@ public class TileImageFactory {
 		Player p = tile.getOwner();
 		int thickness = 1;
 		Border border = null;
-		numUses++;
-		if (tile.isDirty() && numUses > 45){
-			thickness = 1;
-		}
+
 		if (tile.isActive() && p == null) {
 			// thick black border
 			thickness = 2;
@@ -74,10 +70,9 @@ public class TileImageFactory {
 		return label;
 	}
 	
-	private static ImageIcon drawDeployedMule(Tile tile) {
+	private static ImageIcon drawDeployedMule(Tile tile, ImageIcon icon) {
 		final int RECT_SIZE = 20;
 		ImageIcon result = null;
-		ImageIcon icon = tile.getImageIcon();
 		
 		//----------------------
 		//http://stackoverflow.com/questions/15053214/converting-an-imageicon-to-a-bufferedimage 

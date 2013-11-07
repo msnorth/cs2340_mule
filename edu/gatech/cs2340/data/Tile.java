@@ -23,14 +23,6 @@ public abstract class Tile {
 	//Static
 	public static Logger logger;
 	
-	protected static ImageIcon hillImage;
-	protected static ImageIcon mountainImage;
-	protected static ImageIcon peakImage;
-	protected static ImageIcon plainImage;
-	protected static ImageIcon riverImage;
-	protected static ImageIcon townImage;
-	
-	
 	//Instance
 	private Player owner;
 	private String id;
@@ -39,7 +31,6 @@ public abstract class Tile {
 	private int price;
 	private Mule mule;
 	
-	protected ImageIcon image; // image for the current instance of Tile
 	protected boolean dirty;
 
 	/**
@@ -131,25 +122,7 @@ public abstract class Tile {
 	public boolean hasMule() {
 		return (mule != null);
 	}
-	
-	public static void initialize(){
-		// for error logging
-		logger = Logger.getGlobal();
-		try {
-			hillImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png"));
-			mountainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png"));
-			peakImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png"));
-			riverImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png"));
-			plainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
-			townImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png"));
-		} catch (Exception e){
-			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
-		}
-	}
-	
-	public ImageIcon getImageIcon(){
-		return image;
-	}
+
 
 	/**
 	 * Set the price of the tile and draw a string with that price

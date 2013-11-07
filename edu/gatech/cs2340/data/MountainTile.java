@@ -7,7 +7,6 @@ public class MountainTile extends Tile{
 		super(name);
 		this.setOwner(owner);
 		this.setId(id);
-		image = mountainImage; // get static image from superclass
 	}
 
 	@Override

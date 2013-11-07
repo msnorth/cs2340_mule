@@ -7,7 +7,6 @@ public class HillTile extends Tile{
 		super(name);
 		this.setOwner(owner);
 		this.setId(id);
-		image = hillImage; // get static image from superclass
 	}
 
 	@Override

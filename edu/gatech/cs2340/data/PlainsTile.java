@@ -2,12 +2,11 @@ package edu.gatech.cs2340.data;
 
 
 public class PlainsTile extends Tile {
-	public static String name = "Plains";
+	public static String name = "Plain";
 	public PlainsTile(String id, Player owner) {
 		super(name);
 		this.setOwner(owner);
 		this.setId(id);
-		image = plainImage; // get static image from superclass
 	}
 
 	@Override

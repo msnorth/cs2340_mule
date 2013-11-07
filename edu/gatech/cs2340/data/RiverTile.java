@@ -7,7 +7,6 @@ public class RiverTile extends Tile{
 		super(name);
 		this.setOwner(owner);
 		this.setId(id);
-		image = riverImage; // get static image from superclass
 	}
 
 	@Override
