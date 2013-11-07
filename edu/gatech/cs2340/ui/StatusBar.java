@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
@@ -26,12 +25,12 @@ import edu.gatech.cs2340.sequencing.MULETimer;
  * 
  */
 public class StatusBar extends JPanel {
-
+	private static final long serialVersionUID = 1L;
+	
 	private Player[] players;
 	private MULETimer timer;
 	Player currentPlayer;
 
-	private JProgressBar progressBar;
 	private SpriteImageLoader spriteImgLoader;
 
 	/**

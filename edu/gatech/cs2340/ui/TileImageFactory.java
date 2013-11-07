@@ -41,35 +41,43 @@ public class TileImageFactory {
 		}
 
 		JLabel label = new JLabel(icon, JLabel.CENTER);
-		Color color;
-		Player p = tile.getOwner();
-		int thickness = 1;
-		Border border = null;
+		Color color = Color.BLACK;
+		Border border;
 
-		if (tile.isActive() && p == null) {
-			// thick black border
-			thickness = 2;
-			color = Color.black;
-			border = BorderFactory.createLineBorder(color, thickness);
-		} else if (!tile.isActive() && p == null) {
-			// thin black border
-			// TODO just for now, remove when have icons
-			color = Color.black;
-			border = BorderFactory.createLineBorder(color, thickness);
-		} else if (tile.isActive() && p != null) {
-			// dashed border
-			color = p.getPlayerColor();
-			border = BorderFactory.createDashedBorder(color);
-		} else if (!tile.isActive() && p != null) {
-			// solid border
-			thickness = 2;
-			color = p.getPlayerColor();
-			border = BorderFactory.createLineBorder(color, thickness);
+		//create the border
+		if (tile.isActive()) {
+			if (tile.isOwned()) {
+				Player owner = tile.getOwner();
+				color = owner.getPlayerColor();
+				border = BorderFactory.createDashedBorder(color);
+			}
+			else {
+				border = BorderFactory.createLineBorder(color, 2);
+			}
 		}
+		else {
+			if (tile.isOwned()) {
+				Player owner = tile.getOwner();
+				color = owner.getPlayerColor();
+				border = BorderFactory.createLineBorder(color, 2);	
+			}
+			else {
+				border = BorderFactory.createLineBorder(color, 1);
+			}	
+		}
+		
+		//add the border to the label and return
 		label.setBorder(border);
 		return label;
 	}
 	
+	/**
+	 * Method to draw a square to indicate MULE deployment on a tile
+	 * 
+	 * @param tile
+	 * @param icon
+	 * @return
+	 */
 	private static ImageIcon drawDeployedMule(Tile tile, ImageIcon icon) {
 		final int RECT_SIZE = 20;
 		ImageIcon result = null;

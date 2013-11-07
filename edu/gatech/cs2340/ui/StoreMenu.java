@@ -1,10 +1,7 @@
 package edu.gatech.cs2340.ui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -16,7 +13,6 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.data.StoreImageLoader;

@@ -1,9 +1,7 @@
 package edu.gatech.cs2340.ui;
-import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
-import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 
 

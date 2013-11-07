@@ -84,6 +84,10 @@ public abstract class Tile {
 		return dirty;
 	}
 	
+	public boolean isOwned() {
+		return owner != null;
+	}
+	
 	public void cleaned() {
 		dirty = false;
 	}

@@ -1,9 +1,6 @@
 package edu.gatech.cs2340.data;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.logging.Logger;
 
 /**
  * 
@@ -91,7 +88,7 @@ public class Map implements MapResponsibilities {
 	@Override
 	public Tile getNextUnownedTile() {
 		Tile result = getTileNumber(nextUnownedNdx);
-		while (result != null && result.getOwner() != null) {
+		while (result != null && result.isOwned()) {
 			nextUnownedNdx++;
 			result = getTileNumber(nextUnownedNdx);
 		}
@@ -112,7 +109,7 @@ public class Map implements MapResponsibilities {
 		Tile result = null;
 		do {
 			result = getTileNumber(rand.nextInt(rows * cols));
-		} while (result.getOwner() != null);
+		} while (result.isOwned());
 		
 		return result;
 	}
