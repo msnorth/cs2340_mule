@@ -26,7 +26,7 @@ public class ProgressBar extends JPanel implements Runnable{
 		this.timer = timer;
 
 		progressBar = new JProgressBar(JProgressBar.VERTICAL, 0,
-				(int) timer.getTotalTime());
+				(int) timer.getTimerDuration());
 		
 		this.add(progressBar);
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));

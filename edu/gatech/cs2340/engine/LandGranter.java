@@ -84,8 +84,8 @@ public class LandGranter
 				if(value == 0) 
 				{
 					currentPlayer.addTile(unownedTile);				//Assigns tile to player
-					unownedTile.setOwner(currentPlayer);
-					timer.stop();									//Kills timer
+					unownedTile.setOwner(currentPlayer);								//Kills timer
+					timer.stop();
 					map.resetNextUnownedTile();
 					grantFinished = true;							//Ends land grant phase for that person
 				}
