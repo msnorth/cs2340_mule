@@ -52,7 +52,7 @@ public class GameClock implements Runnable {
 	 * @return
 	 */
 	public static long getTimeRemaining(MULETimer timer) {
-		return (tick - timer.getStartTime())*TICK_LENGTH;
+		return ((timer.getStartTime()+timer.getTimerDuration()/TICK_LENGTH)-(tick))*TICK_LENGTH;
 	}
 	
 	/**
