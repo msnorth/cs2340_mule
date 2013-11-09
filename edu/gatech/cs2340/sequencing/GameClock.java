@@ -3,7 +3,7 @@ package edu.gatech.cs2340.sequencing;
 import java.util.ArrayList;
 
 public class GameClock implements Runnable {
-	public static final long TICK_LENGTH = 50;
+	public static final long TICK_LENGTH = 5;
 	private static int tick = 0;
 	private static ArrayList<MULETimer> timers;
 	private static ArrayList<MULETimer> toDelete;
@@ -30,7 +30,7 @@ public class GameClock implements Runnable {
 	}
 	
 	/**
-	 * Method to remove dead timers from list
+	 * Method to add dead timer to target list
 	 * @param timer
 	 */
 	public static synchronized void removeTimer(MULETimer timer) {
@@ -38,10 +38,18 @@ public class GameClock implements Runnable {
 			toDelete = new ArrayList<MULETimer>();
 		}
 		toDelete.add(timer);
-		if (!timersLocked) {
+	}
+	
+	/**
+	 * Method to remove all dead timers from process list
+	 */
+	private static void removeTimers() {
+		if (!timersLocked && toDelete!=null) {
+			timersLocked = true;
 			for (MULETimer gonbdelete : toDelete) {
 				timers.remove(gonbdelete);
 			}
+			timersLocked = false;
 			toDelete.clear();
 		}
 	}
@@ -111,6 +119,7 @@ public class GameClock implements Runnable {
 					}
 				}
 				timersLocked = false;
+				removeTimers();
 			}
 		}
 	}

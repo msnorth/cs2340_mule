@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 
@@ -77,13 +78,9 @@ public class MapManager implements WaitedOn, Runnable{
 			}
 			
 			//cycle every 25 ms
-			try {
-				Thread.sleep(25);
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-				System.exit(0);
-			}
+			MULETimer timer = new MULETimer(25);
+			timer.start();
+			Waiter.waitOn(timer, 500);
 		}
 		finished = true;
 	}
