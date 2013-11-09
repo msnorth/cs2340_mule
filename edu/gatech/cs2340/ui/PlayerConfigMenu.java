@@ -47,7 +47,6 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 
 	private boolean finished;
 	private Player[] players;
-	private GameConfigMenu menu;
 	
 	private JTextField[] nameFields;
 	private JComboBox<String>[] raceLists;
@@ -59,7 +58,6 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	 *    
 	 */
 	public PlayerConfigMenu(int numPairs) {
-		menu 	 = new GameConfigMenu();
 		finished = false;
 
 		// Create and populate the panel

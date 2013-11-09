@@ -7,7 +7,6 @@ public class PeakTile extends Tile {
 		super(name);
 		this.setOwner(owner);
 		this.setId(id);
-		image = peakImage; // get static image from superclass
 	}
 
 	@Override

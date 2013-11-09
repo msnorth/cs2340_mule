@@ -32,7 +32,7 @@ public abstract class MapGenerator {
 	 */
 	public static Map generateStandardMap() {
 		   Tile[][] tiles = new Tile[standardMapConfig.length][standardMapConfig[0].length];
-           Tile.initialize();
+
            int type;
            for (int i = 0; i < standardMapConfig.length; i++) {
                    for (int j = 0; j < standardMapConfig[0].length; j++) {
@@ -76,7 +76,7 @@ public abstract class MapGenerator {
 	 */
 	public static Map generateRandomMap() {
 		Tile[][] tiles = new Tile[standardMapConfig.length][standardMapConfig[0].length];
-		Tile.initialize();
+
 		Random rg = new Random();
 		int type;
 		boolean hasRiver = false;

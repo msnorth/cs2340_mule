@@ -13,10 +13,13 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Selling mules of a specific type should also decrease
  * 									the amount of that type from the store and add that 
  * 									type to the player's resources. Added getResourceType Method.
- * 							M7		10/29/13 Thomas Mark
+ * 							M8		10/29/13 Thomas Mark
  * 									Modified Mule parameter type to actual ResourceType as opposed 
  * 									to String.
- * 									
+ * 							M8 		11/4/13  Shreyyas Vanarase
+ * 									Allowed proper selling of mules in the store. Removed mulePrices 
+ * 									since it was a ResourceAmount and Mules are not resources. Edited the getMulePrice
+ * 									method to get the mule price of a specific resource.	
  * 							
  * 		Allows the player to:
  * 				- buy resources
@@ -35,7 +38,6 @@ public class Store {
 	private static Store theStore;
 	private static ResourceAmount storeResources;
 	private static ResourceAmount storePrices;
-	private static ResourceAmount mulePrices;
 	
 	private static final int FOOD_PRICE = 30;
 	private static final int ENERGY_PRICE = 25;
@@ -43,14 +45,16 @@ public class Store {
 	private static final int CRYSTITE_PRICE = 100;
 	
 	private static final int FOOD_MULE = 130;
-	private static final int ENERGY_MULE = 150;
-	private static final int SMITHORE_MULE = 175;
+	private static final int ENERGY_MULE = 125;
+	private static final int SMITHORE_MULE = 150;
 	private static final int CRYSTITE_MULE = 200;
 	
-	private final int FOOD     = 1000;
-	private final int ENERGY   = 1000;
-	private final int SMITHORE = 1000;
-	private final int CRYSTITE = 1000;
+	private final int FOOD    	  = 150;
+	private final int ENERGY      = 150;
+	private final int SMITHORE    = 150;
+	private final int CRYSTITE    = 150;
+	
+	private static int numberOfMules = Store.getStore().createMules();
 	
 	private Player player;
 	private String message;
@@ -62,7 +66,6 @@ public class Store {
 	protected Store() {
 		storeResources = new ResourceAmount(SMITHORE, FOOD, ENERGY, CRYSTITE);	
 		storePrices = new ResourceAmount(SMITHORE_PRICE, FOOD_PRICE, ENERGY_PRICE, CRYSTITE_PRICE);
-		mulePrices  = new ResourceAmount(SMITHORE_MULE, FOOD_MULE, ENERGY_MULE, CRYSTITE_MULE);
 	}
 	
 	/**
@@ -72,7 +75,6 @@ public class Store {
 	public static Store getStore() {
 		if (theStore == null) {
 			theStore = new Store();
-		//	theStore.addStartingResources(storeResources);
 		}
 		return theStore;
 	}
@@ -123,13 +125,21 @@ public class Store {
 	 * @return
 	 */
 	public boolean sellMule(ResourceType type) {
-		int cost = mulePrices.getAmount(type);
+		int cost = 0;
+		
+		if(type.name().equals("ENERGY")) {
+			cost = ENERGY_MULE;
+		}
+		else if(type.name().equals("FOOD")) {
+			cost = FOOD_MULE;
+		}
+		else cost = SMITHORE_MULE;
 		
 		if (player.hazMule()) {
 			message = "You already have a mule.";
 			return false;
 		}
-		if (storeResources.getAmount(ResourceType.MULE) == 0) {
+		if (numberOfMules == 0) {
 			message = "There are no mules available to purchase.";
 			return false;
 		}
@@ -137,11 +147,10 @@ public class Store {
 			message = "You do not have enough money!";
 			return false;
 		}
-		storeResources.remove(ResourceType.MULE, 1);
-		storeResources.remove(type, 1);
+		--numberOfMules;
 		player.deductMoney(cost);
 		player.addMule(new Mule(type));
-		player.addResources(type, 1);
+		numberOfMules = createMules();
 		return true;
 	}
 	
@@ -154,16 +163,24 @@ public class Store {
 	}
 	
 	/**
+	 * Get the number of mules
+	 * @return
+	 */
+	public int getMuleAmount() {
+		return numberOfMules;
+	}
+	/**
 	 * Method used at end of round to create mules from stores supply of smithore.
 	 */
-	public void createMules() {
+	public int createMules() {
 		int smithoreAmount = storeResources.getAmount(ResourceType.SMITHORE);
 		
 		if (smithoreAmount > 1) {
 			int muleNumber = smithoreAmount/2;
 			storeResources.remove(ResourceType.SMITHORE, muleNumber*2);
-			storeResources.add(ResourceType.MULE, muleNumber);
+			numberOfMules = muleNumber;
 		}
+		return numberOfMules;
 	}
 	
 	/**
@@ -207,6 +224,15 @@ public class Store {
 	 * @return int 
 	 */
 	public int getMulePrice(ResourceType resource) {
-		return mulePrices.getAmount(resource);
+		if(resource.name().equals("ENERGY")) {
+			return ENERGY_MULE;
+		}
+		else if(resource.name().equals("FOOD")) {
+			return FOOD_MULE;
+		}
+		else if(resource.name().equals("CRYSTITE")) {
+			return CRYSTITE_MULE;
+		}
+		else return SMITHORE_MULE;
 	}
 }

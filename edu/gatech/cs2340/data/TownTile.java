@@ -9,7 +9,6 @@ public class TownTile extends Tile {
 		Player player = new Player("Municipatily","Human",new Color(255,255,255));
 		this.setOwner(player);
 		this.setId(id);
-		image = townImage; // get static image from superclass
 	}
 	@Override
 	public ResourceAmount calculateProduction() {

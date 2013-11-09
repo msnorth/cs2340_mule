@@ -75,7 +75,7 @@ public class LandGranter
 			if(unownedTile != null)								//As long as that unowned tile isn't null
 			{
 				unownedTile.setActive(true);
-				mapRenderer.refresh();
+				mapRenderer.refreshAll();
 				MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
 				timer.start();										//Starts the timer
 				WaitedOn[] waitees = {keyWaiter, timer};
@@ -99,6 +99,6 @@ public class LandGranter
 				grantFinished = true;
 			}
 		}
-		mapRenderer.refresh();
+		mapRenderer.refreshAll();
 	}
 }

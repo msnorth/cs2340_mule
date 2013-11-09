@@ -9,7 +9,8 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 		Assigned to:		Thomas Mark
  * 		Modifications: 		M7		10/29/13 Thomas Mark
  * 									Changed type reference to ResourceType (originally String)							
- * 			
+ * 							M8      11/4/13  Shreyyas Vanarase
+ * 									Added toString method for getting the stirng name of a type.
  * 		Purpose: To hold data about a specific mule type.				
  */
 public class Mule {
@@ -32,4 +33,12 @@ public class Mule {
 	public ResourceType getType() {
 		return type;
 	}
+	/**
+	 * #M8
+	 * toString method overridden to get the string name of the type
+	 */
+	public String toString() {
+		return (this.type.name() + "");
+	}
+	
 }

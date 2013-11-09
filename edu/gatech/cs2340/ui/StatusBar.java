@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
@@ -26,12 +25,12 @@ import edu.gatech.cs2340.sequencing.MULETimer;
  * 
  */
 public class StatusBar extends JPanel {
-
+	private static final long serialVersionUID = 1L;
+	
 	private Player[] players;
 	private MULETimer timer;
 	Player currentPlayer;
 
-	private JProgressBar progressBar;
 	private SpriteImageLoader spriteImgLoader;
 
 	/**
@@ -157,13 +156,13 @@ public class StatusBar extends JPanel {
 				11));
 		labelPanel.add(playerCrystite);
 
-		JLabel playerMule = new JLabel("Mule:  "
-				+ player.getResourceAmount(ResourceType.MULE) + " , "
-				+ player.getMule());
+		JLabel playerMule = new JLabel("Mule: " +player.getMuleAmount());
+		if(player.hazMule()) {
+			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
+		}
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerMule);
 
-		
 		ImageIcon imageIcon = spriteImgLoader.getImage(player);
 		JLabel playerIcon = new JLabel(imageIcon);
 		playerPanel.add(playerIcon);

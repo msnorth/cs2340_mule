@@ -20,21 +20,18 @@ import edu.gatech.cs2340.ui.MapRenderer;
  *         game's map.
  */
 public abstract class Tile {
-	// Tile and TileRenderer are paired as Model and View of the Tile concept
+	//Static
+	public static Logger logger;
+	
+	//Instance
 	private Player owner;
 	private String id;
 	private boolean isActive;
-	public boolean dirty;
 	private String name;
-	protected static ImageIcon hillImage;
-	protected static ImageIcon mountainImage;
-	protected static ImageIcon peakImage;
-	protected static ImageIcon plainImage;
-	protected static ImageIcon riverImage;
-	protected static ImageIcon townImage;
-	protected ImageIcon image; // image for the current instance of Tile
-	static Logger logger;
 	private int price;
+	private Mule mule;
+	
+	protected boolean dirty;
 
 	/**
 	 * Create a tile of type name
@@ -82,6 +79,18 @@ public abstract class Tile {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public boolean isDirty() {
+		return dirty;
+	}
+	
+	public boolean isOwned() {
+		return owner != null;
+	}
+	
+	public void cleaned() {
+		dirty = false;
+	}
 
 	// returns true if equal, false otherwise
 	public boolean compareTo(Tile t) {
@@ -102,24 +111,22 @@ public abstract class Tile {
 		return name;
 	}
 	
-	public static void initialize(){
-		// for error logging
-		logger = Logger.getGlobal();
-		try {
-			hillImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/hill.png"));
-			mountainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/mountain.png"));
-			peakImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/peak.png"));
-			riverImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/river.png"));
-			plainImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/plain.png"));
-			townImage = new ImageIcon(Tile.class.getResource("../../../../edu.gatech.cs2340.res/edu.gatech.cs2340.res.tile_base/town.png"));
-		} catch (Exception e){
-			logger.log(Level.WARNING,"Couldn't load all images in TileRenderer");
-		}
+	public Mule getMule() {
+		return mule;
 	}
 	
-	public ImageIcon getImageIcon(){
-		return image;
+	public void setMule(Mule mule) {
+		if (this.mule != null) {
+			throw new RuntimeException("Cannot place mule where there already is one.");
+		}
+		this.mule = mule;
+		dirty = true;
 	}
+	
+	public boolean hasMule() {
+		return (mule != null);
+	}
+
 
 	/**
 	 * Set the price of the tile and draw a string with that price
