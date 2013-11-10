@@ -52,8 +52,9 @@ public abstract class Tile {
 	 */
 	public ResourceAmount calculateProduction() {
 		Random random = new Random();
+		int crystiteIncrease = getCrystiteIncrease();
 		return new ResourceAmount(getOreIncrease(), getFoodIncrease(), getEnergyIncrease(), 
-				random.nextInt(getCrystiteIncrease()));
+				crystiteIncrease*random.nextInt(crystiteIncrease+1));
 	};
 
 	/**
