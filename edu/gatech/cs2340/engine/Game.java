@@ -4,9 +4,6 @@ package edu.gatech.cs2340.engine;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.PlayerManager;
-import edu.gatech.cs2340.sequencing.WaitedOn;
-import edu.gatech.cs2340.sequencing.Waiter;
-import edu.gatech.cs2340.ui.MapRenderer;
 
 /**
  * 

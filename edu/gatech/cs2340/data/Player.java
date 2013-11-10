@@ -37,7 +37,6 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 				 
  */
 public class Player {
-	private final String name;
 	private final String race;
 	private final Color color;
 	private final ResourceAmount resources;
@@ -47,7 +46,6 @@ public class Player {
 	private boolean lowestScore;
 	private final String difficulty;
 	private final ArrayList<Tile> ownedTiles;
-	private double time;
 	private Store store;
 	
 	private ImageIcon image;
@@ -60,7 +58,6 @@ public class Player {
 	 * @param color
 	 */
 	public Player(String pName, String pRace, Color pColor) {
-		name = pName;
 		race = pRace;
 		color = pColor;
 		this.lowestScore = false;

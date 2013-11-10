@@ -3,8 +3,6 @@ package edu.gatech.cs2340.test;
 import java.awt.Color;
 
 import edu.gatech.cs2340.data.HillTile;
-import edu.gatech.cs2340.data.Map;
-import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.MountainTile;
 import edu.gatech.cs2340.data.PeakTile;
 import edu.gatech.cs2340.data.PlainsTile;

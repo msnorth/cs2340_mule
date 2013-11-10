@@ -1,11 +1,6 @@
 package edu.gatech.cs2340.test;
 
-import java.awt.GridLayout;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
+import javax.swing.JFrame;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;

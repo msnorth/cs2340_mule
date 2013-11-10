@@ -1,14 +1,7 @@
 package edu.gatech.cs2340.data;
 
-import java.awt.Image;
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.ImageIcon;
-
-import edu.gatech.cs2340.ui.TileImageFactory;
-import edu.gatech.cs2340.ui.MapRenderer;
 
 /**
  * 

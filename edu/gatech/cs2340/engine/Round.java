@@ -25,6 +25,8 @@ import edu.gatech.cs2340.ui.StatusBar;
  * 									Round now calculates player order at the beginning of run.
  * 							M9		11/3/13 Thomas Mark
  * 									Added random event backend implementation.
+ * 									11/10/2013 Madeleine North
+ * 								    Refactoring (removing unused variables)
  * 
  * 		Purpose: Execute a single round of the game
  */
@@ -32,8 +34,6 @@ public class Round {
 	private static int roundNumber;
 	private final PlayerManager playerManager;
 	private final Map map;
-	private String message;
-	
 	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
 		roundNumber = roundNum;
 		playerManager = pManager;
@@ -75,8 +75,7 @@ public class Round {
 		playerManager.calculateProduction();
 		// Random event simulator with returned message for the beginning of the round
 		for (int i=0; i<numPlayers; i++) {
-			this.message = playerManager.randomEventSimulator(players[i]);
-			//TODO: Implement message in GUI for random events
+			playerManager.randomEventSimulator(players[i]);
 		}
 		
 		// Land Grant/Purchase phases

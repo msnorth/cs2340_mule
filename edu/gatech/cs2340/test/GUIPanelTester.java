@@ -2,11 +2,9 @@ package edu.gatech.cs2340.test;
 
 import java.awt.GridLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 
 public class GUIPanelTester extends JPanel {
 	/**

@@ -96,8 +96,6 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 	 */
 	public String randomEventSimulator(Player player) {
 		double eventRoll = rand.nextDouble();
-		String message;
-		
 		if (player.hasLowestScore()) {
 			if (eventRoll <= 0.27) {
 				return goodEventHelper(player);

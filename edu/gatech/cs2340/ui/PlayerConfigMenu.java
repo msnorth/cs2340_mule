@@ -29,6 +29,9 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
  * 									Fixed parameter input
  * 							M8      10/26/13 Shreyyas Vanarase
  * 									Added Human race. 
+ * 							M9		11/10/2013 Madeleine North
+ * 									Adding @SuppressWarnings because there is no way to
+ * 									instantiate an array of <String> JComboBoxes.  
 
  *         Purpose: Second panel of game configuration menu. Allows user to
  *         select game player names, player races, and player colors. This
@@ -55,8 +58,9 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	/**
 	 * Main constructor
 	 * @param manager
-	 *    
+	 *   
 	 */
+	@SuppressWarnings("unchecked")
 	public PlayerConfigMenu(int numPairs) {
 		finished = false;
 
