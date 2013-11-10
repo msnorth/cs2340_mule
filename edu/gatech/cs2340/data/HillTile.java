@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.data;
 
+import java.util.Random;
+
 
 public class HillTile extends Tile{
 	public static String name = "Hill";
@@ -8,12 +10,21 @@ public class HillTile extends Tile{
 		this.setOwner(owner);
 		this.setId(id);
 	}
-
 	@Override
-	public ResourceAmount calculateProduction() {
-		// TODO Auto-generated method stub
-		return null;
+	protected int getOreIncrease() {
+		return 2;
 	}
-
+	@Override
+	protected int getFoodIncrease() {
+		return 1;
+	}
+	@Override
+	protected int getEnergyIncrease() {
+		return 1;
+	}
+	@Override
+	protected int getCrystiteIncrease() {
+		return 1;
+	}
 
 }

@@ -313,4 +313,19 @@ public class Player {
 	public void setlowestScore(boolean lowScore) {
 		this.lowestScore = lowScore;
 	}
+
+/**
+ * #M9
+ * Calculate production of each tile owned by player if there's enough energy
+ */
+	public void calculateProduction() {
+		ResourceAmount producedResources = new ResourceAmount(0,0,0,0);
+		for (int i = 0; i < ownedTiles.size(); i++){
+			if (resources.getAmount(ResourceAmount.ResourceType.ENERGY) > 0){
+				Tile curTile = ownedTiles.get(i);
+				producedResources.add(curTile.calculateProduction());
+			}
+		}
+		resources.add(producedResources);		
+	}
 }

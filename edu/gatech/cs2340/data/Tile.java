@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.data;
 
 import java.awt.Image;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +50,35 @@ public abstract class Tile {
 	 * 
 	 * @return
 	 */
-	public abstract ResourceAmount calculateProduction();
+	public ResourceAmount calculateProduction() {
+		Random random = new Random();
+		return new ResourceAmount(getOreIncrease(), getFoodIncrease(), getEnergyIncrease(), 
+				random.nextInt(getCrystiteIncrease()));
+	};
+
+	/**
+	 * Get increase in ore for a particular kind of tile's production phase.
+	 * @return Increase in resource
+	 */
+	protected abstract int getOreIncrease();
+	
+	/**
+	 * Get increase in food for a particular kind of tile's production phase.
+	 * @return Increase in resource
+	 */
+	protected abstract int getFoodIncrease();
+	
+	/**
+	 * Get increase in energy for a particular kind of tile's production phase.
+	 * @return Increase in resource
+	 */
+	protected abstract int getEnergyIncrease();
+	
+	/**
+	 * Get increase in crystite for a particular kind of tile's production phase.
+	 * @return Increase in resource
+	 */
+	protected abstract int getCrystiteIncrease();
 
 	/**
 	 * #M6 Method to set owner of tile. Should handle "null" as returning Tile
