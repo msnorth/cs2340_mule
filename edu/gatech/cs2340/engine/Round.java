@@ -71,6 +71,8 @@ public class Round {
 		StatusBar statBar = new StatusBar(players);
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
+		// Calculate production for all players' tiles
+		playerManager.calculateProduction();
 		// Random event simulator with returned message for the beginning of the round
 		for (int i=0; i<numPlayers; i++) {
 			this.message = playerManager.randomEventSimulator(players[i]);
