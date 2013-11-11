@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.data;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -36,7 +37,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 		Purpose: Holds information for a player in the game.
  * 				 
  */
-public class Player {
+public class Player implements Serializable {
 	private String name;
 	private final String race;
 	private final Color color;
@@ -320,5 +321,12 @@ public class Player {
 	 */
 	public void setlowestScore(boolean lowScore) {
 		this.lowestScore = lowScore;
+	}
+	
+	/**
+	 * toStrings are nice
+	 */
+	public String toString() {
+		return String.format("Player: %s %s %s %s", name, race, color, resources);
 	}
 }

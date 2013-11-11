@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
  *         Purpose: Parent class for all Tile objects that make up a grid on the
  *         game's map.
  */
-public abstract class Tile {
+public abstract class Tile implements Serializable {
 	//Static
 	public static Logger logger;
 	
