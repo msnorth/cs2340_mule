@@ -17,11 +17,17 @@ import edu.gatech.cs2340.data.Tile;
 public class ResourceProducer {
 	private Map map;
 	
-	
+	/**
+	 * Main constructor. Needs access to all tiles to calculate production.
+	 * @param map
+	 */
 	public ResourceProducer(Map map) {
 		this.map = map;
 	}
 	
+	/**
+	 * Method to run (blocking) through all tiles and add their production/subtract mule used energy from owners
+	 */
 	public void runSynchronous() {
 		Tile tile = map.getNextTile();
 		while (tile != null) {
