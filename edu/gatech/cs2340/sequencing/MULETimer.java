@@ -76,7 +76,7 @@ public class MULETimer implements WaitedOn, Serializable {
 	 * @return
 	 */
 	public long getTimeRemaining() {
-		return (GameClock.getTick() - startTime_tick + duration_ms/GameClock.TICK_LENGTH) * GameClock.TICK_LENGTH;
+		return (startTime_tick + duration_ms/GameClock.TICK_LENGTH - GameClock.getTick())* GameClock.TICK_LENGTH;
 	}
 	
 	/**
