@@ -2,6 +2,7 @@ package edu.gatech.cs2340.ui;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -33,10 +34,10 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  */
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
+	public static final Color BACKGROUND_COLOR = new Color(255, 255, 102);
 	private JPanel mainPanel;
 	public static final int DIM_X = 72*9 + 40;
-	public static final int DIM_Y = 600;
-	
+	public static final int DIM_Y = 550;
 	public static final int LOWER_PANEL_HEIGHT = 150;
 	
 	private JPanel currentPanel;
@@ -94,6 +95,8 @@ public class MainGameWindow extends JFrame {
 		lowerPanel.setMaximumSize(lowerSize);
 		lowerPanel.setLayout(new BorderLayout());
 		
+		mainPanel.setBackground(BACKGROUND_COLOR);
+		lowerPanel.setBackground(BACKGROUND_COLOR);
 		this.add(mainPanel, BorderLayout.CENTER);
 		this.add(lowerPanel, BorderLayout.SOUTH);
 		setTitle("M.U.L.E. FRAME");
