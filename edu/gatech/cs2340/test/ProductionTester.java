@@ -39,7 +39,7 @@ public class ProductionTester {
 		printPlayerResources();
 		// calculate production
 		System.out.println("//////////////////////");
-		playerManager.calculateProduction();
+		playerManager.produceResources();
 		// check resources again
 		printPlayerResources();
 		

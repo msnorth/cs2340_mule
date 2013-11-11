@@ -37,6 +37,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 				 
  */
 public class Player {
+	private String name;
 	private final String race;
 	private final Color color;
 	private final ResourceAmount resources;
@@ -58,6 +59,7 @@ public class Player {
 	 * @param color
 	 */
 	public Player(String pName, String pRace, Color pColor) {
+		name = pName;
 		race = pRace;
 		color = pColor;
 		this.lowestScore = false;
@@ -323,7 +325,7 @@ public class Player {
 				producedResources.add(curTile.calculateProduction());
 			}
 		}
-		System.out.printf("%s %s\n", name, producedResources, resources);
-		resources.add(producedResources);		
+		resources.add(producedResources);	
+		System.out.printf("%s %s %s\n", name, producedResources, resources);
 	}
 }

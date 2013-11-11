@@ -71,8 +71,6 @@ public class Round {
 		StatusBar statBar = new StatusBar(players);
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
-		// Calculate production for all players' tiles
-		playerManager.calculateProduction();
 		// Random event simulator with returned message for the beginning of the round
 		for (int i=0; i<numPlayers; i++) {
 			playerManager.randomEventSimulator(players[i]);
@@ -101,9 +99,8 @@ public class Round {
 			turn.runSynchronous();
 		}
 		// Production
-		for (Player p : players) {
-			p.produceResources();
-		}
+		System.out.println("Production phase");
+		playerManager.produceResources();
 		// Auction
 		// Score screen
 	}

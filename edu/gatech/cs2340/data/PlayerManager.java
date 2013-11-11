@@ -192,7 +192,7 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 	/**
 	 * Calculate production for the tiles owned by each player
 	 */
-	public void calculateProduction(){
+	public void produceResources(){
 		for(int i = 0; i < players.length; i++){
 			Player curPlayer = players[i];
 			curPlayer.produceResources();
