@@ -4,6 +4,7 @@ package edu.gatech.cs2340.engine;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.PlayerManager;
+import edu.gatech.cs2340.sequencing.GameClock;
 
 /**
  * 
@@ -42,12 +43,14 @@ public class Game {
 		} else {
 			map = MapGenerator.generateRandomMap();
 		}
+		
 	}
 	
 	/**
 	 * Execute the number of Rounds required.
 	 */
 	public void runSynchronous() {
+		GameClock.startClock();
 		for (int i=1; i <= numberRounds; i++) {
 			Round round = new Round(playerManager, map, i);
 			round.runSynchronous();
