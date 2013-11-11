@@ -3,6 +3,8 @@ package edu.gatech.cs2340.io;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import edu.gatech.cs2340.engine.Game;
+
 
 /**
  * 
@@ -135,6 +137,13 @@ public class KeyboardAdapter implements KeyListener{
 		KEY_NAME key = getKey(e.getKeyChar() + "");
 		if (key != null) {
 			keyStatus |= 1<<key.ordinal();
+		}
+		if (e.getKeyChar() == 'o') {
+			Game game = Game.currentGame;
+			if (game != null) {
+				GameSaver saver = new GameSaver("C:/Users/Stephen/Desktop/MULEsave.txt", game.getGameData());
+				saver.save();
+			}
 		}
 	}
 

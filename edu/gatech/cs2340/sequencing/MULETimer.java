@@ -26,6 +26,14 @@ public class MULETimer implements WaitedOn, Serializable {
 	private boolean stopped;
 	private long startTime_tick;
 	
+	public static ArrayList<MULETimer> getActiveTimers() {
+		if (activeTimers == null) {
+			activeTimers = new ArrayList<MULETimer>();
+		}
+		return activeTimers;
+	}
+	
+	
 	/**
 	 * Constructor to
 	 * 
@@ -34,7 +42,6 @@ public class MULETimer implements WaitedOn, Serializable {
 	public MULETimer(long duration_ms) {
 		this.duration_ms = duration_ms;
 		stopped = false;
-		//GameClock.registerTimer(this);
 	}
 
 	@Override
@@ -88,6 +95,7 @@ public class MULETimer implements WaitedOn, Serializable {
 		return startTime_tick;
 	}
 	
+
 
 
 }
