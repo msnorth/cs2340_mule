@@ -99,8 +99,8 @@ public class Round {
 			turn.runSynchronous();
 		}
 		// Production
-		System.out.println("Production phase");
-		playerManager.produceResources();
+		ResourceProducer resourceProducer = new ResourceProducer(map);
+		resourceProducer.runSynchronous();
 		// Auction
 		// Score screen
 	}

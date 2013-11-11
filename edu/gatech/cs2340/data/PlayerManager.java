@@ -188,15 +188,4 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 			return "YOU FOUND A DEAD MOOSE RAT AND SOLD THE HIDE FOR " + price + ".";
 		}
 	}
-	
-	/**
-	 * Calculate production for the tiles owned by each player
-	 */
-	public void produceResources(){
-		for(int i = 0; i < players.length; i++){
-			Player curPlayer = players[i];
-			curPlayer.produceResources();
-		}
-	}
-
 }

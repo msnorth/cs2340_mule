@@ -46,7 +46,7 @@ public class Player {
 	private int gameScore;
 	private boolean lowestScore;
 	private final String difficulty;
-	private final ArrayList<Tile> ownedTiles;
+	//private final ArrayList<Tile> ownedTiles;
 	private Store store;
 	
 	private ImageIcon image;
@@ -66,7 +66,7 @@ public class Player {
 
 		difficulty = "Beginner"; // variable defined if it needs to be changed
 									// to allow for Standard/Tournament
-		ownedTiles = new ArrayList<Tile>();
+		//ownedTiles = new ArrayList<Tile>();
 		resources = new ResourceAmount();
 
 		if (difficulty.equalsIgnoreCase("Beginner")) {
@@ -122,11 +122,13 @@ public class Player {
 	 * Method to add the tile to player's ownedTile list
 	 * @param tile
 	 */
+	
 	public void addTile(Tile tile) {
 		if (tile != null) {
-			ownedTiles.add(tile);
+			tile.setOwner(this);
 		}
 	}
+	
 	/**
 	 * #M6
 	 * Method to get the current player score
@@ -252,7 +254,14 @@ public class Player {
 	 */
 	public void addResources(ResourceType resource, int amount) {
 		resources.add(resource, amount);
-		
+	}
+	
+	/**
+	 * #M9
+	 * @param amount
+	 */
+	public void addResources(ResourceAmount amount) {
+		resources.add(amount);
 	}
 
 	/**
@@ -311,21 +320,5 @@ public class Player {
 	 */
 	public void setlowestScore(boolean lowScore) {
 		this.lowestScore = lowScore;
-	}
-
-/**
- * #M9
- * Calculate production of each tile owned by player if there's enough energy
- */
-	public void produceResources() {
-		ResourceAmount producedResources = new ResourceAmount(0,0,0,0);
-		for (int i = 0; i < ownedTiles.size(); i++){
-			if (resources.getAmount(ResourceAmount.ResourceType.ENERGY) > 0){
-				Tile curTile = ownedTiles.get(i);
-				producedResources.add(curTile.calculateProduction());
-			}
-		}
-		resources.add(producedResources);	
-		System.out.printf("%s %s %s\n", name, producedResources, resources);
 	}
 }

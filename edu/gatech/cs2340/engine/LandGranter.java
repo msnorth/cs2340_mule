@@ -83,7 +83,7 @@ public class LandGranter
 				
 				if(value == 0) 
 				{
-					currentPlayer.addTile(unownedTile);				//Assigns tile to player
+					//currentPlayer.addTile(unownedTile);				//Assigns tile to player
 					unownedTile.setOwner(currentPlayer);
 					timer.stop();									//Kills timer
 					map.resetNextUnownedTile();
@@ -93,7 +93,7 @@ public class LandGranter
 			}
 			else {
 				Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
-				currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
+				//currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
 				randomUnownedTile.setOwner(currentPlayer);
 				map.resetNextUnownedTile();
 				grantFinished = true;

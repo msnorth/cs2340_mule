@@ -116,8 +116,12 @@ public abstract class Tile {
 	}
 
 	// returns true if equal, false otherwise
-	public boolean compareTo(Tile t) {
-		return (id.equals(t.getId()));
+	public boolean equals(Object t) {
+		boolean result = false;
+		if (t instanceof Tile) {
+			result = (id == ((Tile)t).getId());
+		}
+		return result;
 	}
 
 	//get whether or not is active
