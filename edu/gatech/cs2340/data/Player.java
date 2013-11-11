@@ -315,7 +315,7 @@ public class Player {
  * #M9
  * Calculate production of each tile owned by player if there's enough energy
  */
-	public void calculateProduction() {
+	public void produceResources() {
 		ResourceAmount producedResources = new ResourceAmount(0,0,0,0);
 		for (int i = 0; i < ownedTiles.size(); i++){
 			if (resources.getAmount(ResourceAmount.ResourceType.ENERGY) > 0){
@@ -323,6 +323,7 @@ public class Player {
 				producedResources.add(curTile.calculateProduction());
 			}
 		}
+		System.out.printf("%s %s\n", name, producedResources, resources);
 		resources.add(producedResources);		
 	}
 }

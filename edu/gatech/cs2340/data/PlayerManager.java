@@ -195,7 +195,7 @@ public class PlayerManager implements PlayerManagerResponsibilities{
 	public void calculateProduction(){
 		for(int i = 0; i < players.length; i++){
 			Player curPlayer = players[i];
-			curPlayer.calculateProduction();
+			curPlayer.produceResources();
 		}
 	}
 

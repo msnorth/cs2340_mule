@@ -79,29 +79,31 @@ public class Round {
 		}
 		
 		// Land Grant/Purchase phases
-			if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
-				for (int i=0; i < numPlayers; i++) {
-					Player currentPlayer = playerManager.getNextPlayer();					
-					LandGranter granter = new LandGranter(currentPlayer, map);
-					granter.runSynchronous();
-				}
+		if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
+			for (int i=0; i < numPlayers; i++) {
+				Player currentPlayer = playerManager.getNextPlayer();					
+				LandGranter granter = new LandGranter(currentPlayer, map);
+				granter.runSynchronous();
 			}
-			else {
-				for (int i=0; i < numPlayers; i++) {
-					Player currentPlayer = playerManager.getNextPlayer();
-					LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
-					purchaser.runSynchronous();
-				}
-			}
-			
-		// Land Auction phase
-		// Turn
-			for (int i=0; i<numPlayers; i++) {
+		}
+		else {
+			for (int i=0; i < numPlayers; i++) {
 				Player currentPlayer = playerManager.getNextPlayer();
-				Turn turn = new Turn(currentPlayer, map);
-				turn.runSynchronous();
+				LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
+				purchaser.runSynchronous();
 			}
+		}
+			
+		// Turn
+		for (int i=0; i<numPlayers; i++) {
+			Player currentPlayer = playerManager.getNextPlayer();
+			Turn turn = new Turn(currentPlayer, map);
+			turn.runSynchronous();
+		}
 		// Production
+		for (Player p : players) {
+			p.produceResources();
+		}
 		// Auction
 		// Score screen
 	}
