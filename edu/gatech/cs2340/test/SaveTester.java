@@ -1,4 +1,4 @@
-package edu.gatech.cs2340.io;
+package edu.gatech.cs2340.test;
 
 import java.awt.Color;
 import java.io.File;
@@ -30,9 +30,9 @@ public class SaveTester {
 				}
 			}
 			FileOutputStream output = new FileOutputStream(filename);
-			ObjectOutputStream myAnus = new ObjectOutputStream(output);
-			myAnus.writeObject(player);
-			myAnus.close();
+			ObjectOutputStream thout = new ObjectOutputStream(output);
+			thout.writeObject(player);
+			thout.close();
 			output.close();
 			System.out.println("Serialized at " + filename);
 		}
