@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.sequencing;
 
+import java.io.Serializable;
+
 import edu.gatech.cs2340.test.DebugPrinter;
 
 
@@ -16,10 +18,11 @@ import edu.gatech.cs2340.test.DebugPrinter;
  * 
  * 		Purpose: Blocks for a set amount of time.
  */
-public class MULETimer implements WaitedOn {
+public class MULETimer implements WaitedOn, Serializable {
 	private final long duration_ms;
 	private long remaining_ms;
 	private boolean finished;
+	private boolean stopped;
 	private boolean running;
 	private long startTime_tick;
 	
@@ -31,38 +34,33 @@ public class MULETimer implements WaitedOn {
 	public MULETimer(long duration_ms) {
 		this.duration_ms = duration_ms;
 		remaining_ms = duration_ms;
-		finished = false;
-		GameClock.registerTimer(this);
+		stopped = false;
+		//GameClock.registerTimer(this);
 	}
 
 	@Override
 	public boolean isFinished() {
-		return finished;
+		return stopped || startTime_tick + duration_ms/GameClock.TICK_LENGTH <= GameClock.getTick();
+		//return finished;
 	}
 
 	/**
 	 * Method to start the timer
 	 */
 	public void start() {
-		GameClock.start(this);
-		running = true;
-	}
-	
-	/**
-	 * Method to pause the timer's countdown
-	 */
-	public void pause() {
-		running = false;
-		remaining_ms = GameClock.getTimeRemaining(this);
+		startTime_tick = GameClock.getTick();
+		//GameClock.start(this);
+		//running = true;
 	}
 	
 	/**
 	 * Method to stop the timer. Cannot be restarted.
 	 */
 	public void stop() {
-		running = false;
-		finished = true;
-		dispose();
+		//running = false;
+		//finished = true;
+		stopped = true;
+		//dispose();
 	}
 	
 	/**
@@ -70,12 +68,15 @@ public class MULETimer implements WaitedOn {
 	 * @return
 	 */
 	public long getTimeRemaining() {
+		/*
 		if (running) {
 			return GameClock.getTimeRemaining(this);
 		}
 		else {
 			return remaining_ms;
 		}
+		*/
+		return (GameClock.getTick() - startTime_tick + duration_ms/GameClock.TICK_LENGTH) * GameClock.TICK_LENGTH;
 	}
 	
 	/**
@@ -89,17 +90,19 @@ public class MULETimer implements WaitedOn {
 	/**
 	 * Method to remove the timer from GameClock collection
 	 */
+	/*
 	private void dispose() {
 		GameClock.removeTimer(this);
 	}
-	
+	*/
 	/**
 	 * Method to set the start time when the timer isn't running
 	 */
+	/*
 	public void setStartTime(long startTime) {
 		this.startTime_tick = startTime;
 	}
-	
+	*/
 	/**
 	 * Method to get starting time in System.current time
 	 * @return
@@ -112,8 +115,10 @@ public class MULETimer implements WaitedOn {
 	 * Method to determine if timer is currently running
 	 * @return
 	 */
+	/*
 	public boolean isRunning() {
 		return running;
 	}
+	*/
 
 }

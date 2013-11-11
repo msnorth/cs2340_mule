@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
@@ -24,7 +25,7 @@ import edu.gatech.cs2340.engine.Round;
  * 		Purpose: Holder class for all Player objects
  * 				 
  */
-public class PlayerManager implements PlayerManagerResponsibilities{
+public class PlayerManager implements PlayerManagerResponsibilities, Serializable {
 	private final Player[] players;
 	private int nextPlayer;
 	private final Random rand = new Random();
