@@ -1,6 +1,5 @@
 package edu.gatech.cs2340.data;
 
-import java.util.Random;
 
 
 public class HillTile extends Tile{

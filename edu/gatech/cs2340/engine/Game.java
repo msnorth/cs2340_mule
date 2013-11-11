@@ -1,12 +1,13 @@
 
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.PlayerManager;
-import edu.gatech.cs2340.sequencing.WaitedOn;
-import edu.gatech.cs2340.sequencing.Waiter;
-import edu.gatech.cs2340.ui.MapRenderer;
+import edu.gatech.cs2340.data.Store;
+import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.sequencing.MULETimer;
 
 /**
  * 
@@ -24,9 +25,12 @@ import edu.gatech.cs2340.ui.MapRenderer;
  *
  */
 public class Game {
+	public static Game currentGame;
+	
 	private PlayerManager playerManager;
 	private int numberRounds;
 	private Map map;
+	private GameData data;
 	
 	/**
 	 * #M6
@@ -45,15 +49,23 @@ public class Game {
 		} else {
 			map = MapGenerator.generateRandomMap();
 		}
+		currentGame = this;
 	}
 	
 	/**
 	 * Execute the number of Rounds required.
 	 */
 	public void runSynchronous() {
+		GameClock.startClock();
+		data = new GameData(playerManager, map, Store.getStore(), GameClock.getClock(), MULETimer.getActiveTimers());
+		
 		for (int i=1; i <= numberRounds; i++) {
 			Round round = new Round(playerManager, map, i);
 			round.runSynchronous();
 		}
 	}	
+	
+	public GameData getGameData() {
+		return data;
+	}
 }

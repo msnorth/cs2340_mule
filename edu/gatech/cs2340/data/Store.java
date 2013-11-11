@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
+
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 
 /**
@@ -34,7 +36,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 			  (e.g. theStore.sellResources(...) : player buying resources)
  * 			- Classes that use store should use the message method to pass info to the player	 		 
  */
-public class Store {
+public class Store implements Serializable {
 	private static Store theStore;
 	private static ResourceAmount storeResources;
 	private static ResourceAmount storePrices;

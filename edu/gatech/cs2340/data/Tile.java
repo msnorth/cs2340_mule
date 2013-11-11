@@ -1,14 +1,8 @@
 package edu.gatech.cs2340.data;
 
-import java.awt.Image;
+import java.io.Serializable;
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.ImageIcon;
-
-import edu.gatech.cs2340.ui.TileImageFactory;
-import edu.gatech.cs2340.ui.MapRenderer;
 
 /**
  * 
@@ -20,7 +14,7 @@ import edu.gatech.cs2340.ui.MapRenderer;
  *         Purpose: Parent class for all Tile objects that make up a grid on the
  *         game's map.
  */
-public abstract class Tile {
+public abstract class Tile implements Serializable {
 	//Static
 	public static Logger logger;
 	
@@ -123,8 +117,12 @@ public abstract class Tile {
 	}
 
 	// returns true if equal, false otherwise
-	public boolean compareTo(Tile t) {
-		return (id.equals(t.getId()));
+	public boolean equals(Object t) {
+		boolean result = false;
+		if (t instanceof Tile) {
+			result = (id == ((Tile)t).getId());
+		}
+		return result;
 	}
 
 	//get whether or not is active

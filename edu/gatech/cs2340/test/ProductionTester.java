@@ -3,8 +3,6 @@ package edu.gatech.cs2340.test;
 import java.awt.Color;
 
 import edu.gatech.cs2340.data.HillTile;
-import edu.gatech.cs2340.data.Map;
-import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.MountainTile;
 import edu.gatech.cs2340.data.PeakTile;
 import edu.gatech.cs2340.data.PlainsTile;
@@ -18,6 +16,11 @@ public class ProductionTester {
 	static Player[] players;
 	private static Color[] colors = { Color.BLUE,
 		Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE };
+	//======================
+	// Branch 058f redesigned the way resources production is calculated
+	// this tester is obsolete
+	//======================
+	/*
 	public static void main(String[] args) {
 		int numPlayers = 5;
 		players = new Player[numPlayers];
@@ -41,11 +44,12 @@ public class ProductionTester {
 		printPlayerResources();
 		// calculate production
 		System.out.println("//////////////////////");
-		playerManager.calculateProduction();
+		playerManager.produceResources();
 		// check resources again
 		printPlayerResources();
 		
 	}
+	*/
 	private static void printPlayerResources(){
 		for (int i = 0; i < players.length; i++){
 			Player curPlayer = players[i];
