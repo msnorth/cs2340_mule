@@ -16,90 +16,104 @@ import edu.gatech.cs2340.test.DebugPrinter;
  * 
  * 		Purpose: Blocks for a set amount of time.
  */
-public class MULETimer implements Runnable, WaitedOn {
-	private static final int DEFAULT_FREQUENCY = 50;
+public class MULETimer implements WaitedOn {
+	private final long duration_ms;
+	private long remaining_ms;
+	private boolean finished;
+	private boolean running;
+	private long startTime_tick;
 	
-	private boolean timeout;
-	private long timeout_ms;
-	private Thread thread;
-	
-	private long totalTime;
+	/**
+	 * Constructor to
+	 * 
+	 * @param duration_ms
+	 */
+	public MULETimer(long duration_ms) {
+		this.duration_ms = duration_ms;
+		remaining_ms = duration_ms;
+		finished = false;
+		GameClock.registerTimer(this);
+	}
+
+	@Override
+	public boolean isFinished() {
+		return finished;
+	}
 
 	/**
-	 * #M6
-	 * Main constructor. Creates countdown timer with given time.
-	 * 
-	 * @param timeout_ms
-	 */
-	public MULETimer(long timeout_ms) {
-		this.timeout_ms = timeout_ms;
-		this.totalTime = timeout_ms;
-		timeout = false;
-	}
-	
-	/**
-	 * Method to start timer (asynchronously).
+	 * Method to start the timer
 	 */
 	public void start() {
-		DebugPrinter.println("Timer for " + timeout_ms + " started asynchronously.");
-		thread = new Thread(this);
-		thread.start();
+		GameClock.start(this);
+		running = true;
 	}
 	
 	/**
-	 * Method to start timer (synchronously).
+	 * Method to pause the timer's countdown
 	 */
-	public void runSynchronous() {
-		DebugPrinter.println("Timer for " + timeout_ms + " started synchronously.");
-		run();
-	}
-	
-	@Override
-	public void run() {
-		while (timeout_ms > 0 && !timeout) {
-			timeout_ms -= 1000/DEFAULT_FREQUENCY;
-			try {
-				Thread.sleep(1000/DEFAULT_FREQUENCY);
-			} catch (InterruptedException e) {
-				timeout = true;
-			}
-		}
-		timeout = true;
+	public void pause() {
+		running = false;
+		remaining_ms = GameClock.getTimeRemaining(this);
 	}
 	
 	/**
-	 * #M6
-	 * Method to get time left on the clock.
-	 * Used to determine gamlin' profits.
-	 * 
+	 * Method to stop the timer. Cannot be restarted.
+	 */
+	public void stop() {
+		running = false;
+		finished = true;
+		dispose();
+	}
+	
+	/**
+	 * Method to get remaining time on the timer
 	 * @return
 	 */
 	public long getTimeRemaining() {
-		return timeout_ms;
-	}
-	
-	/**
-	 * Method to terminate thread before Timer runs out.
-	 */
-	public void stop() {
-		if (thread == null) {
-			timeout = true;
+		if (running) {
+			return GameClock.getTimeRemaining(this);
 		}
 		else {
-			thread.interrupt();
+			return remaining_ms;
 		}
 	}
 	
-	@Override
-	public boolean isFinished() {
-		return timeout;
-	}
-
 	/**
-	 * @return the totalTime
+	 * Method to get the original duration of the timer
+	 * @return
 	 */
-	public long getTotalTime() {
-		return totalTime;
+	public long getTimerDuration() {
+		return duration_ms;
+	}
+	
+	/**
+	 * Method to remove the timer from GameClock collection
+	 */
+	private void dispose() {
+		GameClock.removeTimer(this);
+	}
+	
+	/**
+	 * Method to set the start time when the timer isn't running
+	 */
+	public void setStartTime(long startTime) {
+		this.startTime_tick = startTime;
+	}
+	
+	/**
+	 * Method to get starting time in System.current time
+	 * @return
+	 */
+	public long getStartTime() {
+		return startTime_tick;
+	}
+	
+	/**
+	 * Method to determine if timer is currently running
+	 * @return
+	 */
+	public boolean isRunning() {
+		return running;
 	}
 
 }
