@@ -71,6 +71,10 @@ public class Round {
 		StatusBar statBar = new StatusBar(players);
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
+		// Production
+		ResourceProducer resourceProducer = new ResourceProducer(map);
+		resourceProducer.runSynchronous();
+		
 		// Random event simulator with returned message for the beginning of the round
 		for (int i=0; i<numPlayers; i++) {
 			playerManager.randomEventSimulator(players[i]);
@@ -98,9 +102,6 @@ public class Round {
 			Turn turn = new Turn(currentPlayer, map);
 			turn.runSynchronous();
 		}
-		// Production
-		ResourceProducer resourceProducer = new ResourceProducer(map);
-		resourceProducer.runSynchronous();
 		// Auction
 		// Score screen
 	}
