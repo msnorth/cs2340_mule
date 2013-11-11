@@ -3,6 +3,11 @@ package edu.gatech.cs2340.sequencing;
 import java.io.Serializable;
 
 public class GameClock implements Runnable, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6101080574828442432L;
+
 	private static GameClock currentClock;
 	
 	public static final long TICK_LENGTH = 5;

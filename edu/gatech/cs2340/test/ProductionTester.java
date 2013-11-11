@@ -2,14 +2,8 @@ package edu.gatech.cs2340.test;
 
 import java.awt.Color;
 
-import edu.gatech.cs2340.data.HillTile;
-import edu.gatech.cs2340.data.MountainTile;
-import edu.gatech.cs2340.data.PeakTile;
-import edu.gatech.cs2340.data.PlainsTile;
 import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.data.RiverTile;
 
 public class ProductionTester {
 

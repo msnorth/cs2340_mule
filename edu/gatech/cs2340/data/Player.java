@@ -1,7 +1,6 @@
 package edu.gatech.cs2340.data;
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
