@@ -61,8 +61,8 @@ public class GameData implements Serializable {
 	 * Setter for current player number
 	 * @param playerNum
 	 */
-	public void setPlayerNum(int playerNum) {
-		this.playerNum = playerNum;
+	public void nextPlayer() {
+		playerNum++;
 	}
 	
 	/**
@@ -70,6 +70,22 @@ public class GameData implements Serializable {
 	 */
 	public void resetPlayerNum() {
 		playerNum = 0;
+	}
+	
+	/**
+	 * Method to get Player
+	 * @return
+	 */
+	public Player getCurrentPlayer() {
+		return playerManager.getPlayerNumber(playerNum);
+	}
+	
+	/**
+	 * Method to get number of players playing
+	 * @return
+	 */
+	public int getNumPlayers() {
+		return playerManager.getNumPlayers();
 	}
 
 	/**

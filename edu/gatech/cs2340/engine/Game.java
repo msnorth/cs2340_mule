@@ -58,7 +58,7 @@ public class Game {
 	 */
 	public void runSynchronous() {
 		GameClock.startClock();
-		while (data.getRoundNum() <= data.getNumRounds()) {
+		while (data.getRoundNum() < data.getNumRounds()) {
 			Round round = new Round(data);
 			round.runSynchronous();
 			data.nextRound();

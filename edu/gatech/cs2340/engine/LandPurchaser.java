@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.engine;
 import java.util.Random;
 
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Tile;
@@ -28,9 +29,7 @@ import edu.gatech.cs2340.ui.MapRenderer;
  */
 public class LandPurchaser 
 {
-	private Player currentPlayer;
-	private Map map;
-	private int roundNumber;
+	private GameData data;
 	
 	/**
 	 * #M6
@@ -39,11 +38,9 @@ public class LandPurchaser
 	 * @param player
 	 * @param mapRenderer
 	 */
-	public LandPurchaser(Player player, Map map, int roundNumber) 
+	public LandPurchaser(GameData data) 
 	{
-		currentPlayer 	 = player;
-		this.map 		 = map;
-		this.roundNumber = roundNumber;
+		this.data = data;
 	}
 	
 	/**
@@ -54,38 +51,45 @@ public class LandPurchaser
 	public void runSynchronous() {
 		DebugPrinter.println("Running LandPurchaser synchronously");
 		
-		MapRenderer mapRenderer = new MapRenderer(map);
-		MainGameWindow.getInstance().setMainPanel(mapRenderer);
-		//mapRenderer.setDisplayPrices(false); // this clears any previously displayed prices
-		mapRenderer.setDisplayPrices(true);
+		//###save safe
+		while (data.getPlayerNum() < data.getNumPlayers()) {
+			Map map = data.getMap();
+			Player currentPlayer = data.getCurrentPlayer();
 		
-		
-		Tile tile = map.getRandomUnownedTile();
-		tile.setPrice(calculatePrice());
-		tile.setActive(true); 	
-		mapRenderer.refreshAll();
-		int price = tile.getPrice();
-		KeyboardAdapter adapter = KeyboardAdapter.getInstance();
-		KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
-		MULETimer timer         = new MULETimer(3000);
-		WaitedOn[] waitingArray = {confirmKey, timer};
-		
-		adapter.setReceiver(confirmKey);
-		timer.start();
-		int killa = Waiter.waitForAny(waitingArray);
-		
-		if(killa == 0) {
-			timer.stop();
-			if (currentPlayer.deductMoney(price)) {
-				//currentPlayer.addTile(tile);
-				tile.setOwner(currentPlayer);
-				mapRenderer.refreshAll();							//Reflects changes on map
+			MapRenderer mapRenderer = new MapRenderer(map);
+			MainGameWindow.getInstance().setMainPanel(mapRenderer);
+			mapRenderer.setDisplayPrices(true);
+			
+			
+			Tile tile = map.getRandomUnownedTile();
+			tile.setPrice(calculatePrice());
+			tile.setActive(true); 	
+			mapRenderer.refreshAll();
+			int price = tile.getPrice();
+			KeyboardAdapter adapter = KeyboardAdapter.getInstance();
+			KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
+			MULETimer timer         = new MULETimer(3000);
+			WaitedOn[] waitingArray = {confirmKey, timer};
+			
+			adapter.setReceiver(confirmKey);
+			timer.start();
+			int killa = Waiter.waitForAny(waitingArray);
+			
+			if(killa == 0) {
+				timer.stop();
+				if (currentPlayer.deductMoney(price)) {
+					tile.setOwner(currentPlayer);
+					mapRenderer.refreshAll();							//Reflects changes on map
+				}
 			}
+			
+			tile.setActive(false);
+			mapRenderer.setDisplayPrices(false); // all tile prices are set to zero here
+			
+			data.nextPlayer();
 		}
-		
-		tile.setActive(false);
-		mapRenderer.setDisplayPrices(false); // all tile prices are set to zero here
-		// mapRenderer.refresh(); // already called in setDisplayPrices
+		data.resetPlayerNum();
+		data.nextState();
 	}
 	
 	/**
@@ -97,6 +101,6 @@ public class LandPurchaser
 	public int calculatePrice() {
 		Random rand     = new Random();
 		int randomValue = rand.nextInt(101);
-		return (300 + (roundNumber+1)*randomValue);
+		return (300 + (data.getRoundNum()+1)*randomValue);
 	}
 }

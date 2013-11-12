@@ -64,45 +64,29 @@ public class Round {
 	 * 		Score screen
 	 */
 	public void runSynchronous() {		
-		int numPlayers = playerManager.getTotalPlayers();
-		playerManager.calculatePlayerOrder();
-		Player[] players = playerManager.getPlayers();
-				
-		StatusBar statBar = new StatusBar(players);
+		StatusBar statBar = new StatusBar(data.getPlayerManager().getPlayers());
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
 		// Production
-		ResourceProducer resourceProducer = new ResourceProducer(map);
+		ResourceProducer resourceProducer = new ResourceProducer(data);
 		resourceProducer.runSynchronous();
 		
 		// Random event simulator with returned message for the beginning of the round
-		for (int i=0; i<numPlayers; i++) {
-			playerManager.randomEventSimulator(players[i]);
-		}
+		RandomEventGenerator randomEventGenerator = new RandomEventGenerator(data);
+		randomEventGenerator.runSynchronous();
 		
 		// Land Grant/Purchase phases
-		if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
-			for (int i=0; i < numPlayers; i++) {
-				Player currentPlayer = playerManager.getNextPlayer();					
-				LandGranter granter = new LandGranter(currentPlayer, map);
-				granter.runSynchronous();
-			}
+		if (data.getRoundNum() < 3) { // 2 LandGrant phases (roundNumber starts at 1)				
+			LandGranter granter = new LandGranter(data);
+			granter.runSynchronous();
 		}
 		else {
-			for (int i=0; i < numPlayers; i++) {
-				Player currentPlayer = playerManager.getNextPlayer();
-				LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
-				purchaser.runSynchronous();
-			}
+			LandPurchaser purchaser = new LandPurchaser(data);
+			purchaser.runSynchronous();
 		}
 			
 		// Turn
-		for (int i=0; i<numPlayers; i++) {
-			Player currentPlayer = playerManager.getNextPlayer();
-			Turn turn = new Turn(currentPlayer, map);
-			turn.runSynchronous();
-		}
-		// Auction
-		// Score screen
+		TurnLauncher turnLauncher = new TurnLauncher(data);
+		turnLauncher.runSynchronous();
 	}
 }
