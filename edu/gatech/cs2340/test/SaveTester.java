@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import edu.gatech.cs2340.data.Player;
 
 public class SaveTester {
-	private static String filename = "C:/Users/Stephen/Desktop/poopy.ser";
+	private static String filename = "/Users/Dan/Desktop/muleFile.ser";
 	public static void main(String[] args) {
 		saveTest();
 		loadTest();
