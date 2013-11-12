@@ -24,6 +24,7 @@ public class TownRenderer extends JPanel{
 	public TownRenderer() {
 		TownImageLoader loader = new TownImageLoader();
 		ImageIcon image = loader.getImage();
+		setBackground(MainGameWindow.BACKGROUND_COLOR);
 		add(new JLabel(image));
 		revalidate();
 	}

@@ -5,6 +5,9 @@ package edu.gatech.cs2340.ui;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -30,6 +33,7 @@ public class StatusBar extends JPanel {
 	private Player[] players;
 	private MULETimer timer;
 	Player currentPlayer;
+	
 
 	private SpriteImageLoader spriteImgLoader;
 
@@ -109,7 +113,18 @@ public class StatusBar extends JPanel {
 		this.removeAll();
 		Initialize();
 	}
-
+	
+	
+	/*
+	 * Refreshes stats of a player
+	 * @param  player -player whose stats to refresh
+	 */
+	public void refreshPlayer(Player player){
+		JPanel newPanel = drawPlayerPanel(player);
+		int index = Arrays.asList(players).indexOf(player);
+		this.remove(index);
+		this.add(newPanel, index);
+	}
 	/*
 	 * Makes a tile with stats for each player
 	 */
