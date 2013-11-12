@@ -1,8 +1,12 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.GameState;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
+import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.StatusBar;
@@ -34,8 +38,12 @@ public class Round {
 	private static int roundNumber;
 	private final PlayerManager playerManager;
 	private final Map map;
-	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
-		roundNumber = roundNum;
+	private GameState state;
+	
+	
+	public Round(PlayerManager pManager, Map usedMap, GameState state) {
+		roundNumber = state.getRoundNumber();
+		this.state = state;
 		playerManager = pManager;
 		map = usedMap;
 	}
@@ -47,6 +55,7 @@ public class Round {
 	public static int getRoundNumber(){
 		return roundNumber;
 	}
+	
 	/**
 	 * #M6
 	 * Method to run a single round.
@@ -63,6 +72,7 @@ public class Round {
 	 * 		Score screen
 	 */
 	public void runSynchronous() {
+		MULETimer blocker;
 		DebugPrinter.println("Running round " + roundNumber +" synchronously");
 		int numPlayers = playerManager.getTotalPlayers();
 		playerManager.calculatePlayerOrder();
@@ -72,11 +82,13 @@ public class Round {
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
 		// Production
-		ResourceProducer resourceProducer = new ResourceProducer(map);
+		ResourceProducer resourceProducer = new ResourceProducer(map, state);
 		resourceProducer.runSynchronous();
+		blocker = new MULETimer(GameClock.TICK_LENGTH);
+		Waiter.waitOn(blocker, (int)(2000/GameClock.TICK_LENGTH));
 		
 		// Random event simulator with returned message for the beginning of the round
-		RandomEventGenerator randomEventGenerator = new RandomEventGenerator(playerManager);
+		RandomEventGenerator randomEventGenerator = new RandomEventGenerator(playerManager, state);
 		randomEventGenerator.runSynchronous();
 		
 		// Land Grant/Purchase phases

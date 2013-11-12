@@ -2,6 +2,7 @@
 package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.GameData;
+import edu.gatech.cs2340.data.GameState;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
 import edu.gatech.cs2340.data.PlayerManager;
@@ -27,9 +28,6 @@ import edu.gatech.cs2340.sequencing.MULETimer;
 public class Game {
 	public static Game currentGame;
 	
-	private PlayerManager playerManager;
-	private int numberRounds;
-	private Map map;
 	private GameData data;
 	
 	/**
@@ -40,15 +38,32 @@ public class Game {
 	 * @param randomMap Map generation option
 	 * @param numRounds Length of game
 	 */
-	public Game(PlayerManager pManager, boolean randomMap, int numRounds) {
-		playerManager = pManager;
-		numberRounds = numRounds;
-		
+	public Game(PlayerManager pManager, boolean randomMap, int numRounds) {	
+		Map map;
 		if (!randomMap) {
 			map = MapGenerator.generateStandardMap();
 		} else {
 			map = MapGenerator.generateRandomMap();
 		}
+		GameState gameState = new GameState();
+		data = new GameData(numRounds,
+							pManager,
+							map,
+							Store.getStore(),
+							GameClock.getClock(),
+							gameState);
+		currentGame = this;
+	}
+	
+	/**
+	 * #M9
+	 * Load game constructor
+	 * @param data
+	 */
+	public Game(GameData data) {
+		this.data = data;
+		Store.setStore(data.getStore());
+		GameClock.setClock(data.getGameClock());
 		currentGame = this;
 	}
 	
@@ -57,13 +72,22 @@ public class Game {
 	 */
 	public void runSynchronous() {
 		GameClock.startClock();
-		data = new GameData(playerManager, map, Store.getStore(), GameClock.getClock(), MULETimer.getActiveTimers());
 		
-		for (int i=1; i <= numberRounds; i++) {
-			Round round = new Round(playerManager, map, i);
+		GameState state = data.getGameState();
+		while (state.getRoundNumber()<=data.getNumRounds()) {
+			Round round = new Round(data.getPlayerManager(), data.getMap(), state);
 			round.runSynchronous();
+			state.setRoundNumber(state.getRoundNumber()+1);
 		}
 	}	
+	
+	/**
+	 * Execute game from save point
+	 * @param data
+	 */
+	public void runSynchronous(GameData data) {
+
+	}
 	
 	public GameData getGameData() {
 		return data;

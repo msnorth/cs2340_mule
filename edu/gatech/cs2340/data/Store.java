@@ -86,6 +86,14 @@ public class Store implements Serializable {
 	}
 	
 	/**
+	 * Setter method for loading the game
+	 * @param store
+	 */
+	public static void setStore(Store store) {
+		theStore = store;
+	}
+	
+	/**
 	 * Store buys resources from the player.
 	 * @param resource, amount
 	 * @return

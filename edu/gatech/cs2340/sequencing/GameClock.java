@@ -59,6 +59,14 @@ public class GameClock implements Runnable, Serializable {
 	}
 	
 	/**
+	 * Method to set current clock for loading purposes
+	 * @param clock
+	 */
+	public static void setClock(GameClock clock) {
+		currentClock = clock;
+	}
+	
+	/**
 	 * Method to stop clock tick from incrementing
 	 */
 	public static void pauseClock() {

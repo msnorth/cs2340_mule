@@ -2,18 +2,24 @@ package edu.gatech.cs2340.engine;
 
 import java.util.Random;
 
+import edu.gatech.cs2340.data.GameState;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
+import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
 
 public class RandomEventGenerator {
 	private final Random rand = new Random();
 	private static final int[] RANDOMEVENTPRICEMODIFIER = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 
 	                                                       75, 100};
 	private PlayerManager playerManager;
+	private GameState state;
 	
-	public RandomEventGenerator(PlayerManager playerManager) {
+	public RandomEventGenerator(PlayerManager playerManager, GameState state) {
 		this.playerManager = playerManager;
+		this.state = state;
 	}
 	
 	/**
@@ -21,10 +27,13 @@ public class RandomEventGenerator {
 	 * Method to generate random events for all players
 	 */
 	public void runSynchronous() {
+		state.setState(GameState.STATE.RANDOM_EVENT);
 		Player[] players = playerManager.getPlayers();
-		
 		for (int i=0; i<players.length; i++) {
-			randomEventSimulator(players[i]);
+			state.setPlayerNum(i);
+			String result = randomEventSimulator(players[i]);
+			MULETimer blocker = new MULETimer(GameClock.TICK_LENGTH);
+			Waiter.waitOn(blocker, (int)(2000/GameClock.TICK_LENGTH));
 		}
 	}
 	
