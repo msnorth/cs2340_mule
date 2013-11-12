@@ -76,9 +76,8 @@ public class Round {
 		resourceProducer.runSynchronous();
 		
 		// Random event simulator with returned message for the beginning of the round
-		for (int i=0; i<numPlayers; i++) {
-			playerManager.randomEventSimulator(players[i]);
-		}
+		RandomEventGenerator randomEventGenerator = new RandomEventGenerator(playerManager);
+		randomEventGenerator.runSynchronous();
 		
 		// Land Grant/Purchase phases
 		if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
