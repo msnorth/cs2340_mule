@@ -58,7 +58,7 @@ public class PlayerManager implements PlayerManagerResponsibilities, Serializabl
 			sorted = true;
 			for (int i=0; i < players.length-1; i++) {
 					players[i].setlowestScore(false);
-				if (players[i].getGameScore() > players[i+1].getGameScore()) {
+				if (players[i].calculateScore() > players[i+1].calculateScore()) {
 					temp = players[i];
 					players[i] = players[i+1];
 					players[i+1] = temp;

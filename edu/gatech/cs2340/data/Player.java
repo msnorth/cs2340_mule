@@ -47,7 +47,6 @@ public class Player implements Serializable {
 	private boolean lowestScore;
 	private final String difficulty;
 	//private final ArrayList<Tile> ownedTiles;
-	private Store store;
 	
 	private ImageIcon image;
 
@@ -98,20 +97,19 @@ public class Player implements Serializable {
 	 * @return
 	 */
 	public int calculateScore() {
-		store = Store.getStore();
 		gameScore = 0;
 		
 		ResourceType[] types = ResourceType.values();
 		for(int i=0; i<types.length; i++) {
 			// Add total resource value to score
-			gameScore += resources.getAmount(types[i])*store.getResourcePrice(types[i]);
+			gameScore += resources.getAmount(types[i])*Store.getResourcePrice(types[i]);
 			
 			// Add money to total score
 			gameScore += this.money;
 			
 			// Add mule price to total score
 			if(this.hazMule()) {
-				gameScore += store.getMulePrice(mule.getType());
+				gameScore += Store.getMulePrice(mule.getType());
 			}
 		}
 		return gameScore;
@@ -127,16 +125,6 @@ public class Player implements Serializable {
 		if (tile != null) {
 			tile.setOwner(this);
 		}
-	}
-	
-	/**
-	 * #M6
-	 * Method to get the current player score
-	 * @return gameScore
-	 */
-	public int getGameScore() {
-		calculateScore();
-		return gameScore;
 	}
 	
 	/**

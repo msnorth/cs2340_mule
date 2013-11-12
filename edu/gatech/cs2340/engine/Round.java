@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
@@ -31,22 +32,22 @@ import edu.gatech.cs2340.ui.StatusBar;
  * 		Purpose: Execute a single round of the game
  */
 public class Round {
-	private static int roundNumber;
-	private final PlayerManager playerManager;
-	private final Map map;
-	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
-		roundNumber = roundNum;
-		playerManager = pManager;
-		map = usedMap;
+	private GameData data;
+	
+	public Round(GameData data) {
+		this.data = data;
 	}
+	
 	/**
 	 * #M7
 	 * Method to get the round number
 	 * @return
 	 */
+	/*
 	public static int getRoundNumber(){
 		return roundNumber;
 	}
+	*/
 	/**
 	 * #M6
 	 * Method to run a single round.
@@ -62,8 +63,7 @@ public class Round {
 	 * 		Auction Phase
 	 * 		Score screen
 	 */
-	public void runSynchronous() {
-		DebugPrinter.println("Running round " + roundNumber +" synchronously");
+	public void runSynchronous() {		
 		int numPlayers = playerManager.getTotalPlayers();
 		playerManager.calculatePlayerOrder();
 		Player[] players = playerManager.getPlayers();
