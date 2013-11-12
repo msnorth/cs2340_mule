@@ -3,6 +3,7 @@ package edu.gatech.cs2340.engine;
 import edu.gatech.cs2340.data.ImageLoader;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.io.KeyboardAdapter;
+import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MainMenuManager;
 
@@ -47,6 +48,7 @@ public abstract class Driver {
 	
 	public static void runGame(Game game) {
 		if (currentGameThread != null) {
+			GameClock.pauseClock();
 			currentGameThread.interrupt();
 			//currentGameThread.stop();
 		}
