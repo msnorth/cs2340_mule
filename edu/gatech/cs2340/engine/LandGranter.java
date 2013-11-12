@@ -1,6 +1,8 @@
 package edu.gatech.cs2340.engine;
+import edu.gatech.cs2340.data.GameState;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
+import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.KeyWaiter;
@@ -33,8 +35,9 @@ public class LandGranter
 {
 	private static final long WAIT_FOR_NEXT_TILE = 500;
 	
-	private Player currentPlayer;
+	private PlayerManager manager;
 	private Map map;
+	private GameState state;
 
 	
 	/**
@@ -44,10 +47,11 @@ public class LandGranter
 	 * @param player
 	 * @param mapRenderer
 	 */
-	public LandGranter(Player player, Map map) 
+	public LandGranter(PlayerManager manager, Map map, GameState state) 
 	{
-		currentPlayer 	 = player;
+		this.manager = manager;
 		this.map 		 = map;
+		this.state = state;
 	}
 	
 	/**
@@ -60,45 +64,55 @@ public class LandGranter
 	public void runSynchronous() 
 	{
 		DebugPrinter.println("Running LandGranter synchronously");
-		
-		MapRenderer mapRenderer = new MapRenderer(map);
-		MainGameWindow.getInstance().setMainPanel(mapRenderer);
-		
-		KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
-		KeyboardAdapter.getInstance().setReceiver(keyWaiter);
-		
-		boolean grantFinished = false;
-		
-		while(!grantFinished)
-		{
-			Tile unownedTile = map.getNextUnownedTile();		 	//Obtains the nextUnownedTile. This is our currentTile now.
-			if(unownedTile != null)								//As long as that unowned tile isn't null
+		state.setState(GameState.LAND_GRANT);
+		Player[] players = manager.getPlayers();
+		int i = state.getPlayerNum();
+		while (i<manager.getTotalPlayers()) {
+			state.setPlayerNum(i);
+			Player currentPlayer = players[i];
+			
+			MapRenderer mapRenderer = new MapRenderer(map);
+			MainGameWindow.getInstance().setMainPanel(mapRenderer);
+			
+			KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
+			KeyboardAdapter.getInstance().setReceiver(keyWaiter);
+			
+			boolean grantFinished = false;
+			
+			while(!grantFinished)
 			{
-				unownedTile.setActive(true);
-				mapRenderer.refreshAll();
-				MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
-				timer.start();										//Starts the timer
-				WaitedOn[] waitees = {keyWaiter, timer};
-				int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
-				
-				if(value == 0) 
+				Tile unownedTile = map.getNextUnownedTile();		 	//Obtains the nextUnownedTile. This is our currentTile now.
+				if(unownedTile != null)								//As long as that unowned tile isn't null
 				{
-					//currentPlayer.addTile(unownedTile);				//Assigns tile to player
-					unownedTile.setOwner(currentPlayer);
-					timer.stop();									//Kills timer
-					map.resetNextUnownedTile();
-					grantFinished = true;							//Ends land grant phase for that person
+					unownedTile.setActive(true);
+					mapRenderer.refreshAll();
+					MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
+					timer.start();										//Starts the timer
+					WaitedOn[] waitees = {keyWaiter, timer};
+					int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
+					
+					if(value == 0) 
+					{
+						//currentPlayer.addTile(unownedTile);				//Assigns tile to player
+						unownedTile.setOwner(currentPlayer);
+						timer.stop();									//Kills timer
+						map.resetNextUnownedTile();
+						grantFinished = true;							//Ends land grant phase for that person
+					}
+					unownedTile.setActive(false);
 				}
-				unownedTile.setActive(false);
+				else {
+					Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
+					//currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
+					randomUnownedTile.setOwner(currentPlayer);
+					map.resetNextUnownedTile();
+					grantFinished = true;
+				}
+				
 			}
-			else {
-				Tile randomUnownedTile = map.getRandomUnownedTile();	//Gets random, unowned tile
-				//currentPlayer.addTile(randomUnownedTile);				//Assigns it to player
-				randomUnownedTile.setOwner(currentPlayer);
-				map.resetNextUnownedTile();
-				grantFinished = true;
-			}
+			mapRenderer.refreshAll();
+			i++;
 		}
-		mapRenderer.refreshAll();
+		state.setPlayerNum(0);
 	}
 }

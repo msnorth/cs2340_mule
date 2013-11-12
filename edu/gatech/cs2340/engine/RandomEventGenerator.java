@@ -27,14 +27,17 @@ public class RandomEventGenerator {
 	 * Method to generate random events for all players
 	 */
 	public void runSynchronous() {
-		state.setState(GameState.STATE.RANDOM_EVENT);
+		state.setState(GameState.RANDOM_EVENT);
 		Player[] players = playerManager.getPlayers();
-		for (int i=0; i<players.length; i++) {
+		int i = state.getPlayerNum();
+		while (i<players.length) {
 			state.setPlayerNum(i);
+			state.savePoint();
 			String result = randomEventSimulator(players[i]);
-			MULETimer blocker = new MULETimer(GameClock.TICK_LENGTH);
-			Waiter.waitOn(blocker, (int)(2000/GameClock.TICK_LENGTH));
+			i++;
 		}
+		state.setPlayerNum(0);
+		state.setState(GameState.RANDOM_EVENT + 1);
 	}
 	
 	

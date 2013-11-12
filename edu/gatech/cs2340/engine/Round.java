@@ -72,7 +72,6 @@ public class Round {
 	 * 		Score screen
 	 */
 	public void runSynchronous() {
-		MULETimer blocker;
 		DebugPrinter.println("Running round " + roundNumber +" synchronously");
 		int numPlayers = playerManager.getTotalPlayers();
 		playerManager.calculatePlayerOrder();
@@ -81,38 +80,37 @@ public class Round {
 		StatusBar statBar = new StatusBar(players);
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
-		// Production
-		ResourceProducer resourceProducer = new ResourceProducer(map, state);
-		resourceProducer.runSynchronous();
-		blocker = new MULETimer(GameClock.TICK_LENGTH);
-		Waiter.waitOn(blocker, (int)(2000/GameClock.TICK_LENGTH));
+		//Yeah, there are no breaks. Don't put them in.
+		switch (state.getState()) {
 		
-		// Random event simulator with returned message for the beginning of the round
-		RandomEventGenerator randomEventGenerator = new RandomEventGenerator(playerManager, state);
-		randomEventGenerator.runSynchronous();
-		
-		// Land Grant/Purchase phases
-		if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
-			for (int i=0; i < numPlayers; i++) {
-				Player currentPlayer = playerManager.getNextPlayer();					
-				LandGranter granter = new LandGranter(currentPlayer, map);
-				granter.runSynchronous();
-			}
-		}
-		else {
-			for (int i=0; i < numPlayers; i++) {
-				Player currentPlayer = playerManager.getNextPlayer();
-				LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
-				purchaser.runSynchronous();
-			}
+			case GameState.PRODUCTION:
+				ResourceProducer resourceProducer = new ResourceProducer(map, state);
+				resourceProducer.runSynchronous();
+				
+			case GameState.RANDOM_EVENT:
+				RandomEventGenerator randomEventGenerator = new RandomEventGenerator(playerManager, state);
+				randomEventGenerator.runSynchronous();
+				
+			case GameState.LAND_GRANT:
+				if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
+					LandGranter landGranter = new LandGranter(playerManager, map, state);
+					landGranter.runSynchronous();
+				}
+				else {
+					LandPurchaser purchaser = new LandPurchaser(playerManager, map, roundNumber, state);
+					purchaser.runSynchronous();
+				}
+				
+			case GameState.TURN:
+				for (int i=0; i<numPlayers; i++) {
+					Player currentPlayer = playerManager.getNextPlayer();
+					Turn turn = new Turn(currentPlayer, map);
+					turn.runSynchronous();
+				}
 		}
 			
-		// Turn
-		for (int i=0; i<numPlayers; i++) {
-			Player currentPlayer = playerManager.getNextPlayer();
-			Turn turn = new Turn(currentPlayer, map);
-			turn.runSynchronous();
-		}
+		state.setState(GameState.PRODUCTION);
+		GameClock.sync();
 		// Auction
 		// Score screen
 	}

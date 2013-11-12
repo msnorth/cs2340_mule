@@ -94,4 +94,19 @@ public class GameClock implements Runnable, Serializable {
 			}
 		}
 	}
+	
+	/**
+	 * Method to block execution if the clock is not running
+	 */
+	public static void sync() {
+		while (!clockRunning) {
+			try {
+				Thread.sleep(TICK_LENGTH);
+			} 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+				System.exit(99);
+			}
+		}
+	}
 }

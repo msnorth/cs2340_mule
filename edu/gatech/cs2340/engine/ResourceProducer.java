@@ -5,6 +5,9 @@ import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount;
 import edu.gatech.cs2340.data.Tile;
+import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
 
 /**
  * 
@@ -30,7 +33,7 @@ public class ResourceProducer {
 	 * Method to run (blocking) through all tiles and add their production/subtract mule used energy from owners
 	 */
 	public void runSynchronous() {
-		state.setState(GameState.STATE.PRODUCTION);
+		state.setState(GameState.PRODUCTION);
 		state.setSaveable(false);
 		Tile tile = map.getNextTile();
 		while (tile != null) {
@@ -47,6 +50,7 @@ public class ResourceProducer {
 			tile = map.getNextTile();
 		}
 		state.setSaveable(true);
+		GameClock.sync();
 	}
 	
 	

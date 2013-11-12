@@ -2,6 +2,8 @@ package edu.gatech.cs2340.data;
 
 import java.awt.Point;
 
+import edu.gatech.cs2340.sequencing.GameClock;
+
 /**
  * @author Stephen Conway
  * 
@@ -9,10 +11,14 @@ import java.awt.Point;
  * 
  */
 public class GameState {
-	public static enum STATE {PRODUCTION, RANDOM_EVENT, LAND_GRANT, TURN};
+	//public static enum STATE {PRODUCTION, RANDOM_EVENT, LAND_GRANT, TURN};
+	public static final int PRODUCTION = 0;
+	public static final int RANDOM_EVENT = 1;
+	public static final int LAND_GRANT = 2;
+	public static final int TURN = 3;
 	
 	private int roundNumber;
-	private STATE state;
+	private int state;
 	private boolean saveable;
 	private int playerNum;
 	private int tileNum;
@@ -25,10 +31,10 @@ public class GameState {
 	public void setRoundNumber(int roundNumber) {
 		this.roundNumber = roundNumber;
 	}
-	public STATE getState() {
+	public int getState() {
 		return state;
 	}
-	public void setState(STATE state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 	public boolean isSaveable() {
@@ -60,5 +66,11 @@ public class GameState {
 	}
 	public void setSpritePosition(Point spritePosition) {
 		this.spritePosition = spritePosition;
+	}
+	
+	public void savePoint() {
+		saveable = true;
+		GameClock.sync();
+		saveable = false;
 	}
 }
