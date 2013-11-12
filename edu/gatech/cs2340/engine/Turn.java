@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.Gambler;
+import edu.gatech.cs2340.data.GameState;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
@@ -31,6 +32,7 @@ import edu.gatech.cs2340.ui.MapManager;
 public class Turn {
 	private final Player player;
 	private final Map map;
+	private GameState state;
 	
 	/**
 	 * #M6
@@ -38,9 +40,10 @@ public class Turn {
 	 * 
 	 * @param player
 	 */
-	public Turn(Player player, Map map) {
+	public Turn(Player player, Map map, GameState state) {
 		this.player = player;
 		this.map = map;
+		this.state = state;
 	}
 	
 	/**
@@ -51,7 +54,7 @@ public class Turn {
 	 */
 	public void runSynchronous() {
 		DebugPrinter.println("Running Turn synchronously.");
-		int roundNumber = Round.getRoundNumber();
+		int roundNumber = state.getRoundNumber();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
 		//MapManager mapManager = new MapManager(player, map);
 		StatusBar statBar = MainGameWindow.getInstance().getLowerPanel();

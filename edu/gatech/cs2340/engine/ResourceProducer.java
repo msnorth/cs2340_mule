@@ -34,7 +34,6 @@ public class ResourceProducer {
 	 */
 	public void runSynchronous() {
 		state.setState(GameState.PRODUCTION);
-		state.setSaveable(false);
 		Tile tile = map.getNextTile();
 		while (tile != null) {
 			Player owner = tile.getOwner();
@@ -49,8 +48,8 @@ public class ResourceProducer {
 			
 			tile = map.getNextTile();
 		}
-		state.setSaveable(true);
-		GameClock.sync();
+		state.setState(GameState.PRODUCTION + 1);
+		state.savePoint();
 	}
 	
 	

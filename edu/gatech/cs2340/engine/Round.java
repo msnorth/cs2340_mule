@@ -102,15 +102,23 @@ public class Round {
 				}
 				
 			case GameState.TURN:
-				for (int i=0; i<numPlayers; i++) {
+				state.setState(GameState.TURN);
+				int i = state.getPlayerNum();
+				while (i<numPlayers) {
+					state.setPlayerNum(i);
+					state.savePoint();
 					Player currentPlayer = playerManager.getNextPlayer();
-					Turn turn = new Turn(currentPlayer, map);
+					Turn turn = new Turn(currentPlayer, map, state);
+					state.setSaveable(true);
 					turn.runSynchronous();
+					state.setSaveable(false);
 				}
+				state.setPlayerNum(0);
+				state.savePoint();
 		}
 			
 		state.setState(GameState.PRODUCTION);
-		GameClock.sync();
+		state.savePoint();
 		// Auction
 		// Score screen
 	}

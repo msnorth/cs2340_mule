@@ -63,6 +63,8 @@ public class LandPurchaser
 		Player[] players = manager.getPlayers();
 		while (i <= players.length) { 
 			state.setPlayerNum(i);
+			state.savePoint();
+			
 			Player currentPlayer = players[i];
 			MapRenderer mapRenderer = new MapRenderer(map);
 			MainGameWindow.getInstance().setMainPanel(mapRenderer);
@@ -97,6 +99,9 @@ public class LandPurchaser
 			mapRenderer.setDisplayPrices(false);  // all tile prices are set to zero here
 			i++;
 		}
+		state.setPlayerNum(0);
+		state.setState(GameState.LAND_GRANT + 1);
+		state.savePoint();
 	}
 	
 	/**

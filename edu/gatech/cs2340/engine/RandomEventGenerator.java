@@ -38,6 +38,7 @@ public class RandomEventGenerator {
 		}
 		state.setPlayerNum(0);
 		state.setState(GameState.RANDOM_EVENT + 1);
+		state.savePoint();
 	}
 	
 	

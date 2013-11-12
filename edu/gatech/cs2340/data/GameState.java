@@ -40,8 +40,8 @@ public class GameState {
 	public boolean isSaveable() {
 		return saveable;
 	}
-	public void setSaveable(boolean saveable) {
-		this.saveable = saveable;
+	public void setSaveable(boolean save) {
+		saveable = save;
 	}
 	public int getPlayerNum() {
 		return playerNum;

@@ -69,6 +69,8 @@ public class LandGranter
 		int i = state.getPlayerNum();
 		while (i<manager.getTotalPlayers()) {
 			state.setPlayerNum(i);
+			state.savePoint();
+			
 			Player currentPlayer = players[i];
 			
 			MapRenderer mapRenderer = new MapRenderer(map);
@@ -79,6 +81,7 @@ public class LandGranter
 			
 			boolean grantFinished = false;
 			
+			state.setSaveable(true);
 			while(!grantFinished)
 			{
 				Tile unownedTile = map.getNextUnownedTile();		 	//Obtains the nextUnownedTile. This is our currentTile now.
@@ -110,9 +113,12 @@ public class LandGranter
 				}
 				
 			}
+			state.setSaveable(false);
 			mapRenderer.refreshAll();
 			i++;
 		}
 		state.setPlayerNum(0);
+		state.setState(GameState.LAND_GRANT + 1);
+		state.savePoint();
 	}
 }
