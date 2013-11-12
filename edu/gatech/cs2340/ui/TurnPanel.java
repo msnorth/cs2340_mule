@@ -1,5 +1,8 @@
 package edu.gatech.cs2340.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -16,6 +19,10 @@ import javax.swing.JPanel;
  */
 public class TurnPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
+	public static final int DIM_X = 72*9 + 40;
+	public static final int DIM_Y = 550;
+	Dimension panelSize = new Dimension(DIM_X, DIM_Y);
+
 	private JPanel[] panels;
 	private boolean[] spriteEnabled;
 	private int currentPanel;
@@ -32,7 +39,8 @@ public class TurnPanel extends JPanel{
 		this.panels = panels;
 		this.spriteEnabled = spriteEnabled;
 		this.sprite = sprite;
-		add(panels[0]);
+		//setLayout(new BorderLayout());
+	//	add(panels[0]);
 		currentPanel = 0;
 	}
 	
@@ -44,7 +52,10 @@ public class TurnPanel extends JPanel{
 	public void setCurrentPanel(int ndx) {
 		if (ndx != currentPanel) {
 			removeAll();
-			System.out.println(panels[ndx]);
+			setMinimumSize(panelSize);
+			setMaximumSize(panelSize);
+			setPreferredSize(panelSize);
+			setBackground(MainGameWindow.BACKGROUND_COLOR);
 			add(panels[ndx]);
 			revalidate();
 			currentPanel = ndx;

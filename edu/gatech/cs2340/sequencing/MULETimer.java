@@ -1,5 +1,8 @@
 package edu.gatech.cs2340.sequencing;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import edu.gatech.cs2340.test.DebugPrinter;
 
 
@@ -16,90 +19,83 @@ import edu.gatech.cs2340.test.DebugPrinter;
  * 
  * 		Purpose: Blocks for a set amount of time.
  */
-public class MULETimer implements Runnable, WaitedOn {
-	private static final int DEFAULT_FREQUENCY = 50;
+public class MULETimer implements WaitedOn, Serializable {
+	private static ArrayList<MULETimer> activeTimers;
 	
-	private boolean timeout;
-	private long timeout_ms;
-	private Thread thread;
+	private final long duration_ms;
+	private boolean stopped;
+	private long startTime_tick;
 	
-	private long totalTime;
+	public static ArrayList<MULETimer> getActiveTimers() {
+		if (activeTimers == null) {
+			activeTimers = new ArrayList<MULETimer>();
+		}
+		return activeTimers;
+	}
+	
+	
+	/**
+	 * Constructor to
+	 * 
+	 * @param duration_ms
+	 */
+	public MULETimer(long duration_ms) {
+		this.duration_ms = duration_ms;
+		stopped = false;
+	}
+
+	@Override
+	public boolean isFinished() {
+		boolean result = stopped || startTime_tick + duration_ms/GameClock.TICK_LENGTH <= GameClock.getTick();
+		if (result) {
+			activeTimers.remove(this);
+		}
+		return result;
+	}
 
 	/**
-	 * #M6
-	 * Main constructor. Creates countdown timer with given time.
-	 * 
-	 * @param timeout_ms
-	 */
-	public MULETimer(long timeout_ms) {
-		this.timeout_ms = timeout_ms;
-		this.totalTime = timeout_ms;
-		timeout = false;
-	}
-	
-	/**
-	 * Method to start timer (asynchronously).
+	 * Method to start the timer
 	 */
 	public void start() {
-		DebugPrinter.println("Timer for " + timeout_ms + " started asynchronously.");
-		thread = new Thread(this);
-		thread.start();
-	}
-	
-	/**
-	 * Method to start timer (synchronously).
-	 */
-	public void runSynchronous() {
-		DebugPrinter.println("Timer for " + timeout_ms + " started synchronously.");
-		run();
-	}
-	
-	@Override
-	public void run() {
-		while (timeout_ms > 0 && !timeout) {
-			timeout_ms -= 1000/DEFAULT_FREQUENCY;
-			try {
-				Thread.sleep(1000/DEFAULT_FREQUENCY);
-			} catch (InterruptedException e) {
-				timeout = true;
-			}
+		if (activeTimers == null) {
+			activeTimers = new ArrayList<MULETimer>();
 		}
-		timeout = true;
+		activeTimers.add(this);
+		startTime_tick = GameClock.getTick();
 	}
 	
 	/**
-	 * #M6
-	 * Method to get time left on the clock.
-	 * Used to determine gamlin' profits.
-	 * 
+	 * Method to stop the timer. Cannot be restarted.
+	 */
+	public void stop() {
+		stopped = true;
+	}
+	
+	/**
+	 * Method to get remaining time on the timer
 	 * @return
 	 */
 	public long getTimeRemaining() {
-		return timeout_ms;
+		return (startTime_tick + duration_ms/GameClock.TICK_LENGTH - GameClock.getTick())* GameClock.TICK_LENGTH;
 	}
 	
 	/**
-	 * Method to terminate thread before Timer runs out.
+	 * Method to get the original duration of the timer
+	 * @return
 	 */
-	public void stop() {
-		if (thread == null) {
-			timeout = true;
-		}
-		else {
-			thread.interrupt();
-		}
+	public long getTimerDuration() {
+		return duration_ms;
 	}
 	
-	@Override
-	public boolean isFinished() {
-		return timeout;
+	/**
+	 * Method to get starting time in System.current time
+	 * @return
+	 */
+	public long getStartTime() {
+		return startTime_tick;
 	}
+	
 
-	/**
-	 * @return the totalTime
-	 */
-	public long getTotalTime() {
-		return totalTime;
-	}
+
 
 }

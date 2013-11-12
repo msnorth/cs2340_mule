@@ -1,6 +1,10 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
+
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
+import edu.gatech.cs2340.ui.MainGameWindow;
+import edu.gatech.cs2340.ui.StatusBar;
 
 /**
  *@author Thomas Mark
@@ -34,7 +38,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 			  (e.g. theStore.sellResources(...) : player buying resources)
  * 			- Classes that use store should use the message method to pass info to the player	 		 
  */
-public class Store {
+public class Store implements Serializable {
 	private static Store theStore;
 	private static ResourceAmount storeResources;
 	private static ResourceAmount storePrices;
@@ -58,6 +62,7 @@ public class Store {
 	
 	private Player player;
 	private String message;
+	private static StatusBar statBar;
 	
 	/**
 	 * M8
@@ -76,6 +81,7 @@ public class Store {
 		if (theStore == null) {
 			theStore = new Store();
 		}
+		statBar = MainGameWindow.getInstance().getLowerPanel();
 		return theStore;
 	}
 	
@@ -116,6 +122,7 @@ public class Store {
 		storeResources.remove(resource, amount);
 		player.deductMoney(cost);
 		player.addResources(resource, amount);
+		statBar.refreshPlayer(player);
 		return true;
 	}
 	
@@ -151,6 +158,7 @@ public class Store {
 		player.deductMoney(cost);
 		player.addMule(new Mule(type));
 		numberOfMules = createMules();
+		statBar.refreshPlayer(player);
 		return true;
 	}
 	

@@ -77,7 +77,7 @@ public class LandPurchaser
 		if(killa == 0) {
 			timer.stop();
 			if (currentPlayer.deductMoney(price)) {
-				currentPlayer.addTile(tile);
+				//currentPlayer.addTile(tile);
 				tile.setOwner(currentPlayer);
 				mapRenderer.refreshAll();							//Reflects changes on map
 			}

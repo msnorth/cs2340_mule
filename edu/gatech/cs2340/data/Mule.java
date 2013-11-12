@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
+
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 
 /**
@@ -13,7 +15,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 									Added toString method for getting the stirng name of a type.
  * 		Purpose: To hold data about a specific mule type.				
  */
-public class Mule {
+public class Mule implements Serializable {
 	private final ResourceType type;
 	
 	/**

@@ -1,6 +1,6 @@
 package edu.gatech.cs2340.data;
 import java.awt.Color;
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
@@ -36,8 +36,8 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 		Purpose: Holds information for a player in the game.
  * 				 
  */
-public class Player {
-	private final String name;
+public class Player implements Serializable {
+	private String name;
 	private final String race;
 	private final Color color;
 	private final ResourceAmount resources;
@@ -46,8 +46,7 @@ public class Player {
 	private int gameScore;
 	private boolean lowestScore;
 	private final String difficulty;
-	private final ArrayList<Tile> ownedTiles;
-	private double time;
+	//private final ArrayList<Tile> ownedTiles;
 	private Store store;
 	
 	private ImageIcon image;
@@ -67,7 +66,7 @@ public class Player {
 
 		difficulty = "Beginner"; // variable defined if it needs to be changed
 									// to allow for Standard/Tournament
-		ownedTiles = new ArrayList<Tile>();
+		//ownedTiles = new ArrayList<Tile>();
 		resources = new ResourceAmount();
 
 		if (difficulty.equalsIgnoreCase("Beginner")) {
@@ -123,11 +122,13 @@ public class Player {
 	 * Method to add the tile to player's ownedTile list
 	 * @param tile
 	 */
+	
 	public void addTile(Tile tile) {
 		if (tile != null) {
-			ownedTiles.add(tile);
+			tile.setOwner(this);
 		}
 	}
+	
 	/**
 	 * #M6
 	 * Method to get the current player score
@@ -253,7 +254,14 @@ public class Player {
 	 */
 	public void addResources(ResourceType resource, int amount) {
 		resources.add(resource, amount);
-		
+	}
+	
+	/**
+	 * #M9
+	 * @param amount
+	 */
+	public void addResources(ResourceAmount amount) {
+		resources.add(amount);
 	}
 
 	/**
@@ -312,5 +320,12 @@ public class Player {
 	 */
 	public void setlowestScore(boolean lowScore) {
 		this.lowestScore = lowScore;
+	}
+	
+	/**
+	 * toStrings are nice
+	 */
+	public String toString() {
+		return String.format("Player: %s %s %s %s", name, race, color, resources);
 	}
 }

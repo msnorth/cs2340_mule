@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
-import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.ui.MapRenderer;
 
 public class MapRendererTest {

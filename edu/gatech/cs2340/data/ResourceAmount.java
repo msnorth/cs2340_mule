@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Stephen Conway
@@ -15,7 +17,7 @@ package edu.gatech.cs2340.data;
  * 
  * 		Purpose: Encapsulate a count of the game's four resource types.	 
  */
-public class ResourceAmount {
+public class ResourceAmount implements Serializable {
 	public static enum ResourceType {
 		SMITHORE, FOOD, ENERGY, CRYSTITE
 	}
@@ -112,5 +114,9 @@ public class ResourceAmount {
 			result &= amounts[i] >= resourceAmount.getAmount(types[i]);
 		}
 		return result;
+	}
+	
+	public String toString() {
+		return String.format("{SO:%d FD:%d EN:%d CR:%d}", amounts[0], amounts[1], amounts[2], amounts[3]);
 	}
 }

@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.data;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Random;
  */
 
 // 5 x 9 grid
-public class Map implements MapResponsibilities {
+public class Map implements MapResponsibilities, Serializable {
 
 
 	// Can actually handle a map of any size
@@ -114,23 +115,6 @@ public class Map implements MapResponsibilities {
 		return result;
 	}
 
-//	/**
-//	 * Helper method to get x y coordinates of tile
-//	// and set currX and currY
-//	 * @param t Tile to which to point the currX and currY of Map
-//	 */
-//	private void setCurrentTile(Tile t) {
-//		outerloop: for (int i = 0; i < tiles.length; i++) {
-//			for (int j = 0; j < tiles[0].length; j++) {
-//				if (tiles[i][j].compareTo(t)) {
-//					currX = i;
-//					currY = j;
-//					break outerloop;
-//				}
-//			}
-//		}
-//	}
-
 	// resets ownership of next tile
 	// sets current tile pointers to next tile
 
@@ -162,15 +146,4 @@ public class Map implements MapResponsibilities {
 	public int getNumRows(){
 		return tiles.length;
 	}
-	
-//	/**
-//	 * Set the current X and Y that the map is internally pointing to
-//	 * TODO Is there a better way to do this to reduce coupling? Visitor class?
-//	 * @param currX Next X coordinate of tile to retrieve
-//	 * @param currY Next Y coordinate of tile to retrieve
-//	 */
-//	public void setCurrXY(int currX, int currY){
-//		this.currX = currX;
-//		this.currY = currY;
-//	}
 }

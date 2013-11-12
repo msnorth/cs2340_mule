@@ -11,8 +11,20 @@ public class TownTile extends Tile {
 		this.setId(id);
 	}
 	@Override
-	public ResourceAmount calculateProduction() {
-		return new ResourceAmount();
+	protected int getOreIncrease() {
+		return 0;
+	}
+	@Override
+	protected int getFoodIncrease() {
+		return 0;
+	}
+	@Override
+	protected int getEnergyIncrease() {
+		return 0;
+	}
+	@Override
+	protected int getCrystiteIncrease() {
+		return 0;
 	}
 
 }

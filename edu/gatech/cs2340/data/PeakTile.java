@@ -10,9 +10,26 @@ public class PeakTile extends Tile {
 	}
 
 	@Override
-	public ResourceAmount calculateProduction() {
+	protected int getOreIncrease() {
+		return 4;
+	}
+
+	@Override
+	protected int getFoodIncrease() {
 		// TODO Auto-generated method stub
-		return null;
+		return 1;
+	}
+
+	@Override
+	protected int getEnergyIncrease() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	@Override
+	protected int getCrystiteIncrease() {
+		// TODO Auto-generated method stub
+		return 4;
 	}
 
 

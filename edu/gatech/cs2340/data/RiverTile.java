@@ -8,11 +8,21 @@ public class RiverTile extends Tile{
 		this.setOwner(owner);
 		this.setId(id);
 	}
-
 	@Override
-	public ResourceAmount calculateProduction() {
-		// TODO Auto-generated method stub
-		return null;
+	protected int getOreIncrease() {
+		return 0;
+	}
+	@Override
+	protected int getFoodIncrease() {
+		return 4;
+	}
+	@Override
+	protected int getEnergyIncrease() {
+		return 2;
+	}
+	@Override
+	protected int getCrystiteIncrease() {
+		return 0;
 	}
 
 }
