@@ -25,7 +25,7 @@ import edu.gatech.cs2340.sequencing.MULETimer;
  * 		Purpose: Controls game processes. Initializes rounds. Determines end of game.
  *
  */
-public class Game {
+public class Game implements Runnable{
 	public static Game currentGame;
 	
 	private GameData data;
@@ -70,7 +70,7 @@ public class Game {
 	/**
 	 * Execute the number of Rounds required.
 	 */
-	public void runSynchronous() {
+	public void run() {
 		GameClock.startClock();
 		
 		GameState state = data.getGameState();

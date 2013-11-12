@@ -112,6 +112,7 @@ public class Round {
 					state.setSaveable(true);
 					turn.runSynchronous();
 					state.setSaveable(false);
+					i++;
 				}
 				state.setPlayerNum(0);
 				state.savePoint();

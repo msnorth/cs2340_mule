@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.data;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 import edu.gatech.cs2340.sequencing.GameClock;
 
@@ -10,7 +11,7 @@ import edu.gatech.cs2340.sequencing.GameClock;
  * Class to store execution information for save/load
  * 
  */
-public class GameState {
+public class GameState implements Serializable {
 	//public static enum STATE {PRODUCTION, RANDOM_EVENT, LAND_GRANT, TURN};
 	public static final int PRODUCTION = 0;
 	public static final int RANDOM_EVENT = 1;
@@ -35,6 +36,7 @@ public class GameState {
 		return state;
 	}
 	public void setState(int state) {
+		System.out.println("State changed to " + state);
 		this.state = state;
 	}
 	public boolean isSaveable() {

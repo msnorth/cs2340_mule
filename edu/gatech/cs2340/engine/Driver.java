@@ -24,6 +24,8 @@ import edu.gatech.cs2340.ui.MainMenuManager;
  * 					like KeyboardAdapter and starts main menu sequence.
  */
 public abstract class Driver {	
+	private static Thread currentGameThread;
+	
 	/**
 	 * Application entry point. From here, KeyboardAdapter should be initialized and
 	 * the entry menu should be brought up.
@@ -40,6 +42,15 @@ public abstract class Driver {
 		
 		//Game setup currently allows only default map and 8 turns
 		Game game = new Game(pManager, false, 8);
-		game.runSynchronous();
+		runGame(game);
 	}		
+	
+	public static void runGame(Game game) {
+		if (currentGameThread != null) {
+			currentGameThread.interrupt();
+			//currentGameThread.stop();
+		}
+		currentGameThread = new Thread(game);
+		currentGameThread.run();
+	}
 }
