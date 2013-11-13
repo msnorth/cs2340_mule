@@ -34,6 +34,7 @@ public class Round {
 	private static int roundNumber;
 	private final PlayerManager playerManager;
 	private final Map map;
+	private MainGameWindow mainGameWindow;
 	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
 		roundNumber = roundNum;
 		playerManager = pManager;
@@ -69,16 +70,12 @@ public class Round {
 		Player[] players = playerManager.getPlayers();
 				
 		StatusBar statBar = new StatusBar(players);
-		MainGameWindow.getInstance().setLowerPanel(statBar);
+		mainGameWindow = MainGameWindow.getInstance();
+		mainGameWindow.setLowerPanel(statBar);
 		
 		// Production
 		ResourceProducer resourceProducer = new ResourceProducer(map);
 		resourceProducer.runSynchronous();
-		
-		// Random event simulator with returned message for the beginning of the round
-		for (int i=0; i<numPlayers; i++) {
-			playerManager.randomEventSimulator(players[i]);
-		}
 		
 		// Land Grant/Purchase phases
 		if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
@@ -100,7 +97,11 @@ public class Round {
 		for (int i=0; i<numPlayers; i++) {
 			Player currentPlayer = playerManager.getNextPlayer();
 			Turn turn = new Turn(currentPlayer, map);
+			// Notify user of random event
+			mainGameWindow.setMessage(playerManager.randomEventSimulator(players[i]));
 			turn.runSynchronous();
+			// Remove notification of random event
+			mainGameWindow.clearMessage();
 		}
 		// Auction
 		// Score screen
