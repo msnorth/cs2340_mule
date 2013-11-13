@@ -54,7 +54,7 @@ public class MapManager implements WaitedOn, Runnable{
 		boolean[] spriteEnabled = {false, true, true};
 		TurnPanel mutex = new TurnPanel(panels, spriteEnabled, sprite);
 		
-		MainGameWindow.getInstance().setMainPanel(mutex);
+		MainGameWindow.setMainPanel(mutex);
 		
 		//while player not in pub
 		while (sprite.getLocation() != -1) {

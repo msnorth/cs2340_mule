@@ -55,7 +55,7 @@ public class Round {
 	 */
 	public void runSynchronous() {		
 		StatusBar statBar = new StatusBar(data.getPlayerManager().getPlayers());
-		MainGameWindow.getInstance().setLowerPanel(statBar);
+		MainGameWindow.setLowerPanel(statBar);
 		
 		//switch to jump in at proper location on load.
 		//===DO NOT ADD BREAK STATEMENTS===

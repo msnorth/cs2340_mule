@@ -35,25 +35,17 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final Color BACKGROUND_COLOR = new Color(255, 255, 102);
-	private JPanel mainPanel;
+	private static JPanel mainPanel;
 	public static final int DIM_X = 72*9 + 40;
 	public static final int DIM_Y = 550;
 	public static final int LOWER_PANEL_HEIGHT = 150;
 	
-	private JPanel currentPanel;
+	private static JPanel currentPanel;
 	//panel to hold status bar
-	private  JPanel lowerPanel;
-	private StatusBar statusBar;
+	private static JPanel lowerPanel;
+	private static StatusBar statusBar;
 	
 	private static MainGameWindow instance = null;
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public static MainGameWindow getInstance() {
-		return instance;
-	}
 	
 	
 	public static void initialize() {
@@ -111,15 +103,15 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @param currentPanel
 	 */
-	public void setMainPanel(JPanel currentPanel) {
+	public static void setMainPanel(JPanel currentPanel) {
 		if (currentPanel != null) {
 			mainPanel.removeAll();
 			mainPanel.repaint();
 		}
 
-		this.currentPanel = currentPanel;
+		MainGameWindow.currentPanel = currentPanel;
 		mainPanel.add(currentPanel);
-		this.pack();
+		instance.pack();
 	}
 	
 	/**
@@ -129,15 +121,15 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @param lowerPanel
 	 */
-	public void setLowerPanel(StatusBar statusBar) {
-		this.statusBar = statusBar;
+	public static void setLowerPanel(StatusBar statusBar) {
+		instance.statusBar = statusBar;
 		
 		if(statusBar != null){
 			lowerPanel.removeAll();
 			lowerPanel.repaint();
 		}
 		lowerPanel.add(statusBar, BorderLayout.CENTER);
-		this.pack();
+		instance.pack();
 	}
 	
 	/**
@@ -145,7 +137,7 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @return Current panel
 	 */
-	public JPanel getCurrentPanel() {
+	public static JPanel getCurrentPanel() {
 		return currentPanel;
 	}
 	
@@ -154,7 +146,7 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @return status bar panel
 	 */
-	public StatusBar getLowerPanel() {
+	public static StatusBar getLowerPanel() {
 		return statusBar;
 	}
 }

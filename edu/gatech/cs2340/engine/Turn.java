@@ -54,7 +54,7 @@ public class Turn {
 		
 		int roundNumber = data.getRoundNum();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
-		StatusBar statBar = MainGameWindow.getInstance().getLowerPanel();
+		StatusBar statBar = MainGameWindow.getLowerPanel();
 		statBar.setTimer(timer);
 		MapManager mapManager = new MapManager(data);
 		timer.start();

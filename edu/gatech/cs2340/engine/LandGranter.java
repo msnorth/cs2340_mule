@@ -66,7 +66,7 @@ public class LandGranter
 			Player currentPlayer = data.getCurrentPlayer();
 			
 			MapRenderer mapRenderer = new MapRenderer(map);
-			MainGameWindow.getInstance().setMainPanel(mapRenderer);
+			MainGameWindow.setMainPanel(mapRenderer);
 			
 			KeyWaiter keyWaiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
 			KeyboardAdapter.getInstance().setReceiver(keyWaiter);

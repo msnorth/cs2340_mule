@@ -57,7 +57,7 @@ public class LandPurchaser
 			Player currentPlayer = data.getCurrentPlayer();
 		
 			MapRenderer mapRenderer = new MapRenderer(map);
-			MainGameWindow.getInstance().setMainPanel(mapRenderer);
+			MainGameWindow.setMainPanel(mapRenderer);
 			mapRenderer.setDisplayPrices(true);
 			
 			
