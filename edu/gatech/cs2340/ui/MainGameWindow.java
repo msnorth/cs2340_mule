@@ -46,7 +46,7 @@ public class MainGameWindow extends JFrame {
 	//panel to hold status bar
 	private static JPanel lowerPanel;
 	private static StatusBar statusBar;
-	private static JPanel alertPanel;
+	private static JLabel alertLabel;
 	
 	private static MainGameWindow instance = null;
 	
@@ -74,6 +74,7 @@ public class MainGameWindow extends JFrame {
 		lowerPanel = null;
 		mainPanel = new JPanel();
 		lowerPanel = new JPanel();
+		JPanel alertPanel = new JPanel();
 		this.setLayout(new BorderLayout());
 		
 		setFocusable(true);
@@ -89,6 +90,11 @@ public class MainGameWindow extends JFrame {
 		lowerPanel.setMinimumSize(lowerSize);
 		lowerPanel.setMaximumSize(lowerSize);
 		lowerPanel.setLayout(new BorderLayout());
+		
+		alertLabel = new JLabel();
+		alertLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		alertLabel.setForeground(Color.RED);
+		alertPanel.add(alertLabel);
 		
 		mainPanel.setBackground(BACKGROUND_COLOR);
 		lowerPanel.setBackground(BACKGROUND_COLOR);
@@ -159,17 +165,13 @@ public class MainGameWindow extends JFrame {
 	 * @param message - Message to be displayed
 	 */
 	public static void setMessage(String message){
-		alertPanel.removeAll();
-		JLabel messageLabel = new JLabel(message);
-		messageLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		messageLabel.setForeground(Color.RED);
-		alertPanel.add(messageLabel);
+		alertLabel.setText(message);
 		
 	}
 	/**
 	 * Clears the message from the bottom of the screen
 	 */
 	public static void clearMessage(){
-		alertPanel.removeAll();
+		alertLabel.setText("");
 	}
 }
