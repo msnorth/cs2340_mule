@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -176,5 +177,9 @@ public class MainGameWindow extends JFrame {
 	 */
 	public static void clearMessage(){
 		alertLabel.setText("");
+	}
+	
+	public static Point getWindowLocation() {
+		return instance.getLocation();
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.sequencing.GameTerminatedException;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
@@ -23,6 +24,7 @@ public class GameData implements Serializable, WaitedOn {
 	private int playerNum;
 	private int state;
 	private boolean saveable;
+	private boolean terminated;
 	
 	public GameData(PlayerManager playerManager, Map map, Store store, int numRounds) {
 		this.playerManager = playerManager;
@@ -32,6 +34,8 @@ public class GameData implements Serializable, WaitedOn {
 		roundNum = 0;
 		playerNum = 0;
 		state = PRODUCTION;
+		saveable = false;
+		terminated = false;
 	}
 	
 
@@ -147,20 +151,13 @@ public class GameData implements Serializable, WaitedOn {
 	public void savePoint() {
 		saveable = true;
 		GameClock.sync();
+		if (terminated) {
+			throw new GameTerminatedException();
+		}
 		saveable = false;
 	}
 	
-	public void startSaveSection() {
-		if (saveable) {
-			throw new RuntimeException("Save section already active");
-		}
-		saveable = true;
-	}
-	
-	public void endSaveSection() {
-		if (!saveable) {
-			throw new RuntimeException("No save section active");
-		}
-		saveable = false;
+	public void terminate() {
+		terminated = true;
 	}
 }

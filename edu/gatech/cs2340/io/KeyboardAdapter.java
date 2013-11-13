@@ -142,18 +142,11 @@ public class KeyboardAdapter implements KeyListener{
 			keyStatus |= 1<<key.ordinal();
 		}
 		
-		if (e.getKeyChar() == 'o') {
-			Game game = Game.currentGame;
-			GameClock.pauseClock();
-			if (game != null) {
-				GameSaver saver = new GameSaver("C:/Users/Stephen/Desktop/MULEsave.txt", game.getGameData());
-				saver.save();
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			if (Game.currentGame != null) {
+				InGameMenuManager manager = new InGameMenuManager();
+				manager.runAsynchronous();
 			}
-			GameClock.startClock();
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			InGameMenuManager manager = new InGameMenuManager();
-			manager.runAsynchronous();
 		}
 		
 	}

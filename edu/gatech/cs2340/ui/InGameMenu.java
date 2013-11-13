@@ -23,6 +23,9 @@ import edu.gatech.cs2340.test.DebugPrinter;
  */
 public class InGameMenu extends JPanel implements ActionListener, WaitedOn {
 	private static final long serialVersionUID = 1L;
+	
+	public static final int DIM_X = 445;
+	public static final int DIM_Y = 225;
 
 	/**
 	 * Labels that this is a pause menu
@@ -54,7 +57,7 @@ public class InGameMenu extends JPanel implements ActionListener, WaitedOn {
 	private boolean isFinished;
 
 	public InGameMenu() {
-		this.setPreferredSize(new Dimension(445, 225));
+		this.setPreferredSize(new Dimension(DIM_X, DIM_Y));
 		
 		setLayout(null);
 

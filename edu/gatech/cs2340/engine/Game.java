@@ -1,6 +1,8 @@
 
 package edu.gatech.cs2340.engine;
 
+import javax.swing.JPanel;
+
 import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.MapGenerator;
@@ -8,6 +10,8 @@ import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MainGameWindow;
 
 /**
  * 
@@ -75,5 +79,22 @@ public class Game {
 	
 	public GameData getGameData() {
 		return data;
+	}
+	
+	public static void terminate() {
+		//set termination flag
+		currentGame.data.terminate();
+		//increment clock to kick off termination exceptions
+		GameClock.startClock();
+		//wait for termination to go through
+		MULETimer timer = new MULETimer(GameClock.TICK_LENGTH*4);
+		timer.start();
+		Waiter.waitOn(timer, (int)(1000 / GameClock.TICK_LENGTH));
+		//destroy the clock
+		GameClock.disposeOfClock();
+		//clear the screen
+		MainGameWindow.setMainPanel(new JPanel());
+		MainGameWindow.setMessage("");
+		currentGame = null;
 	}
 }

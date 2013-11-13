@@ -8,6 +8,7 @@ import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.SavePointTimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
@@ -50,7 +51,7 @@ public class LandPurchaser
 	 */
 	public void runSynchronous() {
 		DebugPrinter.println("Running LandPurchaser synchronously");
-		data.startSaveSection();
+		
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			MainGameWindow.setMessage(String.format("Land purchase phase for %s. Press space to purchase the tile.", data.getCurrentPlayer().getName()));
 			Map map = data.getMap();
@@ -68,7 +69,7 @@ public class LandPurchaser
 			int price = tile.getPrice();
 			KeyboardAdapter adapter = KeyboardAdapter.getInstance();
 			KeyWaiter confirmKey    = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
-			MULETimer timer         = new MULETimer(3000);
+			SavePointTimer timer         = new SavePointTimer(3000, data);
 			WaitedOn[] waitingArray = {confirmKey, timer};
 			
 			adapter.setReceiver(confirmKey);
@@ -86,9 +87,9 @@ public class LandPurchaser
 			tile.setActive(false);
 			mapRenderer.setDisplayPrices(false); // all tile prices are set to zero here
 			
+			data.savePoint();
 			data.nextPlayer();
 		}
-		data.endSaveSection();
 		data.resetPlayerNum();
 		data.nextState();
 	}

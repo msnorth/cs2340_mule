@@ -6,6 +6,7 @@ import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.io.KeyboardAdapter;
 import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.SavePointTimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
@@ -61,7 +62,6 @@ public class LandGranter
 		DebugPrinter.println("Running LandGranter synchronously");
 		
 		
-		data.startSaveSection();
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			MainGameWindow.setMessage(String.format("Land grant phase for %s", data.getCurrentPlayer().getName()));
 			Map map = data.getMap();
@@ -82,7 +82,7 @@ public class LandGranter
 				{
 					unownedTile.setActive(true);
 					mapRenderer.refreshAll();
-					MULETimer timer = new MULETimer(WAIT_FOR_NEXT_TILE);						//Length of time the granter will stay on one tile
+					SavePointTimer timer = new SavePointTimer(WAIT_FOR_NEXT_TILE, data);						//Length of time the granter will stay on one tile
 					timer.start();										//Starts the timer
 					WaitedOn[] waitees = {keyWaiter, timer};
 					int value = Waiter.waitForAny(waitees);				//Waits for any thread to finish
@@ -104,11 +104,11 @@ public class LandGranter
 					map.resetNextUnownedTile();
 					grantFinished = true;
 				}
+				data.savePoint();
 			}
 			mapRenderer.refreshAll();
 			data.nextPlayer();
 		}
-		data.endSaveSection();
 		data.resetPlayerNum();
 		data.nextState();
 	}

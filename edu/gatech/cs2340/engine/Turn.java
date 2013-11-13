@@ -51,8 +51,6 @@ public class Turn {
 	public void runSynchronous() {
 		MainGameWindow.setMessage(String.format("%s it's your turn!", data.getCurrentPlayer().getName()));
 		
-		data.startSaveSection();
-		
 		DebugPrinter.println("Running Turn synchronously.");
 		Player player = data.getCurrentPlayer();
 		
@@ -75,6 +73,5 @@ public class Turn {
 		else {
 			MainGameWindow.setMessage(String.format("%s ran out of time on their turn!", player.getName()));
 		}
-		data.endSaveSection();
 	}
 }
