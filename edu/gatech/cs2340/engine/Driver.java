@@ -53,7 +53,7 @@ public abstract class Driver {
 			game.runSynchronous();
 		}
 		catch (GameTerminatedException e) {
-			System.out.println("Game terminated.");
+			//System.out.println("Game terminated.");
 		}
 	}
 	
@@ -63,7 +63,7 @@ public abstract class Driver {
 			game.runSynchronous();
 		}
 		catch (GameTerminatedException e) {
-			System.out.println("Game terminated.");
+			//System.out.println("Game terminated.");
 		}
 	}
 }

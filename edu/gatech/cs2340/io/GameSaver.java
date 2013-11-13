@@ -19,9 +19,9 @@ public class GameSaver {
 	}
 	
 	public void save() {
-		System.out.println("Waiting for save point.");
+		//System.out.println("Waiting for save point.");
 		Waiter.waitOn(data);
-		System.out.println("Save point reached.");
+		//System.out.println("Save point reached.");
 		
 		try {
 			FileOutputStream output = new FileOutputStream(filename);
@@ -29,7 +29,7 @@ public class GameSaver {
 			thout.writeObject(data);
 			thout.close();
 			output.close();
-			System.out.println("Serialized at " + filename);
+			//System.out.println("Serialized at " + filename);
 		}
 		catch (IOException i) {
 			i.printStackTrace();

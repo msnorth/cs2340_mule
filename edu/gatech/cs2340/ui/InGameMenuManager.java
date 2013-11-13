@@ -101,11 +101,12 @@ public class InGameMenuManager implements Runnable{
 			
 			if (!gameLoaded) {
 				GameClock.startClock();
+				inGameMenuActive = false;
 			}
 			else {
 				loadGame();
 			}
-			inGameMenuActive = false;
+			
 		}
 	}
 	
@@ -124,6 +125,7 @@ public class InGameMenuManager implements Runnable{
 						game.getGameData());
 				saver.save();
 			}
+
 		}
 	}
 	
@@ -142,6 +144,11 @@ public class InGameMenuManager implements Runnable{
 			Game.terminate();
 			inGameMenuActive = false;
 			Driver.launchGame(data);
+		}
+		else {
+			inGameMenuActive = false;
+			InGameMenuManager manager = new InGameMenuManager();
+			manager.runAsynchronous();
 		}
 	}
 

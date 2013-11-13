@@ -79,8 +79,8 @@ public class MapManager implements WaitedOn, Runnable{
 			//cycle every 25 ms
 			
 			MULETimer timer = new MULETimer(25);
-			//timer.start();
-			timer.startSynchronous();
+			timer.start();
+			//timer.startSynchronous();
 			Waiter.waitOn(timer, 500);
 			
 		}

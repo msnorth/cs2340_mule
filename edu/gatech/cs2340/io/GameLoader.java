@@ -29,7 +29,7 @@ public class GameLoader {
 			result = (GameData) thin.readObject();
 			thin.close();
 			input.close();
-			System.out.println("Loaded from " + filename);
+			//System.out.println("Loaded from " + filename);
 		}
 		catch (IOException i) {
 			i.printStackTrace();

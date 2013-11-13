@@ -37,7 +37,7 @@ public class ProgressBar extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
-		/*
+		
 		while (!timer.isFinished()) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
@@ -51,7 +51,7 @@ public class ProgressBar extends JPanel implements Runnable{
 			} catch (InterruptedException e) {
 			}
 		}
-		*/
+		
 	}
 
 }
