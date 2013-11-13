@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.WaitedOn;
 
-public class GameData implements Serializable {
+public class GameData implements Serializable, WaitedOn {
 	public static final int PRODUCTION = 0;
 	public static final int RANDOM_EVENT = 1;
 	public static final int LAND_GRANT = 2;
@@ -21,6 +22,7 @@ public class GameData implements Serializable {
 	private int roundNum;
 	private int playerNum;
 	private int state;
+	private boolean saveable;
 	
 	public GameData(PlayerManager playerManager, Map map, Store store, int numRounds) {
 		this.playerManager = playerManager;
@@ -135,5 +137,30 @@ public class GameData implements Serializable {
 
 	public void setNumRounds(int numRounds) {
 		this.numRounds = numRounds;
+	}
+
+	@Override
+	public boolean isFinished() {
+		return saveable;
+	}
+	
+	public void savePoint() {
+		saveable = true;
+		GameClock.sync();
+		saveable = false;
+	}
+	
+	public void startSaveSection() {
+		if (saveable) {
+			throw new RuntimeException("Save section already active");
+		}
+		saveable = true;
+	}
+	
+	public void endSaveSection() {
+		if (!saveable) {
+			throw new RuntimeException("No save section active");
+		}
+		saveable = false;
 	}
 }
