@@ -57,7 +57,7 @@ public class Gambler {
 		int roundBonus = 200;
 		int timeBonus  = 200; 
 		
-		int randNum    = random.nextInt(timeBonus+1);
+		
 
 		if(hasAccepted()) {
 			if(roundNum < 12) {
@@ -78,6 +78,9 @@ public class Gambler {
 			if(time < 11) {
 				timeBonus = 50;
 			}
+			
+			int randNum    = random.nextInt(timeBonus+1);
+			
 			winnings = roundBonus*randNum;
 			if(winnings > 250) {
 				winnings = 250;
@@ -85,8 +88,7 @@ public class Gambler {
 			player.addMoney(winnings);
 			MainGameWindow.setMessage(String.format("%s won $%d by gambling!", player.getName(), winnings));
 			MULETimer timer = new MULETimer(1000);
-			timer.start();
-			Waiter.waitOn(timer);
+			timer.startSynchronous();
 			
 			// end player's turn
 			// turn.endTurn(player);

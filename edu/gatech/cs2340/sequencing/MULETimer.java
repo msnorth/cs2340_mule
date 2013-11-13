@@ -65,6 +65,20 @@ public class MULETimer implements WaitedOn, Serializable {
 	}
 	
 	/**
+	 * Method to run timer off the clock.
+	 */
+	public void startSynchronous() {
+		try {
+			Thread.sleep(duration_ms);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+			System.exit(99);
+		}
+		stopped = true;
+	}
+	
+	/**
 	 * Method to stop the timer. Cannot be restarted.
 	 */
 	public void stop() {
