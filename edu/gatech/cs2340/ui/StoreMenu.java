@@ -1115,6 +1115,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 			playerMule.setText("Mule: " + player.getMuleAmount() + " , "
 					+ player.getMule().toString());
 		}
+		else playerMule.setText("Mule: " + player.getMuleAmount());
 		storeEnergy.setText("Energy: "
 				+ store.getResourceAmount(ResourceType.ENERGY));
 		storeFood.setText("Food: "

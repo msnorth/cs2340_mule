@@ -175,6 +175,7 @@ public class StatusBar extends JPanel {
 		if(player.hazMule()) {
 			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
 		}
+		else playerMule.setText("Mule: " +player.getMuleAmount());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerMule);
 

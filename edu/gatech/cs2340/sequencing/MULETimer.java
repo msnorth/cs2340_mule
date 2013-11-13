@@ -19,7 +19,7 @@ import edu.gatech.cs2340.test.DebugPrinter;
  * 
  * 		Purpose: Blocks for a set amount of time.
  */
-public class MULETimer implements WaitedOn {
+public class MULETimer implements WaitedOn, Serializable {
 	protected static ArrayList<MULETimer> activeTimers;
 	
 	protected final long duration_ms;
