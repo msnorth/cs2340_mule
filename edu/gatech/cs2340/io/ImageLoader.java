@@ -1,4 +1,5 @@
-package edu.gatech.cs2340.data;
+package edu.gatech.cs2340.io;
+
 
 public abstract class ImageLoader implements Runnable {
 	protected static final String resourcesPath = "edu.gatech.cs2340.res";

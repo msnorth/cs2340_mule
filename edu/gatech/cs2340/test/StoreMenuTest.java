@@ -6,9 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import edu.gatech.cs2340.data.ImageLoader;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Store;
+import edu.gatech.cs2340.io.ImageLoader;
 import edu.gatech.cs2340.ui.StoreMenu;
 
 public class StoreMenuTest {

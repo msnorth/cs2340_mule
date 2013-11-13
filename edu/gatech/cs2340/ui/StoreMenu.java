@@ -15,8 +15,9 @@ import javax.swing.SwingConstants;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.data.StoreImageLoader;
+import edu.gatech.cs2340.io.StoreImageLoader;
 import edu.gatech.cs2340.sequencing.WaitedOn;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 

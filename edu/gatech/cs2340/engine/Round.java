@@ -57,26 +57,30 @@ public class Round {
 		StatusBar statBar = new StatusBar(data.getPlayerManager().getPlayers());
 		MainGameWindow.getInstance().setLowerPanel(statBar);
 		
-		// Production
-		ResourceProducer resourceProducer = new ResourceProducer(data);
-		resourceProducer.runSynchronous();
-		
-		// Random event simulator with returned message for the beginning of the round
-		RandomEventGenerator randomEventGenerator = new RandomEventGenerator(data);
-		randomEventGenerator.runSynchronous();
-		
-		// Land Grant/Purchase phases
-		if (data.getRoundNum() < 2) { // 2 LandGrant phases (roundNumber starts at 1)				
-			LandGranter granter = new LandGranter(data);
-			granter.runSynchronous();
-		}
-		else {
-			LandPurchaser purchaser = new LandPurchaser(data);
-			purchaser.runSynchronous();
-		}
-			
-		// Turn
-		TurnLauncher turnLauncher = new TurnLauncher(data);
-		turnLauncher.runSynchronous();
+		//switch to jump in at proper location on load.
+		//===DO NOT ADD BREAK STATEMENTS===
+		switch(data.getState()) {
+			case GameData.PRODUCTION:
+				ResourceProducer resourceProducer = new ResourceProducer(data);
+				resourceProducer.runSynchronous();
+				
+			case GameData.RANDOM_EVENT:
+				RandomEventGenerator randomEventGenerator = new RandomEventGenerator(data);
+				randomEventGenerator.runSynchronous();
+				
+			case GameData.LAND_GRANT:
+				if (data.getRoundNum() < 2) { // 2 LandGrant phases (roundNumber starts at 1)				
+					LandGranter granter = new LandGranter(data);
+					granter.runSynchronous();
+				}
+				else {
+					LandPurchaser purchaser = new LandPurchaser(data);
+					purchaser.runSynchronous();
+				}
+				
+			case GameData.TURN:
+				TurnLauncher turnLauncher = new TurnLauncher(data);
+				turnLauncher.runSynchronous();
+			}
 	}
 }
