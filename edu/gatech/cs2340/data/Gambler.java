@@ -18,10 +18,12 @@ import edu.gatech.cs2340.engine.Round;
 public class Gambler {
 	private Player player;
 	private Random random;
+	private int roundNum;
 
 	// needs to be instantiated in townRenderer
-	public Gambler() { 
+	public Gambler(int roundNum) { 
 		random = new Random();
+		this.roundNum = roundNum;
 	}
 	
 	/**
@@ -46,7 +48,6 @@ public class Gambler {
 	 * Gambles based on the amount of money the player has
 	 */
 	public void gamble(long time) {
-		int round      = Round.getRoundNumber();
 		//long time	   = player.calculateTurnTime(round);
 		
 		int winnings   = 0;
@@ -56,13 +57,13 @@ public class Gambler {
 		int randNum    = random.nextInt(timeBonus+1);
 
 		if(hasAccepted()) {
-			if(round < 12) {
+			if(roundNum < 12) {
 				roundBonus = 150;	
 			}
-			if(round < 8) {
+			if(roundNum < 8) {
 				roundBonus = 100;
 			}
-			if(round < 4) {
+			if(roundNum < 4) {
 				roundBonus = 50;
 			}
 			if(time < 38) {

@@ -7,9 +7,9 @@ import javax.swing.ImageIcon;
 
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.SpriteImageLoader;
 import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.io.KeyboardAdapter;
+import edu.gatech.cs2340.io.SpriteImageLoader;
 
 public class Sprite {	
 	private int x;

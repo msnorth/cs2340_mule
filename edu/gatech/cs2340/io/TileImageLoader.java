@@ -1,9 +1,11 @@
-package edu.gatech.cs2340.data;
+package edu.gatech.cs2340.io;
 
 import java.io.File;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
+
+import edu.gatech.cs2340.data.Tile;
 
 public class TileImageLoader extends ImageLoader {
 	private static final String[] names = {"hill", "mountain", "peak", "plain", "river", "town"};

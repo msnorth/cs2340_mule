@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 
+
 import edu.gatech.cs2340.data.GameData;
+import edu.gatech.cs2340.sequencing.Waiter;
 
 public class GameSaver {
 	private String filename;
@@ -17,6 +19,10 @@ public class GameSaver {
 	}
 	
 	public void save() {
+		System.out.println("Waiting for save point.");
+		Waiter.waitOn(data);
+		System.out.println("Save point reached.");
+		
 		try {
 			FileOutputStream output = new FileOutputStream(filename);
 			ObjectOutputStream thout = new ObjectOutputStream(output);

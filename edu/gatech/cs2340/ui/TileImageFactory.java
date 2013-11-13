@@ -11,7 +11,7 @@ import javax.swing.border.Border;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Tile;
-import edu.gatech.cs2340.data.TileImageLoader;
+import edu.gatech.cs2340.io.TileImageLoader;
 
 /**
  * 

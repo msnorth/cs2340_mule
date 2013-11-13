@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import edu.gatech.cs2340.engine.Game;
+import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.ui.InGameMenu;
 
 
 /**
@@ -138,13 +140,21 @@ public class KeyboardAdapter implements KeyListener{
 		if (key != null) {
 			keyStatus |= 1<<key.ordinal();
 		}
+		
 		if (e.getKeyChar() == 'o') {
 			Game game = Game.currentGame;
+			GameClock.pauseClock();
 			if (game != null) {
 				GameSaver saver = new GameSaver("C:/Users/Stephen/Desktop/MULEsave.txt", game.getGameData());
 				saver.save();
 			}
+			GameClock.startClock();
 		}
+		else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			InGameMenu menu = new InGameMenu();
+			
+		}
+		
 	}
 
 	@Override

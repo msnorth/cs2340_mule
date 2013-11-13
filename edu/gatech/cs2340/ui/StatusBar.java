@@ -15,7 +15,7 @@ import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.data.SpriteImageLoader;
+import edu.gatech.cs2340.io.SpriteImageLoader;
 import edu.gatech.cs2340.sequencing.MULETimer;
 
 /**

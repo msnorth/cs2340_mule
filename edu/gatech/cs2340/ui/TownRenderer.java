@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import edu.gatech.cs2340.data.TownImageLoader;
+import edu.gatech.cs2340.io.TownImageLoader;
 
 
 /**

@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.Gambler;
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
@@ -29,8 +30,7 @@ import edu.gatech.cs2340.ui.MapManager;
  * 		Purpose: Execute a single player's turn
  */
 public class Turn {
-	private final Player player;
-	private final Map map;
+	private GameData data;
 	
 	/**
 	 * #M6
@@ -38,9 +38,8 @@ public class Turn {
 	 * 
 	 * @param player
 	 */
-	public Turn(Player player, Map map) {
-		this.player = player;
-		this.map = map;
+	public Turn(GameData data) {
+		this.data = data;
 	}
 	
 	/**
@@ -50,13 +49,16 @@ public class Turn {
 	 * 		handle feedback of MULE purchase, MULE loading, MULE deploying, Pubbing
 	 */
 	public void runSynchronous() {
+		data.startSaveSection();
+		
 		DebugPrinter.println("Running Turn synchronously.");
-		int roundNumber = Round.getRoundNumber();
+		Player player = data.getCurrentPlayer();
+		
+		int roundNumber = data.getRoundNum();
 		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
-		//MapManager mapManager = new MapManager(player, map);
-		StatusBar statBar = MainGameWindow.getInstance().getLowerPanel();
+		StatusBar statBar = MainGameWindow.getLowerPanel();
 		statBar.setTimer(timer);
-		MapManager mapManager = new MapManager(player, map);
+		MapManager mapManager = new MapManager(data);
 		timer.start();
 		statBar.startTurn(player);
 		mapManager.runAsynchronous();
@@ -64,9 +66,11 @@ public class Turn {
 		int killa = Waiter.waitForAny(waitees);
 		if (killa == 1) { //turn ended by gambling
 			timer.stop();
-			Gambler gambler = new Gambler();
+			Gambler gambler = new Gambler(roundNumber);
 			gambler.setPlayer(player);
 			gambler.gamble(timer.getTimeRemaining());
-		}		
+		}	
+		
+		data.endSaveSection();
 	}
 }

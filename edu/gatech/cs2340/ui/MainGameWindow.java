@@ -38,26 +38,18 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final Color BACKGROUND_COLOR = new Color(255, 255, 102);
-	private JPanel mainPanel;
+	private static JPanel mainPanel;
 	public static final int DIM_X = 72*9 + 40;
 	public static final int DIM_Y = 550;
 	public static final int LOWER_PANEL_HEIGHT = 150;
 	
-	private JPanel currentPanel;
+	private static JPanel currentPanel;
 	//panel to hold status bar
-	private  JPanel lowerPanel;
-	private StatusBar statusBar;
-	private JPanel alertPanel;
+	private static JPanel lowerPanel;
+	private static StatusBar statusBar;
+	private static JLabel alertLabel;
 	
 	private static MainGameWindow instance = null;
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public static MainGameWindow getInstance() {
-		return instance;
-	}
 	
 	
 	public static void initialize() {
@@ -81,9 +73,9 @@ public class MainGameWindow extends JFrame {
 		instance = this;
 		currentPanel = null;
 		lowerPanel = null;
-		alertPanel = new JPanel();
 		mainPanel = new JPanel();
 		lowerPanel = new JPanel();
+		JPanel alertPanel = new JPanel();
 		this.setLayout(new BorderLayout());
 		
 		setFocusable(true);
@@ -99,6 +91,11 @@ public class MainGameWindow extends JFrame {
 		lowerPanel.setMinimumSize(lowerSize);
 		lowerPanel.setMaximumSize(lowerSize);
 		lowerPanel.setLayout(new BorderLayout());
+		
+		alertLabel = new JLabel();
+		alertLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		alertLabel.setForeground(Color.RED);
+		alertPanel.add(alertLabel);
 		
 		mainPanel.setBackground(BACKGROUND_COLOR);
 		lowerPanel.setBackground(BACKGROUND_COLOR);
@@ -116,15 +113,15 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @param currentPanel
 	 */
-	public void setMainPanel(JPanel currentPanel) {
+	public static void setMainPanel(JPanel currentPanel) {
 		if (currentPanel != null) {
 			mainPanel.removeAll();
 			mainPanel.repaint();
 		}
 
-		this.currentPanel = currentPanel;
+		MainGameWindow.currentPanel = currentPanel;
 		mainPanel.add(currentPanel);
-		this.pack();
+		instance.pack();
 	}
 	
 	/**
@@ -134,16 +131,15 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @param lowerPanel
 	 */
-	public void setLowerPanel(StatusBar statusBar) {
-		this.statusBar = statusBar;
+	public static void setLowerPanel(StatusBar statusBar) {
+		instance.statusBar = statusBar;
 		
 		if(statusBar != null){
 			lowerPanel.removeAll();
 			lowerPanel.repaint();
 		}
 		lowerPanel.add(statusBar, BorderLayout.CENTER);
-		lowerPanel.add(alertPanel, BorderLayout.SOUTH);
-		this.pack();
+		instance.pack();
 	}
 	
 	/**
@@ -151,7 +147,7 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @return Current panel
 	 */
-	public JPanel getCurrentPanel() {
+	public static JPanel getCurrentPanel() {
 		return currentPanel;
 	}
 	
@@ -160,28 +156,23 @@ public class MainGameWindow extends JFrame {
 	 * 
 	 * @return status bar panel
 	 */
-	public StatusBar getLowerPanel() {
+	public static StatusBar getLowerPanel() {
 		return statusBar;
 	}
 	
-	
-	/*
+	/**
 	 * Displays a message in red at the bottom on the stat bar
 	 * 
 	 * @param message - Message to be displayed
 	 */
-	public void setMessage(String message){
-		alertPanel.removeAll();
-		JLabel messageLabel = new JLabel(message);
-		messageLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		messageLabel.setForeground(Color.RED);
-		alertPanel.add(messageLabel);
+	public static void setMessage(String message){
+		alertLabel.setText(message);
 		
 	}
-	/*
+	/**
 	 * Clears the message from the bottom of the screen
 	 */
-	public void clearMessage(){
-		alertPanel.removeAll();
+	public static void clearMessage(){
+		alertLabel.setText("");
 	}
 }

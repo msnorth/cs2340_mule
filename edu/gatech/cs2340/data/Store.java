@@ -39,52 +39,38 @@ import edu.gatech.cs2340.ui.StatusBar;
  * 			- Classes that use store should use the message method to pass info to the player	 		 
  */
 public class Store implements Serializable {
-	private static Store theStore;
-	private static ResourceAmount storeResources;
-	private static ResourceAmount storePrices;
+	public static final int FOOD_PRICE = 30;
+	public static final int ENERGY_PRICE = 25;
+	public static final int SMITHORE_PRICE = 50;
+	public static final int CRYSTITE_PRICE = 100;
 	
-	private static final int FOOD_PRICE = 30;
-	private static final int ENERGY_PRICE = 25;
-	private static final int SMITHORE_PRICE = 50;
-	private static final int CRYSTITE_PRICE = 100;
+	public static final int FOOD_MULE = 130;
+	public static final int ENERGY_MULE = 125;
+	public static final int SMITHORE_MULE = 150;
+	public static final int CRYSTITE_MULE = 200;
 	
-	private static final int FOOD_MULE = 130;
-	private static final int ENERGY_MULE = 125;
-	private static final int SMITHORE_MULE = 150;
-	private static final int CRYSTITE_MULE = 200;
+	private static final int FOOD    	  = 150;
+	private static final int ENERGY      = 150;
+	private static final int SMITHORE    = 150;
+	private static final int CRYSTITE    = 150;
 	
-	private final int FOOD    	  = 150;
-	private final int ENERGY      = 150;
-	private final int SMITHORE    = 150;
-	private final int CRYSTITE    = 150;
+	private static ResourceAmount storeResources = new ResourceAmount(SMITHORE, FOOD, ENERGY, CRYSTITE);
+	private static ResourceAmount storePrices = new ResourceAmount(SMITHORE_PRICE, FOOD_PRICE, ENERGY_PRICE, CRYSTITE_PRICE);
 	
-	private static int numberOfMules = Store.getStore().createMules();
+	private int numberOfMules;
 	
 	private Player player;
 	private String message;
-	private static StatusBar statBar;
+	private StatusBar statBar;
 	
 	/**
 	 * M8
 	 * Singleton constructor
 	 */
-	protected Store() {
-		storeResources = new ResourceAmount(SMITHORE, FOOD, ENERGY, CRYSTITE);	
-		storePrices = new ResourceAmount(SMITHORE_PRICE, FOOD_PRICE, ENERGY_PRICE, CRYSTITE_PRICE);
+	public Store() {
+		numberOfMules = createMules();
 	}
-	
-	/**
-	 * Getter method for the store. If the store does not exist, it is created.
-	 * @return theStore
-	 */
-	public static Store getStore() {
-		if (theStore == null) {
-			theStore = new Store();
-		}
-		statBar = MainGameWindow.getInstance().getLowerPanel();
-		return theStore;
-	}
-	
+
 	/**
 	 * Store buys resources from the player.
 	 * @param resource, amount
@@ -98,6 +84,8 @@ public class Store implements Serializable {
 		player.removeResources(resource, amount);
 		storeResources.add(resource, amount);
 		player.addMoney(amount*storePrices.getAmount(resource));
+		statBar = MainGameWindow.getLowerPanel();
+		statBar.refreshPlayer(player);
 		return true;
 	}
 	
@@ -122,6 +110,7 @@ public class Store implements Serializable {
 		storeResources.remove(resource, amount);
 		player.deductMoney(cost);
 		player.addResources(resource, amount);
+		statBar = MainGameWindow.getLowerPanel();
 		statBar.refreshPlayer(player);
 		return true;
 	}
@@ -158,6 +147,7 @@ public class Store implements Serializable {
 		player.deductMoney(cost);
 		player.addMule(new Mule(type));
 		numberOfMules = createMules();
+		statBar = MainGameWindow.getLowerPanel();
 		statBar.refreshPlayer(player);
 		return true;
 	}
@@ -221,9 +211,8 @@ public class Store implements Serializable {
 	 * @param resource
 	 * @return int 
 	 */
-	public int getResourcePrice(ResourceType resource) {
+	public static int getResourcePrice(ResourceType resource) {
 		return storePrices.getAmount(resource);
-		
 	}
 	
 	/**
@@ -231,7 +220,7 @@ public class Store implements Serializable {
 	 * @param resource
 	 * @return int 
 	 */
-	public int getMulePrice(ResourceType resource) {
+	public static int getMulePrice(ResourceType resource) {
 		if(resource.name().equals("ENERGY")) {
 			return ENERGY_MULE;
 		}

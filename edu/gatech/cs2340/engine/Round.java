@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
@@ -31,22 +32,12 @@ import edu.gatech.cs2340.ui.StatusBar;
  * 		Purpose: Execute a single round of the game
  */
 public class Round {
-	private static int roundNumber;
-	private final PlayerManager playerManager;
-	private final Map map;
-	public Round(PlayerManager pManager, Map usedMap, int roundNum) {
-		roundNumber = roundNum;
-		playerManager = pManager;
-		map = usedMap;
+	private GameData data;
+	
+	public Round(GameData data) {
+		this.data = data;
 	}
-	/**
-	 * #M7
-	 * Method to get the round number
-	 * @return
-	 */
-	public static int getRoundNumber(){
-		return roundNumber;
-	}
+	
 	/**
 	 * #M6
 	 * Method to run a single round.
@@ -62,47 +53,34 @@ public class Round {
 	 * 		Auction Phase
 	 * 		Score screen
 	 */
-	public void runSynchronous() {
-		DebugPrinter.println("Running round " + roundNumber +" synchronously");
-		int numPlayers = playerManager.getTotalPlayers();
-		playerManager.calculatePlayerOrder();
-		Player[] players = playerManager.getPlayers();
+	public void runSynchronous() {		
+		StatusBar statBar = new StatusBar(data.getPlayerManager().getPlayers());
+		MainGameWindow.setLowerPanel(statBar);
+		
+		//switch to jump in at proper location on load.
+		//===DO NOT ADD BREAK STATEMENTS===
+		switch(data.getState()) {
+			case GameData.PRODUCTION:
+				ResourceProducer resourceProducer = new ResourceProducer(data);
+				resourceProducer.runSynchronous();
 				
-		StatusBar statBar = new StatusBar(players);
-		MainGameWindow.getInstance().setLowerPanel(statBar);
-		
-		// Production
-		ResourceProducer resourceProducer = new ResourceProducer(map);
-		resourceProducer.runSynchronous();
-		
-		// Random event simulator with returned message for the beginning of the round
-		for (int i=0; i<numPlayers; i++) {
-			playerManager.randomEventSimulator(players[i]);
-		}
-		
-		// Land Grant/Purchase phases
-		if (roundNumber < 3) { // 2 LandGrant phases (roundNumber starts at 1)
-			for (int i=0; i < numPlayers; i++) {
-				Player currentPlayer = playerManager.getNextPlayer();					
-				LandGranter granter = new LandGranter(currentPlayer, map);
-				granter.runSynchronous();
+			case GameData.RANDOM_EVENT:
+				RandomEventGenerator randomEventGenerator = new RandomEventGenerator(data);
+				randomEventGenerator.runSynchronous();
+				
+			case GameData.LAND_GRANT:
+				if (data.getRoundNum() < 2) { // 2 LandGrant phases (roundNumber starts at 1)				
+					LandGranter granter = new LandGranter(data);
+					granter.runSynchronous();
+				}
+				else {
+					LandPurchaser purchaser = new LandPurchaser(data);
+					purchaser.runSynchronous();
+				}
+				
+			case GameData.TURN:
+				TurnLauncher turnLauncher = new TurnLauncher(data);
+				turnLauncher.runSynchronous();
 			}
-		}
-		else {
-			for (int i=0; i < numPlayers; i++) {
-				Player currentPlayer = playerManager.getNextPlayer();
-				LandPurchaser purchaser = new LandPurchaser(currentPlayer, map, roundNumber);
-				purchaser.runSynchronous();
-			}
-		}
-			
-		// Turn
-		for (int i=0; i<numPlayers; i++) {
-			Player currentPlayer = playerManager.getNextPlayer();
-			Turn turn = new Turn(currentPlayer, map);
-			turn.runSynchronous();
-		}
-		// Auction
-		// Score screen
 	}
 }

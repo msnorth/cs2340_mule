@@ -52,11 +52,6 @@ public class InGameMenu extends JPanel implements ActionListener {
 	JPanel previousPanel;
 	
 	/**
-	 * The main game window
-	 */
-	MainGameWindow mainGameWindow;
-	
-	/**
 	 * True if a new game was loaded in the course of the run
 	 */
 	boolean gameLoaded;
@@ -87,7 +82,6 @@ public class InGameMenu extends JPanel implements ActionListener {
 		btnExit.setBounds(150, 175, 115, 29);
 		add(btnExit);
 		
-		mainGameWindow = MainGameWindow.getInstance();
 		fileChooser = new JFileChooser();
 		gameLoaded = false; // there hasn't been a new game loaded yet
 	}
@@ -98,8 +92,8 @@ public class InGameMenu extends JPanel implements ActionListener {
 	public void initialize(){
 		GameClock.pauseClock(); // pause the game
 		gameLoaded = false; // there hasn't been a new game loaded yet
-		previousPanel = mainGameWindow.getCurrentPanel();
-		mainGameWindow.setMainPanel(this);
+		previousPanel = MainGameWindow.getCurrentPanel();
+		MainGameWindow.setMainPanel(this);
 	}
 	
 	/**
@@ -137,7 +131,7 @@ public class InGameMenu extends JPanel implements ActionListener {
 				if (previousPanel == null){
 					DebugPrinter.println("previousPanel never set in InGameMenu");
 				}
-				mainGameWindow.setMainPanel(previousPanel);
+				MainGameWindow.setMainPanel(previousPanel);
 				GameClock.startClock();
 			}
 		}
