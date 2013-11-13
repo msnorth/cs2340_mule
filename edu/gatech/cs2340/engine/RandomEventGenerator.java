@@ -9,6 +9,7 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MainGameWindow;
 
 public class RandomEventGenerator {
 	private final Random rand = new Random();
@@ -27,6 +28,7 @@ public class RandomEventGenerator {
 	public void runSynchronous() {
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			String result = randomEventSimulator(data.getCurrentPlayer());
+			MainGameWindow.setMessage(result);
 			data.nextPlayer();
 			data.savePoint();
 		}

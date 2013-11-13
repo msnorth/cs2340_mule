@@ -4,8 +4,10 @@ package edu.gatech.cs2340.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.gatech.cs2340.io.KeyboardAdapter;
@@ -44,6 +46,7 @@ public class MainGameWindow extends JFrame {
 	//panel to hold status bar
 	private static JPanel lowerPanel;
 	private static StatusBar statusBar;
+	private static JPanel alertPanel;
 	
 	private static MainGameWindow instance = null;
 	
@@ -148,5 +151,25 @@ public class MainGameWindow extends JFrame {
 	 */
 	public static StatusBar getLowerPanel() {
 		return statusBar;
+	}
+	
+	/**
+	 * Displays a message in red at the bottom on the stat bar
+	 * 
+	 * @param message - Message to be displayed
+	 */
+	public static void setMessage(String message){
+		alertPanel.removeAll();
+		JLabel messageLabel = new JLabel(message);
+		messageLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		messageLabel.setForeground(Color.RED);
+		alertPanel.add(messageLabel);
+		
+	}
+	/**
+	 * Clears the message from the bottom of the screen
+	 */
+	public static void clearMessage(){
+		alertPanel.removeAll();
 	}
 }
