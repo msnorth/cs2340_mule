@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.ui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,9 +13,15 @@ import javax.swing.JButton;
 import edu.gatech.cs2340.engine.Game;
 import edu.gatech.cs2340.io.GameSaver;
 import edu.gatech.cs2340.sequencing.GameClock;
+import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.test.DebugPrinter;
 
-public class InGameMenu extends JPanel implements ActionListener {
+/**
+ * Menu for loading and saving game, and returning to main menu
+ * @author Dan
+ * #M9
+ */
+public class InGameMenu extends JPanel implements ActionListener, WaitedOn {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -24,39 +31,31 @@ public class InGameMenu extends JPanel implements ActionListener {
 	/**
 	 * Button to save game
 	 */
-	JButton btnSaveGame;
-
+	private JButton btnSaveGame;
 	/**
 	 * Button to load a new game
 	 */
-	JButton btnLoad;
-
+	private JButton btnLoad;
 	/**
 	 * Button to go to the main menu
 	 */
-	JButton btnMainMenu;
-	
+	private JButton btnMainMenu;
 	/**
 	 * Button to return to the game
 	 */
-	JButton btnExit;
-	
+	private JButton btnExit;
 	/**
-	 * Dialog box to select a file
+	 * Reference to model corresponding to this presenter class
 	 */
-	JFileChooser fileChooser;
-	
+	InGameMenuManager inGameMenuManager;
 	/**
-	 * Previously displayed panel
+	 * True if the panel is ready to return to the game
 	 */
-	JPanel previousPanel;
-	
-	/**
-	 * True if a new game was loaded in the course of the run
-	 */
-	boolean gameLoaded;
+	private boolean isFinished;
 
 	public InGameMenu() {
+		this.setPreferredSize(new Dimension(445, 225));
+		
 		setLayout(null);
 
 		lblpause = new JLabel("--PAUSE--");
@@ -78,62 +77,42 @@ public class InGameMenu extends JPanel implements ActionListener {
 		add(btnMainMenu);
 		btnMainMenu.addActionListener(this);
 		
-		btnExit = new JButton("Exit to Game");
+		btnExit = new JButton("Resume");
+		btnExit.addActionListener(this);
 		btnExit.setBounds(150, 175, 115, 29);
 		add(btnExit);
-		
-		fileChooser = new JFileChooser();
-		gameLoaded = false; // there hasn't been a new game loaded yet
-	}
-
-	/**
-	 * Prepare to display on a JFrame. Saves previous state so state can resume later
-	 */
-	public void initialize(){
-		GameClock.pauseClock(); // pause the game
-		gameLoaded = false; // there hasn't been a new game loaded yet
-		previousPanel = MainGameWindow.getCurrentPanel();
-		MainGameWindow.setMainPanel(this);
-	}
+	}	
 	
 	/**
 	 * Perform the appropriate action for the button
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// User presses "Save"
-		if (e.getSource().equals(btnSaveGame)) {
-			Game game = Game.currentGame;
-			if (game != null) {
-				int returnVal = fileChooser.showDialog(this, "Save M.U.L.E. Game...");
-				// If the save dialog successfully chose a file,
-				if (returnVal == JFileChooser.APPROVE_OPTION){
-					File file = fileChooser.getSelectedFile();
-					GameSaver saver = new GameSaver(
-							file.getAbsolutePath(),
-							game.getGameData());
-					saver.save();
-				}
-			}
-		} else if (e.getSource().equals(btnLoad)) {
-			// TODO prompt them to save if game isn't saved
-			// TODO go to load a new game
-		} else if (e.getSource().equals(btnMainMenu)) {
-			// TODO prompt them if they haven't yet saved or if that's an issue
-			// TODO kill current threads
-			// TODO go to main menu
-			// Driver.main()? MainMenuManager.runSynchronous()?
-			// GameClock.startClock()?
-		} else if (e.getSource().equals(btnExit)) {
-			if (gameLoaded){
-				// TODO go to loaded game
-			} else {
-				if (previousPanel == null){
-					DebugPrinter.println("previousPanel never set in InGameMenu");
-				}
-				MainGameWindow.setMainPanel(previousPanel);
-				GameClock.startClock();
-			}
+		if (e.getSource().equals(btnSaveGame)) { // save
+			inGameMenuManager.saveGame();
+		} else if (e.getSource().equals(btnLoad)) { // load
+			inGameMenuManager.loadGame();
+		} else if (e.getSource().equals(btnMainMenu)) { // go to main menu
+			inGameMenuManager.setReturnMainMenu(true);
+			isFinished = true;
+		} else if (e.getSource().equals(btnExit)) { // return to currently loaded game
+			isFinished = true;
 		}
+	}
+
+	/**
+	 * True if panel has collected all user input
+	 */
+	@Override
+	public boolean isFinished() {
+		return isFinished;
+	}
+	
+	/**
+	 * Set the panel with a reference to its managing class
+	 * @param inGameMenuManager
+	 */
+	public void setManager(InGameMenuManager inGameMenuManager) {
+		this.inGameMenuManager = inGameMenuManager;		
 	}
 }

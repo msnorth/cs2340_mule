@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import edu.gatech.cs2340.engine.Game;
 import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.ui.InGameMenu;
+import edu.gatech.cs2340.ui.InGameMenuManager;
 
 
 /**
@@ -151,8 +152,8 @@ public class KeyboardAdapter implements KeyListener{
 			GameClock.startClock();
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			InGameMenu menu = new InGameMenu();
-			
+			InGameMenuManager manager = new InGameMenuManager();
+			manager.runAsynchronous();
 		}
 		
 	}

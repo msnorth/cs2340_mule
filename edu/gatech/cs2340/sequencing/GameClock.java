@@ -31,7 +31,7 @@ public class GameClock implements Runnable, Serializable {
 	public static void startClock() {
 		if (thread == null) {
 			currentClock = new GameClock();
-			Thread thread = new Thread(currentClock);
+			thread = new Thread(currentClock);
 			thread.start();
 		}
 		clockRunning = true;
