@@ -80,6 +80,7 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 					JLabel.TRAILING);
 			this.add(nameLabel);
 			JTextField nameField = new JTextField(10);
+			nameField.setText("Player " + (i+1));
 			nameLabel.setLabelFor(nameField);
 			this.add(nameField);
 			nameFields[i] = nameField;

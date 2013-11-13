@@ -144,8 +144,16 @@ public class Player implements Serializable {
 	public String getRace() {
 		return race;
 	}
+	
+	/**
+	 * Method to get player name
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
 
-	/*
+	/**
 	 * #M8
 	 * 
 	 * Method to get the image associate with the player

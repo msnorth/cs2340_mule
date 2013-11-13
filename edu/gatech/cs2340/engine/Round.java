@@ -6,6 +6,7 @@ import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
 import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
+import edu.gatech.cs2340.ui.MapRenderer;
 import edu.gatech.cs2340.ui.StatusBar;
 
 /**
@@ -56,6 +57,8 @@ public class Round {
 	public void runSynchronous() {		
 		StatusBar statBar = new StatusBar(data.getPlayerManager().getPlayers());
 		MainGameWindow.setLowerPanel(statBar);
+		
+		MainGameWindow.setMainPanel(new MapRenderer(data.getMap()));
 		
 		//switch to jump in at proper location on load.
 		//===DO NOT ADD BREAK STATEMENTS===

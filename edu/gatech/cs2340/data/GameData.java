@@ -49,6 +49,7 @@ public class GameData implements Serializable, WaitedOn {
 	 */
 	public void nextRound() {
 		roundNum++;
+		System.out.println("Round increased to " + roundNum);
 	}
 
 	/**
@@ -104,6 +105,7 @@ public class GameData implements Serializable, WaitedOn {
 	public void nextState() {
 		state++;
 		state%=NUM_STATES;
+		System.out.println("State set to " + state);
 	}
 	
 	

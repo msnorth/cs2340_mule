@@ -50,7 +50,7 @@ public class LandPurchaser
 	 */
 	public void runSynchronous() {
 		DebugPrinter.println("Running LandPurchaser synchronously");
-		
+		MainGameWindow.setMessage(String.format("Land purchase phase for %s\nPress space to purchase the tile.", data.getCurrentPlayer().getName()));
 		data.startSaveSection();
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			Map map = data.getMap();

@@ -26,9 +26,14 @@ public class RandomEventGenerator {
 	 * Method to generate random events for all players
 	 */
 	public void runSynchronous() {
+		System.out.println("RE run");
 		while (data.getPlayerNum() < data.getNumPlayers()) {
-			String result = randomEventSimulator(data.getCurrentPlayer());
-			MainGameWindow.setMessage(result);
+			Player player = data.getCurrentPlayer();
+			String result = randomEventSimulator(player);
+			MainGameWindow.setMessage(String.format("%s: %s", player.getName(),  result));
+			MULETimer timer = new MULETimer(2000);
+			timer.start();
+			Waiter.waitOn(timer);
 			data.nextPlayer();
 			data.savePoint();
 		}

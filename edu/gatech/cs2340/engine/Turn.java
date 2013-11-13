@@ -49,6 +49,8 @@ public class Turn {
 	 * 		handle feedback of MULE purchase, MULE loading, MULE deploying, Pubbing
 	 */
 	public void runSynchronous() {
+		MainGameWindow.setMessage(String.format("%s it's your turn!", data.getCurrentPlayer().getName()));
+		
 		data.startSaveSection();
 		
 		DebugPrinter.println("Running Turn synchronously.");
@@ -70,7 +72,9 @@ public class Turn {
 			gambler.setPlayer(player);
 			gambler.gamble(timer.getTimeRemaining());
 		}	
-		
+		else {
+			MainGameWindow.setMessage(String.format("%s ran out of time on their turn!", player.getName()));
+		}
 		data.endSaveSection();
 	}
 }

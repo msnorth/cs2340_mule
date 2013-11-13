@@ -131,13 +131,16 @@ public class MainGameWindow extends JFrame {
 	 * @param lowerPanel
 	 */
 	public static void setLowerPanel(StatusBar statusBar) {
-		instance.statusBar = statusBar;
+		MainGameWindow.statusBar = statusBar;
 		
 		if(statusBar != null){
 			lowerPanel.removeAll();
 			lowerPanel.repaint();
 		}
 		lowerPanel.add(statusBar, BorderLayout.CENTER);
+		JPanel alertPanel = new JPanel();
+		alertPanel.add(alertLabel);
+		lowerPanel.add(alertPanel, BorderLayout.SOUTH);
 		instance.pack();
 	}
 	

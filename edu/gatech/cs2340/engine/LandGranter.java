@@ -60,8 +60,10 @@ public class LandGranter
 	{
 		DebugPrinter.println("Running LandGranter synchronously");
 		
+		
 		data.startSaveSection();
 		while (data.getPlayerNum() < data.getNumPlayers()) {
+			MainGameWindow.setMessage(String.format("Land grant phase for %s", data.getCurrentPlayer().getName()));
 			Map map = data.getMap();
 			Player currentPlayer = data.getCurrentPlayer();
 			

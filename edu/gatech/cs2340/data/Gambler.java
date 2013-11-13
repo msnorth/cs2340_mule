@@ -3,6 +3,9 @@ package edu.gatech.cs2340.data;
 import java.util.Random;
 
 import edu.gatech.cs2340.engine.Round;
+import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MainGameWindow;
 
 /**
  * 
@@ -80,6 +83,11 @@ public class Gambler {
 				winnings = 250;
 			}
 			player.addMoney(winnings);
+			MainGameWindow.setMessage(String.format("%s won $%d by gambling!", player.getName(), winnings));
+			MULETimer timer = new MULETimer(1000);
+			timer.start();
+			Waiter.waitOn(timer);
+			
 			// end player's turn
 			// turn.endTurn(player);
 		}
