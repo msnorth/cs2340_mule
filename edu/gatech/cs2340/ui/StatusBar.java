@@ -6,8 +6,6 @@ package edu.gatech.cs2340.ui;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,6 +31,7 @@ public class StatusBar extends JPanel {
 	private Player[] players;
 	private MULETimer timer;
 	Player currentPlayer;
+
 	
 
 	private SpriteImageLoader spriteImgLoader;
@@ -84,8 +83,13 @@ public class StatusBar extends JPanel {
 	private void Initialize() {
 
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
-		GridLayout grid = new GridLayout(1, players.length, 1, 0);
+
+		GridLayout grid = new GridLayout (1, players.length, 1, 0);
+		
 		this.setLayout(grid);
+
+		
+	
 
 		for (Player player : players) {
 			JPanel playerPanel = drawPlayerPanel(player);
@@ -101,9 +105,7 @@ public class StatusBar extends JPanel {
 			JPanel progressBar = new ProgressBar(timer);
 			this.add(progressBar);
 		}
-
 		grid.layoutContainer(this);
-
 	}
 
 	/*
@@ -113,7 +115,7 @@ public class StatusBar extends JPanel {
 		this.removeAll();
 		Initialize();
 	}
-	
+
 	
 	/*
 	 * Refreshes stats of a player
