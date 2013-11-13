@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
+
 /**
  * 
  * @author Stephen Conway Function group: Model: Data holder Created for: M6
@@ -39,16 +41,37 @@ public abstract class Tile implements Serializable {
 	}
 
 	/**
-	 * #FUTURE Method to get the production of a Tile. Based upon Tile type,
+	 * Get the production of a Tile. Based upon Tile type,
 	 * MULE present, and random events.
 	 * 
 	 * @return
 	 */
 	public ResourceAmount calculateProduction() {
-		Random random = new Random();
-		int crystiteIncrease = getCrystiteIncrease();
-		return new ResourceAmount(getOreIncrease(), getFoodIncrease(), getEnergyIncrease(), 
-				crystiteIncrease*random.nextInt(crystiteIncrease+1));
+		ResourceType muleType = mule.getType();
+		ResourceAmount producedAmount;
+		switch (muleType){
+			case SMITHORE:
+				producedAmount = new ResourceAmount(getOreIncrease(),0,0,0);
+				break;
+			case FOOD:
+				producedAmount = new ResourceAmount(0, getFoodIncrease(), 0, 0);
+				break;
+			case ENERGY:
+				producedAmount = new ResourceAmount(0, 0, getEnergyIncrease(), 0);
+				break;
+			case CRYSTITE:
+				// Randomized crystite production
+				int crystiteIncrease = getCrystiteIncrease();
+				Random random = new Random();
+				producedAmount = new ResourceAmount(0, 0, 0, 
+						crystiteIncrease*random.nextInt(crystiteIncrease+1));
+				break;
+			default:
+				// produce nothing if we can't identify a MULE type
+				producedAmount = new ResourceAmount(0,0,0,0);
+				break;
+		}
+		return producedAmount;
 	};
 
 	/**

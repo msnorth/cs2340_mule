@@ -3,9 +3,12 @@ package edu.gatech.cs2340.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.gatech.cs2340.io.KeyboardAdapter;
@@ -44,6 +47,7 @@ public class MainGameWindow extends JFrame {
 	//panel to hold status bar
 	private  JPanel lowerPanel;
 	private StatusBar statusBar;
+	private JPanel alertPanel;
 	
 	private static MainGameWindow instance = null;
 	
@@ -77,6 +81,7 @@ public class MainGameWindow extends JFrame {
 		instance = this;
 		currentPanel = null;
 		lowerPanel = null;
+		alertPanel = new JPanel();
 		mainPanel = new JPanel();
 		lowerPanel = new JPanel();
 		this.setLayout(new BorderLayout());
@@ -137,6 +142,7 @@ public class MainGameWindow extends JFrame {
 			lowerPanel.repaint();
 		}
 		lowerPanel.add(statusBar, BorderLayout.CENTER);
+		lowerPanel.add(alertPanel, BorderLayout.SOUTH);
 		this.pack();
 	}
 	
@@ -156,5 +162,26 @@ public class MainGameWindow extends JFrame {
 	 */
 	public StatusBar getLowerPanel() {
 		return statusBar;
+	}
+	
+	
+	/*
+	 * Displays a message in red at the bottom on the stat bar
+	 * 
+	 * @param message - Message to be displayed
+	 */
+	public void setMessage(String message){
+		alertPanel.removeAll();
+		JLabel messageLabel = new JLabel(message);
+		messageLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		messageLabel.setForeground(Color.RED);
+		alertPanel.add(messageLabel);
+		
+	}
+	/*
+	 * Clears the message from the bottom of the screen
+	 */
+	public void clearMessage(){
+		alertPanel.removeAll();
 	}
 }
