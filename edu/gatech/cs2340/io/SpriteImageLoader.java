@@ -2,6 +2,7 @@ package edu.gatech.cs2340.io;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.Serializable;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -17,7 +18,7 @@ import edu.gatech.cs2340.data.Player;
  * 
  *         Purpose: Holds all sprite images. Gives them out based on Player object data.
  */
-public class SpriteImageLoader extends ImageLoader {
+public class SpriteImageLoader extends ImageLoader implements Serializable {
 	private static final Color[] colors = { Color.BLUE, Color.YELLOW, Color.GREEN, Color.RED };
 	private static final String[] races = {"bonzoid", "buzzite", "flapper", "human", "ugaite"};
 	private static final String[] color_png = {"_blue.png", "_gold.png", "_green.png", "_red.png"};
