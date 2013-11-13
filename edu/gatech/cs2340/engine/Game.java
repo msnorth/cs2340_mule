@@ -26,10 +26,7 @@ import edu.gatech.cs2340.sequencing.MULETimer;
  */
 public class Game {
 	public static Game currentGame;
-	
-	//private PlayerManager playerManager;
-	//private int numberRounds;
-	//private Map map;
+
 	private GameData data;
 	
 	/**
@@ -50,6 +47,17 @@ public class Game {
 		
 		Store store = new Store();
 		data = new GameData(pManager, map, store, numRounds);
+		currentGame = this;
+	}
+	
+	/**
+	 * #M9
+	 * Constructor for creating game from contents of save file.
+	 * 
+	 * @param data
+	 */
+	public Game(GameData data) {
+		this.data = data;
 		currentGame = this;
 	}
 	
