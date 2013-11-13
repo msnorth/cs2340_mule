@@ -5,6 +5,7 @@ import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.SavePointTimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
@@ -55,7 +56,7 @@ public class Turn {
 		Player player = data.getCurrentPlayer();
 		
 		int roundNumber = data.getRoundNum();
-		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
+		SavePointTimer timer = new SavePointTimer(player.calculateTurnTime(roundNumber), data);
 		StatusBar statBar = MainGameWindow.getLowerPanel();
 		statBar.setTimer(timer);
 		MapManager mapManager = new MapManager(data);

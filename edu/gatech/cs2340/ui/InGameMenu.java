@@ -94,7 +94,8 @@ public class InGameMenu extends JPanel implements ActionListener, WaitedOn {
 		if (e.getSource().equals(btnSaveGame)) { // save
 			inGameMenuManager.saveGame();
 		} else if (e.getSource().equals(btnLoad)) { // load
-			inGameMenuManager.loadGame();
+			inGameMenuManager.setGameLoaded(true);
+			isFinished = true;
 		} else if (e.getSource().equals(btnMainMenu)) { // go to main menu
 			inGameMenuManager.setReturnMainMenu(true);
 			isFinished = true;

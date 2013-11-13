@@ -143,6 +143,7 @@ public class KeyboardAdapter implements KeyListener{
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			System.out.println("Escape key pressed");
 			if (Game.currentGame != null) {
 				InGameMenuManager manager = new InGameMenuManager();
 				manager.runAsynchronous();

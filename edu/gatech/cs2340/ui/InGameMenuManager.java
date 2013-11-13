@@ -102,6 +102,9 @@ public class InGameMenuManager implements Runnable{
 			if (!gameLoaded) {
 				GameClock.startClock();
 			}
+			else {
+				loadGame();
+			}
 			inGameMenuActive = false;
 		}
 	}
@@ -137,9 +140,8 @@ public class InGameMenuManager implements Runnable{
 			GameLoader loader = new GameLoader(file.getAbsolutePath());
 			GameData data = loader.load();
 			Game.terminate();
+			inGameMenuActive = false;
 			Driver.launchGame(data);
-			JOptionPane.showMessageDialog(inGameMenu, "Game loaded");
-			gameLoaded = true;
 		}
 	}
 
@@ -149,5 +151,9 @@ public class InGameMenuManager implements Runnable{
 	public void setReturnMainMenu(boolean returnToMainMenu) {
 		// prompt to warn losing game data?
 		this.returnToMainMenu = returnToMainMenu;		
+	}
+	
+	public void setGameLoaded(boolean val) {
+		gameLoaded = val;
 	}
 }
