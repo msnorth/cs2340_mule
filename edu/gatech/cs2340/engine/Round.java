@@ -39,16 +39,6 @@ public class Round {
 	}
 	
 	/**
-	 * #M7
-	 * Method to get the round number
-	 * @return
-	 */
-	/*
-	public static int getRoundNumber(){
-		return roundNumber;
-	}
-	*/
-	/**
 	 * #M6
 	 * Method to run a single round.
 	 * Performs the following actions:
@@ -76,7 +66,7 @@ public class Round {
 		randomEventGenerator.runSynchronous();
 		
 		// Land Grant/Purchase phases
-		if (data.getRoundNum() < 3) { // 2 LandGrant phases (roundNumber starts at 1)				
+		if (data.getRoundNum() < 2) { // 2 LandGrant phases (roundNumber starts at 1)				
 			LandGranter granter = new LandGranter(data);
 			granter.runSynchronous();
 		}
