@@ -49,6 +49,8 @@ public class Turn {
 	 * 		handle feedback of MULE purchase, MULE loading, MULE deploying, Pubbing
 	 */
 	public void runSynchronous() {
+		data.startSaveSection();
+		
 		DebugPrinter.println("Running Turn synchronously.");
 		Player player = data.getCurrentPlayer();
 		
@@ -67,6 +69,8 @@ public class Turn {
 			Gambler gambler = new Gambler(roundNumber);
 			gambler.setPlayer(player);
 			gambler.gamble(timer.getTimeRemaining());
-		}		
+		}	
+		
+		data.endSaveSection();
 	}
 }

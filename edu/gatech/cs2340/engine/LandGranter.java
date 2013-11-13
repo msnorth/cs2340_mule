@@ -60,7 +60,7 @@ public class LandGranter
 	{
 		DebugPrinter.println("Running LandGranter synchronously");
 		
-		//###save safe
+		data.startSaveSection();
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			Map map = data.getMap();
 			Player currentPlayer = data.getCurrentPlayer();
@@ -106,7 +106,7 @@ public class LandGranter
 			mapRenderer.refreshAll();
 			data.nextPlayer();
 		}
-		//###end save safe
+		data.endSaveSection();
 		data.resetPlayerNum();
 		data.nextState();
 	}

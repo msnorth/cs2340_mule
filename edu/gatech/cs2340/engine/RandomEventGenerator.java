@@ -28,7 +28,7 @@ public class RandomEventGenerator {
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			String result = randomEventSimulator(data.getCurrentPlayer());
 			data.nextPlayer();
-			//###savepoint
+			data.savePoint();
 		}
 		data.resetPlayerNum();
 		data.nextState();

@@ -30,7 +30,6 @@ public class ResourceProducer {
 	public void runSynchronous() {
 		Map map = data.getMap();
 		
-		//###unsafe to save
 		Tile tile = map.getNextTile();
 		while (tile != null) {
 			Player owner = tile.getOwner();
@@ -45,7 +44,7 @@ public class ResourceProducer {
 			
 			tile = map.getNextTile();
 		}
-		//###savepoint
+		data.savePoint();
 		data.nextState();
 	}
 	

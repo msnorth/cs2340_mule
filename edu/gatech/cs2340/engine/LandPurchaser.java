@@ -51,7 +51,7 @@ public class LandPurchaser
 	public void runSynchronous() {
 		DebugPrinter.println("Running LandPurchaser synchronously");
 		
-		//###save safe
+		data.startSaveSection();
 		while (data.getPlayerNum() < data.getNumPlayers()) {
 			Map map = data.getMap();
 			Player currentPlayer = data.getCurrentPlayer();
@@ -88,6 +88,7 @@ public class LandPurchaser
 			
 			data.nextPlayer();
 		}
+		data.endSaveSection();
 		data.resetPlayerNum();
 		data.nextState();
 	}
