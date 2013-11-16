@@ -15,7 +15,7 @@ import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.data.SpriteImageLoader;
+import edu.gatech.cs2340.io.SpriteImageLoader;
 import edu.gatech.cs2340.sequencing.MULETimer;
 
 /**
@@ -177,6 +177,7 @@ public class StatusBar extends JPanel {
 		if(player.hazMule()) {
 			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
 		}
+		else playerMule.setText("Mule: " +player.getMuleAmount());
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(playerMule);
 

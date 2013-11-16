@@ -31,20 +31,7 @@ public class GameClock implements Runnable, Serializable {
 	public static void startClock() {
 		if (thread == null) {
 			currentClock = new GameClock();
-			Thread thread = new Thread(currentClock);
-			thread.start();
-		}
-		clockRunning = true;
-	}
-	
-	/**
-	 * Method used to start clock again from save file
-	 * @param clock
-	 */
-	public static void startClock(GameClock clock) {
-		if (thread == null) {
-			currentClock = clock;
-			Thread thread = new Thread(currentClock);
+			thread = new Thread(currentClock);
 			thread.start();
 		}
 		clockRunning = true;
@@ -65,6 +52,15 @@ public class GameClock implements Runnable, Serializable {
 		clockRunning = false;
 	}
 	
+	/**
+	 * Method to reset clock for loading game from save file
+	 */
+	public static void disposeOfClock() {
+		thread.interrupt();
+		clockRunning = false;
+		thread = null;
+		tick = 0;
+	}
 	
 	/**
 	 * Method to increment the clock tick and alert timers that are done
@@ -76,13 +72,26 @@ public class GameClock implements Runnable, Serializable {
 				Thread.sleep(TICK_LENGTH);
 			} 
 			catch (InterruptedException e) {
-				System.out.println("Game Clock Interrupted.");
-				e.printStackTrace();
-				System.exit(0);
+				return;
 			}
 			
 			if (clockRunning) {
 				tick++;
+			}
+		}
+	}
+	
+	/**
+	 * Method to block execution if the clock is not running
+	 */
+	public static void sync() {
+		while (!clockRunning) {
+			try {
+				Thread.sleep(TICK_LENGTH);
+			} 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+				System.exit(99);
 			}
 		}
 	}

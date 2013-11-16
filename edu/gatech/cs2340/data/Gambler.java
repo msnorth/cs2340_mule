@@ -3,6 +3,9 @@ package edu.gatech.cs2340.data;
 import java.util.Random;
 
 import edu.gatech.cs2340.engine.Round;
+import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
+import edu.gatech.cs2340.ui.MainGameWindow;
 
 /**
  * 
@@ -18,10 +21,12 @@ import edu.gatech.cs2340.engine.Round;
 public class Gambler {
 	private Player player;
 	private Random random;
+	private int roundNum;
 
 	// needs to be instantiated in townRenderer
-	public Gambler() { 
+	public Gambler(int roundNum) { 
 		random = new Random();
+		this.roundNum = roundNum;
 	}
 	
 	/**
@@ -46,23 +51,22 @@ public class Gambler {
 	 * Gambles based on the amount of money the player has
 	 */
 	public void gamble(long time) {
-		int round      = Round.getRoundNumber();
 		//long time	   = player.calculateTurnTime(round);
 		
 		int winnings   = 0;
 		int roundBonus = 200;
 		int timeBonus  = 200; 
 		
-		int randNum    = random.nextInt(timeBonus+1);
+		
 
 		if(hasAccepted()) {
-			if(round < 12) {
+			if(roundNum < 12) {
 				roundBonus = 150;	
 			}
-			if(round < 8) {
+			if(roundNum < 8) {
 				roundBonus = 100;
 			}
-			if(round < 4) {
+			if(roundNum < 4) {
 				roundBonus = 50;
 			}
 			if(time < 38) {
@@ -74,11 +78,18 @@ public class Gambler {
 			if(time < 11) {
 				timeBonus = 50;
 			}
+			
+			int randNum    = random.nextInt(timeBonus+1);
+			
 			winnings = roundBonus*randNum;
 			if(winnings > 250) {
 				winnings = 250;
 			}
 			player.addMoney(winnings);
+			MainGameWindow.setMessage(String.format("%s won $%d by gambling!", player.getName(), winnings));
+			MULETimer timer = new MULETimer(1000);
+			timer.startSynchronous();
+			
 			// end player's turn
 			// turn.endTurn(player);
 		}

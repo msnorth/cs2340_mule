@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.engine;
 
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount;
@@ -13,20 +14,22 @@ import edu.gatech.cs2340.data.Tile;
  *
  */
 public class ResourceProducer {
-	private Map map;
+	private GameData data;
 	
 	/**
 	 * Main constructor. Needs access to all tiles to calculate production.
 	 * @param map
 	 */
-	public ResourceProducer(Map map) {
-		this.map = map;
+	public ResourceProducer(GameData data) {
+		this.data = data;
 	}
 	
 	/**
 	 * Method to run (blocking) through all tiles and add their production/subtract mule used energy from owners
 	 */
 	public void runSynchronous() {
+		Map map = data.getMap();
+		
 		Tile tile = map.getNextTile();
 		while (tile != null) {
 			Player owner = tile.getOwner();
@@ -41,6 +44,8 @@ public class ResourceProducer {
 			
 			tile = map.getNextTile();
 		}
+		data.savePoint();
+		data.nextState();
 	}
 	
 	

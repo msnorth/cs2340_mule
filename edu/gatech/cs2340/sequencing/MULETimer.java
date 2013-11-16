@@ -20,11 +20,11 @@ import edu.gatech.cs2340.test.DebugPrinter;
  * 		Purpose: Blocks for a set amount of time.
  */
 public class MULETimer implements WaitedOn, Serializable {
-	private static ArrayList<MULETimer> activeTimers;
+	protected static ArrayList<MULETimer> activeTimers;
 	
-	private final long duration_ms;
-	private boolean stopped;
-	private long startTime_tick;
+	protected final long duration_ms;
+	protected boolean stopped;
+	protected long startTime_tick;
 	
 	public static ArrayList<MULETimer> getActiveTimers() {
 		if (activeTimers == null) {
@@ -62,6 +62,20 @@ public class MULETimer implements WaitedOn, Serializable {
 		}
 		activeTimers.add(this);
 		startTime_tick = GameClock.getTick();
+	}
+	
+	/**
+	 * Method to run timer off the clock.
+	 */
+	public void startSynchronous() {
+		try {
+			Thread.sleep(duration_ms);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+			System.exit(99);
+		}
+		stopped = true;
 	}
 	
 	/**

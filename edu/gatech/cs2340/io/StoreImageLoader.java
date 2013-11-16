@@ -1,4 +1,4 @@
-package edu.gatech.cs2340.data;
+package edu.gatech.cs2340.io;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,9 +1,11 @@
 package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.Gambler;
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.SavePointTimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
@@ -29,8 +31,7 @@ import edu.gatech.cs2340.ui.MapManager;
  * 		Purpose: Execute a single player's turn
  */
 public class Turn {
-	private final Player player;
-	private final Map map;
+	private GameData data;
 	
 	/**
 	 * #M6
@@ -38,9 +39,8 @@ public class Turn {
 	 * 
 	 * @param player
 	 */
-	public Turn(Player player, Map map) {
-		this.player = player;
-		this.map = map;
+	public Turn(GameData data) {
+		this.data = data;
 	}
 	
 	/**
@@ -50,13 +50,17 @@ public class Turn {
 	 * 		handle feedback of MULE purchase, MULE loading, MULE deploying, Pubbing
 	 */
 	public void runSynchronous() {
+		MainGameWindow.setMessage(String.format("%s it's your turn!", data.getCurrentPlayer().getName()));
+		
 		DebugPrinter.println("Running Turn synchronously.");
-		int roundNumber = Round.getRoundNumber();
-		MULETimer timer = new MULETimer(player.calculateTurnTime(roundNumber));
-		//MapManager mapManager = new MapManager(player, map);
-		StatusBar statBar = MainGameWindow.getInstance().getLowerPanel();
-		statBar.setTimer(timer);
-		MapManager mapManager = new MapManager(player, map);
+		Player player = data.getCurrentPlayer();
+		
+		int roundNumber = data.getRoundNum();
+		SavePointTimer timer = new SavePointTimer(player.calculateTurnTime(roundNumber), data);
+		MULETimer timer2 = new MULETimer(player.calculateTurnTime(roundNumber));
+		StatusBar statBar = MainGameWindow.getLowerPanel();
+		statBar.setTimer(timer2);
+		MapManager mapManager = new MapManager(data);
 		timer.start();
 		statBar.startTurn(player);
 		mapManager.runAsynchronous();
@@ -64,9 +68,12 @@ public class Turn {
 		int killa = Waiter.waitForAny(waitees);
 		if (killa == 1) { //turn ended by gambling
 			timer.stop();
-			Gambler gambler = new Gambler();
+			Gambler gambler = new Gambler(roundNumber);
 			gambler.setPlayer(player);
 			gambler.gamble(timer.getTimeRemaining());
-		}		
+		}	
+		else {
+			MainGameWindow.setMessage(String.format("%s ran out of time on their turn!", player.getName()));
+		}
 	}
 }

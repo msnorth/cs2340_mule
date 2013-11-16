@@ -15,8 +15,9 @@ import javax.swing.SwingConstants;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.Store;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.data.StoreImageLoader;
+import edu.gatech.cs2340.io.StoreImageLoader;
 import edu.gatech.cs2340.sequencing.WaitedOn;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -33,6 +34,8 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	private static final long serialVersionUID = 1L;
 	private int amount = 1;
 	private Player player;
+	private Store store;
+	
 	private StoreImageLoader imageLoader;
 	private JButton buyEnergy;
 	private JButton buySmithore;
@@ -62,8 +65,9 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	/**
 	 * #M8 Create the application.
 	 */
-	public StoreMenu(Player player) {
+	public StoreMenu(Player player, Store store) {
 		this.player = player;
+		this.store = store;
 		initialize();
 		refreshMenu();
 	}
@@ -76,7 +80,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	 */
 
 	private void initialize() {
-		Store.getStore().addPlayer(player);
+		store.addPlayer(player);
 
 		imageLoader = new StoreImageLoader();
 
@@ -298,25 +302,25 @@ public class StoreMenu extends JPanel implements WaitedOn {
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 
 		storeEnergy = new JLabel("Energy: "
-				+ Store.getStore().getResourceAmount(ResourceType.ENERGY));
+				+ store.getResourceAmount(ResourceType.ENERGY));
 		storeEnergy
 				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 
 		storeFood = new JLabel("Food: "
-				+ Store.getStore().getResourceAmount(ResourceType.FOOD));
+				+ store.getResourceAmount(ResourceType.FOOD));
 		storeFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 
 		storeSmithore = new JLabel("Smithore: "
-				+ Store.getStore().getResourceAmount(ResourceType.SMITHORE));
+				+ store.getResourceAmount(ResourceType.SMITHORE));
 		storeSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
 				11));
 
 		storeCrystite = new JLabel("Crystite: "
-				+ Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
+				+ store.getResourceAmount(ResourceType.CRYSTITE));
 		storeCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
 				11));
 
-		storeMule = new JLabel("Mule:  " + Store.getStore().getMuleAmount());
+		storeMule = new JLabel("Mule:  " + store.getMuleAmount());
 		storeMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
@@ -996,28 +1000,28 @@ public class StoreMenu extends JPanel implements WaitedOn {
 
 	private class BuyEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellResources(ResourceType.ENERGY, amount);
+			store.sellResources(ResourceType.ENERGY, amount);
 			refreshMenu();
 		}
 	}
 
 	private class BuySmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellResources(ResourceType.SMITHORE, amount);
+			store.sellResources(ResourceType.SMITHORE, amount);
 			refreshMenu();
 		}
 	}
 
 	private class BuyCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellResources(ResourceType.CRYSTITE, amount);
+			store.sellResources(ResourceType.CRYSTITE, amount);
 			refreshMenu();
 		}
 	}
 
 	private class BuyFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellResources(ResourceType.FOOD, amount);
+			store.sellResources(ResourceType.FOOD, amount);
 			buyFood.setEnabled(true);
 			refreshMenu();
 		}
@@ -1025,49 +1029,49 @@ public class StoreMenu extends JPanel implements WaitedOn {
 
 	private class SellEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().buyResources(ResourceType.ENERGY, amount);
+			store.buyResources(ResourceType.ENERGY, amount);
 			refreshMenu();
 		}
 	}
 
 	private class SellSmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().buyResources(ResourceType.SMITHORE, amount);
+			store.buyResources(ResourceType.SMITHORE, amount);
 			refreshMenu();
 		}
 	}
 
 	private class SellFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().buyResources(ResourceType.FOOD, amount);
+			store.buyResources(ResourceType.FOOD, amount);
 			refreshMenu();
 		}
 	}
 
 	private class SellCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().buyResources(ResourceType.CRYSTITE, amount);
+			store.buyResources(ResourceType.CRYSTITE, amount);
 			refreshMenu();
 		}
 	}
 
 	private class BuyEnergyMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellMule(ResourceType.ENERGY);
+			store.sellMule(ResourceType.ENERGY);
 			refreshMenu();
 		}
 	}
 
 	private class BuySmithoreMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellMule(ResourceType.SMITHORE);
+			store.sellMule(ResourceType.SMITHORE);
 			refreshMenu();
 		}
 	}
 
 	private class BuyFoodMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Store.getStore().sellMule(ResourceType.FOOD);
+			store.sellMule(ResourceType.FOOD);
 			refreshMenu();
 		}
 	}
@@ -1111,15 +1115,16 @@ public class StoreMenu extends JPanel implements WaitedOn {
 			playerMule.setText("Mule: " + player.getMuleAmount() + " , "
 					+ player.getMule().toString());
 		}
+		else playerMule.setText("Mule: " + player.getMuleAmount());
 		storeEnergy.setText("Energy: "
-				+ Store.getStore().getResourceAmount(ResourceType.ENERGY));
+				+ store.getResourceAmount(ResourceType.ENERGY));
 		storeFood.setText("Food: "
-				+ Store.getStore().getResourceAmount(ResourceType.FOOD));
+				+ store.getResourceAmount(ResourceType.FOOD));
 		storeSmithore.setText("Smithore: "
-				+ Store.getStore().getResourceAmount(ResourceType.SMITHORE));
+				+ store.getResourceAmount(ResourceType.SMITHORE));
 		storeCrystite.setText("Crystite: "
-				+ Store.getStore().getResourceAmount(ResourceType.CRYSTITE));
-		storeMule.setText("Mule:  " + Store.getStore().getMuleAmount());
+				+ store.getResourceAmount(ResourceType.CRYSTITE));
+		storeMule.setText("Mule:  " + store.getMuleAmount());
 
 		resourceButtonDisable(ResourceType.ENERGY, buyEnergy);
 		resourceButtonDisable(ResourceType.FOOD, buyFood);
@@ -1138,7 +1143,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	 * @param button
 	 */
 	public void resourceButtonDisable(ResourceType type, JButton button) {
-		if (player.getMoney() < Store.getStore().getResourcePrice(type)) {
+		if (player.getMoney() < store.getResourcePrice(type)) {
 			button.setEnabled(false);
 		} else
 			button.setEnabled(true);
@@ -1153,7 +1158,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	 */
 	public void muleButtonDisable(ResourceType type, JButton button) {
 		if (player.hazMule()
-				|| player.getMoney() < Store.getStore().getResourcePrice(type)) {
+				|| player.getMoney() < store.getResourcePrice(type)) {
 			button.setEnabled(false);
 		} else
 			button.setEnabled(true);

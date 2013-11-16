@@ -1,8 +1,10 @@
 package edu.gatech.cs2340.engine;
 
-import edu.gatech.cs2340.data.ImageLoader;
+import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.data.PlayerManager;
+import edu.gatech.cs2340.io.ImageLoader;
 import edu.gatech.cs2340.io.KeyboardAdapter;
+import edu.gatech.cs2340.sequencing.GameTerminatedException;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MainMenuManager;
 
@@ -33,13 +35,35 @@ public abstract class Driver {
 		MainGameWindow.initialize();
 		ImageLoader.loadAllImages();
 		
+		launchNewGame();
+		
+	}	
+	
+	public static void launchNewGame() {
 		MainMenuManager mainMenu = new MainMenuManager();
 		mainMenu.runSynchronous();
 		
 		PlayerManager pManager = mainMenu.getPlayers();
 		
+		boolean randomMap = "Random Map".equals(mainMenu.getMapType());
+		
 		//Game setup currently allows only default map and 8 turns
-		Game game = new Game(pManager, false, 8);
-		game.runSynchronous();
-	}		
+		Game game = new Game(pManager, randomMap, 8);
+		try {
+			game.runSynchronous();
+		}
+		catch (GameTerminatedException e) {
+			//System.out.println("Game terminated.");
+		}
+	}
+	
+	public static void launchGame(GameData data) {
+		Game game = new Game(data);
+		try {
+			game.runSynchronous();
+		}
+		catch (GameTerminatedException e) {
+			//System.out.println("Game terminated.");
+		}
+	}
 }
