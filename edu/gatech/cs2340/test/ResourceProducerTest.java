@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.gatech.cs2340.engine;
+package edu.gatech.cs2340.test;
 
 import static org.junit.Assert.*;
 
