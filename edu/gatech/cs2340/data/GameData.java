@@ -1,21 +1,21 @@
 package edu.gatech.cs2340.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.GameTerminatedException;
-import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
-public class GameData implements Serializable, WaitedOn {
+public class GameData implements Serializable, WaitedOn, MapHolder {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3855939233536369027L;
 	public static final int PRODUCTION = 0;
 	public static final int RANDOM_EVENT = 1;
 	public static final int LAND_GRANT = 2;
 	public static final int TURN = 3;
 	private static final int NUM_STATES = 4;
-	
-	
+
 	private PlayerManager playerManager;
 	private Map map;
 	private Store store;
@@ -25,8 +25,9 @@ public class GameData implements Serializable, WaitedOn {
 	private int state;
 	private boolean saveable;
 	private boolean terminated;
-	
-	public GameData(PlayerManager playerManager, Map map, Store store, int numRounds) {
+
+	public GameData(PlayerManager playerManager, Map map, Store store,
+			int numRounds) {
 		this.playerManager = playerManager;
 		this.map = map;
 		this.store = store;
@@ -37,11 +38,10 @@ public class GameData implements Serializable, WaitedOn {
 		saveable = false;
 		terminated = false;
 	}
-	
 
-	
 	/**
 	 * Getter for current round number
+	 * 
 	 * @return
 	 */
 	public int getRoundNum() {
@@ -57,6 +57,7 @@ public class GameData implements Serializable, WaitedOn {
 
 	/**
 	 * Getter for current player number
+	 * 
 	 * @return
 	 */
 	public int getPlayerNum() {
@@ -65,29 +66,32 @@ public class GameData implements Serializable, WaitedOn {
 
 	/**
 	 * Setter for current player number
+	 * 
 	 * @param playerNum
 	 */
 	public void nextPlayer() {
 		playerNum++;
 	}
-	
+
 	/**
 	 * Method to reset the player number
 	 */
 	public void resetPlayerNum() {
 		playerNum = 0;
 	}
-	
+
 	/**
 	 * Method to get Player
+	 * 
 	 * @return
 	 */
 	public Player getCurrentPlayer() {
 		return playerManager.getPlayerNumber(playerNum);
 	}
-	
+
 	/**
 	 * Method to get number of players playing
+	 * 
 	 * @return
 	 */
 	public int getNumPlayers() {
@@ -96,6 +100,7 @@ public class GameData implements Serializable, WaitedOn {
 
 	/**
 	 * Getter for current state
+	 * 
 	 * @return
 	 */
 	public int getState() {
@@ -107,10 +112,9 @@ public class GameData implements Serializable, WaitedOn {
 	 */
 	public void nextState() {
 		state++;
-		state%=NUM_STATES;
+		state %= NUM_STATES;
 	}
-	
-	
+
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
@@ -147,7 +151,7 @@ public class GameData implements Serializable, WaitedOn {
 	public boolean isFinished() {
 		return saveable;
 	}
-	
+
 	public void savePoint() {
 		saveable = true;
 		GameClock.sync();
@@ -156,7 +160,7 @@ public class GameData implements Serializable, WaitedOn {
 		}
 		saveable = false;
 	}
-	
+
 	public void terminate() {
 		terminated = true;
 	}
