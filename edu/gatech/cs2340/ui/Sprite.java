@@ -14,13 +14,13 @@ import edu.gatech.cs2340.io.SpriteImageLoader;
 public class Sprite {	
 	private int x;
 	private int y;
-	private int w;
-	private int h;
+	private final int w;
+	private final int h;
 	private int speed;
-	private Image image;
+	private final Image image;
 	private int location;
-	private Player player;
-	private Map map;
+	private final Player player;
+	private final Map map;
 	
 	public Sprite(Player player, Map map) {
 		this.player = player;

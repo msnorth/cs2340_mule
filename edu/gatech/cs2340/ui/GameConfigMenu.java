@@ -42,9 +42,9 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 	private int playerCount;
 	private boolean finished;
 	
-	private JComboBox<Integer> numPlayers;
-	private JComboBox<String> gameLevel;
-	private JComboBox<String> mapTypes ;
+	private final JComboBox<Integer> numPlayers;
+	private final JComboBox<String> gameLevel;
+	private final JComboBox<String> mapTypes ;
 	
 	/**
 	 * Main constructor

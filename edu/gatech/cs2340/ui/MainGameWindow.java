@@ -2,7 +2,6 @@ package edu.gatech.cs2340.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
@@ -31,8 +30,9 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  */
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public static final Color BACKGROUND_COLOR = new Color(255, 255, 102);
+	public static final Color BACKGROUND_COLOR = new Color(194, 178, 128);
 	private static JPanel mainPanel;
+	public static JPanel fullScreenPanel = new JPanel();
 	public static final int DIM_X = 72 * 9 + 40;
 	public static final int DIM_Y = 550;
 	public static final int LOWER_PANEL_HEIGHT = 150;
@@ -42,6 +42,7 @@ public class MainGameWindow extends JFrame {
 	private static JPanel lowerPanel;
 	private static StatusBar statusBar;
 	private static JLabel alertLabel;
+	private static JPanel backgroundPanel;
 
 	private static MainGameWindow instance = null;
 
@@ -66,9 +67,9 @@ public class MainGameWindow extends JFrame {
 	private MainGameWindow(KeyboardAdapter keyboardAdapter) {
 		instance = this;
 		currentPanel = null;
-		lowerPanel = null;
 		mainPanel = new JPanel();
 		lowerPanel = new JPanel();
+		backgroundPanel = new JPanel();
 		JPanel alertPanel = new JPanel();
 		this.setLayout(new BorderLayout());
 
@@ -93,8 +94,10 @@ public class MainGameWindow extends JFrame {
 
 		mainPanel.setBackground(BACKGROUND_COLOR);
 		lowerPanel.setBackground(BACKGROUND_COLOR);
-		this.add(mainPanel, BorderLayout.CENTER);
-		this.add(lowerPanel, BorderLayout.SOUTH);
+		backgroundPanel.setLayout(new BorderLayout());
+		backgroundPanel.add(mainPanel, BorderLayout.CENTER);
+		backgroundPanel.add(lowerPanel, BorderLayout.SOUTH);
+		this.add(backgroundPanel);
 		setTitle("M.U.L.E. FRAME");
 		addKeyListener(keyboardAdapter);
 
@@ -177,5 +180,18 @@ public class MainGameWindow extends JFrame {
 
 	public static Point getWindowLocation() {
 		return instance.getLocation();
+	}
+	
+	public static void setFullWindow(JPanel panel) {
+		fullScreenPanel.add(panel);
+		instance.remove(backgroundPanel);
+		instance.add(fullScreenPanel);
+		instance.revalidate();
+	}
+
+	public static void retractFullPanel() {
+		instance.remove(fullScreenPanel);
+		instance.add(backgroundPanel);
+		instance.revalidate();
 	}
 }
