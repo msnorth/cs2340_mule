@@ -2,6 +2,9 @@ package edu.gatech.cs2340.ui;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.PlayerManager;
+import edu.gatech.cs2340.io.KeyboardAdapter;
+import edu.gatech.cs2340.io.StartScreenImageLoader;
+import edu.gatech.cs2340.sequencing.KeyWaiter;
 import edu.gatech.cs2340.sequencing.Waiter;
 
 
@@ -28,9 +31,20 @@ public class MainMenuManager {
 	 * Method to start the main menu sequence
 	 */
 	public void runSynchronous() {
+		StartScreenImageLoader loader = new StartScreenImageLoader();
+		loader.run();
+		
+		StartScreen start = new StartScreen();
+		MainGameWindow.setFullWindow(start);
+		KeyWaiter waiter = new KeyWaiter(KeyboardAdapter.KEY_NAME.CONFIRM);
+		KeyboardAdapter.getInstance().setReceiver(waiter);
+		Waiter.waitOn(waiter);
+		MainGameWindow.retractFullPanel();
+		
 		GameConfigMenu gameConfig = new GameConfigMenu();
 		MainGameWindow.setMainPanel(gameConfig);
 		Waiter.waitOn(gameConfig);
+		
 		String difficulty = gameConfig.getGameDifficulty();
 		mapType = gameConfig.getMapType();
 		int numPlayers = gameConfig.getPlayerCount();
