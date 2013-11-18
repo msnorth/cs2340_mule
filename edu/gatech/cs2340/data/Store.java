@@ -3,8 +3,6 @@ package edu.gatech.cs2340.data;
 import java.io.Serializable;
 
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.ui.MainGameWindow;
-import edu.gatech.cs2340.ui.StatusBar;
 
 /**
  *@author Thomas Mark
@@ -61,7 +59,6 @@ public class Store implements Serializable {
 	
 	private Player player;
 	private String message;
-	private StatusBar statBar;
 	
 	/**
 	 * M8
@@ -84,8 +81,6 @@ public class Store implements Serializable {
 		player.removeResources(resource, amount);
 		storeResources.add(resource, amount);
 		player.addMoney(amount*storePrices.getAmount(resource));
-		statBar = MainGameWindow.getLowerPanel();
-		statBar.refreshPlayer(player);
 		return true;
 	}
 	
@@ -110,8 +105,6 @@ public class Store implements Serializable {
 		storeResources.remove(resource, amount);
 		player.deductMoney(cost);
 		player.addResources(resource, amount);
-		statBar = MainGameWindow.getLowerPanel();
-		statBar.refreshPlayer(player);
 		return true;
 	}
 	
@@ -147,8 +140,6 @@ public class Store implements Serializable {
 		player.deductMoney(cost);
 		player.addMule(new Mule(type));
 		numberOfMules = createMules();
-		statBar = MainGameWindow.getLowerPanel();
-		statBar.refreshPlayer(player);
 		return true;
 	}
 	

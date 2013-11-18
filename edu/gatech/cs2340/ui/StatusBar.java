@@ -5,18 +5,19 @@ package edu.gatech.cs2340.ui;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
 import edu.gatech.cs2340.io.SpriteImageLoader;
 import edu.gatech.cs2340.sequencing.MULETimer;
+import edu.gatech.cs2340.sequencing.Waiter;
 
 /**
  * @author Madeleine North
@@ -25,16 +26,19 @@ import edu.gatech.cs2340.sequencing.MULETimer;
  *         resources
  * 
  */
-public class StatusBar extends JPanel {
+public class StatusBar extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Player[] players;
 	private MULETimer timer;
+
+	/* for updating player resources */
+	private MULETimer updateTimer;
 	Player currentPlayer;
 
-	
-
 	private SpriteImageLoader spriteImgLoader;
+
+	private boolean refresh;
 
 	/**
 	 * Main constructor
@@ -43,23 +47,23 @@ public class StatusBar extends JPanel {
 		this.players = players;
 		spriteImgLoader = new SpriteImageLoader();
 		Initialize();
-
 	}
 
-	/*
+	/**
 	 * Starts the turn for the current player, including starting the progress
 	 * bar and creating a colored border around the currently active player.
 	 * 
 	 * If there is a current turn, the current turn ends.
 	 * 
-	 * @param currentPlayer the currently active player
+	 * @param currentPlayer
+	 *            the currently active player
 	 */
 	public void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		refresh();
 	}
 
-	/*
+	/**
 	 * Ends the turn and the whole turn cycle. Stops the progress bar, removes
 	 * colored border, removes the timer
 	 */
@@ -67,15 +71,17 @@ public class StatusBar extends JPanel {
 		this.currentPlayer = null;
 		this.timer = null;
 		refresh();
+
 	}
-	
-	/*
-	 * Sets a timer to associate with a progressBar
-	 * Refreshes to add progressBar to panel
+
+	/**
+	 * Sets a timer to associate with a progressBar Refreshes to add progressBar
+	 * to panel
 	 * 
-	 * @param timer 
+	 * @param timer
 	 */
-	public void setTimer(MULETimer timer){
+	public void setTimer(MULETimer timer) {
+		this.timer = null;
 		this.timer = timer;
 		refresh();
 	}
@@ -84,50 +90,58 @@ public class StatusBar extends JPanel {
 
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
-		GridLayout grid = new GridLayout (1, players.length, 1, 0);
-		
-		this.setLayout(grid);
+		GridLayout grid = new GridLayout(1, players.length, 1, 0);
 
-		
-	
+		this.setLayout(grid);
 
 		for (Player player : players) {
 			JPanel playerPanel = drawPlayerPanel(player);
 			this.add(playerPanel);
 		}
 
-		
-		//Create a progress bar only if there is a timer
+		// Create a progress bar only if there is a timer
 		if (timer == null) {
 			JPanel fillerPanel = new JPanel();
 			this.add(fillerPanel);
-		}else{
+		} else {
 			JPanel progressBar = new ProgressBar(timer);
+			System.out.print(timer.toString());
 			this.add(progressBar);
 		}
 		grid.layoutContainer(this);
+
 	}
 
-	/*
+	/**
 	 * Redraws player panels and progress bar
 	 */
+
 	private void refresh() {
+		refresh = false;
 		this.removeAll();
 		Initialize();
+		refresh = true;
 	}
 
-	
-	/*
+	/**
 	 * Refreshes stats of a player
-	 * @param  player -player whose stats to refresh
+	 * 
+	 * @param playerIndex
+	 *            -index of player to refresh
 	 */
-	public void refreshPlayer(Player player){
-		JPanel newPanel = drawPlayerPanel(player);
-		int index = Arrays.asList(players).indexOf(player);
-		this.remove(index);
-		this.add(newPanel, index);
+
+	private void refreshPlayer(int playerIndex) {
+		try {
+			Player player = players[playerIndex];
+			JPanel newPanel = drawPlayerPanel(player);
+			this.remove(playerIndex);
+			this.add(newPanel, playerIndex);
+		} catch (Exception e) {
+			// do nothing
+		}
 	}
-	/*
+
+	/**
 	 * Makes a tile with stats for each player
 	 */
 	private JPanel drawPlayerPanel(Player player) {
@@ -143,42 +157,69 @@ public class StatusBar extends JPanel {
 		}
 
 		JPanel labelPanel = new JPanel();
-		GridLayout labelGrid = new GridLayout(6, 1, 0, 0);
+		GridLayout labelGrid = new GridLayout(7, 1, 0, 0);
 		labelPanel.setLayout(labelGrid);
 
-		JLabel moneyLabel = new JLabel("Money" + " " + player.getMoney() + "");
+		JLabel fillerLabel = new JLabel("");
+		JLabel playerName = new JLabel(player.getName());
+		playerName.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		labelPanel.add(playerName);
+		labelPanel.add(fillerLabel);
+
+		JLabel moneyLabel = new JLabel("Money: ");
+		JLabel playerMoney = new JLabel(player.getMoney() + "");
+		playerMoney
+				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		moneyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		labelPanel.add(moneyLabel);
+		labelPanel.add(playerMoney);
 
-		JLabel playerEnergy = new JLabel("Energy: "
-				+ player.getResourceAmount(ResourceType.ENERGY));
+		JLabel energyLabel = new JLabel("Energy: ");
+		JLabel playerEnergy = new JLabel(
+				player.getResourceAmount(ResourceType.ENERGY) + "");
 		playerEnergy
 				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		energyLabel
+				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		labelPanel.add(energyLabel);
 		labelPanel.add(playerEnergy);
 
-		JLabel playerFood = new JLabel("Food: "
+		JLabel foodLabel = new JLabel("Food: ");
+		JLabel playerFood = new JLabel(""
 				+ player.getResourceAmount(ResourceType.FOOD));
 		playerFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		foodLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		labelPanel.add(foodLabel);
 		labelPanel.add(playerFood);
 
-		JLabel playerSmithore = new JLabel("Smithore: "
+		JLabel oreLabel = new JLabel("Smithore: ");
+		JLabel playerSmithore = new JLabel(""
 				+ player.getResourceAmount(ResourceType.SMITHORE));
 		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
 				11));
+		oreLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		labelPanel.add(oreLabel);
 		labelPanel.add(playerSmithore);
 
-		JLabel playerCrystite = new JLabel("Crystite: "
+		JLabel crystiteLabel = new JLabel("Crystite: ");
+		JLabel playerCrystite = new JLabel(""
 				+ player.getResourceAmount(ResourceType.CRYSTITE));
 		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
 				11));
+		crystiteLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
+				11));
+		labelPanel.add(crystiteLabel);
 		labelPanel.add(playerCrystite);
 
-		JLabel playerMule = new JLabel("Mule: " +player.getMuleAmount());
-		if(player.hazMule()) {
-			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
+		JLabel muleLabel = new JLabel("Mule: ");
+		JLabel playerMule = new JLabel("" + player.getMuleAmount());
+		if (player.hazMule()) {
+			playerMule.setText("" + player.getMuleAmount() + " , "
+					+ player.getMule().toString());
 		}
-		else playerMule.setText("Mule: " +player.getMuleAmount());
+		muleLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		labelPanel.add(muleLabel);
 		labelPanel.add(playerMule);
 
 		ImageIcon imageIcon = spriteImgLoader.getImage(player);
@@ -191,6 +232,37 @@ public class StatusBar extends JPanel {
 
 	}
 
+	@Override
+	public void run() {
+		while (true) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					// update();
+					if (refresh) {
+						for (int i = 0; i < players.length; i++) {
+							refreshPlayer(i);
 
+						}
+
+					}
+			
+				}
+			});
+			updateTimer = new MULETimer(25);
+			updateTimer.start();
+			Waiter.waitOn(updateTimer, 500);
+
+		}
+
+	}
+
+	/**
+	 * Method to run the Status Bar in a separate thread.
+	 * 
+	 */
+	public void runAsynchronous() {
+		new Thread(this).start();
+	}
 
 }
