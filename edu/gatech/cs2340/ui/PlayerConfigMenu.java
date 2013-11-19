@@ -62,6 +62,8 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	 */
 	@SuppressWarnings("unchecked")
 	public PlayerConfigMenu(int numPairs) {
+		
+		this.setBackground(MainGameWindow.BACKGROUND_COLOR);
 		finished = false;
 
 		// Create and populate the panel
@@ -107,14 +109,29 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 		
 		removeTakenColors();
 
-		this.add(new JPanel());
-		this.add(new JPanel());
+		JPanel fillerPanel1 = new JPanel();
+		fillerPanel1.setBackground(getBackground());
+		this.add(fillerPanel1);
+		
+		JPanel fillerPanel2 = new JPanel();
+		fillerPanel2.setBackground(getBackground());
+		this.add(fillerPanel2);
+		
 		JButton startButton = new JButton("Start");
 		startButton.addActionListener(new startListener());
 		this.add(startButton);
-		this.add(new JPanel());
-		this.add(new JPanel());
-		this.add(new JPanel());
+		
+		JPanel fillerPanel3 = new JPanel();
+		fillerPanel3.setBackground(getBackground());
+		this.add(fillerPanel3);
+		
+		JPanel fillerPanel4 = new JPanel();
+		fillerPanel4.setBackground(getBackground());
+		this.add(fillerPanel4);
+		
+		JPanel fillerPanel5 = new JPanel();
+		fillerPanel5.setBackground(getBackground());
+		this.add(fillerPanel5);
 
 		// Lay out the panel.
 		SpringUtilities.makeCompactGrid(this, numPairs + 1, 6, // rows, cols

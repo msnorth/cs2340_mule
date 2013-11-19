@@ -57,6 +57,7 @@ public class InGameMenu extends JPanel implements ActionListener, WaitedOn {
 	private boolean isFinished;
 
 	public InGameMenu() {
+		this.setBackground(MainGameWindow.BACKGROUND_COLOR);
 		this.setPreferredSize(new Dimension(DIM_X, DIM_Y));
 		
 		setLayout(null);
