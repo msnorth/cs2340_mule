@@ -20,10 +20,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import edu.gatech.cs2340.data.GameData;
+import edu.gatech.cs2340.data.HillTile;
 import edu.gatech.cs2340.data.Map;
-import edu.gatech.cs2340.data.MapHolder;
 import edu.gatech.cs2340.data.MapResponsibilities;
+import edu.gatech.cs2340.data.MountainTile;
 import edu.gatech.cs2340.data.Mule;
+import edu.gatech.cs2340.data.PeakTile;
 import edu.gatech.cs2340.data.PlainsTile;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.data.ResourceAmount;
@@ -103,26 +105,6 @@ public class ResourceProducerTest {
 	 * The amount of food that should come out of production for a given test
 	 */
 	HashMap<Integer, Integer> resIncreases;
-	// /**
-	// * The amount of crystite that should come out of production for a given
-	// * test
-	// */
-	// ArrayList<Integer> crystiteAmounts;
-	// /**
-	// * The amount of smithore that should come out of production for a given
-	// * test
-	// */
-	// ArrayList<Integer> oreAmounts;
-	// /**
-	// * The amount of energy that should come out of production for a given
-	// test
-	// */
-	// ArrayList<Integer> energyAmounts;
-
-	// /**
-	// * True if energy was used for the given integer
-	// */
-	// ArrayList<Boolean> energyUsed;
 
 	/**
 	 * Number of tiles in the array
@@ -150,6 +132,11 @@ public class ResourceProducerTest {
 	private static final int ENERGY_AMOUNT_USED = 1;
 
 	/**
+	 * Maximum possible crystite production
+	 */
+	private static final int MAX_CRYSTITE = 25;
+
+	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
@@ -166,10 +153,6 @@ public class ResourceProducerTest {
 		}
 		tiles = new ArrayList<Tile>();
 		resIncreases = new HashMap<Integer, Integer>();
-		// crystiteAmounts = new ArrayList<Integer>();
-		// oreAmounts = new ArrayList<Integer>();
-		// energyAmounts = new ArrayList<Integer>();
-		// energyUsed = new ArrayList<Boolean>();
 		resProd = new ResourceProducer(gameData);
 	}
 
@@ -183,11 +166,6 @@ public class ResourceProducerTest {
 		players = null;
 		tiles = null;
 		resIncreases = null;
-		// foodAmounts = null;
-		// crystiteAmounts = null;
-		// oreAmounts = null;
-		// energyAmounts = null;
-		// energyUsed = null;
 		resProd = null;
 	}
 
@@ -200,6 +178,50 @@ public class ResourceProducerTest {
 	public void runRiverTestInsufficientEnergy() {
 		drainEnergy();
 		runRiverTest(false);
+	}
+	
+	@Test
+	public void runPlainsTestSufficientEnergy() {
+		runPlainsTest(true);
+	}
+
+	@Test
+	public void runPlainsTestInsufficientEnergy() {
+		drainEnergy();
+		runPlainsTest(false);
+	}
+	
+	@Test
+	public void runHillTestSufficientEnergy() {
+		runHillTest(true);
+	}
+
+	@Test
+	public void runHillTestInsufficientEnergy() {
+		drainEnergy();
+		runHillTest(false);
+	}
+	
+	@Test
+	public void runMountainTestSufficientEnergy() {
+		runMountainTest(true);
+	}
+
+	@Test
+	public void runMountainTestInsufficientEnergy() {
+		drainEnergy();
+		runMountainTest(false);
+	}
+	
+	@Test
+	public void runPeakTestSufficientEnergy() {
+		runPeakTest(true);
+	}
+
+	@Test
+	public void runPeakTestInsufficientEnergy() {
+		drainEnergy();
+		runPeakTest(false);
 	}
 
 	/**
@@ -217,7 +239,7 @@ public class ResourceProducerTest {
 	/**
 	 * Test the river tile
 	 * 
-	 * @param hasEnergy
+	 * @param hasEnergy True if the players have energy to produce
 	 */
 	public void runRiverTest(boolean hasEnergy) {
 		resIncreases.put(FOOD_INDEX, 4);
@@ -237,7 +259,103 @@ public class ResourceProducerTest {
 		resProd.runSynchronous();
 		checkPlayerProduction("River", hasEnergy);
 	}
+	
+	/**
+	 * Test the plains tile
+	 * 
+	 * @param hasEnergy True if the players have energy to produce
+	 */
+	public void runPlainsTest(boolean hasEnergy) {
+		resIncreases.put(FOOD_INDEX, 2);
+		resIncreases.put(ENERGY_INDEX, 3);
+		resIncreases.put(ORE_INDEX, 1);
+		resIncreases.put(CRYSTITE_INDEX, 0);
+		resIncreases.put(SPARE_INDEX, 0);
+		resIncreases.put(INSUFFICIENT_ENERGY_INDEX, 0);
 
+		for (int i = 0; i < numTiles; i++) {
+			Tile curTile = new PlainsTile("Tile" + i, null);
+			setUpTile(curTile, i);
+			tiles.add(curTile);
+		}
+		// Set up map functionality
+		setUpMapMock();
+		resProd.runSynchronous();
+		checkPlayerProduction("Plains", hasEnergy);
+	}
+	
+	/**
+	 * Test the hill tile
+	 * 
+	 * @param hasEnergy True if the players have energy to produce
+	 */
+	public void runHillTest(boolean hasEnergy) {
+		resIncreases.put(FOOD_INDEX, 1);
+		resIncreases.put(ENERGY_INDEX, 1);
+		resIncreases.put(ORE_INDEX, 2);
+		resIncreases.put(CRYSTITE_INDEX, 2);
+		resIncreases.put(SPARE_INDEX, 0);
+		resIncreases.put(INSUFFICIENT_ENERGY_INDEX, 0);
+
+		for (int i = 0; i < numTiles; i++) {
+			Tile curTile = new HillTile("Tile" + i, null);
+			setUpTile(curTile, i);
+			tiles.add(curTile);
+		}
+		// Set up map functionality
+		setUpMapMock();
+		resProd.runSynchronous();
+		checkPlayerProduction("Hill", hasEnergy);
+	}
+	
+	/**
+	 * Test the mountain tile
+	 * 
+	 * @param hasEnergy True if the players have energy to produce
+	 */
+	public void runMountainTest(boolean hasEnergy) {
+		resIncreases.put(FOOD_INDEX, 1);
+		resIncreases.put(ENERGY_INDEX, 1);
+		resIncreases.put(ORE_INDEX, 3);
+		resIncreases.put(CRYSTITE_INDEX, 3);
+		resIncreases.put(SPARE_INDEX, 0);
+		resIncreases.put(INSUFFICIENT_ENERGY_INDEX, 0);
+
+		for (int i = 0; i < numTiles; i++) {
+			Tile curTile = new MountainTile("Tile" + i, null);
+			setUpTile(curTile, i);
+			tiles.add(curTile);
+		}
+		// Set up map functionality
+		setUpMapMock();
+		resProd.runSynchronous();
+		checkPlayerProduction("Mountain", hasEnergy);
+	}
+
+	/**
+	 * Test the peak tile
+	 * 
+	 * @param hasEnergy True if the players have energy to produce
+	 */
+	public void runPeakTest(boolean hasEnergy) {
+		resIncreases.put(FOOD_INDEX, 1);
+		resIncreases.put(ENERGY_INDEX, 1);
+		resIncreases.put(ORE_INDEX, 4);
+		resIncreases.put(CRYSTITE_INDEX, 4);
+		resIncreases.put(SPARE_INDEX, 0);
+		resIncreases.put(INSUFFICIENT_ENERGY_INDEX, 0);
+
+		for (int i = 0; i < numTiles; i++) {
+			Tile curTile = new PeakTile("Tile" + i, null);
+			setUpTile(curTile, i);
+			tiles.add(curTile);
+		}
+		// Set up map functionality
+		setUpMapMock();
+		resProd.runSynchronous();
+		checkPlayerProduction("Peak", hasEnergy);
+	}
+	
 	/**
 	 * Verify that player production is what it should be
 	 * 
@@ -251,83 +369,37 @@ public class ResourceProducerTest {
 			// Check that the intended resource was produced
 			Player curPlayer = players.get(i);
 			// for each resource that player owns
-			for (int j = 0; j < numResources; j++) {
-				ResourceType curResource = resourceTypes[j];
+			for (int resIndex = 0; resIndex < numResources; resIndex++) {
+				ResourceType curResource = resourceTypes[resIndex];
 				String message = curResource + " production wrong for player " + i
 						+ " in Tile type " + tileType;
 				if (!hasEnergy){
 					message += "; player didn't have energy";
 				}
-				int standardValue = standardValues[j];
-				// ArrayList<Integer> resourceAmounts = null;
-				// switch (curResource) {
-				// case FOOD:
-				// standardValue = STANDARD_FOOD;
-				// resourceAmounts = foodAmounts;
-				// break;
-				// case ENERGY:
-				// standardValue = STANDARD_ENERGY
-				// - (hasEnergy ? ENERGY_AMOUNT_USED : 0);
-				// resourceAmounts = energyAmounts;
-				// break;
-				// case SMITHORE:
-				// standardValue = STANDARD_ORE;
-				// resourceAmounts = oreAmounts;
-				// break;
-				// case CRYSTITE:
-				// standardValue = STANDARD_CRYSTITE;
-				// resourceAmounts = crystiteAmounts;
-				// break;
-				// default:
-				// break;
-				// }
+				int standardValue = standardValues[resIndex];
 				int resAmountActual = (int) curPlayer
 						.getResourceAmount(curResource);
 				int resAmountExpected = standardValue;
 				// get the value if the player has energy and if the mule was the same as the resource type
-				if (hasEnergy && (i == j)) {
-					resAmountExpected = (int) resIncreases.get(j)
+				if (hasEnergy && (i == resIndex)) {
+					resAmountExpected = (int) resIncreases.get(resIndex)
 							+ standardValue;
 				}
 				// use energy in production if player has a mule to produce with
-				if (hasEnergy && (i < numResources) && (j == ENERGY_INDEX)){
+				if (hasEnergy && (i < numResources) && (resIndex == ENERGY_INDEX)){
 					resAmountExpected -= ENERGY_AMOUNT_USED;
-				} else if (!hasEnergy && (j == ENERGY_INDEX)){
+				} else if (!hasEnergy && (resIndex == ENERGY_INDEX)){
 					resAmountExpected = 0; // energy is drained
 				}
-				// test for the resource that actually increased
-				assertEquals(message, resAmountActual, resAmountExpected);
-
-//				// Make sure every other resource stayed the same
-//				if (curResource != ResourceType.FOOD) {
-//					assertEquals("Food production was wrong for player " + i
-//							+ "(there should not have been any)",
-//							(int) STANDARD_FOOD,
-//							(int) curPlayer
-//									.getResourceAmount(ResourceType.FOOD));
-//				}
-//				if (curResource != ResourceType.ENERGY) {
-//					assertEquals("Energy production was wrong for player " + i
-//							+ "(there should not have been any)",
-//							(int) STANDARD_ENERGY
-//									- (hasEnergy ? ENERGY_AMOUNT_USED : 0),
-//							(int) curPlayer
-//									.getResourceAmount(ResourceType.ENERGY));
-//				}
-//				if (curResource != ResourceType.SMITHORE) {
-//					assertEquals("Smithore production was wrong for player "
-//							+ i + "(there should not have been any)",
-//							(int) STANDARD_ORE,
-//							(int) curPlayer
-//									.getResourceAmount(ResourceType.SMITHORE));
-//				}
-//				if (curResource != ResourceType.CRYSTITE) {
-//					assertEquals("Crystite production was wrong for player "
-//							+ i + "(there should not have been any)",
-//							(int) STANDARD_CRYSTITE,
-//							(int) curPlayer
-//									.getResourceAmount(ResourceType.CRYSTITE));
-//				}
+				if (resIndex == CRYSTITE_INDEX){
+					if (resAmountActual > MAX_CRYSTITE || resAmountActual < 0){
+						message += ". Expected less than: "+MAX_CRYSTITE+" && >= 0 but actual was: "+resAmountActual;
+						fail(message);
+					}
+				} else {
+					// test for the resource that actually increased
+					assertEquals(message, resAmountActual, resAmountExpected);
+				}
 			}
 		}
 	}

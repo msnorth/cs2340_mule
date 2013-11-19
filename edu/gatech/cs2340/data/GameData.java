@@ -5,7 +5,7 @@ import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.GameTerminatedException;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
-public class GameData implements Serializable, WaitedOn, MapHolder {
+public class GameData implements Serializable, WaitedOn {
 	/**
 	 * 
 	 */
