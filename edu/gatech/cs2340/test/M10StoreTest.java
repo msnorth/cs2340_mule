@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package edu.gatech.cs2340.test;
 
 import static org.junit.Assert.assertFalse;
