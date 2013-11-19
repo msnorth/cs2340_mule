@@ -30,7 +30,7 @@ import edu.gatech.cs2340.io.KeyboardAdapter;
  */
 public class MainGameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public static final Color BACKGROUND_COLOR = new Color(194, 178, 128);
+	public static final Color BACKGROUND_COLOR = new Color(207, 163, 113);
 	private static JPanel mainPanel;
 	public static JPanel fullScreenPanel = new JPanel();
 	public static final int DIM_X = 72 * 9 + 40;
@@ -97,7 +97,9 @@ public class MainGameWindow extends JFrame {
 		backgroundPanel.setLayout(new BorderLayout());
 		backgroundPanel.add(mainPanel, BorderLayout.CENTER);
 		backgroundPanel.add(lowerPanel, BorderLayout.SOUTH);
+		
 		this.add(backgroundPanel);
+		
 		setTitle("M.U.L.E. FRAME");
 		addKeyListener(keyboardAdapter);
 
@@ -187,11 +189,14 @@ public class MainGameWindow extends JFrame {
 		instance.remove(backgroundPanel);
 		instance.add(fullScreenPanel);
 		instance.revalidate();
+		
 	}
 
 	public static void retractFullPanel() {
 		instance.remove(fullScreenPanel);
 		instance.add(backgroundPanel);
+		instance.repaint();
 		instance.revalidate();
+		
 	}
 }

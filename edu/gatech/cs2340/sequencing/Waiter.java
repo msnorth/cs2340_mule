@@ -1,4 +1,4 @@
-package edu.gatech.cs2340.sequencing;
+ package edu.gatech.cs2340.sequencing;
 
 
 
@@ -69,7 +69,7 @@ public abstract class Waiter {
 		while (result == -1) {
 			for (int i=0; i<threads.length; i++) {
 				if (threads[i].isFinished()) {
-					result = i;
+ 					result = i;
 					break;
 				}
 			}

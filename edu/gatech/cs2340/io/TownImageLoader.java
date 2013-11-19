@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 
+import edu.gatech.cs2340.io.ImageLoader.ImagesNotInitializedException;
+
 /**
  * 
  * @author Stephen Conway
@@ -22,7 +24,7 @@ public class TownImageLoader extends ImageLoader {
 	@Override
 	public void loadImages() {
 		if (loaded) {
-			throw new RuntimeException("TownImageLoader already loaded image(s)!");
+			throw new ImagesAlreadyLoadedException();
 		}
 		Thread thread = new Thread(this);
 		thread.start();
@@ -47,7 +49,7 @@ public class TownImageLoader extends ImageLoader {
 	 */
 	public ImageIcon getImage() {
 		if (!loaded) {
-			throw new RuntimeException("Must load images first!");
+			throw new ImagesNotInitializedException();
 		}
 		return townImage;
 	}

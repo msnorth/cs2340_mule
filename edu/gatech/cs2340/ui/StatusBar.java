@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
@@ -47,6 +46,7 @@ public class StatusBar extends JPanel implements Runnable {
 		this.players = players;
 		spriteImgLoader = new SpriteImageLoader();
 		Initialize();
+		refresh = true;
 	}
 
 	/**
@@ -57,32 +57,12 @@ public class StatusBar extends JPanel implements Runnable {
 	 * 
 	 * @param currentPlayer
 	 *            the currently active player
+	 * @param timer2
+	 *            the MULETimer with the player's turn length
 	 */
-	public void startTurn(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
-		refresh();
-	}
-
-	/**
-	 * Ends the turn and the whole turn cycle. Stops the progress bar, removes
-	 * colored border, removes the timer
-	 */
-	public void endTurn() {
-		this.currentPlayer = null;
-		this.timer = null;
-		refresh();
-
-	}
-
-	/**
-	 * Sets a timer to associate with a progressBar Refreshes to add progressBar
-	 * to panel
-	 * 
-	 * @param timer
-	 */
-	public void setTimer(MULETimer timer) {
-		this.timer = null;
+	public void startTurn(Player currentPlayer, MULETimer timer) {
 		this.timer = timer;
+		this.currentPlayer = currentPlayer;
 		refresh();
 	}
 
@@ -98,16 +78,16 @@ public class StatusBar extends JPanel implements Runnable {
 			JPanel playerPanel = drawPlayerPanel(player);
 			this.add(playerPanel);
 		}
-
 		// Create a progress bar only if there is a timer
 		if (timer == null) {
 			JPanel fillerPanel = new JPanel();
 			this.add(fillerPanel);
 		} else {
 			JPanel progressBar = new ProgressBar(timer);
-			System.out.print(timer.toString());
+			progressBar.setPreferredSize(getPreferredSize());
 			this.add(progressBar);
 		}
+
 		grid.layoutContainer(this);
 
 	}
@@ -213,7 +193,7 @@ public class StatusBar extends JPanel implements Runnable {
 
 		JLabel muleLabel = new JLabel("Mule: ");
 		JLabel playerMule = new JLabel("" + player.getMuleAmount());
-		if (player.hazMule()) {
+		if (player.hasMule()) {
 			playerMule.setText("" + player.getMuleAmount() + " , "
 					+ player.getMule().toString());
 		}
@@ -235,20 +215,16 @@ public class StatusBar extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					// update();
-					if (refresh) {
-						for (int i = 0; i < players.length; i++) {
-							refreshPlayer(i);
 
-						}
+			// update();
+			if (refresh) {
+				for (int i = 0; i < players.length; i++) {
+					refreshPlayer(i);
 
-					}
-			
 				}
-			});
+
+			}
+
 			updateTimer = new MULETimer(25);
 			updateTimer.start();
 			Waiter.waitOn(updateTimer, 500);

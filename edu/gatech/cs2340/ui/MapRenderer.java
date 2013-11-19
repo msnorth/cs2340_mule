@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.ui;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout; 
@@ -40,8 +41,13 @@ public class MapRenderer extends JPanel{
 	 */
 	public MapRenderer(Map map) {
 		this.map = map;	
+		
+		Dimension dim = new Dimension(72*9+40, 5*72+3*4);
+		setPreferredSize(dim);
+		setMinimumSize(dim);
+		setMaximumSize(dim);
+		
 		setLayout(new GridLayout(map.getNumRows(),map.getNumCols(),0,0));
-
 		tileLabels = new JLabel[map.getNumTiles()];
 		for (int i=0; i<tileLabels.length; i++) {
 			Tile tile = map.getTileNumber(i);

@@ -44,6 +44,7 @@ public class MapManager implements WaitedOn, Runnable{
 	 */
 	@Override
 	public void run() {
+		finished = false;
 		Sprite sprite = new Sprite(data.getCurrentPlayer(), data.getMap());
 		
 		MapRenderer mapRenderer = new MapRenderer(data.getMap());

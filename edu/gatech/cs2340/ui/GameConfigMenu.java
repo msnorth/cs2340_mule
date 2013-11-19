@@ -53,6 +53,8 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 	 */
 	public GameConfigMenu() {
 		
+		this.setBackground(MainGameWindow.BACKGROUND_COLOR);
+		
 		SpringLayout layout = new SpringLayout();
 		
 		this.setLayout(layout);

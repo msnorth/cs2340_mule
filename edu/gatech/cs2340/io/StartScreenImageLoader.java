@@ -25,7 +25,7 @@ public class StartScreenImageLoader extends ImageLoader {
 	@Override
 	public void loadImages() {
 		if (loaded) {
-			throw new RuntimeException("StartScreenImageLoader already loaded image(s)!");
+			throw new ImagesAlreadyLoadedException();
 		}
 		Thread thread = new Thread(this);
 		thread.start();
@@ -36,7 +36,6 @@ public class StartScreenImageLoader extends ImageLoader {
 	 */
 	@Override
 	public void run() {
-		System.out.println("RUNNING");
 		File imageFile = new File(String.format("%s/edu.gatech.cs2340.res.start_screen/%s",resourcesPath,imageFileName));
 		if (!imageFile.exists()) {
 			throw new RuntimeException("Cannot locate " + imageFile.getAbsolutePath() + ".");
@@ -51,7 +50,7 @@ public class StartScreenImageLoader extends ImageLoader {
 	 */
 	public ImageIcon getImage() {
 		if (!loaded) {
-			throw new RuntimeException("Must load images first!");
+			throw new ImagesNotInitializedException();
 		}
 		return startImage;
 	}

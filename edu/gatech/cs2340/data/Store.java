@@ -37,35 +37,43 @@ import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
  * 			- Classes that use store should use the message method to pass info to the player	 		 
  */
 public class Store implements Serializable {
-	public static final int FOOD_PRICE = 30;
-	public static final int ENERGY_PRICE = 25;
-	public static final int SMITHORE_PRICE = 50;
-	public static final int CRYSTITE_PRICE = 100;
+	//Item prices
+	public static final int FOOD_PRICE 			 = 30;		
+	public static final int ENERGY_PRICE 		 = 25;
+	public static final int SMITHORE_PRICE       = 50;
+	public static final int CRYSTITE_PRICE       = 100;
 	
-	public static final int FOOD_MULE = 130;
-	public static final int ENERGY_MULE = 125;
-	public static final int SMITHORE_MULE = 150;
-	public static final int CRYSTITE_MULE = 200;
+	//Mule prices
+	public static final int FOOD_MULE_PRICE 	 = 130;
+	public static final int ENERGY_MULE_PRICE    = 125;
+	public static final int SMITHORE_MULE_PRICE  = 150;
+	public static final int CRYSTITE_MULE_PRICE  = 200;
 	
-	private static final int FOOD    	  = 150;
-	private static final int ENERGY      = 150;
-	private static final int SMITHORE    = 150;
-	private static final int CRYSTITE    = 150;
+	//Starting amount of each resource for store stock
+	private static final int INITIAL_FOOD    	 = 16;
+	private static final int INITIAL_ENERGY      = 16;
+	private static final int INITIAL_SMITHORE    = 0;
+	private static final int INITIAL_CRYSTITE    = 0;
 	
-	private static ResourceAmount storeResources = new ResourceAmount(SMITHORE, FOOD, ENERGY, CRYSTITE);
-	private static ResourceAmount storePrices = new ResourceAmount(SMITHORE_PRICE, FOOD_PRICE, ENERGY_PRICE, CRYSTITE_PRICE);
-	
+	//Initial price and stock collections
+	private ResourceAmount storeResources = new ResourceAmount(INITIAL_SMITHORE, 
+																	  INITIAL_FOOD, 
+																	  INITIAL_ENERGY, 
+																	  INITIAL_CRYSTITE);
+	private static ResourceAmount storePrices = new ResourceAmount(   SMITHORE_PRICE, 
+			                                                          FOOD_PRICE, 
+			                                                          ENERGY_PRICE, 
+			                                                          CRYSTITE_PRICE);
 	private int numberOfMules;
-	
 	private Player player;
 	private String message;
 	
 	/**
 	 * M8
-	 * Singleton constructor
+	 * Primary constructor
 	 */
 	public Store() {
-		numberOfMules = createMules();
+		numberOfMules = 25;
 	}
 
 	/**
@@ -111,20 +119,20 @@ public class Store implements Serializable {
 	/**
 	 * Store sells mule to the player.
 	 * @param type
-	 * @return
+	 * @return 
 	 */
 	public boolean sellMule(ResourceType type) {
 		int cost = 0;
 		
 		if(type.name().equals("ENERGY")) {
-			cost = ENERGY_MULE;
+			cost = ENERGY_MULE_PRICE;
 		}
 		else if(type.name().equals("FOOD")) {
-			cost = FOOD_MULE;
+			cost = FOOD_MULE_PRICE;
 		}
-		else cost = SMITHORE_MULE;
+		else cost = SMITHORE_MULE_PRICE;
 		
-		if (player.hazMule()) {
+		if (player.hasMule()) {
 			message = "You already have a mule.";
 			return false;
 		}
@@ -144,22 +152,16 @@ public class Store implements Serializable {
 	}
 	
 	/**
-	 * Method adds starting resources to the store.
-	 * @param startingAmount
-	 */
-	public void addStartingResources(ResourceAmount startingAmount) {
-		storeResources.add(startingAmount);
-	}
-	
-	/**
 	 * Get the number of mules
-	 * @return
+	 * @return Number of mules in stock
 	 */
 	public int getMuleAmount() {
 		return numberOfMules;
 	}
+	
 	/**
 	 * Method used at end of round to create mules from stores supply of smithore.
+	 * @return New number of mules
 	 */
 	public int createMules() {
 		int smithoreAmount = storeResources.getAmount(ResourceType.SMITHORE);
@@ -176,7 +178,7 @@ public class Store implements Serializable {
 	 * Method sends a player into the store.
 	 * @param player
 	 */
-	public void addPlayer(Player player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 	
@@ -213,14 +215,14 @@ public class Store implements Serializable {
 	 */
 	public static int getMulePrice(ResourceType resource) {
 		if(resource.name().equals("ENERGY")) {
-			return ENERGY_MULE;
+			return ENERGY_MULE_PRICE;
 		}
 		else if(resource.name().equals("FOOD")) {
-			return FOOD_MULE;
+			return FOOD_MULE_PRICE;
 		}
 		else if(resource.name().equals("CRYSTITE")) {
-			return CRYSTITE_MULE;
+			return CRYSTITE_MULE_PRICE;
 		}
-		else return SMITHORE_MULE;
+		else return SMITHORE_MULE_PRICE;
 	}
 }
