@@ -1,12 +1,6 @@
 package edu.gatech.cs2340.data;
 
 import java.io.Serializable;
-import java.util.Random;
-
-import edu.gatech.cs2340.data.ResourceAmount.ResourceType;
-import edu.gatech.cs2340.engine.Round;
-
-
 
 /**
  * 
@@ -26,11 +20,9 @@ import edu.gatech.cs2340.engine.Round;
  * 				 
  */
 public class PlayerManager implements PlayerManagerResponsibilities, Serializable {
+	private static final long serialVersionUID = 1L;
 	private final Player[] players;
 	private int nextPlayer;
-	private final Random rand = new Random();
-	private static final int[] RANDOMEVENTPRICEMODIFIER = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 
-	                                                       75, 100};
 	
 	/**
 	 * #M6
