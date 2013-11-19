@@ -24,4 +24,22 @@ public abstract class ImageLoader implements Runnable {
 	 */
 	public abstract void loadImages();
 	
+	
+	/**
+	 * @author Stephen Conway
+	 * 
+	 * Exception to be thrown when images are attempted to be accessed before they are loaded.
+	 */
+	public static class ImagesNotInitializedException extends RuntimeException {
+		
+	}
+	
+	/**
+	 * @author Stephen Conway
+	 * 
+	 * Exception to be thrown when images are attempted to be loaded a second time.
+	 */
+	public static class ImagesAlreadyLoadedException extends RuntimeException {
+		
+	}
 }

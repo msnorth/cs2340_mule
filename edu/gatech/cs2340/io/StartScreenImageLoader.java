@@ -25,7 +25,7 @@ public class StartScreenImageLoader extends ImageLoader {
 	@Override
 	public void loadImages() {
 		if (loaded) {
-			throw new RuntimeException("StartScreenImageLoader already loaded image(s)!");
+			throw new ImagesAlreadyLoadedException();
 		}
 		Thread thread = new Thread(this);
 		thread.start();
@@ -51,7 +51,7 @@ public class StartScreenImageLoader extends ImageLoader {
 	 */
 	public ImageIcon getImage() {
 		if (!loaded) {
-			throw new RuntimeException("Must load images first!");
+			throw new ImagesNotInitializedException();
 		}
 		return startImage;
 	}

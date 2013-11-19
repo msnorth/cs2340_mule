@@ -31,7 +31,7 @@ public class SpriteImageLoader extends ImageLoader implements Serializable {
 	 */
 	public void loadImages() {
 		if (loaded) {
-			throw new RuntimeException("SpriteImageLoader already loaded images!");
+			throw new ImagesAlreadyLoadedException();
 		}
 		images = new HashMap<String, HashMap<Color, ImageIcon>>();
 		Thread thread = new Thread(this);
@@ -66,7 +66,7 @@ public class SpriteImageLoader extends ImageLoader implements Serializable {
 	 */
 	public ImageIcon getImage(Player player) {
 		if (!loaded) {
-			throw new RuntimeException("Must initialize SpriteImageLoader first!");
+			throw new ImagesNotInitializedException();
 		}
 		
 		String race = player.getRace().toLowerCase();

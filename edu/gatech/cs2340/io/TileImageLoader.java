@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 import edu.gatech.cs2340.data.Tile;
+import edu.gatech.cs2340.io.ImageLoader.ImagesNotInitializedException;
 
 public class TileImageLoader extends ImageLoader {
 	private static final String[] names = {"hill", "mountain", "peak", "plain", "river", "town"};
@@ -15,7 +16,7 @@ public class TileImageLoader extends ImageLoader {
 	@Override
 	public void loadImages() {
 		if (loaded) {
-			throw new RuntimeException("TileImageLoader already loaded images!");
+			throw new ImagesAlreadyLoadedException();
 		}
 		images = new HashMap<String, ImageIcon>();
 		Thread thread = new Thread(this);
@@ -37,7 +38,7 @@ public class TileImageLoader extends ImageLoader {
 
 	public ImageIcon getImage(Tile tile) {
 		if (!loaded) {
-			throw new RuntimeException("Must load image(s) first!");
+			throw new ImagesNotInitializedException();
 		}
 		String name = tile.getName();
 		name = name.toLowerCase();

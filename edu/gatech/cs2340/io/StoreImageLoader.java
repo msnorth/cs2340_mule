@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
+import edu.gatech.cs2340.io.ImageLoader.ImagesNotInitializedException;
+
 /**
  * Class to load and store store images.
  * @author Stephen
@@ -23,7 +25,7 @@ public class StoreImageLoader extends ImageLoader{
 	 */
 	public void loadImages() {
 		if (loaded) {
-			throw new RuntimeException("StoreImageLoader already initialized!");
+			throw new ImagesAlreadyLoadedException();
 		}
 		images = new HashMap<String, ImageIcon>();
 		loaded = false;
@@ -52,7 +54,7 @@ public class StoreImageLoader extends ImageLoader{
 	 */
 	public ImageIcon getImage(String name) {
 		if (!loaded) {
-			throw new RuntimeException("Must initialize StoreImageLoader first!");
+			throw new ImagesNotInitializedException();
 		}
 		if (!images.containsKey(name)) {
 			throw new RuntimeException(String.format("Image does not exist: '%s'", name));
