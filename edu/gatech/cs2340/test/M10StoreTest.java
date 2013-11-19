@@ -31,7 +31,7 @@ public class M10StoreTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		store.addPlayer(player);
+		store.setPlayer(player);
 	}
 
 	@Test

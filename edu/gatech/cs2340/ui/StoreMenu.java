@@ -80,7 +80,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	 */
 
 	private void initialize() {
-		store.addPlayer(player);
+		store.setPlayer(player);
 
 		imageLoader = new StoreImageLoader();
 

@@ -36,7 +36,6 @@ public class StartScreenImageLoader extends ImageLoader {
 	 */
 	@Override
 	public void run() {
-		System.out.println("RUNNING");
 		File imageFile = new File(String.format("%s/edu.gatech.cs2340.res.start_screen/%s",resourcesPath,imageFileName));
 		if (!imageFile.exists()) {
 			throw new RuntimeException("Cannot locate " + imageFile.getAbsolutePath() + ".");
