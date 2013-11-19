@@ -39,7 +39,7 @@ import edu.gatech.cs2340.engine.ResourceProducer;
  * 
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ResourceProducerTest {
+public class M10ResourceProducerTest {
 
 	/**
 	 * Array of colors to choose from
