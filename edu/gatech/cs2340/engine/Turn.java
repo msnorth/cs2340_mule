@@ -50,35 +50,28 @@ public class Turn {
 	 */
 	public void runSynchronous() {
 		MainGameWindow.setMessage(String.format("%s it's your turn!", data.getCurrentPlayer().getName()));
-		
 		DebugPrinter.println("Running Turn synchronously.");
 		Player player = data.getCurrentPlayer();
 		
 		int roundNumber = data.getRoundNum();
 		SavePointTimer timer = new SavePointTimer(player.calculateTurnTime(roundNumber), data);
-		MULETimer timer2 = new MULETimer(player.calculateTurnTime(roundNumber));
-	
-		
 		MapManager mapManager = new MapManager(data);
+		StatusBar statBar = MainGameWindow.getLowerPanel();
 
 		timer.start();
-		timer2.start();
-		StatusBar statBar = MainGameWindow.getLowerPanel();
-		statBar.startTurn(player, timer2);
-		
+		statBar.startTurn(player, timer);
 		mapManager.runAsynchronous();
-		WaitedOn[] waitees = {timer2, mapManager, timer};
+		
+		WaitedOn[] waitees = {timer, mapManager};
 		int killa = Waiter.waitForAny(waitees);
 		if (killa == 1) { //turn ended by gambling
 			timer.stop();
-			timer2.stop();
 			Gambler gambler = new Gambler(roundNumber);
 			gambler.setPlayer(player);
 			gambler.gamble(timer.getTimeRemaining());
 		}	
 		else {
 			timer.stop();
-			timer2.stop();
 			MainGameWindow.setMessage(String.format("%s ran out of time on their turn!", player.getName()));
 
 		}
