@@ -2,7 +2,6 @@ package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.Gambler;
 import edu.gatech.cs2340.data.GameData;
-import edu.gatech.cs2340.data.Map;
 import edu.gatech.cs2340.data.Player;
 import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.SavePointTimer;
@@ -10,8 +9,8 @@ import edu.gatech.cs2340.sequencing.WaitedOn;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
-import edu.gatech.cs2340.ui.StatusBar;
 import edu.gatech.cs2340.ui.MapManager;
+import edu.gatech.cs2340.ui.StatusBar;
 
 
 /**
@@ -58,14 +57,14 @@ public class Turn {
 		int roundNumber = data.getRoundNum();
 		SavePointTimer timer = new SavePointTimer(player.calculateTurnTime(roundNumber), data);
 		MULETimer timer2 = new MULETimer(player.calculateTurnTime(roundNumber));
-		StatusBar statBar = MainGameWindow.getLowerPanel();
-		statBar.startTurn(player, timer2);
-		timer2.start();
-		
-		System.out.println("Player " +  player.getName() + "Turn Time: " + " " +  player.calculateTurnTime(roundNumber) + "Timer time: "+ timer2.getTimeRemaining());
+	
 		
 		MapManager mapManager = new MapManager(data);
+
 		timer.start();
+		timer2.start();
+		StatusBar statBar = MainGameWindow.getLowerPanel();
+		statBar.startTurn(player, timer2);
 		
 		mapManager.runAsynchronous();
 		WaitedOn[] waitees = {timer2, mapManager, timer};
@@ -78,8 +77,8 @@ public class Turn {
 			gambler.gamble(timer.getTimeRemaining());
 		}	
 		else {
-
-			System.out.println("ping" + data.getPlayerManager().getNextPlayer().calculateTurnTime(roundNumber) + 1);
+			timer.stop();
+			timer2.stop();
 			MainGameWindow.setMessage(String.format("%s ran out of time on their turn!", player.getName()));
 
 		}

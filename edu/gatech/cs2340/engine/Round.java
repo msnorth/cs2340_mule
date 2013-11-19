@@ -1,10 +1,6 @@
 package edu.gatech.cs2340.engine;
 
 import edu.gatech.cs2340.data.GameData;
-import edu.gatech.cs2340.data.Map;
-import edu.gatech.cs2340.data.Player;
-import edu.gatech.cs2340.data.PlayerManager;
-import edu.gatech.cs2340.test.DebugPrinter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 import edu.gatech.cs2340.ui.MapRenderer;
 import edu.gatech.cs2340.ui.StatusBar;

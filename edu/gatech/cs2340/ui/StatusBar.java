@@ -46,6 +46,7 @@ public class StatusBar extends JPanel implements Runnable {
 		this.players = players;
 		spriteImgLoader = new SpriteImageLoader();
 		Initialize();
+		refresh = true;
 	}
 
 	/**
@@ -57,18 +58,12 @@ public class StatusBar extends JPanel implements Runnable {
 	 * @param currentPlayer
 	 *            the currently active player
 	 * @param timer2
-	 * 			  the MULETimer with the player's turn length
+	 *            the MULETimer with the player's turn length
 	 */
 	public void startTurn(Player currentPlayer, MULETimer timer) {
 		this.timer = timer;
 		this.currentPlayer = currentPlayer;
 		refresh();
-	}
-
-
-
-	public MULETimer getTimer() {
-		return timer;
 	}
 
 	private void Initialize() {
@@ -78,7 +73,6 @@ public class StatusBar extends JPanel implements Runnable {
 		GridLayout grid = new GridLayout(1, players.length, 1, 0);
 
 		this.setLayout(grid);
-		
 
 		for (Player player : players) {
 			JPanel playerPanel = drawPlayerPanel(player);
@@ -90,11 +84,10 @@ public class StatusBar extends JPanel implements Runnable {
 			this.add(fillerPanel);
 		} else {
 			JPanel progressBar = new ProgressBar(timer);
-			System.out.print(timer.toString());
+			progressBar.setPreferredSize(getPreferredSize());
 			this.add(progressBar);
 		}
 
-	
 		grid.layoutContainer(this);
 
 	}
