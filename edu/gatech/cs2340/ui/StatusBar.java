@@ -174,7 +174,7 @@ public class StatusBar extends JPanel {
 		labelPanel.add(playerCrystite);
 
 		JLabel playerMule = new JLabel("Mule: " +player.getMuleAmount());
-		if(player.hazMule()) {
+		if(player.hasMule()) {
 			playerMule.setText("Mule: " +player.getMuleAmount() + " , " +player.getMule().toString());
 		}
 		else playerMule.setText("Mule: " +player.getMuleAmount());

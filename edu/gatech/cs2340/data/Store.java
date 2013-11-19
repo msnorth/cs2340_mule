@@ -131,7 +131,7 @@ public class Store implements Serializable {
 		}
 		else cost = SMITHORE_MULE;
 		
-		if (player.hazMule()) {
+		if (player.hasMule()) {
 			message = "You already have a mule.";
 			return false;
 		}

@@ -53,7 +53,7 @@ public class Sprite {
 		}
 		
 		if (kba.isPressed(KeyboardAdapter.KEY_NAME.CONFIRM) && 
-				player.hazMule() && location == 2) { 
+				player.hasMule() && location == 2) { 
 			int r = y/1000; 
 			int c = x/1000;
 			Tile tile = map.getTileAt(r, c);
