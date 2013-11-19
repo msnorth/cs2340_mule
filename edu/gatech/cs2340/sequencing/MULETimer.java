@@ -3,8 +3,6 @@ package edu.gatech.cs2340.sequencing;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import edu.gatech.cs2340.test.DebugPrinter;
-
 
 /**
  * 
@@ -46,7 +44,7 @@ public class MULETimer implements WaitedOn, Serializable {
 
 	@Override
 	public boolean isFinished() {
-		boolean result = stopped || startTime_tick + duration_ms/GameClock.TICK_LENGTH <= GameClock.getTick();
+		boolean result = stopped || getTimeRemaining() < 0;
 		if (result) {
 			activeTimers.remove(this);
 		}
@@ -90,7 +88,9 @@ public class MULETimer implements WaitedOn, Serializable {
 	 * @return
 	 */
 	public long getTimeRemaining() {
-		return (startTime_tick + duration_ms/GameClock.TICK_LENGTH - GameClock.getTick())* GameClock.TICK_LENGTH;
+		long time = startTime_tick*GameClock.TICK_LENGTH  + duration_ms  - GameClock.getTick()*GameClock.TICK_LENGTH;
+		
+		return time;
 	}
 	
 	/**

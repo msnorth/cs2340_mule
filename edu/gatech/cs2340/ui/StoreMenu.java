@@ -1111,7 +1111,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 				+ player.getResourceAmount(ResourceType.SMITHORE));
 		playerCrystite.setText("Crystite: "
 				+ player.getResourceAmount(ResourceType.CRYSTITE));
-		if (player.hazMule()) {
+		if (player.hasMule()) {
 			playerMule.setText("Mule: " + player.getMuleAmount() + " , "
 					+ player.getMule().toString());
 		}
@@ -1157,7 +1157,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 	 * @param button
 	 */
 	public void muleButtonDisable(ResourceType type, JButton button) {
-		if (player.hazMule()
+		if (player.hasMule()
 				|| player.getMoney() < store.getResourcePrice(type)) {
 			button.setEnabled(false);
 		} else

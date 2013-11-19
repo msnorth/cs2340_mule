@@ -59,21 +59,29 @@ public class Turn {
 		SavePointTimer timer = new SavePointTimer(player.calculateTurnTime(roundNumber), data);
 		MULETimer timer2 = new MULETimer(player.calculateTurnTime(roundNumber));
 		StatusBar statBar = MainGameWindow.getLowerPanel();
-		statBar.setTimer(timer2);
+		statBar.startTurn(player, timer2);
+		timer2.start();
+		
+		System.out.println("Player " +  player.getName() + "Turn Time: " + " " +  player.calculateTurnTime(roundNumber) + "Timer time: "+ timer2.getTimeRemaining());
+		
 		MapManager mapManager = new MapManager(data);
 		timer.start();
-		statBar.startTurn(player);
+		
 		mapManager.runAsynchronous();
-		WaitedOn[] waitees = {timer, mapManager};
+		WaitedOn[] waitees = {timer2, mapManager, timer};
 		int killa = Waiter.waitForAny(waitees);
 		if (killa == 1) { //turn ended by gambling
 			timer.stop();
+			timer2.stop();
 			Gambler gambler = new Gambler(roundNumber);
 			gambler.setPlayer(player);
 			gambler.gamble(timer.getTimeRemaining());
 		}	
 		else {
+
+			System.out.println("ping" + data.getPlayerManager().getNextPlayer().calculateTurnTime(roundNumber) + 1);
 			MainGameWindow.setMessage(String.format("%s ran out of time on their turn!", player.getName()));
+
 		}
 	}
 }
