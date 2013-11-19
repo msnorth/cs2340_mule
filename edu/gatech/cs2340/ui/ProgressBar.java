@@ -5,14 +5,16 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
+import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.MULETimer;
 
-public class ProgressBar extends JPanel implements Runnable{
+public class ProgressBar extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
-	
-	private  MULETimer timer;
+
+	private MULETimer timer;
 	private JProgressBar progressBar;
-	
+	Thread thread;
+
 	/*
 	 * Initializes the progress bar and adds it to a JPanel.
 	 * 
@@ -27,31 +29,29 @@ public class ProgressBar extends JPanel implements Runnable{
 
 		progressBar = new JProgressBar(JProgressBar.VERTICAL, 0,
 				(int) timer.getTimerDuration());
-		
+	
 		this.add(progressBar);
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
-		new Thread(this).start();
-		
+		thread = new Thread(this);
+		thread.start();
+
 	}
 
 	@Override
 	public void run() {
-		
+
 		while (!timer.isFinished()) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					progressBar.setValue((int) timer.getTimeRemaining());
-				}
-			});
+
+			progressBar.setValue((int) timer.getTimeRemaining());
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(GameClock.TICK_LENGTH);
 			} catch (InterruptedException e) {
+			
 			}
 		}
-		
+
 	}
 
 }
