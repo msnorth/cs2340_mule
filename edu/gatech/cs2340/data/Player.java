@@ -108,7 +108,7 @@ public class Player implements Serializable {
 			gameScore += this.money;
 			
 			// Add mule price to total score
-			if(this.hazMule()) {
+			if(this.hasMule()) {
 				gameScore += Store.getMulePrice(mule.getType());
 			}
 		}
@@ -221,7 +221,7 @@ public class Player implements Serializable {
 	 * I haz mule?
 	 * @return
 	 */
-	public boolean hazMule() {
+	public boolean hasMule() {
 		return (mule != null);
 	}
 

@@ -200,7 +200,7 @@ public class StatusBar extends JPanel implements Runnable {
 
 		JLabel muleLabel = new JLabel("Mule: ");
 		JLabel playerMule = new JLabel("" + player.getMuleAmount());
-		if (player.hazMule()) {
+		if (player.hasMule()) {
 			playerMule.setText("" + player.getMuleAmount() + " , "
 					+ player.getMule().toString());
 		}

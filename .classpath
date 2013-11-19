@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="edu/gatech/cs2340/res/edu/gatech/cs2340/res/start/|edu.gatech.cs2340.res/edu.gatech.cs2340.res.start/" kind="src" path=""/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/Dan/Documents/Eclipse/git/cs2340_mule/edu.gatech.cs2340.lib/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
