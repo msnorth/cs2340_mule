@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.data.Player;
@@ -57,33 +56,19 @@ public class StatusBar extends JPanel implements Runnable {
 	 * 
 	 * @param currentPlayer
 	 *            the currently active player
+	 * @param timer2
+	 * 			  the MULETimer with the player's turn length
 	 */
-	public void startTurn(Player currentPlayer) {
+	public void startTurn(Player currentPlayer, MULETimer timer) {
+		this.timer = timer;
 		this.currentPlayer = currentPlayer;
 		refresh();
 	}
 
-	/**
-	 * Ends the turn and the whole turn cycle. Stops the progress bar, removes
-	 * colored border, removes the timer
-	 */
-	public void endTurn() {
-		this.currentPlayer = null;
-		this.timer = null;
-		refresh();
 
-	}
 
-	/**
-	 * Sets a timer to associate with a progressBar Refreshes to add progressBar
-	 * to panel
-	 * 
-	 * @param timer
-	 */
-	public void setTimer(MULETimer timer) {
-		this.timer = null;
-		this.timer = timer;
-		refresh();
+	public MULETimer getTimer() {
+		return timer;
 	}
 
 	private void Initialize() {
@@ -93,12 +78,12 @@ public class StatusBar extends JPanel implements Runnable {
 		GridLayout grid = new GridLayout(1, players.length, 1, 0);
 
 		this.setLayout(grid);
+		
 
 		for (Player player : players) {
 			JPanel playerPanel = drawPlayerPanel(player);
 			this.add(playerPanel);
 		}
-
 		// Create a progress bar only if there is a timer
 		if (timer == null) {
 			JPanel fillerPanel = new JPanel();
@@ -108,6 +93,8 @@ public class StatusBar extends JPanel implements Runnable {
 			System.out.print(timer.toString());
 			this.add(progressBar);
 		}
+
+	
 		grid.layoutContainer(this);
 
 	}
@@ -235,20 +222,16 @@ public class StatusBar extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					// update();
-					if (refresh) {
-						for (int i = 0; i < players.length; i++) {
-							refreshPlayer(i);
 
-						}
+			// update();
+			if (refresh) {
+				for (int i = 0; i < players.length; i++) {
+					refreshPlayer(i);
 
-					}
-			
 				}
-			});
+
+			}
+
 			updateTimer = new MULETimer(25);
 			updateTimer.start();
 			Waiter.waitOn(updateTimer, 500);
