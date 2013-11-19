@@ -71,8 +71,8 @@ public class M10ResourceProducerTest {
 	private static final int ENERGY_INDEX = 1;
 	private static final int ORE_INDEX = 2;
 	private static final int CRYSTITE_INDEX = 3;
-	private static final int SPARE_INDEX = 3;
-	private static final int INSUFFICIENT_ENERGY_INDEX = 3;
+	private static final int SPARE_INDEX = 4;
+	private static final int INSUFFICIENT_ENERGY_INDEX = 5;
 
 	/**
 	 * The class to be tested
