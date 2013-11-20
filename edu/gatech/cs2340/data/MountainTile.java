@@ -1,7 +1,12 @@
 package edu.gatech.cs2340.data;
 
 
-
+/**
+ * 
+ * @author Dan
+ * 
+ * Class representing very hilly terrain
+ */
 public class MountainTile extends Tile{
 	public static String name = "Mountain";
 	public final static int CRYSTITE_INCREASE = 2;
@@ -11,7 +16,6 @@ public class MountainTile extends Tile{
 	public MountainTile(String id, Player owner) {
 		super(name);
 		this.setOwner(owner);
-		this.setId(id);
 	}
 	@Override
 	protected int getOreIncrease() {

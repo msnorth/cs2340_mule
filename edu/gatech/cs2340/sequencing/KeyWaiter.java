@@ -18,15 +18,25 @@ public class KeyWaiter implements InputReceiver, WaitedOn{
 	private boolean keyReceived;
 	private String target;
 	
+	/**
+	 * Constructor. Takes in key that's waited for
+	 * @param targetKey
+	 */
 	public KeyWaiter(KeyboardAdapter.KEY_NAME targetKey) {
 		target = KeyboardAdapter.KEY_CONFIG[targetKey.ordinal()];
 	}
 
+	/**
+	 * Finished when the target key is pressed
+	 */
 	@Override
 	public boolean isFinished() {
 		return keyReceived;
 	}
 
+	/**
+	 * Receive input from the KeyboardAdapter
+	 */
 	@Override
 	public void receiveInput(String input) {
 		if (input.equals(target)) {

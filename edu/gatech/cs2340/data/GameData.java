@@ -5,10 +5,14 @@ import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.GameTerminatedException;
 import edu.gatech.cs2340.sequencing.WaitedOn;
 
+/**
+ * 
+ * @author Stephen Conway
+ *
+ * Class to hold all relevant data items for running a game instance.
+ * Main implementation of saving and loading
+ */
 public class GameData implements Serializable, WaitedOn {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3855939233536369027L;
 	public static final int PRODUCTION = 0;
 	public static final int RANDOM_EVENT = 1;
@@ -26,6 +30,13 @@ public class GameData implements Serializable, WaitedOn {
 	private boolean saveable;
 	private boolean terminated;
 
+	/**
+	 * Main constructor. Takes references to data objects to be used.
+	 * @param playerManager
+	 * @param map
+	 * @param store
+	 * @param numRounds
+	 */
 	public GameData(PlayerManager playerManager, Map map, Store store,
 			int numRounds) {
 		this.playerManager = playerManager;
@@ -115,43 +126,51 @@ public class GameData implements Serializable, WaitedOn {
 		state %= NUM_STATES;
 	}
 
+	/**
+	 * Getter for player manager
+	 * @return
+	 */
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
 
-	public void setPlayerManager(PlayerManager playerManager) {
-		this.playerManager = playerManager;
-	}
-
+	/**
+	 * Getter for map
+	 * @return
+	 */
 	public Map getMap() {
 		return map;
 	}
 
-	public void setMap(Map map) {
-		this.map = map;
-	}
-
+	/**
+	 * Getter for store
+	 * @return
+	 */
 	public Store getStore() {
 		return store;
 	}
 
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
+	/**
+	 * Getter for total game length in rounds
+	 * @return
+	 */
 	public int getNumRounds() {
 		return numRounds;
 	}
 
-	public void setNumRounds(int numRounds) {
-		this.numRounds = numRounds;
-	}
-
+	/**
+	 * Method to wait on the game data until it is saveable
+	 */
 	@Override
 	public boolean isFinished() {
 		return saveable;
 	}
 
+	/**
+	 * Method that identifies a save point in the code. If the game clock is paused, execution will be blocked.
+	 * If during the pause, the game was terminated, this method throws a GameTerminatedException to unwind
+	 * the stack
+	 */
 	public void savePoint() {
 		saveable = true;
 		GameClock.sync();
@@ -161,6 +180,9 @@ public class GameData implements Serializable, WaitedOn {
 		saveable = false;
 	}
 
+	/**
+	 * Method to end the current game
+	 */
 	public void terminate() {
 		terminated = true;
 	}

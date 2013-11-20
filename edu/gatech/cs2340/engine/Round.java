@@ -23,6 +23,10 @@ import edu.gatech.cs2340.ui.StatusBar;
 public class Round {
 	private GameData data;
 
+	/**
+	 * Main constructor. Needs access to game data.
+	 * @param data
+	 */
 	public Round(GameData data) {
 		this.data = data;
 	}

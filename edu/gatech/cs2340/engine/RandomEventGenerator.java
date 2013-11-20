@@ -11,6 +11,12 @@ import edu.gatech.cs2340.sequencing.MULETimer;
 import edu.gatech.cs2340.sequencing.Waiter;
 import edu.gatech.cs2340.ui.MainGameWindow;
 
+/**
+ * @author Tommy
+ * 
+ * Class to perform the random event process
+ *
+ */
 public class RandomEventGenerator {
 	private final Random rand = new Random();
 	private static final int[] RANDOMEVENTPRICEMODIFIER = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 

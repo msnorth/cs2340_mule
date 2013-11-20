@@ -9,15 +9,29 @@ import java.io.ObjectOutputStream;
 import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.sequencing.Waiter;
 
+/**
+ * 
+ * @author Stephen
+ *
+ * Class to handle saving the game to a file.
+ */
 public class GameSaver {
 	private String filename;
 	private GameData data;
 	
+	/**
+	 * Main constructor. Needs filename and data to save.
+	 * @param filename
+	 * @param data
+	 */
 	public GameSaver(String filename, GameData data) {
 		this.filename = filename;
 		this.data = data;
 	}
 	
+	/**
+	 * Execution. Attempts to save data out to file.
+	 */
 	public void save() {
 		//System.out.println("Waiting for save point.");
 		Waiter.waitOn(data);

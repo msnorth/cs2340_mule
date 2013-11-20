@@ -35,18 +35,6 @@ public interface MapResponsibilities {
 	 */
 	public abstract Tile getTileAt(int r, int c);
 	
-	
-	/**
-	 * #M6
-	 * Method to get Tile at world position.
-	 * Used by MapRenderer base on MapSprite position.
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	public abstract Tile getTileAt(double x, double y);
-	
 	/**
 	 * #M6
 	 * Method to get specific tile in row major order.

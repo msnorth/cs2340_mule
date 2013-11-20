@@ -14,19 +14,7 @@ package edu.gatech.cs2340.io;
  */
 public interface InputReceiver {
 	public boolean hasFocus = false;
-	
-	/**
-	 * @author Stephen Conway #M5
-	 * Called by KeyboardAdapter or other input channels when focus comes onto object
-	 */
-	//public void gainFocus();
-	
-	/**
-	 * @author Stephen Conway #M5
-	 * Called by KeyboardAdapter or other input channels when focus moves away from object
-	 */
-	//public void loseFocus();
-	
+
 	/**
 	 * @author #M5
 	 * Method to interpret input from keyboard, AI, or network.

@@ -17,19 +17,17 @@ import java.util.Random;
 // 5 x 9 grid
 public class Map implements MapResponsibilities, Serializable {
 
-
-	// Can actually handle a map of any size
-	/**
-	 * #M6 Main constructor. Takes in 44 Tiles to hold.
-	 * 
-	 * @param tiles
-	 */
 	// the current title coordinates
 	private int currNdx;
 	private int nextUnownedNdx;
 
 	private Tile[][] tiles;
 
+	/**
+	 * #M6 Main constructor. Takes in 44 Tiles to hold.
+	 * 
+	 * @param tiles
+	 */
 	public Map(Tile[][] tiles) {
 		this.tiles = tiles;
 		currNdx = 0;
@@ -65,13 +63,6 @@ public class Map implements MapResponsibilities, Serializable {
 			result = tiles[r][c];
 		}
 		return result;
-	}
-
-	@Override
-	public Tile getTileAt(double x, double y) {
-		//TODO
-		//return getTileAt((int) (x / tiles.length), (int) (y / tiles[0].length));
-		return null;
 	}
 
 	@Override

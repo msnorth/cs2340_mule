@@ -1,6 +1,11 @@
 package edu.gatech.cs2340.io;
 
-
+/**
+ * 
+ * @author Stephen
+ *
+ * Parent of all image loader classes. Contains path data and static method to run all loaders.
+ */
 public abstract class ImageLoader implements Runnable {
 	protected static final String resourcesPath = "edu.gatech.cs2340.res";
 	

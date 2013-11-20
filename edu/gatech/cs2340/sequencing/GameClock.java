@@ -2,10 +2,12 @@ package edu.gatech.cs2340.sequencing;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Stephen
+ * Class that keeps absolute time since session of game was started. Used as reference for timers.
+ */
 public class GameClock implements Runnable, Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6101080574828442432L;
 
 	private static GameClock currentClock;

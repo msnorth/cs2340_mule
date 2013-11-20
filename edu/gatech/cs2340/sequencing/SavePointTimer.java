@@ -2,6 +2,12 @@ package edu.gatech.cs2340.sequencing;
 
 import edu.gatech.cs2340.data.GameData;
 
+/**
+ * 
+ * @author Stephen
+ *
+ * Special type of timer that contains a save point.
+ */
 public class SavePointTimer extends MULETimer {
 
 	GameData data;

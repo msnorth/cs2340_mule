@@ -77,10 +77,17 @@ public class Game {
 		}
 	}	
 	
+	/**
+	 * Method to get game data being used. Primarily for saving.
+	 * @return
+	 */
 	public GameData getGameData() {
 		return data;
 	}
 	
+	/**
+	 * Method to terminate the current game.
+	 */
 	public static void terminate() {
 		//set termination flag
 		currentGame.data.terminate();

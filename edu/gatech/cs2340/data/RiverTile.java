@@ -1,12 +1,16 @@
 package edu.gatech.cs2340.data;
 
-
+/**
+ * 
+ * @author Dan
+ *
+ * Class representing river terrain. Good for food production.
+ */
 public class RiverTile extends Tile{
 	public static String name = "River";
 	public RiverTile(String id, Player owner) {
 		super(name);
 		this.setOwner(owner);
-		this.setId(id);
 	}
 	@Override
 	protected int getOreIncrease() {

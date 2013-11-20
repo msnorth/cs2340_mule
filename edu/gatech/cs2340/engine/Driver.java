@@ -39,6 +39,9 @@ public abstract class Driver {
 		
 	}	
 	
+	/**
+	 * Method to set up and launch a new game with the setup menus
+	 */
 	public static void launchNewGame() {
 		MainMenuManager mainMenu = new MainMenuManager();
 		mainMenu.runSynchronous();
@@ -57,6 +60,10 @@ public abstract class Driver {
 		}
 	}
 	
+	/**
+	 * Method to launch a new game off of save data
+	 * @param data
+	 */
 	public static void launchGame(GameData data) {
 		Game game = new Game(data);
 		try {

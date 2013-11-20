@@ -118,54 +118,78 @@ public abstract class Tile implements Serializable {
 	public Player getOwner() {
 		return this.owner;
 	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 	
+	/**
+	 * Dirtiness indicates a need to be repainted
+	 * @return
+	 */
 	public boolean isDirty() {
 		return dirty;
 	}
 	
+	/**
+	 * When a tile is repainted, let it know it's been cleaned
+	 */
+	public void cleaned() {
+		dirty = false;
+	}
+	
+	/**
+	 * Returns if tile has an owner
+	 * @return
+	 */
 	public boolean isOwned() {
 		return owner != null;
 	}
 	
-	public void cleaned() {
-		dirty = false;
-	}
-
-	// returns true if equal, false otherwise
+	/**
+	 * Method to compare two tiles
+	 */
 	public boolean equals(Object t) {
 		boolean result = false;
 		if (t instanceof Tile) {
-			result = (id == ((Tile)t).getId());
+			result = (id == ((Tile)t).id);
 		}
 		return result;
 	}
 
-	//get whether or not is active
+	/**
+	 * Method to determine if tile is active
+	 * @return
+	 */
 	public boolean isActive() {
 		return isActive;
 	}
 
+	/**
+	 * Method to activate tile
+	 * @param isActive
+	 */
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 		dirty = true;
 	}
 
+	/**
+	 * Method to get name of tile
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Method to get reference to mule on tile, if any
+	 * @return
+	 */
 	public Mule getMule() {
 		return mule;
 	}
 	
+	/**
+	 * Method to place a mule on the tile
+	 * @param mule
+	 */
 	public void setMule(Mule mule) {
 		if (this.mule != null) {
 			throw new RuntimeException("Cannot place mule where there already is one.");
@@ -174,6 +198,10 @@ public abstract class Tile implements Serializable {
 		dirty = true;
 	}
 	
+	/**
+	 * Method to determine if a mule has been deplyed on the tile
+	 * @return
+	 */
 	public boolean hasMule() {
 		return (mule != null);
 	}

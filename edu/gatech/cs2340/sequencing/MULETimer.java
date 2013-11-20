@@ -20,6 +20,10 @@ public class MULETimer implements WaitedOn, Serializable {
 	protected long startTime_tick;
 	protected long timeRemaining_ms;
 
+	/**
+	 * Method to get all actively running timers.
+	 * @return
+	 */
 	public static ArrayList<MULETimer> getActiveTimers() {
 		if (activeTimers == null) {
 			activeTimers = new ArrayList<MULETimer>();

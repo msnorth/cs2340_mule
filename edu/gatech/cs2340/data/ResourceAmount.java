@@ -116,6 +116,9 @@ public class ResourceAmount implements Serializable {
 		return result;
 	}
 	
+	/**
+	 * toString to show resources currently held
+	 */
 	public String toString() {
 		return String.format("{SO:%d FD:%d EN:%d CR:%d}", amounts[0], amounts[1], amounts[2], amounts[3]);
 	}

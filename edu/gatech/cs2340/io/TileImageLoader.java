@@ -8,11 +8,20 @@ import javax.swing.ImageIcon;
 import edu.gatech.cs2340.data.Tile;
 import edu.gatech.cs2340.io.ImageLoader.ImagesNotInitializedException;
 
+/**
+ * 
+ * @author Stephen
+ *
+ * Class to load tile images.
+ */
 public class TileImageLoader extends ImageLoader {
 	private static final String[] names = {"hill", "mountain", "peak", "plain", "river", "town"};
 	private static HashMap<String, ImageIcon> images;
 	private static boolean loaded = false;
 	
+	/**
+	 * Method to asynchronously load image data
+	 */
 	@Override
 	public void loadImages() {
 		if (loaded) {
@@ -23,6 +32,9 @@ public class TileImageLoader extends ImageLoader {
 		thread.start();
 	}
 	
+	/**
+	 * Method to load image data
+	 */
 	@Override
 	public void run() {
 		for (String name : names) {
@@ -36,6 +48,11 @@ public class TileImageLoader extends ImageLoader {
 		loaded = true;		
 	}
 
+	/**
+	 * Method to access image data
+	 * @param tile
+	 * @return
+	 */
 	public ImageIcon getImage(Tile tile) {
 		if (!loaded) {
 			throw new ImagesNotInitializedException();

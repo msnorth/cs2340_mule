@@ -14,13 +14,27 @@ import java.io.ObjectOutputStream;
 import edu.gatech.cs2340.data.GameData;
 import edu.gatech.cs2340.sequencing.Waiter;
 
+/**
+ * 
+ * @author Stephen
+ *
+ * Class to load game from save file.
+ */
 public class GameLoader {
 	private String filename;
 	
+	/**
+	 * Main constructor. Needs a filename.
+	 * @param filename
+	 */
 	public GameLoader(String filename) {
 		this.filename = filename;
 	}
 	
+	/**
+	 * Execution. Attempts to read in GameData from the file.
+	 * @return
+	 */
 	public GameData load() {
 		GameData result = null;
 		try {

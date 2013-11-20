@@ -1,13 +1,17 @@
 package edu.gatech.cs2340.data;
 
 
-
+/**
+ * 
+ * @author Dan
+ *
+ * Class representing flat terrain good for energy production
+ */
 public class PlainsTile extends Tile {
 	public static String name = "Plain";
 	public PlainsTile(String id, Player owner) {
 		super(name);
 		this.setOwner(owner);
-		this.setId(id);
 	}
 	@Override
 	protected int getOreIncrease() {
