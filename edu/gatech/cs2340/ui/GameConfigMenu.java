@@ -81,7 +81,9 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 		nextButton.addActionListener(new nextListener());
 		this.add(nextButton);
 		
-		this.add(new JPanel());
+		JPanel fillerPanel = new JPanel();
+		fillerPanel.setBackground(MainGameWindow.BACKGROUND_COLOR);
+		this.add(fillerPanel);
 		
 		// Lay out the panel.
 		SpringUtilities.makeCompactGrid(this, 4, 2, // rows, cols
