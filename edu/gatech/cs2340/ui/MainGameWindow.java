@@ -45,7 +45,9 @@ public class MainGameWindow extends JFrame {
 	private static JPanel backgroundPanel;
 
 	private static MainGameWindow instance = null;
-
+	/**
+	 * Initializes the main game window
+	 */
 	public static void initialize() {
 		if (instance != null) {
 			throw new RuntimeException("MainGameWindow already created!");
@@ -179,11 +181,17 @@ public class MainGameWindow extends JFrame {
 	public static void clearMessage() {
 		alertLabel.setText("");
 	}
-
+	/**
+	 * Gets the location of the window
+	 * @return
+	 */
 	public static Point getWindowLocation() {
 		return instance.getLocation();
 	}
-	
+	/**
+	 * Sets the passed in panel to the main window
+	 * @param panel
+	 */
 	public static void setFullWindow(JPanel panel) {
 		fullScreenPanel.add(panel);
 		instance.remove(backgroundPanel);
@@ -191,7 +199,9 @@ public class MainGameWindow extends JFrame {
 		instance.revalidate();
 		
 	}
-
+	/**
+	 * The outer panel is removed from the main game window frame
+	 */
 	public static void retractFullPanel() {
 		instance.remove(fullScreenPanel);
 		instance.add(backgroundPanel);

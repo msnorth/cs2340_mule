@@ -55,9 +55,17 @@ public class MainMenuManager {
 		playerManager = new PlayerManager(players, difficulty);
 	}
 
+	/**
+	 * Gets the player manager
+	 * @return
+	 */
 	public PlayerManager getPlayers() {
 		return playerManager;
 	}
+	/**
+	 * Gets the map type
+	 * @return
+	 */
 	public String getMapType() {
 		return mapType;
 	}

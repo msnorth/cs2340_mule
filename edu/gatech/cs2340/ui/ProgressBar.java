@@ -8,7 +8,11 @@ import javax.swing.border.BevelBorder;
 
 import edu.gatech.cs2340.sequencing.GameClock;
 import edu.gatech.cs2340.sequencing.MULETimer;
-
+/**
+ * Class to show the timer bar's decrease during the game
+ * @author ShreyyasV
+ *
+ */
 public class ProgressBar extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +22,7 @@ public class ProgressBar extends JPanel implements Runnable {
 	private JProgressBar progressBar;
 	Thread thread;
 
-	/*
+	/**
 	 * Initializes the progress bar and adds it to a JPanel.
 	 * 
 	 * Max time for progress bar is turn length
@@ -44,7 +48,9 @@ public class ProgressBar extends JPanel implements Runnable {
 		thread.start();
 
 	}
-
+	/**
+	 * Runs the progress bar
+	 */
 	@Override
 	public void run() {
 
