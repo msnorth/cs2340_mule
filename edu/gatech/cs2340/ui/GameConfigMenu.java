@@ -89,14 +89,24 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 				6, 6); // xPad, yPad
 
 	}
+	/**
+	 * Get the player count
+	 * @return
+	 */
 	public int getPlayerCount() {
 		return playerCount;
 	}
-	
+	/**
+	 * Get the game difficulty
+	 * @return
+	 */
 	public String getGameDifficulty() {
 		return gameLevel.getSelectedItem().toString();
 	}
-	
+	/**
+	 * Get the map type
+	 * @return
+	 */
 	public String getMapType() {
 		return mapTypes.getSelectedItem().toString();
 	}
