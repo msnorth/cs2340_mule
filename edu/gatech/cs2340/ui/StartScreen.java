@@ -25,7 +25,6 @@ public class StartScreen extends JPanel {
 		StartScreenImageLoader loader = new StartScreenImageLoader();
 		ImageIcon image = loader.getImage();
 		add(new JLabel(image));
-		System.out.println(image);
 		revalidate();
 	}
 }
