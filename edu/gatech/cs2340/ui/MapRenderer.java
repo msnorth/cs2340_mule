@@ -57,7 +57,9 @@ public class MapRenderer extends JPanel{
 		}
 		revalidate();
 	}
-	
+	/**
+	 * Refreshes all the tiles
+	 */
 	public void refreshAll() {
 		boolean repaintNeeded = false;
 		for (int i=0; i<map.getNumTiles(); i++) {
@@ -119,6 +121,10 @@ public class MapRenderer extends JPanel{
 		return (int) index / map.getNumCols();
 	}
 
+	/**
+	 * Sets the prices onto the tiles. Used for land purchasing.
+	 * @param displayPrices
+	 */
 	public void setDisplayPrices(boolean displayPrices) {
 		this.displayPrices = displayPrices;
 		if (!displayPrices){ // if we're clearing the display prices,

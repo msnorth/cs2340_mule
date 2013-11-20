@@ -55,7 +55,10 @@ public class InGameMenu extends JPanel implements ActionListener, WaitedOn {
 	 * True if the panel is ready to return to the game
 	 */
 	private boolean isFinished;
-
+	
+	/**
+	 * Constructor for the InGameMenu
+	 */
 	public InGameMenu() {
 		this.setBackground(MainGameWindow.BACKGROUND_COLOR);
 		this.setPreferredSize(new Dimension(DIM_X, DIM_Y));

@@ -58,7 +58,7 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 		SpringLayout layout = new SpringLayout();
 		
 		this.setLayout(layout);
-
+		
 		JLabel playerCountLabel = new JLabel("Number of Players: ");
 		this.add(playerCountLabel);
 		 numPlayers = new JComboBox<Integer>(players);
@@ -113,6 +113,9 @@ public class GameConfigMenu extends JPanel implements WaitedOn {
 		} 
 	}
 
+	/**
+	 * Used to tell keywaiter to stop
+	 */
 	@Override
 	public boolean isFinished() {
 		return finished;

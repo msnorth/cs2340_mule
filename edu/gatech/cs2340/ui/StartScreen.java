@@ -18,7 +18,9 @@ import edu.gatech.cs2340.io.StartScreenImageLoader;
 public class StartScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private boolean finished;
-	
+	/**
+	 * Main constructor for Start Screen
+	 */
 	public StartScreen() {
 		StartScreenImageLoader loader = new StartScreenImageLoader();
 		ImageIcon image = loader.getImage();

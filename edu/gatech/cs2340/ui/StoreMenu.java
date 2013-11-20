@@ -997,28 +997,44 @@ public class StoreMenu extends JPanel implements WaitedOn {
 		setLayout(groupLayout);
 
 	}
-
+	/**
+	 * Action Listener Class to sell the energy
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuyEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellResources(ResourceType.ENERGY, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener Class to sell smithore
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuySmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellResources(ResourceType.SMITHORE, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to sell crystite
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuyCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellResources(ResourceType.CRYSTITE, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to sell food
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuyFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellResources(ResourceType.FOOD, amount);
@@ -1026,56 +1042,88 @@ public class StoreMenu extends JPanel implements WaitedOn {
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to buy energy
+	 * @author ShreyyasV
+	 *
+	 */
 	private class SellEnergyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.buyResources(ResourceType.ENERGY, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to buy smithore
+	 * @author ShreyyasV
+	 *
+	 */
 	private class SellSmithoreListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.buyResources(ResourceType.SMITHORE, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to buy food
+	 * @author ShreyyasV
+	 *
+	 */
 	private class SellFoodListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.buyResources(ResourceType.FOOD, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to buy crystite
+	 * @author ShreyyasV
+	 *
+	 */
 	private class SellCrystiteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.buyResources(ResourceType.CRYSTITE, amount);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to sell energy mule
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuyEnergyMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellMule(ResourceType.ENERGY);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to sell smithore mule
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuySmithoreMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellMule(ResourceType.SMITHORE);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action Listener class to sell food mule
+	 * @author ShreyyasV
+	 *
+	 */
 	private class BuyFoodMuleListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			store.sellMule(ResourceType.FOOD);
 			refreshMenu();
 		}
 	}
-
+	/**
+	 * Action listener class to exit the store
+	 * @author ShreyyasV
+	 *
+	 */
 	private class ExitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			exitKilla = true;

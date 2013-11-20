@@ -138,12 +138,15 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 				5, 5, // initialX, initialY
 				5, 5);// xPad, yPad
 	}
-
+	/**
+	 * Get the array of all the players
+	 * @return
+	 */
 	public Player[] getPlayers() {
 		return players;
 	}
 
-	/*
+	/**
 	 * Listener class for Player Color ComboBoxes to ensure that no two players
 	 * have the same color
 	 */
@@ -187,6 +190,9 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 	}
 	
 	//helper method for removing taken colors from comboboxes
+	/**
+	 * Removes all the colors that have been taken currently by other players
+	 */
 	private void removeTakenColors(){
 		ActionListener al;
 		int numPairs = nameFields.length;
@@ -223,7 +229,9 @@ public class PlayerConfigMenu extends JPanel implements WaitedOn {
 			finished = true;
 		}
 	}
-
+	/**
+	 * Used to tell keywaiter that it is finished
+	 */
 	@Override
 	public boolean isFinished() {
 		return finished;

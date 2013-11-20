@@ -45,7 +45,7 @@ public class StatusBar extends JPanel implements Runnable {
 	public StatusBar(Player[] players) {
 		this.players = players;
 		spriteImgLoader = new SpriteImageLoader();
-		Initialize();
+		initialize();
 		refresh = true;
 	}
 
@@ -65,8 +65,10 @@ public class StatusBar extends JPanel implements Runnable {
 		this.currentPlayer = currentPlayer;
 		refresh();
 	}
-
-	private void Initialize() {
+	/**
+	 * Initializes the status bar
+	 */
+	private void initialize() {
 
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
@@ -95,11 +97,10 @@ public class StatusBar extends JPanel implements Runnable {
 	/**
 	 * Redraws player panels and progress bar
 	 */
-
 	private void refresh() {
 		refresh = false;
 		this.removeAll();
-		Initialize();
+		initialize();
 		refresh = true;
 	}
 
@@ -109,7 +110,6 @@ public class StatusBar extends JPanel implements Runnable {
 	 * @param playerIndex
 	 *            -index of player to refresh
 	 */
-
 	private void refreshPlayer(int playerIndex) {
 		try {
 			Player player = players[playerIndex];
@@ -211,7 +211,9 @@ public class StatusBar extends JPanel implements Runnable {
 		return playerPanel;
 
 	}
-
+	/**
+	 * Runs the status bar
+	 */
 	@Override
 	public void run() {
 		while (true) {
