@@ -46,7 +46,7 @@ public class StatusBar extends JPanel implements Runnable {
 		this.players = players;
 		spriteImgLoader = new SpriteImageLoader();
 		initialize();
-		refresh = true;
+
 	}
 
 	/**
@@ -91,6 +91,7 @@ public class StatusBar extends JPanel implements Runnable {
 		}
 
 		grid.layoutContainer(this);
+		refresh = true;
 
 	}
 
@@ -142,15 +143,15 @@ public class StatusBar extends JPanel implements Runnable {
 
 		JLabel fillerLabel = new JLabel("");
 		JLabel playerName = new JLabel(player.getName());
-		playerName.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerName.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		labelPanel.add(playerName);
 		labelPanel.add(fillerLabel);
 
 		JLabel moneyLabel = new JLabel("Money: ");
 		JLabel playerMoney = new JLabel(player.getMoney() + "");
 		playerMoney
-				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		moneyLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+				.setFont(new Font("Sans Serif", Font.PLAIN, 11));
+		moneyLabel.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		labelPanel.add(moneyLabel);
 		labelPanel.add(playerMoney);
 
@@ -158,35 +159,35 @@ public class StatusBar extends JPanel implements Runnable {
 		JLabel playerEnergy = new JLabel(
 				player.getResourceAmount(ResourceType.ENERGY) + "");
 		playerEnergy
-				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+				.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		energyLabel
-				.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+				.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		labelPanel.add(energyLabel);
 		labelPanel.add(playerEnergy);
 
 		JLabel foodLabel = new JLabel("Food: ");
 		JLabel playerFood = new JLabel(""
 				+ player.getResourceAmount(ResourceType.FOOD));
-		playerFood.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		foodLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		playerFood.setFont(new Font("Sans Serif", Font.PLAIN, 11));
+		foodLabel.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		labelPanel.add(foodLabel);
 		labelPanel.add(playerFood);
 
 		JLabel oreLabel = new JLabel("Smithore: ");
 		JLabel playerSmithore = new JLabel(""
 				+ player.getResourceAmount(ResourceType.SMITHORE));
-		playerSmithore.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
+		playerSmithore.setFont(new Font("Sans Serif", Font.PLAIN,
 				11));
-		oreLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		oreLabel.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		labelPanel.add(oreLabel);
 		labelPanel.add(playerSmithore);
 
 		JLabel crystiteLabel = new JLabel("Crystite: ");
 		JLabel playerCrystite = new JLabel(""
 				+ player.getResourceAmount(ResourceType.CRYSTITE));
-		playerCrystite.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
+		playerCrystite.setFont(new Font("Sans Serif", Font.PLAIN,
 				11));
-		crystiteLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN,
+		crystiteLabel.setFont(new Font("Sans Serif", Font.PLAIN,
 				11));
 		labelPanel.add(crystiteLabel);
 		labelPanel.add(playerCrystite);
@@ -197,8 +198,8 @@ public class StatusBar extends JPanel implements Runnable {
 			playerMule.setText("" + player.getMuleAmount() + " , "
 					+ player.getMule().toString());
 		}
-		muleLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
-		playerMule.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
+		muleLabel.setFont(new Font("Sans Serif", Font.PLAIN, 11));
+		playerMule.setFont(new Font("Sans Serif", Font.PLAIN, 11));
 		labelPanel.add(muleLabel);
 		labelPanel.add(playerMule);
 
