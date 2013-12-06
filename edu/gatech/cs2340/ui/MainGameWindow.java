@@ -88,18 +88,20 @@ public class MainGameWindow extends JFrame {
 		lowerPanel.setMinimumSize(lowerSize);
 		lowerPanel.setMaximumSize(lowerSize);
 		lowerPanel.setLayout(new BorderLayout());
+		lowerPanel.setBackground(BACKGROUND_COLOR);
 
 		alertLabel = new JLabel();
 		alertLabel.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 11));
 		alertLabel.setForeground(Color.RED);
 		alertPanel.add(alertLabel);
-
+		
 		mainPanel.setBackground(BACKGROUND_COLOR);
 		lowerPanel.setBackground(BACKGROUND_COLOR);
 		backgroundPanel.setLayout(new BorderLayout());
 		backgroundPanel.add(mainPanel, BorderLayout.CENTER);
 		backgroundPanel.add(lowerPanel, BorderLayout.SOUTH);
-		
+		backgroundPanel.setBackground(BACKGROUND_COLOR);
+
 		this.add(backgroundPanel);
 		
 		setTitle("M.U.L.E. FRAME");

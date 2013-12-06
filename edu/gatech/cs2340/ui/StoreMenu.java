@@ -85,7 +85,7 @@ public class StoreMenu extends JPanel implements WaitedOn {
 		imageLoader = new StoreImageLoader();
 
 		// Defines the panel and sets its bounds
-		setBackground(new Color(255, 255, 102));
+		setBackground(new Color(255, 193, 102));
 		setBounds(100, 100, 650, 500);
 
 		// Makes the Store Menu Label
